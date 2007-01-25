@@ -1,0 +1,159 @@
+- user sets command-line
+- command-line is converted to properties
+- properties are set on action
+- action is validated
+
+Validation:
+- use generic validation using Attributes
+- use a 'validation result' object
+
+How to write the full path of a node?
+Like: /root/element1[0]/element2[2]/@attribute
+
+Add context to action?
+And add error/info stream to context?
+
+
+DONE: rename prefix and suffix to append and prepend
+
+if 'file' not set, and only one XML file exists in the current directory, use it (with confirmation?)
+
+clear possibilities:
+<element attribute="">text</element> -> <element></element>
+<element attribute="">text</element> -> <element attribute=""></element>
+<element attribute="">text</element> -> <element>text</element>
+
+Make sure only properties with a setter are set using reflection
+
+Split Action into two interfaces
+- for Execute
+- for meta info
+
+Move Utils.log4net
+
+learn how to merge static html with html help
+
+create an action collection class to get rid of foreach-loops (composite behaviour)
+
+refactor tests
+
+- for actions:
+ a) use default ctor + properties (because actions will only be dynamically created
+ b) use parameterized ctors, no properties
+ c) use parameterized ctors + properties
+
+DONE: Don't set description for action in ctor; make it a property or something else
+Rethink ActionType enum
+DONE: make all concrete actions sealed
+
+rewrite build script
+DONE: namespace in Mix.Actions is Mix.Core. Make it Mix.Actions or Mix.Core.Actions
+backup files
+maybe relocate tests, and use partial classes, internal visibility, or whatever to make sure tests have access to internals
+
+Build:
+- create distributables:
+ a) create Mix-0.1.0.msi
+ b) create Mix-bin-0.1.0.zip
+ c) create Mix-src-0.1.0.zip
+
+====================================================
+
+Types:
+- element
+- attribute
+- text
+
+element, attribute:
+
+DONE: add attribute
+add element (if attribute, apply to owner)
+(other actions are useless)
+copy element/attribute (select one element or attribute, select using XPath and add new element or attribute based on name, value of selected element or attribute)
+DONE: remove (other actions are useless)
+moveto(index)
+movefirst
+movelast
+moveup
+movedown
+DONE: rename
+?replace
+?insertbefore
+?insertafter
+
+Copy element:
+<parent>      <parent>
+  <child/> ->   <child/>
+                <child/>
+</parent>     </parent>
+
+Copy attribute:
+<element attribute=""/> -> <element attribute=""/>
+<element/>                 <element attribute=""/>
+<element/>                 <element attribute=""/>
+
+element:
+- remove all attributes
+- remove all child elements
+
+name, value
+- upper case
+- lower case
+- proper case
+- DONE: prefix (prepend)
+- DONE: postfix (append)
+- DONE: clear (value only)
+- replace (= rename for name)
+- replace if a regex is matched
+
+make an element an attribute (if it has no child elements, and only text)
+make an attribute an element
+
+select all empty attributes and allow the user to set the values without retyping the values
+
+copy complete element and fill all attributes and child elements from a list
+
+<root>
+  <element attribute1="" attribute2="">
+    <child>Some text</child>
+  </element>
+</root>
+
+-> let user set attribute1, attribute2 and the text of child
+
+1. set all to a single value
+2. use a list
+
+<root>
+  <element attribute1="" attribute2="">
+    <child>Some text</child>
+  </element>
+  <element attribute1="" attribute2="">
+    <child>Some text</child>
+  </element>
+  <element attribute1="" attribute2="">
+    <child>Some text</child>
+  </element>
+</root>
+
+let user loop through attributes/elements to edit different values (so it cannot be done with a single action). With every attribute/element: select all text, set cursor at first position, last position, before/after a regex match etc.
+
+Console:
+mix /action:addattribute /xpath://database/table[@name="locatie"] /name:name /value:test ( or /value:@name)
+
+------
+Make an element of an attribute:
+- create an element as a child element of the element of the attribute
+
+
+<root>
+  <parent child="value"/>
+</root>
+
+-->
+
+<root>
+  <parent>
+    <child>value</child>
+  </parent>
+</root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include Id="Includes">
+
+  <?define BuildDir="$BuildDir$" ?>
+
+  <?define Configuration="$Configuration$" ?>
+  <?define Major="$Major$" ?>
+  <?define Minor="$Minor$" ?>
+  <?define Build="$Build$" ?>
+  <?define Revision="$Revision$" ?>
+
+  <?define VersionInternal="$(var.Major).$(var.Minor).$(var.Build)" ?>
+  <?define VersionUserVisible="$(var.Major).$(var.Minor).$(var.Build)" ?>
+  <?define ProductName="Mix" ?>
+  <?define ProductName83="Mix" ?>
+
+  <?define PackageKeywords="Mix,XML" ?>
+  <?define PackageDescription="Mix" ?>
+  <?define PackageComments="Mix, version $(var.VersionUserVisible)" ?>
+  <?define Manufacturer="Richard Hubers" ?>
+  <?define HomePage="http://mix.sourceforge.net"?>
+
+</Include>

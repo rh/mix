@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="Mix.Console.Tests" default="build">
+
+  <property name="name" value="Mix.Console.Tests"/>
+
+  <target name="build" description="Builds the Mix.Console.Tests assembly">
+    <csc target="library" warnaserror="true" debug="true"
+         output="${build.dir}/${name}.dll" doc="${build.dir}/${name}.xml">
+      <nowarn>
+        <!-- 1591: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
+        <warning number="1591" />
+        <!-- 1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do) -->
+        <warning number="1573" />
+      </nowarn>
+      <sources>
+        <include name="**/*.cs" />
+        <include name="../CommonAssemblyInfo.cs" />
+      </sources>
+      <resources dynamicprefix="true" prefix="${name}">
+        <include name="**/*.resx"/>
+      </resources>
+      <references>
+        <lib>
+          <include name="${build.dir}" />
+          <include name="${lib.dir}" />
+        </lib>
+        <include name="Mix.Core.dll" />
+        <include name="mix.exe" />
+        <include name="nunit.framework.dll" />
+      </references>
+    </csc>
+  </target>
+
+</project>

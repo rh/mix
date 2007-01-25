@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+  <!ENTITY chapter01 SYSTEM "chapter01.xml">
+]>
+<book id="book" lang="en">
+
+  <bookinfo>
+    <legalnotice>
+      <para>
+      Blabla...
+      </para>
+    </legalnotice>
+    <author>
+      <firstname>Richard</firstname>
+      <surname>Hubers</surname>
+    </author>
+    <copyright>
+      <year>2006</year>
+      <holder>Richard Hubers</holder>
+    </copyright>
+  </bookinfo>
+
+  <title>Mix Manual</title>
+  <titleabbrev>Mix Manual</titleabbrev>
+
+  <preface id="preface"><title>Preface</title>
+    <para>
+    The preface...
+    </para>
+  </preface>
+
+  &chapter01;
+
+  <index id="index"/>
+
+</book>

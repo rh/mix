@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<project name="nant" default="default" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <description>Builds Mix. Requires .NET 2.0.</description>
+
+  <property name="configuration"    value="Debug"/>
+  <!-- These properties are set using full paths, so build files called by this build file
+       can always use these properties, no matter where these build files are located  -->
+  <property name="base.dir"         value="${directory::get-current-directory()}"/>
+  <property name="build.base.dir"   value="${path::combine(directory::get-current-directory(), 'build')}"/>
+  <property name="build.dir"        value="${path::combine(build.base.dir, configuration)}"/>
+  <property name="install.dir"      value="${path::combine(build.base.dir, 'install')}"/>
+  <property name="lib.dir"          value="${path::combine(directory::get-current-directory(), 'lib')}" />
+  <property name="src.dir"          value="${path::combine(directory::get-current-directory(), 'src')}" />
+  <property name="tools.dir"        value="${path::combine(directory::get-current-directory(), 'tools')}" />
+  <property name="help.dir"         value="${path::combine(directory::get-current-directory(), 'doc/help')}"/>
+  <property name="help.build.dir"   value="${path::combine(build.base.dir, 'doc/help')}"/>
+  <property name="test-results.dir" value="${path::combine(build.dir, 'test-results')}" />
+  <property name="version.file"     value="${src.dir}\Mix.Version"/>
+
+  <fileset id="mix.projects" basedir="src">
+    <include name="Mix.Core/Mix.Core.build" />
+    <include name="Mix.Core.Tests/Mix.Core.Tests.build" />
+    <include name="Mix.Actions/Mix.Actions.build" />
+    <include name="Mix.Actions.Tests/Mix.Actions.Tests.build" />
+    <include name="Mix.Console/Mix.Console.build" />
+    <include name="Mix.Console.Tests/Mix.Console.Tests.build" />
+    <include name="Mix.Util.log4net/Mix.Util.log4net.build" />
+  </fileset>
+
+  <!-- Main Targets -->
+
+  <target name="default" description="Compiles all sources and runs the unit tests"
+    depends="clean, compile, test"/>
+
+  <target name="clean" description="Deletes the build artefacts">
+    <delete dir="${build.base.dir}" if="${directory::exists(property::get-value('build.base.dir'))}"/>
+    <mkdir dir="${build.dir}" failonerror="false"/>
+  </target>
+
+  <target name="compile" description="Compiles all sources" depends="clean">
+    <nant target="build">
+      <buildfiles refid="mix.projects"/>
+    </nant>
+    <copy todir="${build.dir}">
+      <fileset basedir="${lib.dir}">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="test" description="Runs the unit tests" depends="compile">
+    <nunit2>
+      <!-- Use type="Xml" when the output is actually used -->
+      <formatter type="Plain" usefile="false"/>
+      <test assemblyname="${build.dir}/Mix.Actions.Tests.dll"/>
+      <test assemblyname="${build.dir}/Mix.Core.Tests.dll"/>
+      <test assemblyname="${build.dir}/Mix.Console.Tests.dll"/>
+    </nunit2>
+  </target>
+
+  <!--
+  Sub Targets (NAnt sees targets without a description attribute as Sub Targets)
+  -->
+
+  <target name="version">
+    <loadfile file="${property::get-value('version.file')}" property="version"/>
+    <property name="version.major"    value="${version::get-major(version::parse(property::get-value('version')))}"/>
+    <property name="version.minor"    value="${version::get-minor(version::parse(property::get-value('version')))}"/>
+    <property name="version.build"    value="${int::parse(version::get-build(version::parse(property::get-value('version'))))}"/>
+    <property name="version.revision" value="${int::parse(version::get-revision(version::parse(property::get-value('version'))))}"/>
+    <property name="version"          value="${version.major}.${version.minor}.${version.build}.${version.revision}"/>
+  </target>
+
+  <target name="documentation" depends="compile">
+    <delete>
+      <fileset>
+        <include name="${build.base.dir}\doc\api\*.*"/>
+      </fileset>
+    </delete>
+    <mkdir dir="${build.base.dir}\doc\api" failonerror="false"/>
+    <ndoc failonerror="false">
+      <assemblies basedir=".">
+        <include name="${build.dir}/Mix.Core.dll" />
+        <include name="${build.dir}/Mix.Actions.dll" />
+        <!--
+        <include name="${build.dir}/Mix.Actions.Tests.dll" />
+        <include name="${build.dir}/Mix.Console.dll" />
+        <include name="${build.dir}/Mix.Util.log4net.dll" />
+        -->
+      </assemblies>
+      <!--
+      <summaries basedir=".">
+        <include name="src\NamespaceSummaries.xml" />
+      </summaries>
+      -->
+      <documenters>
+        <documenter name="MSDN">
+          <property name="OutputDirectory" value="${build.base.dir}\doc\api\" />
+          <property name="HtmlHelpName" value="Mix" />
+          <property name="HtmlHelpCompilerFilename" value="hhc.exe" />
+          <property name="IncludeFavorites" value="False" />
+          <property name="Title" value="Mix Class Library Documentation" />
+          <property name="SplitTOCs" value="False" />
+          <property name="DefaulTOC" value="" />
+          <property name="ShowVisualBasic" value="False" />
+          <property name="ShowMissingSummaries" value="False" />
+          <property name="ShowMissingRemarks" value="False" />
+          <property name="ShowMissingParams" value="False" />
+          <property name="ShowMissingReturns" value="False" />
+          <property name="ShowMissingValues" value="False" />
+          <property name="DocumentInternals" value="True" />
+          <property name="DocumentProtected" value="True" />
+          <property name="DocumentPrivates" value="False" />
+          <property name="DocumentEmptyNamespaces" value="False" />
+          <property name="IncludeAssemblyVersion" value="False" />
+          <property name="CopyrightText" value="Copyright &#169; 2007 Richard Hubers" />
+          <property name="CopyrightHref" value="" />
+        </documenter>
+      </documenters>
+    </ndoc>
+  </target>
+
+  <target name="help" depends="clean">
+    <description>Builds the user help files</description>
+    <mkdir dir="${help.build.dir}" failonerror="false"/>
+    <copy todir="${help.build.dir}">
+      <fileset basedir="${help.dir}">
+        <include name="**.*"/>
+      </fileset>
+    </copy>
+    <exec program="saxon.exe" basedir="${tools.dir}\saxon" workingdir="${help.build.dir}">
+      <arg value="${help.build.dir}\src\book.xml"/>
+      <arg value="${help.build.dir}\src\book.xsl"/>
+    </exec>
+    <!-- hhc.exe may return 1, but still be successful -->
+    <exec program="hhc.exe" workingdir="${help.build.dir}" failonerror="false">
+      <arg value="htmlhelp.hhp"/>
+    </exec>
+  </target>
+
+  <target name="setup">
+    <nant buildfile="${src.dir}\Mix.Setup\Mix.Setup.build" />
+  </target>
+
+  <target name="coverage"></target>
+
+  <target name="archive">
+    <if test="${property::exists('CCNetLabel')}">
+      <if test="${property::exists('archive.dir')}">
+        <mkdir dir="${archive.dir}\${CCNetLabel}" />
+        <copy todir="${archive.dir}\${CCNetLabel}">
+          <fileset basedir="${build.base.dir}">
+            <includes name="**/*"/>
+          </fileset>
+        </copy>
+      </if>
+    </if>
+  </target>
+
+</project>
