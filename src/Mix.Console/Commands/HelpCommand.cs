@@ -20,9 +20,11 @@ namespace Mix.Console.Commands
         {
             if (String.IsNullOrEmpty(name))
             {
-                WriteLine("Mix, The XML Refactoring Tool, version {0}", Application.ProductVersion);
-                WriteLine("See http://mix.sourceforge.net/");
                 WriteLine("Usage: mix <action> [arguments]");
+                WriteLine("");
+                WriteLine("Mix is a tool for XML refactoring.");
+                WriteLine("For additional information, see http://mix.sourceforge.net/");
+                WriteLine("");
                 WriteLine("Type 'mix version' to see the program version.");
                 WriteLine("Type 'mix list' to see a list of all available actions.");
                 WriteLine("Type 'mix help <action>' for help on a specific action.");

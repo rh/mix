@@ -35,8 +35,6 @@ namespace Mix.Console.Commands
         /// <param name="value"></param>
         protected void Write(string value)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-
             System.Console.Write(value);
         }
 
@@ -47,9 +45,6 @@ namespace Mix.Console.Commands
         /// <param name="args"></param>
         protected void Write(string format, params object[] args)
         {
-            Check.ArgumentIsNotNullOrEmpty(format, "format");
-            Check.ArgumentIsNotNull(args, "args");
-
             System.Console.Write(format, args);
         }
 
@@ -59,8 +54,6 @@ namespace Mix.Console.Commands
         /// <param name="value"></param>
         protected void WriteLine(string value)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-
             System.Console.WriteLine(value);
         }
 
@@ -71,23 +64,16 @@ namespace Mix.Console.Commands
         /// <param name="args"></param>
         protected void WriteLine(string format, params object[] args)
         {
-            Check.ArgumentIsNotNullOrEmpty(format, "format");
-            Check.ArgumentIsNotNull(args, "args");
-
             System.Console.WriteLine(format, args);
         }
 
         protected void WriteError(string value)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-
             WriteColor(value, ConsoleColor.DarkRed);
         }
 
         protected void WriteLineError(string value)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-
             WriteLineColor(value, ConsoleColor.DarkRed);
         }
 
@@ -99,18 +85,12 @@ namespace Mix.Console.Commands
         /// <param name="exception"></param>
         protected void WriteLineError(string value, string exception)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-            Check.ArgumentIsNotNullOrEmpty(exception, "exception");
-
             WriteLineColor(value, ConsoleColor.DarkRed);
             WriteLineColor(exception, ConsoleColor.DarkYellow);
         }
 
         protected void WriteColor(string value, ConsoleColor color)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-            Check.ArgumentIsNotNull(color, "color");
-
             ConsoleColor foregroundColor = System.Console.ForegroundColor;
             try
             {
@@ -129,18 +109,11 @@ namespace Mix.Console.Commands
 
         protected void WriteLineColor(string value, ConsoleColor color)
         {
-            Check.ArgumentIsNotNullOrEmpty(value, "value");
-            Check.ArgumentIsNotNull(color, "color");
-
             WriteColor(String.Format("{0}{1}", value, Environment.NewLine), color);
         }
 
         protected void WriteLineColor(string format, ConsoleColor color, params object[] args)
         {
-            Check.ArgumentIsNotNullOrEmpty(format, "format");
-            Check.ArgumentIsNotNull(color, "color");
-            Check.ArgumentIsNotNull(args, "args");
-
             WriteLineColor(String.Format(format, args), color);
         }
     }
