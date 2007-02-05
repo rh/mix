@@ -5,8 +5,9 @@ namespace Mix.Core
 {
     public interface IContext
     {
-        XmlDocument Document { get; }
         XmlNamespaceManager NamespaceManager { get; }
+        string FileName { get; }
+        string Xml { get; set; }
         string XPath { get; }
         IDictionary<string, string> Properties { get; }
     }

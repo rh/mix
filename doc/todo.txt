@@ -1,3 +1,5 @@
+Minimize the use of XmlDocument to Action. Do not use it in Console.
+
 - user sets command-line
 - command-line is converted to properties
 - properties are set on action

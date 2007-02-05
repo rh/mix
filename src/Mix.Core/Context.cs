@@ -11,10 +11,11 @@ namespace Mix.Core
     {
         #region Instance variables
 
-        private XmlDocument document;
         private XmlNamespaceManager namespaceManager;
-        private string xpath;
+        private string xml = String.Empty;
+        private string xpath = String.Empty;
         private Properties properties;
+        private string fileName = String.Empty;
 
         #endregion
 
@@ -23,29 +24,26 @@ namespace Mix.Core
         /// <summary>
         /// Initializes a new instance of <see cref="Context"/>.
         /// </summary>
-        /// <param name="document">The <seealso cref="XmlDocument"/>
-        /// this <see cref="IContext"/> applies to.</param>
+        /// <param name="xml">The this <see cref="IContext"/> applies to.</param>
         /// <param name="xpath">The XPath expression used to select nodes
-        /// from the <paramref name="document"/>.</param>
+        /// from the <paramref name="xml"/>.</param>
         /// <param name="properties">
         /// The properties for this <see cref="Context"/>. May be <c>null</c>.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="document"/> or
-        /// <paramref name="xpath"/> is <c>null</c>.
+        /// Thrown when <paramref name="xpath"/> is <c>null</c>.
         /// </exception>
         /// <remarks>
         /// The supplied <see cref="IDictionary"/> is copied.
         /// </remarks>
         /// <param name="namespaceManager"></param>
-        public Context(XmlDocument document, string xpath, IDictionary<string, string> properties,
+        public Context(string xml, string xpath, IDictionary<string, string> properties,
                        XmlNamespaceManager namespaceManager)
         {
-            Check.ArgumentIsNotNull(document, "document");
             Check.ArgumentIsNotNullOrEmpty(xpath, "xpath");
             Check.ArgumentIsNotNull(namespaceManager, "namespaceManager");
 
-            this.document = document;
+            this.xml = xml;
             this.xpath = xpath;
 
             if (properties != null)
@@ -60,23 +58,49 @@ namespace Mix.Core
             this.namespaceManager = namespaceManager;
         }
 
+        public Context(string xml, string xpath)
+        {
+            this.xml = xml;
+            this.xpath = xpath;
+        }
+
+        #endregion
+
+        #region Indexer
+
+        public string this[string key]
+        {
+            get { return properties[key]; }
+        }
+
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets the <seealso cref="XmlDocument"/>.
-        /// </summary>
-        public XmlDocument Document
-        {
-            [DebuggerStepThrough]
-            get { return document; }
-        }
 
         public XmlNamespaceManager NamespaceManager
         {
             [DebuggerStepThrough]
             get { return namespaceManager; }
+        }
+
+        #region IContext Members
+
+        public string FileName
+        {
+            get { return fileName; }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Gets the XML.
+        /// </summary>
+        public string Xml
+        {
+            [DebuggerStepThrough]
+            get { return xml; }
+            [DebuggerStepThrough]
+            set { xml = value; }
         }
 
         /// <summary>

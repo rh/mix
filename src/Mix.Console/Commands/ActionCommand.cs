@@ -18,8 +18,6 @@ namespace Mix.Console.Commands
 
         private readonly Action action;
         private readonly string name;
-        private string filename;
-        private string xpath;
 
         #endregion
 
@@ -35,26 +33,6 @@ namespace Mix.Console.Commands
         #endregion
 
         #region Properties
-
-        [Argument, Required]
-        [Alias("file")]
-        public string Filename
-        {
-            [DebuggerStepThrough]
-            get { return filename; }
-            [DebuggerStepThrough]
-            set { filename = value; }
-        }
-
-        [Argument, Required]
-        [Alias("select")]
-        public string XPath
-        {
-            [DebuggerStepThrough]
-            get { return xpath; }
-            [DebuggerStepThrough]
-            set { xpath = value; }
-        }
 
         public Action Action
         {
@@ -133,11 +111,11 @@ namespace Mix.Console.Commands
                 return 1;
             }
 
-            IContext context = new Context(document, query, Properties, namespaceManager);
-            Executor executor = new Executor(context, action);
+            IContext context = new Context(document.InnerXml, query, Properties, namespaceManager);
+
             try
             {
-                executor.Execute();
+                action.Execute(context);
             }
             catch (RequiredValueMissingException e)
             {
@@ -159,6 +137,7 @@ namespace Mix.Console.Commands
             {
                 try
                 {
+                    document.InnerXml = context.Xml;
                     document.Save(file);
                 }
                 catch (Exception e)

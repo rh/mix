@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Xml;
+using System.Xml.XPath;
 using Mix.Core.Attributes;
 using Mix.Core.Exceptions;
 
@@ -9,7 +10,69 @@ namespace Mix.Core
     /// <summary/>
     public abstract class Action
     {
-        #region IAction implementation
+        private void Initialize(IContext context)
+        {
+            foreach (PropertyInfo property in GetType().GetProperties())
+            {
+                string name = property.Name.ToLower();
+                if (context.Properties.ContainsKey(name))
+                {
+                    property.SetValue(this, context.Properties[name], null);
+                }
+            }
+        }
+
+        public void Execute(IContext context)
+        {
+            Initialize(context);
+
+            XmlDocument document = new XmlDocument();
+
+            if (context.FileName != String.Empty)
+            {
+                document.Load(context.FileName);
+            }
+            else
+            {
+                document.InnerXml = context.Xml;
+            }
+
+            XmlNodeList nodes;
+
+            try
+            {
+                nodes = document.SelectNodes(context.XPath, context.NamespaceManager);
+            }
+            catch (XPathException e)
+            {
+                string info = String.Empty;
+
+                if (e.Message.StartsWith("Namespace prefix"))
+                {
+                    info = "\nYou can set the namespace-prefix with the 'namespace' argument:" +
+                           "\nnamespace:prefix:uri";
+                }
+                // TODO: Namespace prefix '' is not defined.
+                string message =
+                    String.Format("'{0}' is not a valid XPath expression: {1}{2}",
+                                  context.XPath, e.Message, info);
+                throw new ActionExecutionException(message, e);
+            }
+
+            foreach (XmlNode node in nodes)
+            {
+                if (node is XmlElement)
+                {
+                    Execute(node as XmlElement);
+                }
+                else if (node is XmlAttribute)
+                {
+                    Execute(node as XmlAttribute);
+                }
+            }
+
+            context.Xml = document.InnerXml;
+        }
 
         /// <summary>
         /// Executes the action for the specified element.
@@ -64,8 +127,6 @@ namespace Mix.Core
                 throw new ActionExecutionException(e);
             }
         }
-
-        #endregion
 
         private void Validate()
         {
