@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Xml;
 using Mix.Core.Attributes;
@@ -7,38 +6,9 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Core
 {
-    /// <summary>
-    /// Determines whether the <see cref="Action"/> acts on the element/
-    /// attribute itself, or on its value.
-    /// </summary>
-    public enum ActionType
-    {
-        Property,
-        Value
-    }
-
     /// <summary/>
     public abstract class Action
     {
-        private ActionType actionType = ActionType.Value;
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the type of the action.
-        /// Defaults to <c>ActionType.Value</c>.
-        /// </summary>
-        /// <value>The type of the action.</value>
-        public ActionType ActionType
-        {
-            [DebuggerStepThrough]
-            get { return actionType; }
-            [DebuggerStepThrough]
-            set { actionType = value; }
-        }
-
-        #endregion
-
         #region IAction implementation
 
         /// <summary>

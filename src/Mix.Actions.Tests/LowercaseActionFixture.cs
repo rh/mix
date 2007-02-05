@@ -27,68 +27,12 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void LowerCaseAttributes()
-        {
-            string pre = @"<root ATTRIBUTE=""""></root>";
-            string post = @"<root attribute=""""></root>";
-            string xpath = "root/@ATTRIBUTE";
-            Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Property;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void LowerCaseAttributesConsideringPosition1()
-        {
-            string pre = @"<root ATTRIBUTE1="""" ATTRIBUTE2="""" ATTRIBUTE3=""""></root>";
-            string post = @"<root ATTRIBUTE1="""" attribute2="""" ATTRIBUTE3=""""></root>";
-            string xpath = "root/@ATTRIBUTE2";
-            Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Property;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void LowerCaseAttributesConsideringPosition2()
-        {
-            string pre = @"<root ATTRIBUTE1="""" ATTRIBUTE2="""" ATTRIBUTE3=""""></root>";
-            string post = @"<root attribute1="""" ATTRIBUTE2="""" ATTRIBUTE3=""""></root>";
-            string xpath = "root/@ATTRIBUTE1";
-            Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Property;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void LowerCaseAttributesConsideringPosition3()
-        {
-            string pre = @"<root ATTRIBUTE1="""" ATTRIBUTE2="""" ATTRIBUTE3=""""></root>";
-            string post = @"<root ATTRIBUTE1="""" ATTRIBUTE2="""" attribute3=""""></root>";
-            string xpath = "root/@ATTRIBUTE3";
-            Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Property;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void LowerCaseExistingAttributes()
-        {
-            string pre = @"<root attribute="""" ATTRIBUTE=""""></root>";
-            string post = @"<root attribute="""" ATTRIBUTE=""""></root>";
-            string xpath = "root/@ATTRIBUTE";
-            Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Property;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
         public void LowerCaseAttributeValues()
         {
             string pre = @"<root attribute=""VALUE""></root>";
             string post = @"<root attribute=""value""></root>";
             string xpath = "root/@attribute";
             Action action = new LowerCaseAction();
-            action.ActionType = ActionType.Value;
             Run(pre, post, xpath, action);
         }
     }
