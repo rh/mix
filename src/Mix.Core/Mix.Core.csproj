@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -49,7 +49,6 @@
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequiredValueMissingException.cs" />
     <Compile Include="Executor.cs" />
-    <Compile Include="IAction.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="IContextAware.cs" />
     <Compile Include="IName.cs" />

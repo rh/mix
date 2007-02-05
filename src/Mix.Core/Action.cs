@@ -18,7 +18,7 @@ namespace Mix.Core
     }
 
     /// <summary/>
-    public abstract class Action : IAction
+    public abstract class Action
     {
         private ActionType actionType = ActionType.Value;
 
