@@ -76,9 +76,9 @@
         <include name="**.*"/>
       </fileset>
     </copy>
-    <exec program="saxon.exe" basedir="${tools.dir}\saxon" workingdir="${help.build.dir}">
+    <exec program="xsltproc.exe" basedir="${tools.dir}\xsltproc" workingdir="${help.build.dir}">
+    	<arg value="${help.build.dir}\src\book.xsl"/>
       <arg value="${help.build.dir}\src\book.xml"/>
-      <arg value="${help.build.dir}\src\book.xsl"/>
     </exec>
     <!-- hhc.exe may return 1, but still be successful -->
     <exec program="hhc.exe" workingdir="${help.build.dir}" failonerror="false">
