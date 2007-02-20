@@ -15,8 +15,7 @@ namespace Mix.Console.Commands
 
         public override int Execute()
         {
-            WriteError("Unknown action:");
-            WriteLine(" '{0}'", name);
+            WriteLine("Unknown action: '{0}'", name);
             WriteLine("Type 'mix help' for usage.");
             return 1;
         }

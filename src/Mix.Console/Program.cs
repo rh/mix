@@ -7,33 +7,23 @@ namespace Mix.Console
 {
     internal class Program
     {
-        private static readonly ILog log =
-            LogManager.GetLogger(typeof(Program));
-
         private static int Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException +=
                 new UnhandledExceptionEventHandler(OnUnhandledException);
             XmlConfigurator.Configure();
-            log.Info("Mix started.");
 
             try
             {
                 Command command = CommandFactory.Create(args);
-                int code = command.Execute();
-                log.Info(String.Format("Mix exits. Return code is {0}.", code));
-                return code;
+                return command.Execute();
             }
             catch (Exception e)
             {
                 string message = "An exception was caught. Mix exits.";
-                log.Error(message, e);
-                ConsoleColor color = System.Console.ForegroundColor;
-                System.Console.ForegroundColor = ConsoleColor.DarkRed;
+                LogManager.GetLogger(typeof(Program)).Error(message, e);
                 System.Console.WriteLine(message);
-                System.Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine(e);
-                System.Console.ForegroundColor = color;
                 return 1;
             }
         }
@@ -62,7 +52,7 @@ namespace Mix.Console
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error("An unhandled exception was caught.", e.ExceptionObject as Exception);
+            LogManager.GetLogger(typeof(Program)).Error("An unhandled exception was caught.", e.ExceptionObject as Exception);
         }
     }
 }

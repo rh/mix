@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Xml;
 using log4net;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -44,78 +43,18 @@ namespace Mix.Console.Commands
 
         public override int Execute()
         {
-            if (Properties == null)
-            {
-                throw new InvalidOperationException("Property 'Properties' is not set.");
-            }
+            Debug.Assert(Context != null, "Context != null");
 
-            if (!Properties.ContainsKey("file"))
+            if (ValidateFile() == false)
             {
-                WriteLineError("Required argument 'file' is missing.");
                 return 1;
             }
 
-            if (!Properties.ContainsKey("xpath") && !Properties.ContainsKey("select"))
-            {
-                WriteLineError("Required argument 'xpath' (or 'select') is missing.");
-                return 1;
-            }
-
-            string file = Properties["file"];
-
-            if (String.IsNullOrEmpty(file))
-            {
-                WriteLineError("Required argument 'file' is not set correctly.");
-                return 1;
-            }
-
-            if (!File.Exists(file))
-            {
-                WriteError("File does not exist: ");
-                WriteLine(file);
-                return 1;
-            }
-
-            XmlDocument document = new XmlDocument();
-            document.Load(file);
-            XmlNamespaceManager namespaceManager =
-                new XmlNamespaceManager(document.NameTable);
-
-            if (Properties.ContainsKey("namespace"))
-            {
-                int position = Properties["namespace"].IndexOf(":");
-                if (position == -1)
-                {
-                    WriteLineError("Namespace not set correctly; use namespace:prefix:uri.");
-                    return 1;
-                }
-
-                string prefix = Properties["namespace"].Split(':')[0];
-                string uri = Properties["namespace"].Substring(position + 1);
-                namespaceManager.AddNamespace(prefix, uri);
-            }
-
-            string query;
-            if (Properties.ContainsKey("xpath"))
-            {
-                query = Properties["xpath"];
-            }
-            else
-            {
-                query = Properties["select"];
-            }
-
-            if (String.IsNullOrEmpty(query))
-            {
-                WriteLine("Required argument 'xpath' (or 'select') is not set correctly.");
-                return 1;
-            }
-
-            IContext context = new Context(document.InnerXml, query, Properties, namespaceManager);
+            Context.Xml = File.ReadAllText(Context["file"]);
 
             try
             {
-                action.Execute(context);
+                action.Execute(Context);
             }
             catch (RequiredValueMissingException e)
             {
@@ -130,25 +69,46 @@ namespace Mix.Console.Commands
             catch (ActionExecutionException e)
             {
                 log.Error(e.Message, e);
-
-                WriteLineError(e.Message);
+                WriteLine(e.Message);
             }
             finally
             {
                 try
                 {
-                    document.InnerXml = context.Xml;
-                    document.Save(file);
+                    File.WriteAllText(Context["file"], Context.Xml);
                 }
                 catch (Exception e)
                 {
                     log.Error(e.Message, e);
-
-                    WriteLineError(e.Message);
+                    WriteLine(e.Message);
                 }
             }
 
             return 0;
+        }
+
+        private bool ValidateFile()
+        {
+            if (!Context.ContainsKey("file"))
+            {
+                WriteLine("Required argument 'file' is missing.");
+                return false;
+            }
+
+            string file = Context["file"];
+
+            if (String.IsNullOrEmpty(file))
+            {
+                WriteLine("Required argument 'file' is not set correctly.");
+                return false;
+            }
+
+            if (!File.Exists(file))
+            {
+                WriteLine("File does not exist: " + file);
+                return false;
+            }
+            return true;
         }
 
         #region IName Members

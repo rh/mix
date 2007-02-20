@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using System.Xml;
 
 namespace Mix.Core
 {
-    public interface IContext
+    public interface IContext : IDictionary<string, string>
     {
-        XmlNamespaceManager NamespaceManager { get; }
-        string FileName { get; }
         string Xml { get; set; }
         string XPath { get; }
-        IDictionary<string, string> Properties { get; }
     }
 }

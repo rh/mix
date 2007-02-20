@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using log4net;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -9,24 +6,17 @@ namespace Mix.Console.Commands
     [DebuggerStepThrough]
     internal abstract class Command
     {
-        private static ILog log =
-            LogManager.GetLogger(typeof(Command));
-
         public virtual int Execute()
         {
             return 0;
         }
 
-        private IDictionary<string, string> properties;
+        private IContext context;
 
-        public IDictionary<string, string> Properties
+        public IContext Context
         {
-            get { return properties; }
-            set
-            {
-                Check.ArgumentIsNotNullOrEmpty(value, "value");
-                properties = value;
-            }
+            get { return context; }
+            set { context = value; }
         }
 
         /// <summary>
@@ -65,56 +55,6 @@ namespace Mix.Console.Commands
         protected void WriteLine(string format, params object[] args)
         {
             System.Console.WriteLine(format, args);
-        }
-
-        protected void WriteError(string value)
-        {
-            WriteColor(value, ConsoleColor.DarkRed);
-        }
-
-        protected void WriteLineError(string value)
-        {
-            WriteLineColor(value, ConsoleColor.DarkRed);
-        }
-
-        /// <summary>
-        /// Writes <paramref name="value"/> and <paramref name="exception"/>
-        /// to the <seealso cref="System.Console"/> in two different colors.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="exception"></param>
-        protected void WriteLineError(string value, string exception)
-        {
-            WriteLineColor(value, ConsoleColor.DarkRed);
-            WriteLineColor(exception, ConsoleColor.DarkYellow);
-        }
-
-        protected void WriteColor(string value, ConsoleColor color)
-        {
-            ConsoleColor foregroundColor = System.Console.ForegroundColor;
-            try
-            {
-                System.Console.ForegroundColor = color;
-                System.Console.Write(value);
-            }
-            catch (Exception e)
-            {
-                log.Error(e.Message, e);
-            }
-            finally
-            {
-                System.Console.ForegroundColor = foregroundColor;
-            }
-        }
-
-        protected void WriteLineColor(string value, ConsoleColor color)
-        {
-            WriteColor(String.Format("{0}{1}", value, Environment.NewLine), color);
-        }
-
-        protected void WriteLineColor(string format, ConsoleColor color, params object[] args)
-        {
-            WriteLineColor(String.Format(format, args), color);
         }
     }
 }

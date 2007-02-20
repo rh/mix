@@ -34,6 +34,7 @@
     depends="compile, test"/>
 
   <target name="compile" description="Compiles all sources">
+  	<delete dir="${build.base.dir}" if="${directory::exists(property::get-value('build.base.dir'))}"/>
   	<mkdir dir="${build.dir}" failonerror="false"/>
     <nant target="build">
       <buildfiles refid="mix.projects"/>

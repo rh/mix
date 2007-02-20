@@ -15,9 +15,9 @@ namespace Mix.Core
             foreach (PropertyInfo property in GetType().GetProperties())
             {
                 string name = property.Name.ToLower();
-                if (context.Properties.ContainsKey(name))
+                if (context.ContainsKey(name))
                 {
-                    property.SetValue(this, context.Properties[name], null);
+                    property.SetValue(this, context[name], null);
                 }
             }
         }
@@ -27,21 +27,13 @@ namespace Mix.Core
             Initialize(context);
 
             XmlDocument document = new XmlDocument();
-
-            if (context.FileName != String.Empty)
-            {
-                document.Load(context.FileName);
-            }
-            else
-            {
-                document.InnerXml = context.Xml;
-            }
+            document.InnerXml = context.Xml;
 
             XmlNodeList nodes;
 
             try
             {
-                nodes = document.SelectNodes(context.XPath, context.NamespaceManager);
+                nodes = document.SelectNodes(context.XPath);
             }
             catch (XPathException e)
             {
@@ -49,10 +41,10 @@ namespace Mix.Core
 
                 if (e.Message.StartsWith("Namespace prefix"))
                 {
-                    info = "\nYou can set the namespace-prefix with the 'namespace' argument:" +
+                    info = "\nNamespace-prefixes can be set like:" +
                            "\nnamespace:prefix:uri";
                 }
-                // TODO: Namespace prefix '' is not defined.
+
                 string message =
                     String.Format("'{0}' is not a valid XPath expression: {1}{2}",
                                   context.XPath, e.Message, info);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms;
 using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
@@ -41,12 +40,11 @@ namespace Mix.Console.Commands
                     }
 
                     WriteDescription(obj);
-                    Writeproperties(obj);
+                    WriteProperties(obj);
                 }
                 else
                 {
-                    WriteError("Unknown action:");
-                    WriteLine(" '{0}'", name);
+                    WriteLine("Unknown action: '{0}'", name);
                     WriteLine("Type 'mix list' to see a list of all available actions.");
                     return 1;
                 }
@@ -67,7 +65,7 @@ namespace Mix.Console.Commands
             }
         }
 
-        private void Writeproperties(object obj)
+        private void WriteProperties(object obj)
         {
             List<PropertyInfo> properties = new List<PropertyInfo>();
 

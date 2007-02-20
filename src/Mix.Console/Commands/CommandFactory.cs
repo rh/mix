@@ -43,7 +43,7 @@ namespace Mix.Console.Commands
         {
             Check.ArgumentIsNotNull(args, "args");
 
-            Core.Properties properties = Parse(args);
+            IDictionary<string, string> properties = Parse(args);
 
             if (!properties.ContainsKey("action"))
             {
@@ -65,7 +65,7 @@ namespace Mix.Console.Commands
             {
                 Command command = commands[name];
                 Debug.Assert(command != null, "command != null");
-                command.Properties = properties;
+                command.Context = new Context(properties);
                 return command;
             }
             else
@@ -81,9 +81,9 @@ namespace Mix.Console.Commands
         /// The command-line to parse. May be <c>null</c>.
         /// </param>
         /// <returns></returns>
-        private static Core.Properties Parse(string[] args)
+        private static IDictionary<string, string> Parse(string[] args)
         {
-            Core.Properties properties = new Core.Properties();
+            IDictionary<string, string> properties = new Dictionary<string, string>();
 
             if (args != null && args.Length > 0)
             {
