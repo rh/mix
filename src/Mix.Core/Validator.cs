@@ -24,18 +24,18 @@ namespace Mix.Core
                     object value = property.GetValue(obj, null);
                     if (value == null || value.ToString().Trim().Length == 0)
                     {
-                        ThrowRequiredValueMissingException(property);
+                        ThrowRequirementException(property);
                     }
                 }
             }
         }
 
-        private void ThrowRequiredValueMissingException(PropertyInfo property)
+        private void ThrowRequirementException(PropertyInfo property)
         {
             string name = property.Name;
             string message = String.Format("A value for '{0}' is required.", name);
             string description = DescriptionAttribute.GetDescriptionFrom(obj);
-            throw new RequiredValueMissingException(message, name, description);
+            throw new RequirementException(message, name, description);
         }
     }
 }

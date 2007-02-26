@@ -6,39 +6,39 @@ namespace Mix.Core.Exceptions
 {
     [Serializable]
     [DebuggerStepThrough]
-    public class RequiredValueMissingException : Exception
+    public class RequirementException : Exception
     {
         private string property = String.Empty;
         private string description = String.Empty;
 
-        public RequiredValueMissingException()
+        public RequirementException()
         {
         }
 
-        public RequiredValueMissingException(string message)
+        public RequirementException(string message)
             : base(message)
         {
         }
 
-        public RequiredValueMissingException(string message, string property)
+        public RequirementException(string message, string property)
             : base(message)
         {
             this.property = property ?? String.Empty;
         }
 
-        public RequiredValueMissingException(string message, string property, string description)
+        public RequirementException(string message, string property, string description)
             : base(message)
         {
             this.property = property ?? String.Empty;
             this.description = description ?? String.Empty;
         }
 
-        public RequiredValueMissingException(string message, Exception innerException)
-            : base(message, innerException)
+        public RequirementException(string message, Exception inner)
+            : base(message, inner)
         {
         }
 
-        public RequiredValueMissingException(SerializationInfo info, StreamingContext context)
+        public RequirementException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

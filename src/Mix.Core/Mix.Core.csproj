@@ -47,7 +47,7 @@
     <Compile Include="Attributes\NameAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Exceptions\RequiredValueMissingException.cs" />
+    <Compile Include="Exceptions\RequirementException.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="IName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

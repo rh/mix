@@ -17,13 +17,13 @@ namespace Mix.Core.Exceptions
         {
         }
 
-        internal ActionExecutionException(string message, Exception innerException)
-            : base(message, innerException)
+        internal ActionExecutionException(string message, Exception inner)
+            : base(message, inner)
         {
         }
 
-        internal ActionExecutionException(Exception innerException)
-            : base("The action could not be executed.", innerException)
+        internal ActionExecutionException(Exception inner)
+            : base("The action could not be executed.", inner)
         {
         }
 

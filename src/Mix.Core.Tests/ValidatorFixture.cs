@@ -42,7 +42,7 @@ namespace Mix.Core.Tests
             {
                 validator.Validate();
             }
-            catch (RequiredValueMissingException e)
+            catch (RequirementException e)
             {
                 Assert.AreEqual("Text", e.Property);
                 return;

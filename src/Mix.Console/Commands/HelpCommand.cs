@@ -79,12 +79,12 @@ namespace Mix.Console.Commands
 
             if (properties.Count > 0)
             {
-                WriteLine("Arguments:");
+                WriteLine(Environment.NewLine + "Arguments:");
                 foreach (PropertyInfo property in properties)
                 {
-                    string required = RequiredAttribute.IsDefinedOn(property) ? "[required] " : "";
+                    string required = RequiredAttribute.IsDefinedOn(property) ? String.Format("{0}{1,-17}{2}", Environment.NewLine, "", "[required]") : "";
                     string description = DescriptionAttribute.GetDescriptionFrom(property);
-                    WriteLine("  {0}: {2}{1}", property.Name.ToLower(), description, required);
+                    WriteLine("  {0,-15}{1}{2}", property.Name.ToLower(), description, required);
                 }
             }
         }

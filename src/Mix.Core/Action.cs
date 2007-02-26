@@ -141,7 +141,7 @@ namespace Mix.Core
                                 property.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
                             description = attribute.Description;
                         }
-                        throw new RequiredValueMissingException(message, property.Name, description);
+                        throw new RequirementException(message, property.Name, description);
                     }
                 }
             }

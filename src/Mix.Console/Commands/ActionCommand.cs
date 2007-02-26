@@ -56,7 +56,7 @@ namespace Mix.Console.Commands
             {
                 action.Execute(Context);
             }
-            catch (RequiredValueMissingException e)
+            catch (RequirementException e)
             {
                 log.Error(e.Message, e);
 
