@@ -30,6 +30,7 @@ namespace Mix.Console.Commands
             Register(new ActionCommand(new UpperCaseAction()));
             Register(new ActionCommand(new ReplaceAction()));
             Register(new ActionCommand(new CopyAttributeAction()));
+            Register(new ActionCommand(new InnerXmlAction()));
         }
 
         /// <summary>

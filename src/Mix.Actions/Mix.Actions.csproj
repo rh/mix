@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -42,6 +42,7 @@
     <Compile Include="ClearAction.cs" />
     <Compile Include="CopyAttributeAction.cs" />
     <Compile Include="ExtractAction.cs" />
+    <Compile Include="InnerXmlAction.cs" />
     <Compile Include="LowerCaseAction.cs" />
     <Compile Include="PrependAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
