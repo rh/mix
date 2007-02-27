@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 using log4net;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -75,7 +76,9 @@ namespace Mix.Console.Commands
             {
                 try
                 {
-                    File.WriteAllText(Context["file"], Context.Xml);
+                    XmlDocument document = new XmlDocument();
+                    document.LoadXml(Context.Xml);
+                    document.Save(Context["file"]);
                 }
                 catch (Exception e)
                 {
