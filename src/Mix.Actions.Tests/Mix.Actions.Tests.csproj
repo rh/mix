@@ -46,6 +46,7 @@
     <Compile Include="AddAttributeActionFixture.cs" />
     <Compile Include="AppendActionFixture.cs" />
     <Compile Include="ClearActionFixture.cs" />
+    <Compile Include="CopyActionFixture.cs" />
     <Compile Include="CopyAttributeActionFixture.cs" />
     <Compile Include="InnerXmlActionFixture.cs" />
     <Compile Include="LowercaseActionFixture.cs" />
