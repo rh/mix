@@ -54,7 +54,7 @@ namespace Mix.Console.Commands
 
                 if (name == "help")
                 {
-                    if (args.Length == 0)
+                    if (args.Length <= 1)
                     {
                         command = new HelpCommand();
                     }
