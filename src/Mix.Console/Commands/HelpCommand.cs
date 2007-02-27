@@ -7,6 +7,15 @@ namespace Mix.Console.Commands
 {
     internal sealed class HelpCommand : Command
     {
+        public HelpCommand()
+        {
+        }
+
+        public HelpCommand(string name)
+        {
+            this.name = name;
+        }
+
         private string name = String.Empty;
 
         public string Name

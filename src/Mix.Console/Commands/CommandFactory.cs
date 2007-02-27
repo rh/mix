@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Mix.Actions;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -47,33 +46,38 @@ namespace Mix.Console.Commands
 
             IDictionary<string, string> properties = Parse(args);
 
-            if (!properties.ContainsKey("action"))
-            {
-                return new InfoCommand();
-            }
+            Command command = new InfoCommand();
 
-            string name = properties["action"].ToLower();
-
-            if (name == "help")
+            if (properties.ContainsKey("action"))
             {
-                HelpCommand command = new HelpCommand();
-                if (args.Length > 1)
+                string name = properties["action"].ToLower();
+
+                if (name == "help")
                 {
-                    command.Name = args[1];
+                    if (args.Length == 0)
+                    {
+                        command = new HelpCommand();
+                    }
+                    else
+                    {
+                        command = new HelpCommand(args[1]);
+                    }
                 }
-                return command;
+                else if (commands.ContainsKey(name))
+                {
+                    command = commands[name];
+                }
+                else
+                {
+                    command = new UnknownCommand(name);
+                }
             }
-            else if (commands.ContainsKey(name))
-            {
-                Command command = commands[name];
-                Debug.Assert(command != null, "command != null");
-                command.Context = new Context(properties);
-                return command;
-            }
-            else
-            {
-                return new UnknownCommand(name);
-            }
+
+            Context context = new Context(properties);
+            context.Output = System.Console.Out;
+            context.Error = System.Console.Error;
+            command.Context = context;
+            return command;
         }
 
         /// <summary>

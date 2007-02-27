@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using Mix.Core;
 
@@ -11,50 +12,65 @@ namespace Mix.Console.Commands
             return 0;
         }
 
-        private IContext context;
+        private IContext context = Core.Context.Null;
 
         public IContext Context
         {
             get { return context; }
-            set { context = value; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+                context = value;
+            }
         }
 
         /// <summary>
-        /// Shortcut for <seealso cref="System.Console.Write(string)"/>.
+        /// Writes <paramref name="value"/> to the standard output stream.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The <see cref="string"/> to write.</param>
         protected void Write(string value)
         {
-            System.Console.Write(value);
+            Context.Output.Write(value);
         }
 
         /// <summary>
-        /// Shortcut for <seealso cref="System.Console.Write(string, object[])"/>.
+        /// Writes out a formatted string to the standard output stream, using
+        /// the same semantics as <see cref="string.Format(string, object)"/>.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
+        /// <param name="format">A <see cref="string"/> containing zero or more
+        /// format items.</param>
+        /// <param name="args">An <see cref="object"/> array containing zero or
+        /// more objects to format.</param>
         protected void Write(string format, params object[] args)
         {
-            System.Console.Write(format, args);
+            Context.Output.Write(format, args);
         }
 
         /// <summary>
-        /// Shortcut for <seealso cref="System.Console.WriteLine(string)"/>.
+        /// Writes <paramref name="value"/>, followed by the current line 
+        /// terminator, to the standard output stream.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The <see cref="string"/> to write.</param>
         protected void WriteLine(string value)
         {
-            System.Console.WriteLine(value);
+            Context.Output.WriteLine(value);
         }
 
         /// <summary>
-        /// Shortcut for <seealso cref="System.Console.WriteLine(string, object[])"/>.
+        /// Writes out a formatted string, followed by the current line 
+        /// terminator, to the standard output stream, using the same semantics
+        /// as <see cref="string.Format(string, object)"/>.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
+        /// <param name="format">A <see cref="string"/> containing zero or more
+        /// format items.</param>
+        /// <param name="args">An <see cref="object"/> array containing zero or
+        /// more objects to format.</param>
         protected void WriteLine(string format, params object[] args)
         {
-            System.Console.WriteLine(format, args);
+            Context.Output.WriteLine(format, args);
         }
     }
 }
