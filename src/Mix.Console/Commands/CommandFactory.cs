@@ -31,6 +31,7 @@ namespace Mix.Console.Commands
             Register(new ActionCommand(new CopyAction()));
             Register(new ActionCommand(new CopyAttributeAction()));
             Register(new ActionCommand(new InnerXmlAction()));
+            Register(new ActionCommand(new CountAction()));
         }
 
         /// <summary>

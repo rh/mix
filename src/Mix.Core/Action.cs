@@ -26,6 +26,11 @@ namespace Mix.Core
         {
             Initialize(context);
 
+            if (ExecuteCore(context))
+            {
+                return;
+            }
+
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
 
@@ -148,6 +153,17 @@ namespace Mix.Core
         }
 
         #region Methods that could be overridden by a derived class
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns><c>true</c> if the <see cref="Action"/> is handled,
+        /// <c>false</c> otherwise.</returns>
+        protected virtual bool ExecuteCore(IContext context)
+        {
+            return false;
+        }
 
         protected virtual void ExecuteCore(XmlElement element)
         {
