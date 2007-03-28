@@ -51,7 +51,22 @@ namespace Mix.Console.Commands
                 return 1;
             }
 
-            Context.Xml = File.ReadAllText(Context["file"]);
+            string pattern = Context["file"];
+
+            foreach (string file in Directory.GetFiles(".", pattern))
+            {
+                if (!ExecuteAction(file))
+                {
+                    break;
+                }
+            }
+
+            return 0;
+        }
+
+        private bool ExecuteAction(string file)
+        {
+            Context.Xml = File.ReadAllText(file);
 
             try
             {
@@ -60,34 +75,38 @@ namespace Mix.Console.Commands
             catch (RequirementException e)
             {
                 log.Error(e.Message, e);
-
-                WriteLine(e.Message);
+                string message =
+                    String.Format("Required argument '{0}' is missing.",
+                                  e.Property.ToLower());
+                WriteLine(message);
                 if (e.Description.Length > 0)
                 {
-                    WriteLine(e.Property + ": " + e.Description);
+                    WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
+                WriteLine("{1}Type 'mix help {0}' for usage.", Context.Action, Environment.NewLine);
+                return false;
             }
             catch (ActionExecutionException e)
             {
                 log.Error(e.Message, e);
                 WriteLine(e.Message);
-            }
-            finally
-            {
-                try
-                {
-                    XmlDocument document = new XmlDocument();
-                    document.LoadXml(Context.Xml);
-                    document.Save(Context["file"]);
-                }
-                catch (Exception e)
-                {
-                    log.Error(e.Message, e);
-                    WriteLine(e.Message);
-                }
+                return false;
             }
 
-            return 0;
+            try
+            {
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(Context.Xml);
+                document.Save(file);
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message, e);
+                WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
         private bool ValidateFile()
@@ -98,17 +117,9 @@ namespace Mix.Console.Commands
                 return false;
             }
 
-            string file = Context["file"];
-
-            if (String.IsNullOrEmpty(file))
+            if (String.IsNullOrEmpty(Context["file"]))
             {
                 WriteLine("Required argument 'file' is not set correctly.");
-                return false;
-            }
-
-            if (!File.Exists(file))
-            {
-                WriteLine("File does not exist: " + file);
                 return false;
             }
             return true;

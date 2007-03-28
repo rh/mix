@@ -1,3 +1,16 @@
+When using wildcards for files:
+- exit on the first error
+- do not save document
+- if output is given, also output filename
+Example: count (output is just a number)
+
+Validate XPath
+Validate IContext
+
+Add 'verbose' switch to IContext
+
+Split Action into XmlStringAction and XmlDocumentAction.
+
 Minimize the use of XmlDocument to Action. Do not use it in Console.
 
 - user sets command-line

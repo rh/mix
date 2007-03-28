@@ -31,6 +31,11 @@ namespace Mix.Core
                 return;
             }
 
+            if (String.IsNullOrEmpty(context.XPath))
+            {
+                throw new RequirementException("'xpath' is required.", "xpath", "");
+            }
+
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
 
@@ -136,7 +141,7 @@ namespace Mix.Core
                     if (value == null || value.ToString().Trim().Length == 0)
                     {
                         string message =
-                            String.Format("Required argument '{0}' is missing.",
+                            String.Format("'{0}' is required.",
                                           property.Name.ToLower());
                         string description = "";
                         if (property.IsDefined(typeof(DescriptionAttribute), true))
@@ -155,9 +160,14 @@ namespace Mix.Core
         #region Methods that could be overridden by a derived class
 
         /// <summary>
-        /// 
+        /// A method for derived classes to override if they do not wish to use
+        /// <see cref="ExecuteCore(XmlElement)"/> or
+        /// <see cref="ExecuteCore(XmlAttribute)"/>.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">
+        /// An <see cref="IContext"/> instance containing all the necessary
+        /// properties.
+        /// </param>
         /// <returns><c>true</c> if the <see cref="Action"/> is handled,
         /// <c>false</c> otherwise.</returns>
         protected virtual bool ExecuteCore(IContext context)

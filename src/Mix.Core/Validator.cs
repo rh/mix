@@ -33,7 +33,7 @@ namespace Mix.Core
         private void ThrowRequirementException(PropertyInfo property)
         {
             string name = property.Name;
-            string message = String.Format("A value for '{0}' is required.", name);
+            string message = String.Format("'{0}' is required.", name);
             string description = DescriptionAttribute.GetDescriptionFrom(obj);
             throw new RequirementException(message, name, description);
         }

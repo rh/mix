@@ -6,6 +6,12 @@ namespace Mix.Core
     public interface IContext : IDictionary<string, string>
     {
         /// <summary>
+        /// The name of the <see cref="Action"/> this <see cref="IContext"/>
+        /// applies to.
+        /// </summary>
+        string Action { get; set; }
+
+        /// <summary>
         /// A <seealso cref="TextWriter"/> that represents the standard output
         /// stream.
         /// </summary>

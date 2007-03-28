@@ -13,6 +13,7 @@ namespace Mix.Core
     {
         #region Instance variables
 
+        private string action = String.Empty;
         private TextWriter output = TextWriter.Null;
         private TextWriter error = TextWriter.Null;
         private string xml = String.Empty;
@@ -92,6 +93,11 @@ namespace Mix.Core
                 Add(pair.Key, pair.Value);
             }
 
+            if (ContainsKey("action"))
+            {
+                action = this["action"] ?? String.Empty;
+            }
+
             if (ContainsKey("xpath"))
             {
                 xpath = this["xpath"] ?? String.Empty;
@@ -106,6 +112,16 @@ namespace Mix.Core
         #endregion
 
         #region IContext Members
+
+        /// <summary>
+        /// The name of the <see cref="Action"/> this <see cref="IContext"/>
+        /// applies to.
+        /// </summary>
+        public string Action
+        {
+            get { return action; }
+            set { action = value; }
+        }
 
         /// <summary>
         /// A <seealso cref="TextWriter"/> that represents the standard output
