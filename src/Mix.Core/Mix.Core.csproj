@@ -44,7 +44,6 @@
     <Compile Include="Attributes\ExampleAttribute.cs" />
     <Compile Include="Exceptions\ActionExecutionException.cs" />
     <Compile Include="Attributes\ArgumentAttribute.cs" />
-    <Compile Include="Attributes\NameAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
