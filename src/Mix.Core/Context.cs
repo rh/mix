@@ -13,6 +13,7 @@ namespace Mix.Core
     {
         #region Instance variables
 
+        private string filename = String.Empty;
         private string action = String.Empty;
         private TextWriter output = TextWriter.Null;
         private TextWriter error = TextWriter.Null;
@@ -114,13 +115,40 @@ namespace Mix.Core
         #region IContext Members
 
         /// <summary>
+        /// The name of the file this <see cref="IContext"/> applies to.
+        /// </summary>
+        public string FileName
+        {
+            get { return filename; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("value");
+                }
+                filename = value;
+                if (filename.StartsWith(@".\"))
+                {
+                    filename = filename.Remove(0, 2);
+                }
+            }
+        }
+
+        /// <summary>
         /// The name of the <see cref="Action"/> this <see cref="IContext"/>
         /// applies to.
         /// </summary>
         public string Action
         {
             get { return action; }
-            set { action = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("value");
+                }
+                action = value;
+            }
         }
 
         /// <summary>
@@ -163,7 +191,14 @@ namespace Mix.Core
         public string Xml
         {
             get { return xml; }
-            set { xml = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("value");
+                }
+                xml = value;
+            }
         }
 
         /// <summary>

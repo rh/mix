@@ -66,6 +66,7 @@ namespace Mix.Console.Commands
 
         private bool ExecuteAction(string file)
         {
+            Context.FileName = file;
             Context.Xml = File.ReadAllText(file);
 
             try

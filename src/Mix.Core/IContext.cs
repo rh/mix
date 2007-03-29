@@ -6,6 +6,11 @@ namespace Mix.Core
     public interface IContext : IDictionary<string, string>
     {
         /// <summary>
+        /// The name of the file this <see cref="IContext"/> applies to.
+        /// </summary>
+        string FileName { get; set; }
+
+        /// <summary>
         /// The name of the <see cref="Action"/> this <see cref="IContext"/>
         /// applies to.
         /// </summary>

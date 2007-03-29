@@ -8,26 +8,26 @@ namespace Mix.Core.Exceptions
     [DebuggerStepThrough]
     public sealed class ActionExecutionException : Exception
     {
-        internal ActionExecutionException()
+        public ActionExecutionException()
         {
         }
 
-        internal ActionExecutionException(string message)
+        public ActionExecutionException(string message)
             : base(message)
         {
         }
 
-        internal ActionExecutionException(string message, Exception inner)
+        public ActionExecutionException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        internal ActionExecutionException(Exception inner)
+        public ActionExecutionException(Exception inner)
             : base("The action could not be executed.", inner)
         {
         }
 
-        internal ActionExecutionException(SerializationInfo info, StreamingContext context)
+        public ActionExecutionException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

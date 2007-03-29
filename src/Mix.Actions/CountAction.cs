@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml.XPath;
 using Mix.Core;
 using Mix.Core.Attributes;
+using Mix.Core.Exceptions;
 
 namespace Mix.Actions
 {
@@ -17,13 +18,23 @@ namespace Mix.Actions
                 {
                     XPathDocument document = new XPathDocument(reader);
                     XPathNavigator navigator = document.CreateNavigator();
-                    XPathNodeIterator iterator = navigator.Select(context.XPath);
-                    context.Output.WriteLine(iterator.Count);
+                    try
+                    {
+                        XPathNodeIterator iterator = navigator.Select(context.XPath);
+                        context.Output.WriteLine("{0}: {1}", context.FileName, iterator.Count);
+                    }
+                    catch (XPathException e)
+                    {
+                        string message =
+                            String.Format("XPath expression '{0}' is not valid.",
+                                          context.XPath);
+                        throw new ActionExecutionException(message, e);
+                    }
                 }
             }
             else
             {
-                context.Output.WriteLine("No selection.");
+                context.Output.WriteLine("{0}: no selection.", context.FileName);
             }
             return true;
         }
