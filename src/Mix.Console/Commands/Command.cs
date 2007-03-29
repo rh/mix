@@ -72,5 +72,10 @@ namespace Mix.Console.Commands
         {
             Context.Output.WriteLine(format, args);
         }
+
+        public override string ToString()
+        {
+            return GetType().Name.ToLower().Replace("command", "");
+        }
     }
 }

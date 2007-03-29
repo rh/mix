@@ -129,29 +129,14 @@ namespace Mix.Console.Commands
         /// </exception>
         /// <remarks>
         /// The 'name' of the <see cref="Command"/> is used as a unique key.
-        /// If the <see cref="Command"/> implements <see cref="IName"/>, then
-        /// <see cref="IName.Name"/> is used as the name of the <see cref="Command"/>.
-        /// If the <see cref="Command"/> is decorated with a <see cref="NameAttribute"/>,
-        /// then <see cref="NameAttribute.Name"/> is used.
-        /// Otherwise, the name of the <see cref="Type"/> is used, in lowercase, minus the
-        /// word 'command', so for <see cref="HelpCommand"/> a name of 'help'
-        /// will be used.
+        /// The command's implementation of <see cref="object.ToString"/> is
+        /// used for the key.
         /// </remarks>
         public static void Register(Command command)
         {
             Check.ArgumentIsNotNull(command, "command");
 
-            string name = command.GetType().Name.ToLower().Replace("command", "");
-
-            if (NameAttribute.IsDefinedOn(command))
-            {
-                name = NameAttribute.GetNameFrom(command);
-            }
-
-            if (command is IName)
-            {
-                name = (command as IName).Name;
-            }
+            string name = command.ToString();
 
             if (commands.ContainsKey(name))
             {

@@ -184,5 +184,10 @@ namespace Mix.Core
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return GetType().Name.ToLower().Replace("action", "");
+        }
     }
 }

@@ -4,12 +4,11 @@ using System.IO;
 using System.Xml;
 using log4net;
 using Mix.Core;
-using Mix.Core.Attributes;
 using Mix.Core.Exceptions;
 
 namespace Mix.Console.Commands
 {
-    public class ActionCommand : Command, IName
+    public class ActionCommand : Command
     {
         #region Variables
 
@@ -17,7 +16,6 @@ namespace Mix.Console.Commands
             LogManager.GetLogger(typeof(ActionCommand));
 
         private readonly Action action;
-        private readonly string name;
 
         #endregion
 
@@ -27,7 +25,6 @@ namespace Mix.Console.Commands
         public ActionCommand(Action action)
         {
             this.action = action;
-            name = GetNameFromAction();
         }
 
         #endregion
@@ -57,10 +54,9 @@ namespace Mix.Console.Commands
             {
                 if (!ExecuteAction(file))
                 {
-                    break;
+                    return 1;
                 }
             }
-
             return 0;
         }
 
@@ -126,26 +122,9 @@ namespace Mix.Console.Commands
             return true;
         }
 
-        #region IName Members
-
-        string IName.Name
+        public override string ToString()
         {
-            [DebuggerStepThrough]
-            get { return name; }
-        }
-
-        #endregion
-
-        private string GetNameFromAction()
-        {
-            if (NameAttribute.IsDefinedOn(action))
-            {
-                return NameAttribute.GetNameFrom(action);
-            }
-            else
-            {
-                return action.GetType().Name.ToLower().Replace("action", "");
-            }
+            return action.ToString();
         }
     }
 }
