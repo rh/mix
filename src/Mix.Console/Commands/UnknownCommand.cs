@@ -2,7 +2,7 @@ using Mix.Core;
 
 namespace Mix.Console.Commands
 {
-    internal sealed class UnknownCommand : Command
+    public class UnknownCommand : Command
     {
         private readonly string name;
 

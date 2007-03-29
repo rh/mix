@@ -35,7 +35,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The literal XML of the selected elements.")]
-        public string Xml
+        public virtual string Xml
         {
             [DebuggerStepThrough]
             get { return xml; }

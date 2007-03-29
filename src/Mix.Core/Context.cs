@@ -117,7 +117,7 @@ namespace Mix.Core
         /// <summary>
         /// The name of the file this <see cref="IContext"/> applies to.
         /// </summary>
-        public string FileName
+        public virtual string FileName
         {
             get { return filename; }
             set
@@ -138,7 +138,7 @@ namespace Mix.Core
         /// The name of the <see cref="Action"/> this <see cref="IContext"/>
         /// applies to.
         /// </summary>
-        public string Action
+        public virtual string Action
         {
             get { return action; }
             set
@@ -155,7 +155,7 @@ namespace Mix.Core
         /// A <seealso cref="TextWriter"/> that represents the standard output
         /// stream.
         /// </summary>
-        public TextWriter Output
+        public virtual TextWriter Output
         {
             get { return output; }
             set
@@ -172,7 +172,7 @@ namespace Mix.Core
         /// A <seealso cref="TextWriter"/> that represents the standard error
         /// stream.
         /// </summary>
-        public TextWriter Error
+        public virtual TextWriter Error
         {
             get { return error; }
             set
@@ -188,7 +188,7 @@ namespace Mix.Core
         /// <summary>
         /// Gets or sets the XML.
         /// </summary>
-        public string Xml
+        public virtual string Xml
         {
             get { return xml; }
             set
@@ -204,7 +204,7 @@ namespace Mix.Core
         /// <summary>
         /// Gets the XPath expression.
         /// </summary>
-        public string XPath
+        public virtual string XPath
         {
             get { return xpath; }
         }

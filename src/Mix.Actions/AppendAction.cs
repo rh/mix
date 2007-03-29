@@ -8,7 +8,7 @@ namespace Mix.Actions
 {
     [Description("Appends text to the text nodes of the selected elements, " +
                  "or to the value of the selected attributes.")]
-    public sealed class AppendAction : Action
+    public class AppendAction : Action
     {
         #region Instance Variables
 
@@ -47,7 +47,7 @@ namespace Mix.Actions
         /// <value>The text to append.</value>
         [Argument, Required]
         [Description("The text to append.")]
-        public string Text
+        public virtual string Text
         {
             [DebuggerStepThrough]
             get { return text; }

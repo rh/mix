@@ -7,7 +7,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Copies the values of the selected attributes to new or existing attributes.")]
-    public sealed class CopyAttributeAction : Action
+    public class CopyAttributeAction : Action
     {
         #region Instance Variables
 
@@ -35,7 +35,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The name of the new or existing attribute.")]
-        public string Name
+        public virtual string Name
         {
             [DebuggerStepThrough]
             get { return name; }

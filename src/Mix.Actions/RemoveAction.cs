@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Removes all selected elements or attributes.")]
-    public sealed class RemoveAction : Action
+    public class RemoveAction : Action
     {
         #region Action Overrides
 

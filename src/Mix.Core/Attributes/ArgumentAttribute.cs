@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// In the following example, PrependAction.Text is marked as an argument:
     /// <code>
-    /// public sealed class PrependAction : Action
+    /// public class PrependAction : Action
     /// {
     ///     [Argument]
     ///     public string Text
@@ -22,7 +22,7 @@ namespace Mix.Core.Attributes
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class ArgumentAttribute : Attribute
+    public class ArgumentAttribute : Attribute
     {
         public static bool IsDefinedOn(PropertyInfo property)
         {

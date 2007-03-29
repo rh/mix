@@ -8,7 +8,7 @@ namespace Mix.Actions
 {
     [Description("Prepends text to the text nodes of the selected elements," +
                  "or to the value of the selected attributes.")]
-    public sealed class PrependAction : Action
+    public class PrependAction : Action
     {
         #region Instance Variables
 
@@ -36,7 +36,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The text to prepend.")]
-        public string Text
+        public virtual string Text
         {
             [DebuggerStepThrough]
             get { return text; }

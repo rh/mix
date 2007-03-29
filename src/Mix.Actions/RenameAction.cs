@@ -7,7 +7,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Renames all selected elements or attributes.")]
-    public sealed class RenameAction : Action
+    public class RenameAction : Action
     {
         #region Instance Variables
 
@@ -35,7 +35,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The new name for the elements or attributes.")]
-        public string Name
+        public virtual string Name
         {
             [DebuggerStepThrough]
             get { return name; }

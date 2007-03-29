@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// <code>
     /// [Description("Prepends text to...")]
-    /// public sealed class PrependAction : Action
+    /// public class PrependAction : Action
     /// {
     ///     [Description("The text to prepend.")]
     ///     public string Text
@@ -22,7 +22,7 @@ namespace Mix.Core.Attributes
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-    public sealed class DescriptionAttribute : Attribute
+    public class DescriptionAttribute : Attribute
     {
         private readonly string description;
 
@@ -31,7 +31,7 @@ namespace Mix.Core.Attributes
             this.description = description;
         }
 
-        public string Description
+        public virtual string Description
         {
             get { return description; }
         }

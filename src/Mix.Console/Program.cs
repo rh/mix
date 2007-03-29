@@ -5,7 +5,7 @@ using Mix.Console.Commands;
 
 namespace Mix.Console
 {
-    internal class Program
+    public class Program
     {
         private static int Main(string[] args)
         {

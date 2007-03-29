@@ -15,7 +15,7 @@ namespace Mix.Actions
         [Argument, Required]
         [Description("The name of the new file(s)." +
                      "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
-        public string Name
+        public virtual string Name
         {
             [DebuggerStepThrough]
             get { return name; }

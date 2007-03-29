@@ -5,7 +5,7 @@ using Mix.Core;
 namespace Mix.Console.Commands
 {
     [DebuggerStepThrough]
-    internal abstract class Command
+    public abstract class Command
     {
         public virtual int Execute()
         {
@@ -14,7 +14,7 @@ namespace Mix.Console.Commands
 
         private IContext context = Core.Context.Null;
 
-        public IContext Context
+        public virtual IContext Context
         {
             get { return context; }
             set

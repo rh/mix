@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Mix.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-    public sealed class ExampleAttribute : Attribute
+    public class ExampleAttribute : Attribute
     {
         private readonly string example;
 
@@ -13,7 +13,7 @@ namespace Mix.Core.Attributes
             this.example = example;
         }
 
-        public string Example
+        public virtual string Example
         {
             get { return example; }
         }

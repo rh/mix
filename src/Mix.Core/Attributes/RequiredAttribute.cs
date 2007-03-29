@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// In the following example, PrependAction.Text is marked as required:
     /// <code>
-    /// public sealed class PrependAction : Action
+    /// public class PrependAction : Action
     /// {
     ///     [Required]
     ///     public string Text
@@ -22,7 +22,7 @@ namespace Mix.Core.Attributes
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class RequiredAttribute : Attribute
+    public class RequiredAttribute : Attribute
     {
         public static bool IsDefinedOn(PropertyInfo property)
         {

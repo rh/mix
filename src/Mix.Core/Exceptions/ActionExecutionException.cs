@@ -6,7 +6,7 @@ namespace Mix.Core.Exceptions
 {
     [Serializable]
     [DebuggerStepThrough]
-    public sealed class ActionExecutionException : Exception
+    public class ActionExecutionException : Exception
     {
         public ActionExecutionException()
         {

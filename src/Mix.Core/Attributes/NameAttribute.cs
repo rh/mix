@@ -9,13 +9,13 @@ namespace Mix.Core.Attributes
     /// In the following example, PrependAction is named 'prepend':
     /// <code>
     /// [Name("prepend")]
-    /// public sealed class PrependAction : Action
+    /// public class PrependAction : Action
     /// {
     /// }
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class NameAttribute : Attribute
+    public class NameAttribute : Attribute
     {
         private readonly string name;
 
@@ -24,7 +24,7 @@ namespace Mix.Core.Attributes
             this.name = name;
         }
 
-        public string Name
+        public virtual string Name
         {
             get { return name; }
         }

@@ -8,7 +8,7 @@ namespace Mix.Actions
 {
     [Description("Adds a new attribute to the selected elements, " +
                  "or to the owner element of the selected attributes.")]
-    public sealed class AddAttributeAction : Action
+    public class AddAttributeAction : Action
     {
         #region Instance Variables
 
@@ -44,7 +44,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The name of the new attribute.")]
-        public string Name
+        public virtual string Name
         {
             [DebuggerStepThrough]
             get { return name; }
@@ -54,7 +54,7 @@ namespace Mix.Actions
 
         [Argument]
         [Description("The value of the new attribute.")]
-        public string Value
+        public virtual string Value
         {
             [DebuggerStepThrough]
             get { return @value; }

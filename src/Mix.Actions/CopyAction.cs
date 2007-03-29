@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("")]
-    public sealed class CopyAction : Action
+    public class CopyAction : Action
     {
         #region Action Overrides
 

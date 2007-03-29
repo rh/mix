@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
 {
-    internal sealed class HelpCommand : Command
+    public class HelpCommand : Command
     {
         public HelpCommand()
         {
@@ -18,7 +18,7 @@ namespace Mix.Console.Commands
 
         private string name = String.Empty;
 
-        public string Name
+        public virtual string Name
         {
             get { return name; }
             set { name = (value != null ? value.ToLower() : String.Empty); }

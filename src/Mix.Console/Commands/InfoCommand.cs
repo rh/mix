@@ -1,6 +1,6 @@
 namespace Mix.Console.Commands
 {
-    internal sealed class InfoCommand : Command
+    public class InfoCommand : Command
     {
         public override int Execute()
         {

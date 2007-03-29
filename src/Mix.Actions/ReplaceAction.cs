@@ -8,7 +8,7 @@ namespace Mix.Actions
 {
     [Description("Replaces text in the text nodes of selected elements " +
                  "or in the values of selected attributes.")]
-    public sealed class ReplaceAction : Action
+    public class ReplaceAction : Action
     {
         #region Instance Variables
 
@@ -34,7 +34,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The value to replace.")]
-        public string OldValue
+        public virtual string OldValue
         {
             [DebuggerStepThrough]
             get { return oldValue; }
@@ -44,7 +44,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The value to replace the old value.")]
-        public string NewValue
+        public virtual string NewValue
         {
             [DebuggerStepThrough]
             get { return newValue; }

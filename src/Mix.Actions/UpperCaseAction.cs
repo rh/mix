@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Makes all attribute values uppercase.")]
-    public sealed class UpperCaseAction : Action
+    public class UpperCaseAction : Action
     {
         #region Action Overrides
 

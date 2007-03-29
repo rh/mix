@@ -13,7 +13,7 @@ namespace Mix.Actions
     /// </example>
     [Description("Removes all attributes and child elements of selected elements, " +
                  "or clears selected attributes.")]
-    public sealed class ClearAction : Action
+    public class ClearAction : Action
     {
         #region Action Overrides
 

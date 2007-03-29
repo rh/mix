@@ -9,7 +9,7 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Console.Commands
 {
-    internal class ActionCommand : Command, IName
+    public class ActionCommand : Command, IName
     {
         #region Variables
 
@@ -34,7 +34,7 @@ namespace Mix.Console.Commands
 
         #region Properties
 
-        public Action Action
+        public virtual Action Action
         {
             [DebuggerStepThrough]
             get { return action; }

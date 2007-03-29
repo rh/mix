@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
 {
-    internal static class CommandFactory
+    public static class CommandFactory
     {
         private static IDictionary<string, Command> commands =
             new Dictionary<string, Command>();
@@ -163,7 +163,7 @@ namespace Mix.Console.Commands
             commands[name] = command;
         }
 
-        internal static IDictionary<string, Command> Commands
+        public static IDictionary<string, Command> Commands
         {
             get { return commands; }
         }
