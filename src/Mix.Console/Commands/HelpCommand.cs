@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Mix.Core.Attributes;
+using Mix.Core;
 
 namespace Mix.Console.Commands
 {
@@ -28,17 +26,14 @@ namespace Mix.Console.Commands
             {
                 WriteUsage();
             }
+            else if (ActionIsKnown)
+            {
+                WriteActionUsage();
+            }
             else
             {
-                if (ActionIsKnown)
-                {
-                    WriteActionUsage();
-                }
-                else
-                {
-                    WriteUnknownActionUsage();
-                    return 1;
-                }
+                WriteUnknownActionUsage();
+                return 1;
             }
             return 0;
         }
@@ -74,53 +69,28 @@ namespace Mix.Console.Commands
                 obj = (obj as ActionCommand).Action;
             }
 
-            WriteDescription(obj);
-            WriteProperties(obj);
+            IActionInfo info = ActionInfo.For(obj);
+            WriteLine("{0}: {1}", name, info.Description);
+
+            if (info.Arguments.Length > 0)
+            {
+                Write(Environment.NewLine);
+                WriteLine("Arguments:");
+                foreach (IArgumentInfo argument in info.Arguments)
+                {
+                    WriteLine("  {0,-15}{1}", argument.Name.ToLower(), argument.Description);
+                    if (argument.Required)
+                    {
+                        WriteLine("                 [required]");
+                    }
+                }
+            }
         }
 
         private void WriteUnknownActionUsage()
         {
             WriteLine("Unknown action: '{0}'", name);
             WriteLine("Type 'mix list' to see a list of all available actions.");
-        }
-
-        private void WriteDescription(object obj)
-        {
-            if (DescriptionAttribute.IsDefinedOn(obj))
-            {
-                string description = DescriptionAttribute.GetDescriptionFrom(obj);
-                WriteLine("{0}: {1}", name, description);
-            }
-            else
-            {
-                WriteLine("{0}: [no description]", name);
-            }
-        }
-
-        private void WriteProperties(object obj)
-        {
-            List<PropertyInfo> properties = new List<PropertyInfo>();
-
-            foreach (PropertyInfo property in obj.GetType().GetProperties())
-            {
-                if (ArgumentAttribute.IsDefinedOn(property))
-                {
-                    properties.Add(property);
-                }
-            }
-
-            if (properties.Count > 0)
-            {
-                Write(Environment.NewLine);
-                WriteLine("Arguments:");
-                foreach (PropertyInfo property in properties)
-                {
-                    string required = RequiredAttribute.IsDefinedOn(property) ?
-                                      String.Format("{0}{1,-17}{2}", Environment.NewLine, "", "[required]") : "";
-                    string description = DescriptionAttribute.GetDescriptionFrom(property);
-                    WriteLine("  {0,-15}{1}{2}", property.Name.ToLower(), description, required);
-                }
-            }
         }
     }
 }

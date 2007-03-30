@@ -48,6 +48,11 @@ namespace Mix.Core.Attributes
 
         public static string GetDescriptionFrom(object obj)
         {
+            return GetDescriptionFrom(obj, String.Empty);
+        }
+
+        public static string GetDescriptionFrom(object obj, string defaultValue)
+        {
             if (IsDefinedOn(obj))
             {
                 DescriptionAttribute attribute =
@@ -55,10 +60,15 @@ namespace Mix.Core.Attributes
                     obj.GetType().GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
-            return String.Empty;
+            return defaultValue;
         }
 
         public static string GetDescriptionFrom(PropertyInfo property)
+        {
+            return GetDescriptionFrom(property, String.Empty);
+        }
+
+        public static string GetDescriptionFrom(PropertyInfo property, string defaultValue)
         {
             if (IsDefinedOn(property))
             {
@@ -67,7 +77,7 @@ namespace Mix.Core.Attributes
                     property.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
-            return String.Empty;
+            return defaultValue;
         }
     }
 }

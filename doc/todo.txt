@@ -1,5 +1,4 @@
-Move ArgumentAttribute, RequiredAttribute logic to Mix.Core
-(see HelpCommand)
+DONE: Move ArgumentAttribute, RequiredAttribute logic to Mix.Core (see HelpCommand)
 Better: create a new class (ActionInfo and ArgumentInfo?) with information about properties(arguments) to set, which are required, what is their description etc.
 This class will be used to format the information for display.
 If HelpCommand does not have usings for System.Reflection and Mix.Core.Attributes then this class is succesfully created.

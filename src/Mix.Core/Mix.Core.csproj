@@ -39,6 +39,8 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Action.cs" />
+    <Compile Include="ActionInfo.cs" />
+    <Compile Include="ArgumentInfo.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />
     <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Attributes\ExampleAttribute.cs" />
@@ -47,6 +49,8 @@
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
+    <Compile Include="IActionInfo.cs" />
+    <Compile Include="IArgumentInfo.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Check.cs" />
