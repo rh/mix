@@ -47,7 +47,7 @@ namespace Mix.Core.Tests
                 Assert.AreEqual("Text", e.Property);
                 return;
             }
-            Assert.Fail("A 'RequiredValueMissingException' should have been thrown.");
+            Assert.Fail("A 'RequirementException' should have been thrown.");
         }
     }
 }

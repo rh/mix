@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Mix.Actions;
 using Mix.Core;
-using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
 {
@@ -123,14 +122,14 @@ namespace Mix.Console.Commands
         /// <summary>
         /// Registers <paramref name="command"/> for use in the application.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">The command to register.</param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when <paramref name="command"/> is <c>null</c>.
         /// </exception>
         /// <remarks>
         /// The 'name' of the <see cref="Command"/> is used as a unique key.
         /// The command's implementation of <see cref="object.ToString"/> is
-        /// used for the key.
+        /// used for this key.
         /// </remarks>
         public static void Register(Command command)
         {

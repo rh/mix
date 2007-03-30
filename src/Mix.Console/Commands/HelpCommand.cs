@@ -7,6 +7,10 @@ namespace Mix.Console.Commands
 {
     public class HelpCommand : Command
     {
+        private string name = String.Empty;
+
+        #region Constructors
+
         public HelpCommand()
         {
         }
@@ -16,49 +20,68 @@ namespace Mix.Console.Commands
             this.name = name;
         }
 
-        private string name = String.Empty;
-
-        public virtual string Name
-        {
-            get { return name; }
-            set { name = (value != null ? value.ToLower() : String.Empty); }
-        }
+        #endregion
 
         public override int Execute()
         {
-            if (String.IsNullOrEmpty(name))
+            if (ActionIsNotSet)
             {
-                WriteLine("Usage: mix <action> [arguments]");
-                WriteLine("");
-                WriteLine("Mix is a tool for XML refactoring.");
-                WriteLine("For additional information, see http://mix.sourceforge.net/");
-                WriteLine("");
-                WriteLine("Type 'mix version' to see the program version.");
-                WriteLine("Type 'mix list' to see a list of all available actions.");
-                WriteLine("Type 'mix help <action>' for help on a specific action.");
+                WriteUsage();
             }
             else
             {
-                if (CommandFactory.Commands.ContainsKey(name))
+                if (ActionIsKnown)
                 {
-                    object obj = CommandFactory.Commands[name];
-
-                    if (obj is ActionCommand)
-                    {
-                        obj = (obj as ActionCommand).Action;
-                    }
-
-                    WriteDescription(obj);
-                    WriteProperties(obj);
+                    WriteActionUsage();
                 }
                 else
                 {
-                    WriteLine("Unknown action: '{0}'", name);
-                    WriteLine("Type 'mix list' to see a list of all available actions.");
+                    WriteUnknownActionUsage();
                     return 1;
                 }
             }
             return 0;
+        }
+
+        private bool ActionIsNotSet
+        {
+            get { return String.IsNullOrEmpty(name); }
+        }
+
+        private bool ActionIsKnown
+        {
+            get { return CommandFactory.Commands.ContainsKey(name); }
+        }
+
+        private void WriteUsage()
+        {
+            WriteLine("Usage: mix <action> [arguments]");
+            Write(Environment.NewLine);
+            WriteLine("Mix is a tool for XML refactoring.");
+            WriteLine("For additional information, see http://mix.sourceforge.net/");
+            Write(Environment.NewLine);
+            WriteLine("Type 'mix version' to see the program version.");
+            WriteLine("Type 'mix list' to see a list of all available actions.");
+            WriteLine("Type 'mix help <action>' for help on a specific action.");
+        }
+
+        private void WriteActionUsage()
+        {
+            object obj = CommandFactory.Commands[name];
+
+            if (obj is ActionCommand)
+            {
+                obj = (obj as ActionCommand).Action;
+            }
+
+            WriteDescription(obj);
+            WriteProperties(obj);
+        }
+
+        private void WriteUnknownActionUsage()
+        {
+            WriteLine("Unknown action: '{0}'", name);
+            WriteLine("Type 'mix list' to see a list of all available actions.");
         }
 
         private void WriteDescription(object obj)
@@ -88,10 +111,12 @@ namespace Mix.Console.Commands
 
             if (properties.Count > 0)
             {
-                WriteLine(Environment.NewLine + "Arguments:");
+                Write(Environment.NewLine);
+                WriteLine("Arguments:");
                 foreach (PropertyInfo property in properties)
                 {
-                    string required = RequiredAttribute.IsDefinedOn(property) ? String.Format("{0}{1,-17}{2}", Environment.NewLine, "", "[required]") : "";
+                    string required = RequiredAttribute.IsDefinedOn(property) ?
+                                      String.Format("{0}{1,-17}{2}", Environment.NewLine, "", "[required]") : "";
                     string description = DescriptionAttribute.GetDescriptionFrom(property);
                     WriteLine("  {0,-15}{1}{2}", property.Name.ToLower(), description, required);
                 }
