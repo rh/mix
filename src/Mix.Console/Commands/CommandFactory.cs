@@ -5,7 +5,7 @@ using Mix.Core;
 
 namespace Mix.Console.Commands
 {
-    public static class CommandFactory
+    public class CommandFactory
     {
         private static IDictionary<string, Command> commands =
             new Dictionary<string, Command>();
@@ -40,7 +40,7 @@ namespace Mix.Console.Commands
         /// <returns>A <see cref="Command"/> is always returned, i.e.
         /// <c>null</c> is never returned.
         /// </returns>
-        public static Command Create(string[] args)
+        public Command Create(string[] args)
         {
             Check.ArgumentIsNotNull(args, "args");
 
@@ -98,22 +98,25 @@ namespace Mix.Console.Commands
                 string action = args[0];
                 properties.Add("action", action);
 
-                for (int i = 1; i < args.Length; i++)
+                if (args.Length > 1)
                 {
-                    string arg = args[i];
-                    string name = arg.Split(':')[0].Replace("/", "").ToLower();
-                    int index = arg.IndexOf(':');
-                    string value;
-                    if (index > 0)
+                    for (int i = 1; i < args.Length; i++)
                     {
-                        value = arg.Substring(index + 1);
-                    }
-                    else
-                    {
-                        value = String.Empty;
-                    }
+                        string arg = args[i];
+                        string name = arg.Split(':')[0].Replace("/", "").ToLower();
+                        int index = arg.IndexOf(':');
+                        string value;
+                        if (index > 0)
+                        {
+                            value = arg.Substring(index + 1);
+                        }
+                        else
+                        {
+                            value = String.Empty;
+                        }
 
-                    properties.Add(name, value);
+                        properties.Add(name, value);
+                    }
                 }
             }
             return properties;

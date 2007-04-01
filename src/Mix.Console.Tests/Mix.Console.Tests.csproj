@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -35,6 +35,8 @@
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -44,9 +46,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mix.Actions\Mix.Actions.csproj">
+      <Project>{122DC43F-106B-409D-8819-FE9BAC42520B}</Project>
+      <Name>Mix.Actions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mix.Console\Mix.Console.csproj">
       <Project>{E5F2DEFF-9CA9-40A3-B291-43D463D1A894}</Project>
       <Name>Mix.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mix.Core\Mix.Core.csproj">
+      <Project>{917B9ECF-889A-4CCE-A87C-282D2BFF8F9E}</Project>
+      <Name>Mix.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

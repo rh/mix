@@ -8,6 +8,7 @@ Refactor CommandFactory:
 - remove all references to concrete actions:
   * either use dynamic registration
   * or give the actions a possibility to register themselves
+- do not use Register(new X())
 
 DONE: Refactor ListCommand:
 - do not use reflection (so move it somewhere else, into Mix.Core)

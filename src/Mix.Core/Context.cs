@@ -86,6 +86,20 @@ namespace Mix.Core
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="context"></param>
+        public Context(IContext context)
+        {
+            filename = context.FileName;
+            action = context.Action;
+            output = context.Output;
+            error = context.Error;
+            xml = context.Xml;
+            xpath = context.XPath;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="properties"></param>
         public Context(IDictionary<string, string> properties)
         {
