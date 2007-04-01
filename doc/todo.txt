@@ -9,7 +9,7 @@ Refactor CommandFactory:
   * either use dynamic registration
   * or give the actions a possibility to register themselves
 
-Refactor ListCommand:
+DONE: Refactor ListCommand:
 - do not use reflection (so move it somewhere else, into Mix.Core)
 
 When using wildcards for files:
