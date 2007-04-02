@@ -234,6 +234,15 @@ namespace Mix.Core
 
         private class NullContext : Context
         {
+            public override bool Equals(object obj)
+            {
+                return (obj as NullContext != null);
+            }
+
+            public override int GetHashCode()
+            {
+                return 0;
+            }
         }
 
         #endregion

@@ -4,16 +4,24 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Makes all attribute values uppercase.")]
+    [Description("Makes the value of all selected nodes uppercase.")]
     public class UpperCaseAction : Action
     {
         #region Action Overrides
 
         protected override void ExecuteCore(XmlElement element)
         {
-            foreach (XmlAttribute attribute in element.Attributes)
+            if (element.HasChildNodes)
             {
-                attribute.Value = attribute.Value.ToUpper();
+                if (element.FirstChild is XmlText)
+                {
+                    element.InnerText = element.InnerText.ToUpper();
+                }
+                else if (element.FirstChild is XmlCDataSection)
+                {
+                    XmlCDataSection section = (XmlCDataSection) element.FirstChild;
+                    section.Value = section.Value.ToUpper();
+                }
             }
         }
 

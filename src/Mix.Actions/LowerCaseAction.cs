@@ -4,7 +4,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Makes all attribute values lowercase.")]
+    [Description("Makes the value of all selected nodes lowercase.")]
     public class LowerCaseAction : Action
     {
         #region Action Overrides

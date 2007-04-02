@@ -76,12 +76,55 @@ namespace Mix.Console.Tests
         }
 
         [Test]
-        public void HelpCommand()
+        public void HelpCommand1()
+        {
+            CommandFactory factory = new CommandFactory();
+            Command command = factory.Create(new string[] { "help"});
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
+        }
+
+        [Test]
+        public void HelpCommand2()
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "clear"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("clear")));
+        }
+
+        [Test]
+        public void HelpCommand3()
+        {
+            CommandFactory factory = new CommandFactory();
+            Command command = factory.Create(new string[] { "help", "rename" });
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("rename")));
+        }
+
+        [Test]
+        public void HelpCommand4()
+        {
+            CommandFactory factory = new CommandFactory();
+            Command command = factory.Create(new string[] { "help", "foo" });
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("foo")));
+        }
+
+        [Test]
+        public void ActionCommand()
+        {
+            CommandFactory factory = new CommandFactory();
+            Command command = factory.Create(new string[] { "clear", "file:*.xml", "xpath://@*" });
+            Assert.AreEqual(typeof(ActionCommand), command.GetType());
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Register()
+        {
+            CommandFactory.Register(new HelpCommand());
+            CommandFactory.Register(new HelpCommand());
         }
     }
 }

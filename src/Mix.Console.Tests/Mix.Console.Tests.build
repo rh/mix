@@ -25,6 +25,7 @@
           <include name="${lib.dir}" />
         </lib>
         <include name="Mix.Core.dll" />
+        <include name="Mix.Actions.dll" />
         <include name="mix.exe" />
         <include name="nunit.framework.dll" />
       </references>

@@ -37,19 +37,6 @@ namespace Mix.Console.Commands
         }
 
         /// <summary>
-        /// Writes out a formatted string to the standard output stream, using
-        /// the same semantics as <see cref="string.Format(string, object)"/>.
-        /// </summary>
-        /// <param name="format">A <see cref="string"/> containing zero or more
-        /// format items.</param>
-        /// <param name="args">An <see cref="object"/> array containing zero or
-        /// more objects to format.</param>
-        protected void Write(string format, params object[] args)
-        {
-            Context.Output.Write(format, args);
-        }
-
-        /// <summary>
         /// Writes <paramref name="value"/>, followed by the current line 
         /// terminator, to the standard output stream.
         /// </summary>

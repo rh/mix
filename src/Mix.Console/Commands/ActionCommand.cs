@@ -49,14 +49,27 @@ namespace Mix.Console.Commands
             }
 
             string pattern = Context["file"];
+            string[] files;
 
-            foreach (string file in Directory.GetFiles(".", pattern))
+            try
+            {
+                files = Directory.GetFiles(".", pattern);
+            }
+            catch (ArgumentException e)
+            {
+                log.Error("The pattern is not valid.", e);
+                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                return 1;
+            }
+
+            foreach (string file in files)
             {
                 if (!ExecuteAction(file))
                 {
                     return 1;
                 }
             }
+
             return 0;
         }
 
@@ -80,7 +93,8 @@ namespace Mix.Console.Commands
                 {
                     WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
-                WriteLine("{1}Type 'mix help {0}' for usage.", Context.Action, Environment.NewLine);
+                Write(Environment.NewLine);
+                WriteLine("Type 'mix help {0}' for usage.", Context.Action);
                 return false;
             }
             catch (ActionExecutionException e)

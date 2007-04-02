@@ -48,6 +48,7 @@
     <Compile Include="ClearActionFixture.cs" />
     <Compile Include="CopyActionFixture.cs" />
     <Compile Include="CopyAttributeActionFixture.cs" />
+    <Compile Include="CountActionFixture.cs" />
     <Compile Include="InnerXmlActionFixture.cs" />
     <Compile Include="LowercaseActionFixture.cs" />
     <Compile Include="PrependActionFixture.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="RenameActionFixture.cs" />
     <Compile Include="ReplaceActionFixture.cs" />
     <Compile Include="TestFixture.cs" />
+    <Compile Include="UpperCaseActionFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mix.Actions\Mix.Actions.csproj">
