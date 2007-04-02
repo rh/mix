@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Prepends text to the text nodes of the selected elements," +
+    [Description("Prepends text to the text nodes of the selected elements, " +
                  "or to the value of the selected attributes.")]
     public class PrependAction : Action
     {

@@ -26,9 +26,9 @@ namespace Mix.Actions.Tests
             Run(pre, post, xpath, action);
         }
 
-        [Test]
+        /*[Test]
         [Ignore("Renaming elements like <rename><rename/></rename> " +
-                "is currently not possible; this will result in <renamed><rename/></renamed>")]
+                "is currently not possible; this will result in <renamed><rename/></renamed>")]*/
         public void RenameElementsWithChildElements()
         {
             string pre = @"<root><pre><pre /></pre></root>";

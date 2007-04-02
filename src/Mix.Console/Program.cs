@@ -7,6 +7,7 @@ namespace Mix.Console
 {
     public class Program
     {
+        [STAThread]
         private static int Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException +=
