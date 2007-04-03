@@ -13,7 +13,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child>something</child></root>";
             string post = @"<root><child>" + xml + "</child></root>";
             string xpath = "//child";
-            Action action = new InnerXmlAction(xml);
+            InnerXmlAction action = new InnerXmlAction();
+            action.Xml = xml;
             Run(pre, post, xpath, action);
         }
     }

@@ -42,7 +42,9 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child>abcdefgh</child><child>abcdefgh</child></root>";
             string post = @"<root><child>abFOOgh</child><child>abFOOgh</child></root>";
             string xpath = "//child";
-            Action action = new ReplaceAction("cdef", "FOO");
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
     }

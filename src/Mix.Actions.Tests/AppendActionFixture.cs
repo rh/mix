@@ -32,7 +32,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root attribute=""""></root>";
             const string post = @"<root attribute=""append""></root>";
             const string xpath = "root/@attribute";
-            Action action = new AppendAction("append");
+            AppendAction action = new AppendAction();
+            action.Text = "append";
             Run(pre, post, xpath, action);
         }
     }

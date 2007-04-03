@@ -10,7 +10,23 @@ namespace Mix.Actions
     [Description("Extracts the selected elements to new files.")]
     public class ExtractAction : Action
     {
-        private string name;
+        private string name = String.Empty;
+
+        #region Constructors
+
+        [DebuggerStepThrough]
+        public ExtractAction()
+            : this(String.Empty)
+        {
+        }
+
+        [DebuggerStepThrough]
+        public ExtractAction(string name)
+        {
+            this.name = name;
+        }
+
+        #endregion
 
         [Argument, Required]
         [Description("The name of the new file(s)." +
@@ -36,17 +52,19 @@ namespace Mix.Actions
             document.Save(filename);
         }
 
-        protected string GetFileName(XmlElement element)
+        protected virtual string GetFileName(XmlElement element)
         {
-            if (name.StartsWith("xpath:"))
+            Debug.Assert(!String.IsNullOrEmpty(Name), "!String.IsNullOrEmpty(Name)");
+
+            if (Name.StartsWith("xpath:"))
             {
-                string xpath = name.Replace("xpath:", "");
+                string xpath = Name.Replace("xpath:", "");
                 XmlNode node = element.SelectSingleNode(xpath);
                 return String.Format("{0}.xml", node.Value);
             }
             else
             {
-                return String.Format("{0}.xml", name);
+                return String.Format("{0}.xml", Name);
             }
         }
     }

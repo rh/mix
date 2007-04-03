@@ -22,7 +22,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre=""pre"" />";
             string post = @"<root pre=""prefixpre"" />";
             string xpath = "root/@pre";
-            Action action = new PrependAction("prefix");
+            PrependAction action = new PrependAction();
+            action.Text = "prefix";
             Run(pre, post, xpath, action);
         }
     }

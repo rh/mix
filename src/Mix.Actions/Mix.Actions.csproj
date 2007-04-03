@@ -40,7 +40,6 @@
     </Compile>
     <Compile Include="AddAttributeAction.cs" />
     <Compile Include="ClearAction.cs" />
-    <Compile Include="CopyAction.cs" />
     <Compile Include="CopyAttributeAction.cs" />
     <Compile Include="CountAction.cs" />
     <Compile Include="ExtractAction.cs" />

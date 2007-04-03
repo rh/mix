@@ -20,9 +20,11 @@ namespace Mix.Actions.Tests
         public void AddAttributes()
         {
             const string pre = @"<root pre="""" />";
-            const string post = @"<root pre="""" post="""" />";
+            const string post = @"<root pre="""" post=""value"" />";
             const string xpath = "root/@pre";
-            Action action = new AddAttributeAction("post");
+            AddAttributeAction action = new AddAttributeAction();
+            action.Name = "post";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
     }
