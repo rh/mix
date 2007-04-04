@@ -9,29 +9,7 @@ namespace Mix.Actions
     [Description("Copies the values of the selected attributes to new or existing attributes.")]
     public class CopyAttributeAction : Action
     {
-        #region Instance Variables
-
         private string name = String.Empty;
-
-        #endregion
-
-        #region Constructors
-
-        [DebuggerStepThrough]
-        public CopyAttributeAction()
-            : this(String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public CopyAttributeAction(string name)
-        {
-            this.name = name;
-        }
-
-        #endregion
-
-        #region Properties
 
         [Argument, Required]
         [Description("The name of the new or existing attribute.")]
@@ -42,10 +20,6 @@ namespace Mix.Actions
             [DebuggerStepThrough]
             set { name = value; }
         }
-
-        #endregion
-
-        #region Action Overrides
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
@@ -60,7 +34,5 @@ namespace Mix.Actions
                 XmlHelper.AddAttribute(attribute.OwnerDocument, owner, Name, attribute.Value);
             }
         }
-
-        #endregion
     }
 }

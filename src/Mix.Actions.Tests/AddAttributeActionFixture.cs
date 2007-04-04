@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root />";
             const string post = @"<root post="""" />";
             const string xpath = "root";
-            Action action = new AddAttributeAction("post");
+            AddAttributeAction action = new AddAttributeAction();
+            action.Name = "post";
             Run(pre, post, xpath, action);
         }
 

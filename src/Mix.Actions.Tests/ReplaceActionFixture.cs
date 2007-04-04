@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,9 @@ namespace Mix.Actions.Tests
             string pre = @"<root attribute=""abcdefgh""></root>";
             string post = @"<root attribute=""abFOOgh""></root>";
             string xpath = "root/@attribute";
-            Action action = new ReplaceAction("cdef", "FOO");
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
 
@@ -22,7 +23,9 @@ namespace Mix.Actions.Tests
             string pre = @"<root attribute=""abcdefgh""><child attribute=""abcdefgh"" /></root>";
             string post = @"<root attribute=""abFOOgh""><child attribute=""abFOOgh"" /></root>";
             string xpath = "//@attribute";
-            Action action = new ReplaceAction("cdef", "FOO");
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
 
@@ -32,7 +35,9 @@ namespace Mix.Actions.Tests
             string pre = @"<root>abcdefgh</root>";
             string post = @"<root>abFOOgh</root>";
             string xpath = "root";
-            Action action = new ReplaceAction("cdef", "FOO");
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
 

@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root>pre</root>";
             string post = @"<root>prefixpre</root>";
             string xpath = "root";
-            Action action = new PrependAction("prefix");
+            PrependAction action = new PrependAction();
+            action.Text = "prefix";
             Run(pre, post, xpath, action);
         }
 

@@ -9,29 +9,7 @@ namespace Mix.Actions
     [Description("Renames all selected elements or attributes.")]
     public class RenameAction : Action
     {
-        #region Instance Variables
-
         private string name = String.Empty;
-
-        #endregion
-
-        #region Constructors
-
-        [DebuggerStepThrough]
-        public RenameAction()
-            : this(String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public RenameAction(string name)
-        {
-            this.name = name;
-        }
-
-        #endregion
-
-        #region Properties
 
         [Argument, Required]
         [Description("The new name for the elements or attributes.")]
@@ -42,10 +20,6 @@ namespace Mix.Actions
             [DebuggerStepThrough]
             set { name = value; }
         }
-
-        #endregion
-
-        #region Action Overrides
 
         protected override void ExecuteCore(XmlElement element)
         {
@@ -76,7 +50,5 @@ namespace Mix.Actions
             owner.Attributes.InsertBefore(newattribute, attribute);
             owner.Attributes.Remove(attribute);
         }
-
-        #endregion
     }
 }

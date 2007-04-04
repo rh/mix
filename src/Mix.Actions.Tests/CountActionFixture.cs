@@ -15,7 +15,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child/><child/></root>";
             string post = pre;
             string xpath = "//child";
-            Action action = new CountAction();
+            CountAction action = new CountAction();
             Run(pre, post, xpath, action);
         }
 
@@ -54,7 +54,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child/><child/></root>";
             string post = pre;
             string xpath = "//";
-            Action action = new CountAction();
+            CountAction action = new CountAction();
             Run(pre, post, xpath, action);
         }
     }

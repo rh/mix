@@ -12,22 +12,6 @@ namespace Mix.Actions
     {
         private string name = String.Empty;
 
-        #region Constructors
-
-        [DebuggerStepThrough]
-        public ExtractAction()
-            : this(String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public ExtractAction(string name)
-        {
-            this.name = name;
-        }
-
-        #endregion
-
         [Argument, Required]
         [Description("The name of the new file(s)." +
                      "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]

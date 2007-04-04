@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /></root>";
             string post = @"<root><post /></root>";
             string xpath = "root/pre";
-            Action action = new RenameAction("post");
+            RenameAction action = new RenameAction();
+            action.Name = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -22,7 +22,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root />";
             string post = @"<root />";
             string xpath = "root";
-            Action action = new RenameAction("root");
+            RenameAction action = new RenameAction();
+            action.Name = "root";
             Run(pre, post, xpath, action);
         }
 
@@ -32,7 +33,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /><pre /></root>";
             string post = @"<root><post /><post /></root>";
             string xpath = "root/pre";
-            Action action = new RenameAction("post");
+            RenameAction action = new RenameAction();
+            action.Name = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -45,7 +47,8 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre><pre /></pre></root>";
             string post = @"<root><post><post /></post></root>";
             string xpath = "//pre";
-            Action action = new RenameAction("post");
+            RenameAction action = new RenameAction();
+            action.Name = "post";
             Run(pre, post, xpath, action);
         }
 

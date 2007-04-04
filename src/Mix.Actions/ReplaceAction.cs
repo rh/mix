@@ -10,27 +10,8 @@ namespace Mix.Actions
                  "or in the values of selected attributes.")]
     public class ReplaceAction : Action
     {
-        #region Instance Variables
-
         private string oldValue = String.Empty;
         private string newValue = String.Empty;
-
-        #endregion
-
-        public ReplaceAction()
-        {
-        }
-
-        public ReplaceAction(string oldValue, string newValue)
-        {
-            Check.ArgumentIsNotNullOrEmpty(oldValue, "oldValue");
-            Check.ArgumentIsNotNullOrEmpty(newValue, "newValue");
-
-            this.oldValue = oldValue;
-            this.newValue = newValue;
-        }
-
-        #region Properties
 
         [Argument, Required]
         [Description("The value to replace.")]
@@ -52,10 +33,6 @@ namespace Mix.Actions
             set { newValue = value; }
         }
 
-        #endregion
-
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             if (element.HasChildNodes)
@@ -72,7 +49,5 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value.Replace(OldValue, NewValue);
         }
-
-        #endregion
     }
 }

@@ -7,8 +7,6 @@ namespace Mix.Actions
     [Description("Makes the value of all selected nodes uppercase.")]
     public class UpperCaseAction : Action
     {
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             if (element.HasChildNodes)
@@ -29,7 +27,5 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value.ToUpper();
         }
-
-        #endregion
     }
 }

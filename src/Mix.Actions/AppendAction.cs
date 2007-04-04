@@ -10,41 +10,8 @@ namespace Mix.Actions
                  "or to the value of the selected attributes.")]
     public class AppendAction : Action
     {
-        #region Instance Variables
-
         private string text = String.Empty;
 
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppendAction"/> class.
-        /// </summary>
-        [DebuggerStepThrough]
-        public AppendAction()
-            : this(String.Empty)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppendAction"/> class.
-        /// </summary>
-        /// <param name="text">The text to append.</param>
-        [DebuggerStepThrough]
-        public AppendAction(string text)
-        {
-            this.text = text;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the text to append.
-        /// </summary>
-        /// <value>The text to append.</value>
         [Argument, Required]
         [Description("The text to append.")]
         public virtual string Text
@@ -55,14 +22,6 @@ namespace Mix.Actions
             set { text = value; }
         }
 
-        #endregion
-
-        #region Action Overrides
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="element">The element.</param>
         protected override void ExecuteCore(XmlElement element)
         {
             if (element.HasChildNodes)
@@ -83,7 +42,5 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value + Text;
         }
-
-        #endregion
     }
 }

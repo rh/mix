@@ -10,29 +10,7 @@ namespace Mix.Actions
                  "or to the value of the selected attributes.")]
     public class PrependAction : Action
     {
-        #region Instance Variables
-
         private string text = String.Empty;
-
-        #endregion
-
-        #region Constructors
-
-        [DebuggerStepThrough]
-        public PrependAction()
-            : this(String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public PrependAction(string text)
-        {
-            this.text = text;
-        }
-
-        #endregion
-
-        #region Properties
 
         [Argument, Required]
         [Description("The text to prepend.")]
@@ -43,10 +21,6 @@ namespace Mix.Actions
             [DebuggerStepThrough]
             set { text = value; }
         }
-
-        #endregion
-
-        #region Action Overrides
 
         protected override void ExecuteCore(XmlElement element)
         {
@@ -63,7 +37,5 @@ namespace Mix.Actions
         {
             attribute.Value = Text + attribute.Value;
         }
-
-        #endregion
     }
 }

@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root>Some text</root>";
             const string post = @"<root>Some textappend</root>";
             const string xpath = "root";
-            Action action = new AppendAction("append");
+            AppendAction action = new AppendAction();
+            action.Text = "append";
             Run(pre, post, xpath, action);
         }
 
@@ -22,7 +22,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = @"<root>append</root>";
             const string xpath = "root";
-            Action action = new AppendAction("append");
+            AppendAction action = new AppendAction();
+            action.Text = "append";
             Run(pre, post, xpath, action);
         }
 

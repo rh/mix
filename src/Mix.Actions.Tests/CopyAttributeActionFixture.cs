@@ -1,4 +1,3 @@
-using Mix.Core;
 using NUnit.Framework;
 
 namespace Mix.Actions.Tests
@@ -12,7 +11,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root attribute=""value"" />";
             const string post = @"<root attribute=""value"" newattribute=""value"" />";
             const string xpath = "//@attribute";
-            Action action = new CopyAttributeAction("newattribute");
+            CopyAttributeAction action = new CopyAttributeAction();
+            action.Name = "newattribute";
             Run(pre, post, xpath, action);
         }
 

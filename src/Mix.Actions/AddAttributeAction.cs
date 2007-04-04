@@ -10,37 +10,8 @@ namespace Mix.Actions
                  "or to the owner element of the selected attributes.")]
     public class AddAttributeAction : Action
     {
-        #region Instance Variables
-
         private string name = String.Empty;
         private string @value = String.Empty;
-
-        #endregion
-
-        #region Constructors
-
-        [DebuggerStepThrough]
-        public AddAttributeAction()
-            : this(String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public AddAttributeAction(string name)
-            : this(name, String.Empty)
-        {
-        }
-
-        [DebuggerStepThrough]
-        public AddAttributeAction(string name, string value)
-        {
-            this.name = name;
-            this.@value = value;
-        }
-
-        #endregion
-
-        #region Properties
 
         [Argument, Required]
         [Description("The name of the new attribute.")]
@@ -62,10 +33,6 @@ namespace Mix.Actions
             set { this.@value = value; }
         }
 
-        #endregion
-
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             XmlHelper.AddAttribute(element.OwnerDocument, element, Name, Value);
@@ -75,7 +42,5 @@ namespace Mix.Actions
         {
             XmlHelper.AddAttribute(attribute.OwnerDocument, attribute.OwnerElement, Name, Value);
         }
-
-        #endregion
     }
 }

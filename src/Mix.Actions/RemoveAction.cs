@@ -7,8 +7,6 @@ namespace Mix.Actions
     [Description("Removes all selected elements or attributes.")]
     public class RemoveAction : Action
     {
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             element.ParentNode.RemoveChild(element);
@@ -18,7 +16,5 @@ namespace Mix.Actions
         {
             attribute.OwnerElement.RemoveAttributeNode(attribute);
         }
-
-        #endregion
     }
 }
