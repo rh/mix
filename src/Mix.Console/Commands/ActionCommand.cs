@@ -31,6 +31,15 @@ namespace Mix.Console.Commands
 
         #region Properties
 
+        public override IContext Context
+        {
+            set
+            {
+                base.Context = value;
+                base.Context.Action = action.ToString();
+            }
+        }
+
         public virtual Action Action
         {
             [DebuggerStepThrough]

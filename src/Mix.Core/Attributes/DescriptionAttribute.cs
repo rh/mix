@@ -46,11 +46,6 @@ namespace Mix.Core.Attributes
             return property.IsDefined(typeof(DescriptionAttribute), false);
         }
 
-        public static string GetDescriptionFrom(object obj)
-        {
-            return GetDescriptionFrom(obj, String.Empty);
-        }
-
         public static string GetDescriptionFrom(object obj, string defaultValue)
         {
             if (IsDefinedOn(obj))

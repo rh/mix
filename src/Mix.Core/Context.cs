@@ -117,11 +117,6 @@ namespace Mix.Core
             {
                 xpath = this["xpath"] ?? String.Empty;
             }
-
-            if (ContainsKey("xml"))
-            {
-                xml = this["xml"] ?? String.Empty;
-            }
         }
 
         #endregion

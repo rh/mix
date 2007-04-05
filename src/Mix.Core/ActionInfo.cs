@@ -2,18 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using log4net;
 using Mix.Core.Attributes;
 
 namespace Mix.Core
 {
     public class ActionInfo : IActionInfo
     {
-        private static readonly ILog logger =
-            LogManager.GetLogger(typeof(ActionInfo));
-
         private string name = String.Empty;
-        private string[] aliases = new string[0] {};
         private string description = "[no description]";
         private IArgumentInfo[] arguments = new IArgumentInfo[0] {};
 
@@ -24,11 +19,6 @@ namespace Mix.Core
         public string Name
         {
             get { return name; }
-        }
-
-        public string[] Aliases
-        {
-            get { return aliases; }
         }
 
         public string Description
@@ -91,23 +81,15 @@ namespace Mix.Core
                     continue;
                 }
 
-                try
+                foreach (Type type in assembly.GetTypes())
                 {
-                    foreach (Type type in assembly.GetTypes())
+                    if (IsAction(type))
                     {
-                        if (IsAction(type))
+                        if (!actionTypes.Contains(type))
                         {
-                            if (!actionTypes.Contains(type))
-                            {
-                                actionTypes.Add(type);
-                            }
+                            actionTypes.Add(type);
                         }
                     }
-                }
-                catch (ReflectionTypeLoadException e)
-                {
-                    logger.Error("One or more types could not be loaded.", e);
-                    throw;
                 }
             }
         }

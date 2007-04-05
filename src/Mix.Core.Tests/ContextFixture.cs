@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
@@ -83,6 +84,8 @@ namespace Mix.Core.Tests
             Assert.IsNotNull(context.XPath);
             Assert.IsNotNull(context.Output);
             Assert.IsNotNull(context.Error);
+            Assert.AreEqual(context, Context.Null);
+            Assert.AreEqual(0, context.GetHashCode());
         }
 
         [Test]
@@ -96,6 +99,54 @@ namespace Mix.Core.Tests
             context.Output.Write("test");
             context.Error.Write("test");
             Assert.AreEqual("testtest", writer.ToString());
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InvalidAction()
+        {
+            Context context = new Context();
+            context.Action = null;
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InvalidOutput()
+        {
+            Context context = new Context();
+            context.Output = null;
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InvalidError()
+        {
+            Context context = new Context();
+            context.Error = null;
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InvalidFileName()
+        {
+            Context context = new Context();
+            context.FileName = null;
+        }
+
+        [Test]
+        public void FormatFileName()
+        {
+            Context context = new Context();
+            context.FileName = @".\file.xml";
+            Assert.AreEqual("file.xml", context.FileName);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InvalidXml()
+        {
+            Context context = new Context();
+            context.Xml = null;
         }
     }
 }
