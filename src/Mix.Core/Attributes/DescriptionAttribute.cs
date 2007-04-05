@@ -63,11 +63,6 @@ namespace Mix.Core.Attributes
             return defaultValue;
         }
 
-        public static string GetDescriptionFrom(PropertyInfo property)
-        {
-            return GetDescriptionFrom(property, String.Empty);
-        }
-
         public static string GetDescriptionFrom(PropertyInfo property, string defaultValue)
         {
             if (IsDefinedOn(property))
