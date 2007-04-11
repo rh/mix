@@ -26,9 +26,16 @@ namespace Mix.Actions
         {
             if (element.HasChildNodes)
             {
-                if (element.FirstChild is XmlText)
+                foreach (XmlNode node in element.ChildNodes)
                 {
-                    element.FirstChild.Value = element.FirstChild.Value + Text;
+                    if (node is XmlText)
+                    {
+                        node.Value = node.Value + Text;
+                    }
+                    else if (node is XmlCDataSection)
+                    {
+                        node.Value = node.Value + Text;
+                    }
                 }
             }
             else

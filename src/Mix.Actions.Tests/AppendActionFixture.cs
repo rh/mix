@@ -28,6 +28,17 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void PrependMixedElements()
+        {
+            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
+            string post = @"<root>preappend<![CDATA[preappend]]>preappend</root>";
+            string xpath = "root";
+            AppendAction action = new AppendAction();
+            action.Text = "append";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void AppendToAttribute()
         {
             const string pre = @"<root attribute=""""></root>";
