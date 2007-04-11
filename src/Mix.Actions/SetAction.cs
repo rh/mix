@@ -25,9 +25,22 @@ namespace Mix.Actions
         {
             if (element.HasChildNodes)
             {
-                if (element.FirstChild is XmlText)
+                if (element.ChildNodes.Count == 1)
                 {
-                    element.FirstChild.Value = Text;
+                    if (element.FirstChild is XmlText)
+                    {
+                        element.FirstChild.Value = Text;
+                    }
+                    else if (element.FirstChild is XmlCDataSection)
+                    {
+                        element.FirstChild.Value = Text;
+                    }
+                }
+                else
+                {
+                    element.InnerXml = String.Empty;
+                    XmlText newElement = element.OwnerDocument.CreateTextNode(Text);
+                    element.AppendChild(newElement);
                 }
             }
             else
