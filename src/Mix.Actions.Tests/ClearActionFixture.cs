@@ -16,6 +16,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ClearMixedElements()
+        {
+            string pre = @"<root>something<![CDATA[something]]>something</root>";
+            string post = @"<root><![CDATA[]]></root>";
+            string xpath = "root";
+            ClearAction action = new ClearAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void ClearAttribute()
         {
             string pre = @"<root pre=""something"" />";
