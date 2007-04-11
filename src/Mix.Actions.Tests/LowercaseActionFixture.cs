@@ -26,6 +26,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void LowerCaseMixedElements()
+        {
+            string pre = @"<root>A<![CDATA[VALUE]]>B</root>";
+            string post = @"<root>a<![CDATA[value]]>b</root>";
+            string xpath = "root";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void LowerCaseAttributeValues()
         {
             string pre = @"<root attribute=""VALUE""></root>";
