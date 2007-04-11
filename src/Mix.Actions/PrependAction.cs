@@ -38,6 +38,11 @@ namespace Mix.Actions
                     }
                 }
             }
+            else
+            {
+                XmlText newElement = element.OwnerDocument.CreateTextNode(Text);
+                element.AppendChild(newElement);
+            }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
