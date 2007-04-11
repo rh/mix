@@ -14,13 +14,16 @@ namespace Mix.Actions
         {
             if (element.HasChildNodes)
             {
-                if (element.FirstChild is XmlText)
+                foreach (XmlNode node in element.ChildNodes)
                 {
-                    element.FirstChild.Value = element.FirstChild.Value.Trim();
-                }
-                else if (element.FirstChild is XmlCDataSection)
-                {
-                    element.FirstChild.Value = element.FirstChild.Value.Trim();
+                    if (node is XmlText)
+                    {
+                        node.Value = node.Value.Trim();
+                    }
+                    else if (node is XmlCDataSection)
+                    {
+                        node.Value = node.Value.Trim();
+                    }
                 }
             }
         }
