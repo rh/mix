@@ -51,6 +51,7 @@
     <Compile Include="RenameAction.cs" />
     <Compile Include="AppendAction.cs" />
     <Compile Include="ReplaceAction.cs" />
+    <Compile Include="ShowAction.cs" />
     <Compile Include="UpperCaseAction.cs" />
   </ItemGroup>
   <ItemGroup>
