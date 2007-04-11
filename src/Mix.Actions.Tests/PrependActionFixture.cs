@@ -17,6 +17,17 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void PrependMixedElements()
+        {
+            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
+            string post = @"<root>prefixpre<![CDATA[prefixpre]]>prefixpre</root>";
+            string xpath = "root";
+            PrependAction action = new PrependAction();
+            action.Text = "prefix";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void PrependAttributes()
         {
             string pre = @"<root pre=""pre"" />";
