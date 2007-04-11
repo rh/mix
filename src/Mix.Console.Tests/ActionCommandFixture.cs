@@ -48,7 +48,7 @@ namespace Mix.Console.Tests
             ActionCommand command = new ActionCommand(action);
             // This will not actually select a file
             command.Context["file"] = "file";
-            Assert.IsTrue(command.Execute() == 0);
+            Assert.IsTrue(command.Execute() == 1);
         }
 
         [Test]

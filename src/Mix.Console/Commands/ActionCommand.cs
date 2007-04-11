@@ -71,6 +71,12 @@ namespace Mix.Console.Commands
                 return 1;
             }
 
+            if (files == null || files.Length == 0)
+            {
+                Context.Output.WriteLine("No files have been selected.");
+                return 1;
+            }
+
             foreach (string file in files)
             {
                 if (!ExecuteAction(file))
