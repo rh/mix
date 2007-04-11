@@ -8,7 +8,7 @@ namespace Mix.Actions.Tests
         [Test]
         public void ClearElements()
         {
-            string pre = @"<root><child>something</child></root>";
+            string pre = @"<root>something</root>";
             string post = @"<root></root>";
             string xpath = "root";
             ClearAction action = new ClearAction();
