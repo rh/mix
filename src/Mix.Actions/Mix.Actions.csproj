@@ -53,6 +53,7 @@
     <Compile Include="ReplaceAction.cs" />
     <Compile Include="SetAction.cs" />
     <Compile Include="ShowAction.cs" />
+    <Compile Include="TrimAction.cs" />
     <Compile Include="UpperCaseAction.cs" />
   </ItemGroup>
   <ItemGroup>

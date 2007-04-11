@@ -32,6 +32,7 @@ namespace Mix.Console.Commands
             Register(new ActionCommand(new CountAction()));
             Register(new ActionCommand(new ShowAction()));
             Register(new ActionCommand(new SetAction()));
+            Register(new ActionCommand(new TrimAction()));
         }
 
         /// <summary>
