@@ -11,8 +11,8 @@ namespace Mix.Actions
     /// <example>
     /// TODO: add example
     /// </example>
-    [Description("Removes all attributes and child elements of selected elements, " +
-                 "or clears selected attributes.")]
+    [Description("Clears the text nodes of selected elements, " +
+                 "or the value of selected attributes.")]
     public class ClearAction : Action
     {
         #region Action Overrides
@@ -23,7 +23,17 @@ namespace Mix.Actions
         /// <param name="element"></param>
         protected override void ExecuteCore(XmlElement element)
         {
-            element.RemoveAll();
+            if (element.HasChildNodes)
+            {
+                if (element.FirstChild is XmlText)
+                {
+                    element.FirstChild.Value = String.Empty;
+                }
+                else if (element.FirstChild is XmlCDataSection)
+                {
+                    element.FirstChild.Value = String.Empty;
+                }
+            }
         }
 
         /// <summary>
