@@ -105,23 +105,39 @@ namespace Mix.Console.Commands
                     for (int i = 1; i < args.Length; i++)
                     {
                         string arg = args[i];
-                        string name = arg.Split(':')[0].Replace("/", "").ToLower();
-                        int index = arg.IndexOf(':');
-                        string value;
-                        if (index > 0)
-                        {
-                            value = arg.Substring(index + 1);
-                        }
-                        else
-                        {
-                            value = String.Empty;
-                        }
-
+                        string name = GetName(arg);
+                        string value = GetValue(arg);
                         properties.Add(name, value);
                     }
                 }
             }
             return properties;
+        }
+
+        private static string GetName(string arg)
+        {
+            foreach (char c in ":=")
+            {
+                if (arg.Contains(c.ToString()))
+                {
+                    string name = arg.Split(c)[0].Replace("/", "").ToLower();
+                    return name;
+                }
+            }
+            return arg;
+        }
+
+        private static string GetValue(string arg)
+        {
+            foreach (char c in ":=")
+            {
+                int index = arg.IndexOf(c);
+                if (index > 0)
+                {
+                    return arg.Substring(index + 1);
+                }
+            }
+            return String.Empty;
         }
 
         /// <summary>
