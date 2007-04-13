@@ -72,15 +72,16 @@ namespace Mix.Core
 
         private static void AddActions(Assembly[] assemblies)
         {
-            Check.ArgumentIsNotNull(assemblies, "assemblies");
-
             foreach (Assembly assembly in assemblies)
             {
-                if (IsSystemAssembly(assembly))
-                {
-                    continue;
-                }
+                AddActions(assembly);
+            }
+        }
 
+        private static void AddActions(Assembly assembly)
+        {
+            if (!IsSystemAssembly(assembly))
+            {
                 foreach (Type type in assembly.GetTypes())
                 {
                     if (IsAction(type))

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -6,6 +7,8 @@ namespace Mix.Console.Commands
     public class HelpCommand : Command
     {
         private string name = String.Empty;
+        private IDictionary<string, Command> commands =
+            new Dictionary<string, Command>();
 
         #region Constructors
 
@@ -13,8 +16,14 @@ namespace Mix.Console.Commands
         {
         }
 
-        public HelpCommand(string name)
+        public HelpCommand(IDictionary<string, Command> commands)
         {
+            this.commands = commands;
+        }
+
+        public HelpCommand(IDictionary<string, Command> commands, string name)
+        {
+            this.commands = commands;
             this.name = name;
         }
 
@@ -45,7 +54,7 @@ namespace Mix.Console.Commands
 
         private bool ActionIsKnown
         {
-            get { return CommandFactory.Commands.ContainsKey(name); }
+            get { return commands.ContainsKey(name); }
         }
 
         private void WriteUsage()
@@ -62,7 +71,7 @@ namespace Mix.Console.Commands
 
         private void WriteActionUsage()
         {
-            object obj = CommandFactory.Commands[name];
+            object obj = commands[name];
 
             if (obj is ActionCommand)
             {

@@ -90,7 +90,7 @@ namespace Mix.Console.Tests
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "clear"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("clear")));
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "clear")));
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace Mix.Console.Tests
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] { "help", "rename" });
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("rename")));
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "rename")));
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Mix.Console.Tests
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] { "help", "foo" });
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand("foo")));
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "foo")));
         }
 
         [Test]

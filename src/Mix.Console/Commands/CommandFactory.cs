@@ -58,11 +58,11 @@ namespace Mix.Console.Commands
                 {
                     if (args.Length <= 1)
                     {
-                        command = new HelpCommand();
+                        command = new HelpCommand(Commands);
                     }
                     else
                     {
-                        command = new HelpCommand(args[1]);
+                        command = new HelpCommand(Commands, args[1]);
                     }
                 }
                 else if (commands.ContainsKey(name))
@@ -89,7 +89,7 @@ namespace Mix.Console.Commands
         /// The command-line to parse. May be <c>null</c>.
         /// </param>
         /// <returns></returns>
-        private static IDictionary<string, string> Parse(string[] args)
+        private IDictionary<string, string> Parse(string[] args)
         {
             IDictionary<string, string> properties = new Dictionary<string, string>();
 
@@ -114,7 +114,7 @@ namespace Mix.Console.Commands
             return properties;
         }
 
-        private static string GetName(string arg)
+        private string GetName(string arg)
         {
             foreach (char c in ":=")
             {
@@ -127,7 +127,7 @@ namespace Mix.Console.Commands
             return arg;
         }
 
-        private static string GetValue(string arg)
+        private string GetValue(string arg)
         {
             foreach (char c in ":=")
             {
@@ -168,7 +168,7 @@ namespace Mix.Console.Commands
             commands[name] = command;
         }
 
-        public static IDictionary<string, Command> Commands
+        public IDictionary<string, Command> Commands
         {
             get { return commands; }
         }
