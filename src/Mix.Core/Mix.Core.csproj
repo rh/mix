@@ -52,6 +52,7 @@
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
+    <Compile Include="IAction.cs" />
     <Compile Include="IActionInfo.cs" />
     <Compile Include="IArgumentInfo.cs" />
     <Compile Include="IContext.cs" />

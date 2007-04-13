@@ -8,7 +8,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Core
 {
     /// <summary/>
-    public abstract class Action
+    public abstract class Action : IAction
     {
         private void Initialize(IContext context)
         {
@@ -87,7 +87,7 @@ namespace Mix.Core
         /// Thrown when <see cref="ExecuteCore(XmlElement)"/> throws an
         /// <see cref="Exception"/>.
         /// </exception>
-        public void Execute(XmlElement element)
+        private void Execute(XmlElement element)
         {
             Check.ArgumentIsNotNull(element, "element");
 
@@ -114,7 +114,7 @@ namespace Mix.Core
         /// Thrown when <see cref="ExecuteCore(XmlAttribute)"/> throws an
         /// <see cref="Exception"/>.
         /// </exception>
-        public void Execute(XmlAttribute attribute)
+        private void Execute(XmlAttribute attribute)
         {
             Check.ArgumentIsNotNull(attribute, "attribute");
 
@@ -168,7 +168,7 @@ namespace Mix.Core
         /// An <see cref="IContext"/> instance containing all the necessary
         /// properties.
         /// </param>
-        /// <returns><c>true</c> if the <see cref="Action"/> is handled,
+        /// <returns><c>true</c> if the <see cref="IAction"/> is handled,
         /// <c>false</c> otherwise.</returns>
         protected virtual bool ExecuteCore(IContext context)
         {

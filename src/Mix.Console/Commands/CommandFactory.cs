@@ -17,8 +17,7 @@ namespace Mix.Console.Commands
 
             foreach (IActionInfo info in ActionInfo.All())
             {
-                Action action = (Action) Activator.CreateInstance(info.Type);
-                Register(new ActionCommand(action));
+                Register(new ActionCommand(info.Instance));
             }
         }
 

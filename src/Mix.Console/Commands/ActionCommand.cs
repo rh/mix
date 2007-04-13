@@ -15,14 +15,14 @@ namespace Mix.Console.Commands
         private static readonly ILog log =
             LogManager.GetLogger(typeof(ActionCommand));
 
-        private readonly Action action;
+        private readonly IAction action;
 
         #endregion
 
         #region Constructor
 
         [DebuggerStepThrough]
-        public ActionCommand(Action action)
+        public ActionCommand(IAction action)
         {
             this.action = action;
         }
@@ -40,7 +40,7 @@ namespace Mix.Console.Commands
             }
         }
 
-        public virtual Action Action
+        public virtual IAction Action
         {
             [DebuggerStepThrough]
             get { return action; }

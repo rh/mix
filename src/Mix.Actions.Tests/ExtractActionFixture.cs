@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
         public void NameNotSet()
         {
             ExtractAction action = new ExtractAction();
-            action.Execute(new XmlDocument().CreateElement("name"));
+            action.Execute(Context.Null);
             Assert.Fail("A RequirementException should have been thrown.");
         }
 

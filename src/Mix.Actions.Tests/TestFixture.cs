@@ -7,7 +7,7 @@ namespace Mix.Actions.Tests
     {
         private const string xml = @"<?xml version=""1.0"" encoding=""UTF-8""?>";
 
-        public void Run(string pre, string post, string xpath, Action action)
+        public void Run(string pre, string post, string xpath, IAction action)
         {
             IContext context = new Context(xml + pre, xpath);
             action.Execute(context);

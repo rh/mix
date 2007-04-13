@@ -8,7 +8,7 @@ namespace Mix.Core
 {
     public class ActionInfo : IActionInfo
     {
-        private Type type = typeof(object);
+        private IAction action;
         private string name = String.Empty;
         private string description = "[no description]";
         private IArgumentInfo[] arguments = new IArgumentInfo[0] {};
@@ -17,9 +17,9 @@ namespace Mix.Core
         {
         }
 
-        public Type Type
+        public IAction Instance
         {
-            get { return type; }
+            get { return action; }
         }
 
         public string Name
@@ -40,7 +40,7 @@ namespace Mix.Core
         public static IActionInfo For(object obj)
         {
             ActionInfo info = new ActionInfo();
-            info.type = obj.GetType();
+            info.action = obj as IAction;
             info.name = obj.ToString();
             info.description =
                 DescriptionAttribute.GetDescriptionFrom(obj, "[no description]");
@@ -117,7 +117,7 @@ namespace Mix.Core
         [DebuggerStepThrough]
         private static bool IsAction(Type type)
         {
-            return typeof(Action).IsAssignableFrom(type) &&
+            return typeof(IAction).IsAssignableFrom(type) &&
                    !type.IsInterface &&
                    !type.IsAbstract;
         }

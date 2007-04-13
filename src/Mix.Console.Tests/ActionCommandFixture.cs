@@ -11,7 +11,7 @@ namespace Mix.Console.Tests
         [Test]
         public void Action()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             Assert.AreEqual(action, command.Action);
         }
@@ -19,7 +19,7 @@ namespace Mix.Console.Tests
         [Test]
         public void CommandToString()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             Assert.AreEqual("clear", command.ToString());
         }
@@ -27,7 +27,7 @@ namespace Mix.Console.Tests
         [Test]
         public void Execute()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             Assert.IsTrue(command.Execute() > 0);
         }
@@ -35,7 +35,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileNotProperlySet()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             command.Context["file"] = null;
             Assert.IsTrue(command.Execute() > 0);
@@ -44,7 +44,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSet()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             // This will not actually select a file
             command.Context["file"] = "file";
@@ -54,7 +54,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSetWithWrongCharacters()
         {
-            Action action = new ClearAction();
+            IAction action = new ClearAction();
             ActionCommand command = new ActionCommand(action);
             command.Context["file"] = ":";
             Assert.IsTrue(command.Execute() > 0);
