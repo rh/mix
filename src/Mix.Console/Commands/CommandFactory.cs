@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Mix.Actions;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -12,27 +11,15 @@ namespace Mix.Console.Commands
 
         static CommandFactory()
         {
-            // TODO: replace this with dynamic registration
-
             Register(new HelpCommand());
             Register(new VersionCommand());
             Register(new ListCommand());
-            Register(new ActionCommand(new ExtractAction()));
-            Register(new ActionCommand(new ClearAction()));
-            Register(new ActionCommand(new AddAttributeAction()));
-            Register(new ActionCommand(new LowerCaseAction()));
-            Register(new ActionCommand(new PrependAction()));
-            Register(new ActionCommand(new RemoveAction()));
-            Register(new ActionCommand(new RenameAction()));
-            Register(new ActionCommand(new AppendAction()));
-            Register(new ActionCommand(new UpperCaseAction()));
-            Register(new ActionCommand(new ReplaceAction()));
-            Register(new ActionCommand(new CopyAttributeAction()));
-            Register(new ActionCommand(new InnerXmlAction()));
-            Register(new ActionCommand(new CountAction()));
-            Register(new ActionCommand(new ShowAction()));
-            Register(new ActionCommand(new SetAction()));
-            Register(new ActionCommand(new TrimAction()));
+
+            foreach (IActionInfo info in ActionInfo.All())
+            {
+                Action action = (Action) Activator.CreateInstance(info.Type);
+                Register(new ActionCommand(action));
+            }
         }
 
         /// <summary>
