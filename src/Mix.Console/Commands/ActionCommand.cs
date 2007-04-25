@@ -114,19 +114,29 @@ namespace Mix.Console.Commands
                 return false;
             }
 
+            return Save(file);
+        }
+
+        private bool Save(string file)
+        {
             try
             {
                 XmlDocument document = new XmlDocument();
                 document.LoadXml(Context.Xml);
-                document.Save(file);
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                using (XmlWriter writer = XmlWriter.Create(file, settings))
+                {
+                    document.WriteContentTo(writer);
+                }
             }
             catch (Exception e)
             {
                 log.Error(e.Message, e);
+                log.Error(Context.Xml);
                 WriteLine(e.Message);
                 return false;
             }
-
             return true;
         }
 

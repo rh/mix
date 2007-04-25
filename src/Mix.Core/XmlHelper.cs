@@ -1,10 +1,30 @@
 using System;
+using System.Text;
 using System.Xml;
 
 namespace Mix.Core
 {
     public static class XmlHelper
     {
+        /// <summary>
+        /// Removes the XML declaration from <paramref name="xml"/>.
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static string RemoveXmlDeclaration(string xml)
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(xml);
+            StringBuilder builder = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+            using (XmlWriter writer = XmlWriter.Create(builder, settings))
+            {
+                document.WriteContentTo(writer);
+            }
+            return builder.ToString();
+        }
+
         /// <summary>
         ///
         /// </summary>
