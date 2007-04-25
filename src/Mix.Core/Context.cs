@@ -29,6 +29,7 @@ namespace Mix.Core
         /// </summary>
         public Context()
         {
+            this["file"] = "*.xml";
         }
 
         /// <summary>
@@ -81,6 +82,7 @@ namespace Mix.Core
             this.xpath = xpath ?? String.Empty;
             this.output = output;
             this.error = error;
+            this["file"] = "*.xml";
         }
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace Mix.Core
             error = context.Error;
             xml = context.Xml;
             xpath = context.XPath;
+            this["file"] = "*.xml";
         }
 
         /// <summary>
@@ -103,9 +106,11 @@ namespace Mix.Core
         /// <param name="properties"></param>
         public Context(IDictionary<string, string> properties)
         {
+            this["file"] = "*.xml";
+
             foreach (KeyValuePair<string, string> pair in properties)
             {
-                Add(pair.Key, pair.Value);
+                this[pair.Key] = pair.Value;
             }
 
             if (ContainsKey("action"))

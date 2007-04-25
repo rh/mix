@@ -52,11 +52,6 @@ namespace Mix.Console.Commands
         {
             Debug.Assert(Context != null, "Context != null");
 
-            if (ValidateFile() == false)
-            {
-                return 1;
-            }
-
             string pattern = Context["file"];
             string[] files;
 
@@ -132,22 +127,6 @@ namespace Mix.Console.Commands
                 return false;
             }
 
-            return true;
-        }
-
-        private bool ValidateFile()
-        {
-            if (!Context.ContainsKey("file"))
-            {
-                WriteLine("Required argument 'file' is missing.");
-                return false;
-            }
-
-            if (String.IsNullOrEmpty(Context["file"]))
-            {
-                WriteLine("Required argument 'file' is not set correctly.");
-                return false;
-            }
             return true;
         }
 
