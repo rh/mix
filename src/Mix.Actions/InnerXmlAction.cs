@@ -28,5 +28,10 @@ namespace Mix.Actions
                 element.InnerXml = xml;
             }
         }
+
+        protected override void ExecuteCore(XmlAttribute attribute)
+        {
+            ExecuteCore(attribute.OwnerElement);
+        }
     }
 }
