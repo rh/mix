@@ -36,7 +36,7 @@ namespace Mix.Console.Commands
             set
             {
                 base.Context = value;
-                base.Context.Action = action.ToString();
+                base.Context.Action = Action.ToString();
             }
         }
 
@@ -90,7 +90,7 @@ namespace Mix.Console.Commands
 
             try
             {
-                action.Execute(Context);
+                Action.Execute(Context);
             }
             catch (RequirementException e)
             {
@@ -114,7 +114,14 @@ namespace Mix.Console.Commands
                 return false;
             }
 
-            return Save(file);
+            if (Action is IReadOnly)
+            {
+                return true;
+            }
+            else
+            {
+                return Save(file);
+            }
         }
 
         private bool Save(string file)
@@ -142,7 +149,7 @@ namespace Mix.Console.Commands
 
         public override string ToString()
         {
-            return action.ToString();
+            return Action.ToString();
         }
     }
 }

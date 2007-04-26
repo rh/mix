@@ -8,7 +8,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Actions
 {
     [Description("Counts all selected nodes.")]
-    public class CountAction : Action
+    public class CountAction : Action, IReadOnly
     {
         protected override bool ExecuteCore(IContext context)
         {

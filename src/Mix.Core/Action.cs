@@ -39,11 +39,28 @@ namespace Mix.Core
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
 
-            XmlNodeList nodes;
+            XmlNodeList nodes = SelectNodes(context, document);
 
+            foreach (XmlNode node in nodes)
+            {
+                if (node is XmlElement)
+                {
+                    Execute(node as XmlElement);
+                }
+                else if (node is XmlAttribute)
+                {
+                    Execute(node as XmlAttribute);
+                }
+            }
+
+            context.Xml = document.InnerXml;
+        }
+
+        private XmlNodeList SelectNodes(IContext context, XmlDocument document)
+        {
             try
             {
-                nodes = document.SelectNodes(context.XPath);
+                return document.SelectNodes(context.XPath);
             }
             catch (XPathException e)
             {
@@ -60,20 +77,6 @@ namespace Mix.Core
                                   context.XPath, e.Message, info);
                 throw new ActionExecutionException(message, e);
             }
-
-            foreach (XmlNode node in nodes)
-            {
-                if (node is XmlElement)
-                {
-                    Execute(node as XmlElement);
-                }
-                else if (node is XmlAttribute)
-                {
-                    Execute(node as XmlAttribute);
-                }
-            }
-
-            context.Xml = document.InnerXml;
         }
 
         /// <summary>

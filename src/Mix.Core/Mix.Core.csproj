@@ -56,6 +56,7 @@
     <Compile Include="IActionInfo.cs" />
     <Compile Include="IArgumentInfo.cs" />
     <Compile Include="IContext.cs" />
+    <Compile Include="IReadOnly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Check.cs" />
     <Compile Include="XmlHelper.cs" />

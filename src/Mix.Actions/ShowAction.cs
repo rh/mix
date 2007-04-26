@@ -8,7 +8,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Actions
 {
     [Description("Shows all selected nodes.")]
-    public class ShowAction : Action
+    public class ShowAction : Action, IReadOnly
     {
         protected override bool ExecuteCore(IContext context)
         {
