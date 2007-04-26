@@ -39,6 +39,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AddAttributeAction.cs" />
+    <Compile Include="AddFragmentAction.cs" />
     <Compile Include="AddRootElementAction.cs" />
     <Compile Include="ClearAction.cs" />
     <Compile Include="AddElementAction.cs" />
