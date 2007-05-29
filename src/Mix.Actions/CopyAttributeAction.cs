@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -15,9 +14,7 @@ namespace Mix.Actions
         [Description("The name of the new or existing attribute.")]
         public virtual string Name
         {
-            [DebuggerStepThrough]
             get { return name; }
-            [DebuggerStepThrough]
             set { name = value; }
         }
 

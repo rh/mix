@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -17,9 +16,7 @@ namespace Mix.Actions
         [Description("The value to replace.")]
         public virtual string OldValue
         {
-            [DebuggerStepThrough]
             get { return oldValue; }
-            [DebuggerStepThrough]
             set { oldValue = value; }
         }
 
@@ -27,9 +24,7 @@ namespace Mix.Actions
         [Description("The value to replace the old value.")]
         public virtual string NewValue
         {
-            [DebuggerStepThrough]
             get { return newValue; }
-            [DebuggerStepThrough]
             set { newValue = value; }
         }
 

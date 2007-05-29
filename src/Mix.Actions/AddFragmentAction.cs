@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -15,9 +14,7 @@ namespace Mix.Actions
         [Description("The raw xml of the new element.")]
         public virtual string Fragment
         {
-            [DebuggerStepThrough]
             get { return fragment; }
-            [DebuggerStepThrough]
             set { fragment = value; }
         }
 

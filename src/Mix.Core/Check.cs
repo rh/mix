@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Mix.Core
 {
-    [DebuggerStepThrough]
     public static class Check
     {
         public static void ArgumentIsNotNull(object value, string name)

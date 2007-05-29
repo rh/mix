@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using Mix.Core.Attributes;
 
@@ -102,7 +101,6 @@ namespace Mix.Core
             }
         }
 
-        [DebuggerStepThrough]
         private static bool IsSystemAssembly(Assembly assembly)
         {
             string name = assembly.GetName().ToString().ToLower();
@@ -114,7 +112,6 @@ namespace Mix.Core
                    name.Contains("resharper");
         }
 
-        [DebuggerStepThrough]
         private static bool IsAction(Type type)
         {
             return typeof(IAction).IsAssignableFrom(type) &&

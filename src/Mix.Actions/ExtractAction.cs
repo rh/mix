@@ -17,9 +17,7 @@ namespace Mix.Actions
                      "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
         public virtual string Name
         {
-            [DebuggerStepThrough]
             get { return name; }
-            [DebuggerStepThrough]
             set { name = value; }
         }
 

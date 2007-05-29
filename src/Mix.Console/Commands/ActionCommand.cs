@@ -21,7 +21,6 @@ namespace Mix.Console.Commands
 
         #region Constructor
 
-        [DebuggerStepThrough]
         public ActionCommand(IAction action)
         {
             this.action = action;
@@ -42,7 +41,6 @@ namespace Mix.Console.Commands
 
         public virtual IAction Action
         {
-            [DebuggerStepThrough]
             get { return action; }
         }
 

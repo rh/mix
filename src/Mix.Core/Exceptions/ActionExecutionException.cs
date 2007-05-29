@@ -1,11 +1,9 @@
 using System;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace Mix.Core.Exceptions
 {
     [Serializable]
-    [DebuggerStepThrough]
     public class ActionExecutionException : Exception
     {
         public ActionExecutionException()

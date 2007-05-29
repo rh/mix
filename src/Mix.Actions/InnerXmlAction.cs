@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -15,9 +14,7 @@ namespace Mix.Actions
         [Description("The literal XML of the selected elements.")]
         public virtual string Xml
         {
-            [DebuggerStepThrough]
             get { return xml; }
-            [DebuggerStepThrough]
             set { xml = value; }
         }
 

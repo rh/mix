@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace Mix.Core
@@ -8,7 +7,6 @@ namespace Mix.Core
     /// <summary>
     /// 
     /// </summary>
-    [DebuggerStepThrough]
     public class Context : Dictionary<string, string>, IContext
     {
         #region Instance variables

@@ -1,10 +1,8 @@
 using System;
-using System.Diagnostics;
 using Mix.Core;
 
 namespace Mix.Console.Commands
 {
-    [DebuggerStepThrough]
     public abstract class Command
     {
         public virtual int Execute()

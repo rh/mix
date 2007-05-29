@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -15,9 +14,7 @@ namespace Mix.Actions
         [Description("The text to set.")]
         public virtual string Text
         {
-            [DebuggerStepThrough]
             get { return text; }
-            [DebuggerStepThrough]
             set { text = value; }
         }
 
