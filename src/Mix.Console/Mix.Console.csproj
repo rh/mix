@@ -63,10 +63,6 @@
       <Project>{917B9ECF-889A-4CCE-A87C-282D2BFF8F9E}</Project>
       <Name>Mix.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mix.Util.log4net\Mix.Util.log4net.csproj">
-      <Project>{E720EF3B-35AF-45C5-A93A-5EDD13266D59}</Project>
-      <Name>Mix.Util.log4net</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\App.config">
