@@ -43,6 +43,7 @@
     <Compile Include="AddRootElementAction.cs" />
     <Compile Include="ClearAction.cs" />
     <Compile Include="AddElementAction.cs" />
+    <Compile Include="ConvertAttributesToElementsAction.cs" />
     <Compile Include="CopyAttributeAction.cs" />
     <Compile Include="CountAction.cs" />
     <Compile Include="ExtractAction.cs" />
