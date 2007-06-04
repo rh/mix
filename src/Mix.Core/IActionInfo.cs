@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Mix.Core
 {
     public interface IActionInfo
@@ -5,6 +7,7 @@ namespace Mix.Core
         IAction Instance { get; }
         string Name { get; }
         string Description { get; }
+        IList<string> Aliases { get; }
         IArgumentInfo[] Arguments { get; }
     }
 }

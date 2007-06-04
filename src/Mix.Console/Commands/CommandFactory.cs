@@ -17,7 +17,12 @@ namespace Mix.Console.Commands
 
             foreach (IActionInfo info in ActionInfo.All())
             {
-                Register(new ActionCommand(info.Instance));
+                Command command = new ActionCommand(info.Instance);
+                Register(command);
+                foreach (string alias in info.Aliases)
+                {
+                    Register(command, alias);
+                }
             }
         }
 
@@ -142,12 +147,27 @@ namespace Mix.Console.Commands
         {
             Check.ArgumentIsNotNull(command, "command");
 
-            string name = command.ToString();
+            Register(command, command.ToString());
+        }
+
+        /// <summary>
+        /// Registers <paramref name="command"/> for use in the application.
+        /// </summary>
+        /// <param name="command">The command to register.</param>
+        /// <param name="name">The name or alias of the command.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="command"/> is <c>null</c>, or
+        /// <paramref name="name"/> is <c>null</c> or empty.
+        /// </exception>
+        public static void Register(Command command, string name)
+        {
+            Check.ArgumentIsNotNull(command, "command");
+            Check.ArgumentIsNotNullOrEmpty(name, "name");
 
             if (commands.ContainsKey(name))
             {
                 string message =
-                    String.Format("A command with the name '{0}' is already registered.",
+                    String.Format("A command with the name or alias '{0}' is already registered.",
                                   name);
                 throw new ArgumentException(message, "command");
             }

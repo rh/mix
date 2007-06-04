@@ -12,6 +12,7 @@ namespace Mix.Actions
     /// name of the attribute nothing changes.
     /// </summary>
     [Description("Converts attributes to elements.")]
+    [Alias("atoe,a-to-e")]
     public class ConvertAttributesToElementsAction : Action
     {
         protected override void ExecuteCore(XmlAttribute attribute)

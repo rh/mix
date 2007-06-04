@@ -10,6 +10,7 @@ namespace Mix.Core
         private IAction action;
         private string name = String.Empty;
         private string description = "[no description]";
+        private IList<string> aliases = new List<string>();
         private IArgumentInfo[] arguments = new IArgumentInfo[0] {};
 
         public ActionInfo()
@@ -31,6 +32,11 @@ namespace Mix.Core
             get { return description; }
         }
 
+        public IList<string> Aliases
+        {
+            get { return aliases; }
+        }
+
         public IArgumentInfo[] Arguments
         {
             get { return arguments; }
@@ -43,6 +49,7 @@ namespace Mix.Core
             info.name = obj.ToString();
             info.description =
                 DescriptionAttribute.GetDescriptionFrom(obj, "[no description]");
+            info.aliases = AliasAttribute.GetAliasesFrom(obj);
             info.arguments = ArgumentInfo.For(obj);
             return info;
         }
