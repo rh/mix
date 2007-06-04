@@ -44,6 +44,7 @@
     <Compile Include="ClearAction.cs" />
     <Compile Include="AddElementAction.cs" />
     <Compile Include="ConvertAttributesToElementsAction.cs" />
+    <Compile Include="ConvertElementsToAttributesAction.cs" />
     <Compile Include="CopyAttributeAction.cs" />
     <Compile Include="CountAction.cs" />
     <Compile Include="ExtractAction.cs" />
