@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using Mix.Core.Attributes;
 
@@ -8,8 +11,51 @@ namespace Mix.Console.Commands
     {
         public override int Execute()
         {
-            WriteLine("Version: {0}", Application.ProductVersion);
+            WriteVersion();
+            WriteCompilationDate();
+            WriteCopyright();
             return 0;
+        }
+
+        private void WriteVersion()
+        {
+            WriteLine("Mix, version: {0}", Application.ProductVersion);
+        }
+
+        private void WriteCompilationDate()
+        {
+            FileInfo fileInfo;
+
+            try
+            {
+                fileInfo = new FileInfo(Assembly.GetEntryAssembly().Location);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            if (fileInfo.Exists)
+            {
+                DateTime date;
+                try
+                {
+                    date = fileInfo.LastWriteTime;
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+
+                WriteLine("  compiled {0:MMMM %d yyyy, HH:mm:ss}", date);
+                Write(Environment.NewLine);
+            }
+        }
+
+        private void WriteCopyright()
+        {
+            WriteLine("Copyright (C) 2006-2007 Richard Hubers.");
+            WriteLine("Mix is open source software, see http://mix.sourceforge.net/");
         }
     }
 }
