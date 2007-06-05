@@ -64,7 +64,18 @@ namespace Mix.Console.Commands
             WriteLine("Mix command-line client, version {0}.", Application.ProductVersion);
             WriteLine("Type 'mix help <action>' for help on a specific action.");
             WriteLine("Type 'mix version' to see the program version.");
+            Write(Environment.NewLine);
+
+            WriteLine("Most actions take 'file' and/or 'xpath' arguments.");
+            WriteLine("If 'file' is not set the value '*.xml' is used.");
+            Write(Environment.NewLine);
+
+            WriteLine("Examples:");
+            WriteLine("  mix addattribute file:test.xml xpath://node() name:id");
+            WriteLine("  mix set file:test.xml xpath://foo text:\"Some text\"");
+
             WriteActions();
+
             Write(Environment.NewLine);
             WriteLine("Mix is a tool for XML refactoring.");
             WriteLine("For additional information, see http://mix.sourceforge.net/");
