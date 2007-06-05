@@ -36,6 +36,8 @@ namespace Mix.Core
                 throw new RequirementException("'xpath' is required.", "xpath", "");
             }
 
+            Validate();
+
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
 
@@ -98,8 +100,6 @@ namespace Mix.Core
         {
             Check.ArgumentIsNotNull(element, "element");
 
-            Validate();
-
             try
             {
                 ExecuteCore(element);
@@ -125,8 +125,6 @@ namespace Mix.Core
         {
             Check.ArgumentIsNotNull(attribute, "attribute");
 
-            Validate();
-
             try
             {
                 ExecuteCore(attribute);
@@ -140,8 +138,6 @@ namespace Mix.Core
         private void Execute(XmlComment comment)
         {
             Check.ArgumentIsNotNull(comment, "comment");
-
-            Validate();
 
             try
             {
