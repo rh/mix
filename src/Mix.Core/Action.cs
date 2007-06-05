@@ -53,6 +53,10 @@ namespace Mix.Core
                 {
                     Execute(node as XmlAttribute);
                 }
+                else if (node is XmlText)
+                {
+                    Execute(node as XmlText);
+                }
                 else if (node is XmlComment)
                 {
                     Execute(node as XmlComment);
@@ -98,8 +102,6 @@ namespace Mix.Core
         /// </exception>
         private void Execute(XmlElement element)
         {
-            Check.ArgumentIsNotNull(element, "element");
-
             try
             {
                 ExecuteCore(element);
@@ -123,8 +125,6 @@ namespace Mix.Core
         /// </exception>
         private void Execute(XmlAttribute attribute)
         {
-            Check.ArgumentIsNotNull(attribute, "attribute");
-
             try
             {
                 ExecuteCore(attribute);
@@ -135,10 +135,20 @@ namespace Mix.Core
             }
         }
 
+        private void Execute(XmlText text)
+        {
+            try
+            {
+                ExecuteCore(text);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
         private void Execute(XmlComment comment)
         {
-            Check.ArgumentIsNotNull(comment, "comment");
-
             try
             {
                 ExecuteCore(comment);
@@ -199,6 +209,10 @@ namespace Mix.Core
         }
 
         protected virtual void ExecuteCore(XmlAttribute attribute)
+        {
+        }
+
+        protected virtual void ExecuteCore(XmlText text)
         {
         }
 
