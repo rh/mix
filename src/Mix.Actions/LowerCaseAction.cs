@@ -29,5 +29,10 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value.ToLower();
         }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.Value = comment.Value.ToLower();
+        }
     }
 }

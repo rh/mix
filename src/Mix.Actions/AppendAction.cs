@@ -46,5 +46,10 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value + Text;
         }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.Value = comment.Value + Text;
+        }
     }
 }

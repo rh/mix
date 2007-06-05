@@ -16,5 +16,10 @@ namespace Mix.Actions
         {
             attribute.OwnerElement.RemoveAttributeNode(attribute);
         }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.ParentNode.RemoveChild(comment);
+        }
     }
 }

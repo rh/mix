@@ -5,12 +5,10 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Clears the text nodes of selected elements, " +
-                 "or the value of selected attributes.")]
+    [Description("Clears the text nodes of elements, " +
+                 "or the value of attributes or comments.")]
     public class ClearAction : Action
     {
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             if (element.HasChildNodes)
@@ -34,6 +32,9 @@ namespace Mix.Actions
             attribute.Value = String.Empty;
         }
 
-        #endregion
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.Value = String.Empty;
+        }
     }
 }

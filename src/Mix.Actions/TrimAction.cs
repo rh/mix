@@ -8,8 +8,6 @@ namespace Mix.Actions
                  "or the value of the selected attributes.")]
     public class TrimAction : Action
     {
-        #region Action Overrides
-
         protected override void ExecuteCore(XmlElement element)
         {
             if (element.HasChildNodes)
@@ -33,6 +31,9 @@ namespace Mix.Actions
             attribute.Value = attribute.Value.Trim();
         }
 
-        #endregion
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.Value = comment.Value.Trim();
+        }
     }
 }

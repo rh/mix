@@ -51,6 +51,10 @@ namespace Mix.Core
                 {
                     Execute(node as XmlAttribute);
                 }
+                else if (node is XmlComment)
+                {
+                    Execute(node as XmlComment);
+                }
             }
 
             context.Xml = document.InnerXml;
@@ -133,6 +137,22 @@ namespace Mix.Core
             }
         }
 
+        private void Execute(XmlComment comment)
+        {
+            Check.ArgumentIsNotNull(comment, "comment");
+
+            Validate();
+
+            try
+            {
+                ExecuteCore(comment);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
         private void Validate()
         {
             foreach (PropertyInfo property in GetType().GetProperties())
@@ -183,6 +203,10 @@ namespace Mix.Core
         }
 
         protected virtual void ExecuteCore(XmlAttribute attribute)
+        {
+        }
+
+        protected virtual void ExecuteCore(XmlComment comment)
         {
         }
 

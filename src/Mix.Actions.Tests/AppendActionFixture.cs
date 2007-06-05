@@ -48,5 +48,16 @@ namespace Mix.Actions.Tests
             action.Text = "append";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void AppendToComment()
+        {
+            const string pre = @"<root><!--COMMENT--></root>";
+            const string post = @"<root><!--COMMENTappend--></root>";
+            const string xpath = "//comment()";
+            AppendAction action = new AppendAction();
+            action.Text = "append";
+            Run(pre, post, xpath, action);
+        }
     }
 }

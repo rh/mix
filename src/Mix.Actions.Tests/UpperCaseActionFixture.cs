@@ -44,5 +44,15 @@ namespace Mix.Actions.Tests
             UpperCaseAction action = new UpperCaseAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void UpperCaseComments()
+        {
+            string pre = @"<root><!--comment--></root>";
+            string post = @"<root><!--COMMENT--></root>";
+            string xpath = "//comment()";
+            UpperCaseAction action = new UpperCaseAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

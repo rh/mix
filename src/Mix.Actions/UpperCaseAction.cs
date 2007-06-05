@@ -29,5 +29,10 @@ namespace Mix.Actions
         {
             attribute.Value = attribute.Value.ToUpper();
         }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            comment.Value = comment.Value.ToUpper();
+        }
     }
 }

@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Sets the inner XML of the selected elements.")]
+    [Description("Sets the inner XML of the selected elements or comments.")]
     public class InnerXmlAction : Action
     {
         private string xml = String.Empty;
@@ -22,13 +22,20 @@ namespace Mix.Actions
         {
             if (element.NodeType == XmlNodeType.Element)
             {
-                element.InnerXml = xml;
+                element.InnerXml = Xml;
             }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
             ExecuteCore(attribute.OwnerElement);
+        }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            // InnerText is used because InnerXml will throw; an XmlComment
+            // cannaot have children.
+            comment.InnerText = Xml;
         }
     }
 }

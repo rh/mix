@@ -44,5 +44,15 @@ namespace Mix.Actions.Tests
             LowerCaseAction action = new LowerCaseAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void LowerCaseComments()
+        {
+            string pre = @"<root><!--COMMENT--></root>";
+            string post = @"<root><!--comment--></root>";
+            string xpath = "//comment()";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

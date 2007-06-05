@@ -70,5 +70,16 @@ namespace Mix.Actions.Tests
             action.Text = "value";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void Comments()
+        {
+            string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
+            string post = @"<root><!--value--><!--value--></root>";
+            string xpath = "//comment()";
+            SetAction action = new SetAction();
+            action.Text = "value";
+            Run(pre, post, xpath, action);
+        }
     }
 }

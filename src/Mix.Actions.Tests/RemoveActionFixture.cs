@@ -34,5 +34,25 @@ namespace Mix.Actions.Tests
             RemoveAction action = new RemoveAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void RemoveComment()
+        {
+            string pre = @"<root><!--COMMENT--></root>";
+            string post = @"<root></root>";
+            string xpath = "//comment()";
+            RemoveAction action = new RemoveAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
+        public void RemoveComments()
+        {
+            string pre = @"<root><!--COMMENT--><node /><!--COMMENT--></root>";
+            string post = @"<root><node /></root>";
+            string xpath = "//comment()";
+            RemoveAction action = new RemoveAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

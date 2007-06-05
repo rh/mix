@@ -28,5 +28,29 @@ namespace Mix.Actions.Tests
             action.Xml = xml;
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void Comment()
+        {
+            const string xml = "<new>Some text</new>";
+            string pre = @"<root><!----></root>";
+            string post = @"<root><!--" + xml + "--></root>";
+            string xpath = "//comment()";
+            InnerXmlAction action = new InnerXmlAction();
+            action.Xml = xml;
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
+        public void CommentValueReplaces()
+        {
+            const string xml = "<new>Some text</new>";
+            string pre = @"<root><!--COMMENT--></root>";
+            string post = @"<root><!--" + xml + "--></root>";
+            string xpath = "//comment()";
+            InnerXmlAction action = new InnerXmlAction();
+            action.Xml = xml;
+            Run(pre, post, xpath, action);
+        }
     }
 }

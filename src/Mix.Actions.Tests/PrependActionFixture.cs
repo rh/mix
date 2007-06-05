@@ -37,5 +37,16 @@ namespace Mix.Actions.Tests
             action.Text = "prefix";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void PrependComments()
+        {
+            string pre = @"<root><!--COMMENT--></root>";
+            string post = @"<root><!--prefixCOMMENT--></root>";
+            string xpath = "//comment()";
+            PrependAction action = new PrependAction();
+            action.Text = "prefix";
+            Run(pre, post, xpath, action);
+        }
     }
 }
