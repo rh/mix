@@ -48,7 +48,6 @@
     <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\InfoCommand.cs" />
-    <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="Commands\UnknownCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

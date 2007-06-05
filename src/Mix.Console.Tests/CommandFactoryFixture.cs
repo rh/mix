@@ -34,7 +34,6 @@ namespace Mix.Console.Tests
         {
             TestTypeOfCommand(new string[] {"help"}, typeof(HelpCommand));
             TestTypeOfCommand(new string[] {"version"}, typeof(VersionCommand));
-            TestTypeOfCommand(new string[] {"list"}, typeof(ListCommand));
             TestTypeOfCommand(new string[] {"foo"}, typeof(UnknownCommand));
             TestTypeOfCommand(new string[] {}, typeof(InfoCommand));
         }
@@ -46,15 +45,6 @@ namespace Mix.Console.Tests
             Command command = factory.Create(new string[] {"foo"});
             Assert.AreEqual(typeof(UnknownCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new UnknownCommand("foo")));
-        }
-
-        [Test]
-        public void ListCommand()
-        {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"list"});
-            Assert.AreEqual(typeof(ListCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new ListCommand()));
         }
 
         [Test]

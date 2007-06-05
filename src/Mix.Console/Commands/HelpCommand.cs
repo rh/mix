@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -60,13 +61,24 @@ namespace Mix.Console.Commands
         private void WriteUsage()
         {
             WriteLine("Usage: mix <action> [arguments]");
+            WriteLine("Mix command-line client, version {0}.", Application.ProductVersion);
+            WriteLine("Type 'mix help <action>' for help on a specific action.");
+            WriteLine("Type 'mix version' to see the program version.");
+            WriteActions();
             Write(Environment.NewLine);
             WriteLine("Mix is a tool for XML refactoring.");
             WriteLine("For additional information, see http://mix.sourceforge.net/");
+        }
+
+        private void WriteActions()
+        {
             Write(Environment.NewLine);
-            WriteLine("Type 'mix version' to see the program version.");
-            WriteLine("Type 'mix list' to see a list of all available actions.");
-            WriteLine("Type 'mix help <action>' for help on a specific action.");
+            WriteLine("Available actions:");
+            foreach (IActionInfo info in ActionInfo.All())
+            {
+                string aliases = Aliases(info);
+                WriteLine("  {0}{1}", info.Name, aliases);
+            }
         }
 
         private void WriteActionUsage()
@@ -100,6 +112,28 @@ namespace Mix.Console.Commands
         {
             WriteLine("Unknown action: '{0}'", name);
             WriteLine("Type 'mix list' to see a list of all available actions.");
+        }
+
+        private string Aliases(IActionInfo info)
+        {
+            string result = String.Empty;
+
+            IList<string> aliases = info.Aliases;
+
+            if (aliases.Count > 0)
+            {
+                foreach (string alias in aliases)
+                {
+                    if (result != String.Empty)
+                    {
+                        result = result + ", ";
+                    }
+                    result = result + alias;
+                }
+                result = "\n    (" + result + ")";
+            }
+
+            return result;
         }
     }
 }

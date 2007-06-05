@@ -13,7 +13,6 @@ namespace Mix.Console.Commands
         {
             Register(new HelpCommand());
             Register(new VersionCommand());
-            Register(new ListCommand());
 
             foreach (IActionInfo info in ActionInfo.All())
             {
