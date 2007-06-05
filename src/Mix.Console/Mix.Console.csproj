@@ -44,6 +44,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\AmbiguousMatchCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\HelpCommand.cs" />

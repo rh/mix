@@ -38,38 +38,68 @@ namespace Mix.Console.Commands
 
             IDictionary<string, string> properties = Parse(args);
 
-            Command command = new InfoCommand();
+            Command command = CreateCommand(properties, args);
+            command.Context = CreateContext(properties);
+            return command;
+        }
 
-            if (properties.ContainsKey("action"))
+        private Command CreateCommand(IDictionary<string, string> properties, string[] args)
+        {
+            if (!properties.ContainsKey("action"))
             {
-                string name = properties["action"].ToLower();
+                return new InfoCommand();
+            }
 
-                if (name == "help")
+            string name = properties["action"].ToLower();
+
+            if (name == "help")
+            {
+                if (args.Length <= 1)
                 {
-                    if (args.Length <= 1)
-                    {
-                        command = new HelpCommand(Commands);
-                    }
-                    else
-                    {
-                        command = new HelpCommand(Commands, args[1]);
-                    }
-                }
-                else if (commands.ContainsKey(name))
-                {
-                    command = commands[name];
+                    return new HelpCommand(Commands);
                 }
                 else
                 {
-                    command = new UnknownCommand(name);
+                    return new HelpCommand(Commands, args[1]);
                 }
             }
+            else if (commands.ContainsKey(name))
+            {
+                return commands[name];
+            }
+            else
+            {
+                List<string> matches = new List<string>();
 
+                foreach (string key in commands.Keys)
+                {
+                    if (key.StartsWith(name))
+                    {
+                        matches.Add(key);
+                    }
+                }
+
+                if (matches.Count == 0)
+                {
+                    return new UnknownCommand(name);
+                }
+                else if (matches.Count == 1)
+                {
+                    return commands[matches[0]];
+                }
+                else
+                {
+                    return new AmbiguousMatchCommand(name, matches);
+                }
+            }
+        }
+
+        public IContext CreateContext(IDictionary<string, string> properties)
+        {
             Context context = new Context(properties);
             context.Output = System.Console.Out;
             context.Error = System.Console.Error;
-            command.Context = context;
-            return command;
+            return context;
         }
 
         /// <summary>
@@ -86,7 +116,7 @@ namespace Mix.Console.Commands
             if (args != null && args.Length > 0)
             {
                 // The first argument should ALWAYS be the name of the action
-                // to invoke
+                // to invoke.
                 string action = args[0];
                 properties.Add("action", action);
 

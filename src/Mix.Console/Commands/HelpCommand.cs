@@ -122,7 +122,7 @@ namespace Mix.Console.Commands
         private void WriteUnknownActionUsage()
         {
             WriteLine("Unknown action: '{0}'", name);
-            WriteLine("Type 'mix list' to see a list of all available actions.");
+            WriteLine("Type 'mix help' to see a list of all available actions.");
         }
 
         private string Aliases(IActionInfo info)
