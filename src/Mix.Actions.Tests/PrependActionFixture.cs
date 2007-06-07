@@ -50,6 +50,17 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void PrependCDataSections()
+        {
+            string pre = @"<root><![CDATA[text]]></root>";
+            string post = @"<root><![CDATA[prefixtext]]></root>";
+            string xpath = "//root";
+            PrependAction action = new PrependAction();
+            action.Text = "prefix";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void PrependComments()
         {
             string pre = @"<root><!--COMMENT--></root>";

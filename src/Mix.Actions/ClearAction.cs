@@ -17,11 +17,11 @@ namespace Mix.Actions
                 {
                     if (node is XmlText)
                     {
-                        node.Value = String.Empty;
+                        ExecuteCore(node as XmlText);
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = String.Empty;
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -34,7 +34,12 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.ParentNode.RemoveChild(text);
+            text.Value = String.Empty;
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = String.Empty;
         }
 
         protected override void ExecuteCore(XmlComment comment)

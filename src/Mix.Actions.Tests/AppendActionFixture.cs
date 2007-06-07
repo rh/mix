@@ -61,6 +61,17 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void AppendToCDataSection()
+        {
+            const string pre = @"<root><![CDATA[pre]]></root>";
+            const string post = @"<root><![CDATA[preappend]]></root>";
+            const string xpath = "//root";
+            AppendAction action = new AppendAction();
+            action.Text = "append";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void AppendToComment()
         {
             const string pre = @"<root><!--COMMENT--></root>";

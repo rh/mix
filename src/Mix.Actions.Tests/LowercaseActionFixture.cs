@@ -56,6 +56,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void LowerCaseCDataSections()
+        {
+            string pre = @"<root><![CDATA[SOMETHING]]></root>";
+            string post = @"<root><![CDATA[something]]></root>";
+            string xpath = "//root";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void LowerCaseComments()
         {
             string pre = @"<root><!--COMMENT--></root>";

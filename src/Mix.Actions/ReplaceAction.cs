@@ -36,11 +36,11 @@ namespace Mix.Actions
                 {
                     if (node is XmlText)
                     {
-                        node.Value = node.Value.Replace(OldValue, NewValue);
+                        ExecuteCore(node as XmlText);
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = node.Value.Replace(OldValue, NewValue);
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -54,6 +54,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = text.Value.Replace(OldValue, NewValue);
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = section.Value.Replace(OldValue, NewValue);
         }
 
         protected override void ExecuteCore(XmlComment comment)

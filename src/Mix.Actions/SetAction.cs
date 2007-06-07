@@ -30,7 +30,7 @@ namespace Mix.Actions
                     }
                     else if (element.FirstChild is XmlCDataSection)
                     {
-                        element.FirstChild.Value = Text;
+                        ExecuteCore(element.FirstChild as XmlCDataSection);
                     }
                 }
                 else
@@ -55,6 +55,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = Text;
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = Text;
         }
 
         protected override void ExecuteCore(XmlComment comment)

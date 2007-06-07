@@ -20,7 +20,7 @@ namespace Mix.Actions
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = node.Value.Trim();
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -34,6 +34,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = text.Value.Trim();
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = section.Value.Trim();
         }
 
         protected override void ExecuteCore(XmlComment comment)

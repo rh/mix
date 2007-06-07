@@ -22,6 +22,11 @@ namespace Mix.Actions
             text.ParentNode.RemoveChild(text);
         }
 
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.ParentNode.RemoveChild(section);
+        }
+
         protected override void ExecuteCore(XmlComment comment)
         {
             comment.ParentNode.RemoveChild(comment);

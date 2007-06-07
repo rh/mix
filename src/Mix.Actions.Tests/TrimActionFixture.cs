@@ -36,6 +36,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void CDataSections()
+        {
+            string pre = @"<root><![CDATA[ text  ]]></root>";
+            string post = @"<root><![CDATA[text]]></root>";
+            string xpath = "//text()";
+            TrimAction action = new TrimAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void Comments()
         {
             string pre = @"<root><!-- COMMENT  --><!--   COMMENT --></root>";

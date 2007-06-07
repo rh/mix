@@ -27,11 +27,11 @@ namespace Mix.Actions
                 {
                     if (node is XmlText)
                     {
-                        node.Value = Text + node.Value;
+                        ExecuteCore(node as XmlText);
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = Text + node.Value;
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -50,6 +50,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = Text + text.Value;
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = Text + section.Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)

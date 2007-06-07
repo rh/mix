@@ -56,6 +56,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void RemoveCDataSections()
+        {
+            string pre = @"<root><![CDATA[]]></root>";
+            string post = @"<root></root>";
+            string xpath = "//text()";
+            RemoveAction action = new RemoveAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void RemoveComments()
         {
             string pre = @"<root><!--COMMENT--><node /><!--COMMENT--></root>";

@@ -81,6 +81,16 @@ namespace Mix.Actions.Tests
             action.Text = "value";
             Run(pre, post, xpath, action);
         }
+        [Test]
+        public void CDataSections()
+        {
+            string pre = @"<root><![CDATA[text]]></root>";
+            string post = @"<root><![CDATA[value]]></root>";
+            string xpath = "//text()";
+            SetAction action = new SetAction();
+            action.Text = "value";
+            Run(pre, post, xpath, action);
+        }
 
         [Test]
         public void Comments()

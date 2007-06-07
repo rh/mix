@@ -56,6 +56,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void UpperCaseCDataSections()
+        {
+            string pre = @"<root><![CDATA[text]]></root>";
+            string post = @"<root><![CDATA[TEXT]]></root>";
+            string xpath = "//text()";
+            UpperCaseAction action = new UpperCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void UpperCaseComments()
         {
             string pre = @"<root><!--comment--></root>";

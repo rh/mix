@@ -15,11 +15,11 @@ namespace Mix.Actions
                 {
                     if (node is XmlText)
                     {
-                        node.Value = node.Value.ToLower();
+                        ExecuteCore(node as XmlText);
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = node.Value.ToLower();
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -33,6 +33,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = text.Value.ToLower();
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = section.Value.ToLower();
         }
 
         protected override void ExecuteCore(XmlComment comment)

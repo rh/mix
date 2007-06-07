@@ -57,6 +57,10 @@ namespace Mix.Core
                 {
                     Execute(node as XmlText);
                 }
+                else if (node is XmlCDataSection)
+                {
+                    Execute(node as XmlCDataSection);
+                }
                 else if (node is XmlComment)
                 {
                     Execute(node as XmlComment);
@@ -147,6 +151,18 @@ namespace Mix.Core
             }
         }
 
+        private void Execute(XmlCDataSection section)
+        {
+            try
+            {
+                ExecuteCore(section);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
         private void Execute(XmlComment comment)
         {
             try
@@ -211,6 +227,10 @@ namespace Mix.Core
         }
 
         protected virtual void ExecuteCore(XmlText text)
+        {
+        }
+
+        protected virtual void ExecuteCore(XmlCDataSection section)
         {
         }
 

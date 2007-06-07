@@ -33,6 +33,11 @@ namespace Mix.Actions
             ExecuteCore(text.ParentNode as XmlElement);
         }
 
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            ExecuteCore(section.ParentNode as XmlElement);
+        }
+
         protected override void ExecuteCore(XmlComment comment)
         {
             // InnerText is used because InnerXml will throw; an XmlComment

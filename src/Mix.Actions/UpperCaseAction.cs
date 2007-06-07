@@ -19,7 +19,7 @@ namespace Mix.Actions
                     }
                     else if (node is XmlCDataSection)
                     {
-                        node.Value = node.Value.ToUpper();
+                        ExecuteCore(node as XmlCDataSection);
                     }
                 }
             }
@@ -33,6 +33,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             text.Value = text.Value.ToUpper();
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            section.Value = section.Value.ToUpper();
         }
 
         protected override void ExecuteCore(XmlComment comment)
