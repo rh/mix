@@ -9,18 +9,12 @@ namespace Mix.Core
     /// </summary>
     public class Context : Dictionary<string, string>, IContext
     {
-        #region Instance variables
-
         private string filename = String.Empty;
         private string action = String.Empty;
         private TextWriter output = TextWriter.Null;
         private TextWriter error = TextWriter.Null;
         private string xml = String.Empty;
         private string xpath = String.Empty;
-
-        #endregion
-
-        #region Constructors
 
         /// <summary>
         /// 
@@ -122,10 +116,6 @@ namespace Mix.Core
             }
         }
 
-        #endregion
-
-        #region IContext Members
-
         /// <summary>
         /// The name of the file this <see cref="IContext"/> applies to.
         /// </summary>
@@ -221,10 +211,6 @@ namespace Mix.Core
             get { return xpath; }
         }
 
-        #endregion
-
-        #region NullContext
-
         public static IContext Null
         {
             get { return new NullContext(); }
@@ -242,7 +228,5 @@ namespace Mix.Core
                 return 0;
             }
         }
-
-        #endregion
     }
 }

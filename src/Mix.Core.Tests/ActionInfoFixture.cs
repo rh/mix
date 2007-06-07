@@ -46,8 +46,6 @@ namespace Mix.Core.Tests
             Assert.AreEqual(1, info2.Arguments.Length);
         }
 
-        #region Private test classes
-
         [Description("description")]
         private class SomeAction
         {
@@ -71,7 +69,5 @@ namespace Mix.Core.Tests
                 return "othername";
             }
         }
-
-        #endregion
     }
 }

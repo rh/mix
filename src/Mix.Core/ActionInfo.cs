@@ -66,8 +66,6 @@ namespace Mix.Core
             return infos;
         }
 
-        #region Reflection Helpers
-
         private static IList<Type> actionTypes;
 
         private static IList<Type> Actions()
@@ -125,7 +123,5 @@ namespace Mix.Core
                    !type.IsInterface &&
                    !type.IsAbstract;
         }
-
-        #endregion
     }
 }

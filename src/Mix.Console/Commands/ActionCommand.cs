@@ -10,25 +10,15 @@ namespace Mix.Console.Commands
 {
     public class ActionCommand : Command
     {
-        #region Variables
-
         private static readonly ILog log =
             LogManager.GetLogger(typeof(ActionCommand));
 
         private readonly IAction action;
 
-        #endregion
-
-        #region Constructor
-
         public ActionCommand(IAction action)
         {
             this.action = action;
         }
-
-        #endregion
-
-        #region Properties
 
         public override IContext Context
         {
@@ -43,8 +33,6 @@ namespace Mix.Console.Commands
         {
             get { return action; }
         }
-
-        #endregion
 
         public override int Execute()
         {

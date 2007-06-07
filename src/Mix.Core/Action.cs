@@ -186,8 +186,6 @@ namespace Mix.Core
             }
         }
 
-        #region Methods that could be overridden by a derived class
-
         /// <summary>
         /// A method for derived classes to override if they do not wish to use
         /// <see cref="ExecuteCore(XmlElement)"/> or
@@ -219,8 +217,6 @@ namespace Mix.Core
         protected virtual void ExecuteCore(XmlComment comment)
         {
         }
-
-        #endregion
 
         public override string ToString()
         {

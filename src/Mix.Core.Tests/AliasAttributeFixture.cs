@@ -7,8 +7,6 @@ namespace Mix.Core.Tests
     [TestFixture]
     public class AliasAttributeFixture
     {
-        #region Private test classes
-
         private class NoAlias
         {
         }
@@ -27,8 +25,6 @@ namespace Mix.Core.Tests
         private class BadlyFormattedAliases
         {
         }
-
-        #endregion
 
         [Test]
         public void ClassNoAlias()

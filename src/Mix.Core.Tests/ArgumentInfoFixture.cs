@@ -49,8 +49,6 @@ namespace Mix.Core.Tests
             Assert.IsFalse(arguments[1].Required);
         }
 
-        #region Private test classes
-
         private class SomeAction
         {
         }
@@ -70,7 +68,5 @@ namespace Mix.Core.Tests
                 get { return ""; }
             }
         }
-
-        #endregion
     }
 }

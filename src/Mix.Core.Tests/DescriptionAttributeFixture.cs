@@ -6,8 +6,6 @@ namespace Mix.Core.Tests
     [TestFixture]
     public class DescriptionAttributeFixture
     {
-        #region Private test classes
-
         private class WithoutDescription
         {
         }
@@ -16,8 +14,6 @@ namespace Mix.Core.Tests
         private class WithDescription
         {
         }
-
-        #endregion
 
         [Test]
         public void ClassWithoutDescription()

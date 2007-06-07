@@ -11,8 +11,6 @@ namespace Mix.Console.Commands
         private IDictionary<string, Command> commands =
             new Dictionary<string, Command>();
 
-        #region Constructors
-
         public HelpCommand()
         {
         }
@@ -27,8 +25,6 @@ namespace Mix.Console.Commands
             this.commands = commands;
             this.name = name;
         }
-
-        #endregion
 
         public override int Execute()
         {
