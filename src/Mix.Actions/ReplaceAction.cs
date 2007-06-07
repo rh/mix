@@ -51,6 +51,11 @@ namespace Mix.Actions
             attribute.Value = attribute.Value.Replace(OldValue, NewValue);
         }
 
+        protected override void ExecuteCore(XmlText text)
+        {
+            text.Value = text.Value.Replace(OldValue, NewValue);
+        }
+
         protected override void ExecuteCore(XmlComment comment)
         {
             comment.Value = comment.Value.Replace(OldValue, NewValue);

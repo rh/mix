@@ -20,15 +20,17 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlElement element)
         {
-            if (element.NodeType == XmlNodeType.Element)
-            {
-                element.InnerXml = Xml;
-            }
+            element.InnerXml = Xml;
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
             ExecuteCore(attribute.OwnerElement);
+        }
+
+        protected override void ExecuteCore(XmlText text)
+        {
+            ExecuteCore(text.ParentNode as XmlElement);
         }
 
         protected override void ExecuteCore(XmlComment comment)

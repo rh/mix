@@ -46,6 +46,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void UpperCaseTextNodes()
+        {
+            string pre = @"<root>text</root>";
+            string post = @"<root>TEXT</root>";
+            string xpath = "//text()";
+            UpperCaseAction action = new UpperCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void UpperCaseComments()
         {
             string pre = @"<root><!--comment--></root>";

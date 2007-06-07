@@ -32,6 +32,11 @@ namespace Mix.Actions
             attribute.Value = String.Empty;
         }
 
+        protected override void ExecuteCore(XmlText text)
+        {
+            text.ParentNode.RemoveChild(text);
+        }
+
         protected override void ExecuteCore(XmlComment comment)
         {
             comment.Value = String.Empty;

@@ -46,6 +46,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ClearTextNode()
+        {
+            string pre = @"<root>text</root>";
+            string post = @"<root></root>";
+            string xpath = "//text()";
+            ClearAction action = new ClearAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void ClearComment()
         {
             string pre = @"<root><!--COMMENT--></root>";

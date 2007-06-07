@@ -50,6 +50,17 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void AppendToTextNode()
+        {
+            const string pre = @"<root>text</root>";
+            const string post = @"<root>textappend</root>";
+            const string xpath = "//text()";
+            AppendAction action = new AppendAction();
+            action.Text = "append";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void AppendToComment()
         {
             const string pre = @"<root><!--COMMENT--></root>";

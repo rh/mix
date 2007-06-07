@@ -16,7 +16,7 @@ namespace Mix.Actions
                 {
                     if (node is XmlText)
                     {
-                        node.Value = node.Value.Trim();
+                        ExecuteCore(node as XmlText);
                     }
                     else if (node is XmlCDataSection)
                     {
@@ -29,6 +29,11 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlAttribute attribute)
         {
             attribute.Value = attribute.Value.Trim();
+        }
+
+        protected override void ExecuteCore(XmlText text)
+        {
+            text.Value = text.Value.Trim();
         }
 
         protected override void ExecuteCore(XmlComment comment)

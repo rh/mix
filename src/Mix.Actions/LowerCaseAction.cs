@@ -30,6 +30,11 @@ namespace Mix.Actions
             attribute.Value = attribute.Value.ToLower();
         }
 
+        protected override void ExecuteCore(XmlText text)
+        {
+            text.Value = text.Value.ToLower();
+        }
+
         protected override void ExecuteCore(XmlComment comment)
         {
             comment.Value = comment.Value.ToLower();

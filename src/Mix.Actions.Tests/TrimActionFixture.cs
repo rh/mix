@@ -26,6 +26,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void TextNodes()
+        {
+            string pre = @"<root> text  </root>";
+            string post = @"<root>text</root>";
+            string xpath = "//text()";
+            TrimAction action = new TrimAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void Comments()
         {
             string pre = @"<root><!-- COMMENT  --><!--   COMMENT --></root>";

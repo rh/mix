@@ -46,6 +46,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void LowerCaseTextNodes()
+        {
+            string pre = @"<root>TEXT</root>";
+            string post = @"<root>text</root>";
+            string xpath = "//text()";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void LowerCaseComments()
         {
             string pre = @"<root><!--COMMENT--></root>";
