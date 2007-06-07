@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>post</root>";
             string xpath = "root";
             SetAction action = new SetAction();
-            action.Text = "post";
+            action.Value = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -23,7 +23,7 @@ namespace Mix.Actions.Tests
             string post = @"<root><![CDATA[post]]></root>";
             string xpath = "root";
             SetAction action = new SetAction();
-            action.Text = "post";
+            action.Value = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -34,7 +34,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>post</root>";
             string xpath = "root";
             SetAction action = new SetAction();
-            action.Text = "post";
+            action.Value = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -45,7 +45,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>post</root>";
             string xpath = "root";
             SetAction action = new SetAction();
-            action.Text = "post";
+            action.Value = "post";
             Run(pre, post, xpath, action);
         }
 
@@ -56,7 +56,7 @@ namespace Mix.Actions.Tests
             string post = @"<root attribute=""value""></root>";
             string xpath = "root/@attribute";
             SetAction action = new SetAction();
-            action.Text = "value";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
 
@@ -67,7 +67,7 @@ namespace Mix.Actions.Tests
             string post = @"<root a=""value"" b=""value"" c=""value""></root>";
             string xpath = "//@*";
             SetAction action = new SetAction();
-            action.Text = "value";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
 
@@ -78,7 +78,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>value</root>";
             string xpath = "//text()";
             SetAction action = new SetAction();
-            action.Text = "value";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
         [Test]
@@ -88,7 +88,7 @@ namespace Mix.Actions.Tests
             string post = @"<root><![CDATA[value]]></root>";
             string xpath = "//text()";
             SetAction action = new SetAction();
-            action.Text = "value";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
 
@@ -99,7 +99,7 @@ namespace Mix.Actions.Tests
             string post = @"<root><!--value--><!--value--></root>";
             string xpath = "//comment()";
             SetAction action = new SetAction();
-            action.Text = "value";
+            action.Value = "value";
             Run(pre, post, xpath, action);
         }
     }

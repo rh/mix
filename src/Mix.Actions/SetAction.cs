@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument]
         [Description("The text to set.")]
-        public virtual string Text
+        public virtual string Value
         {
             get { return text; }
             set { text = value; }
@@ -36,35 +36,35 @@ namespace Mix.Actions
                 else
                 {
                     element.InnerXml = String.Empty;
-                    XmlText newElement = element.OwnerDocument.CreateTextNode(Text);
+                    XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
                     element.AppendChild(newElement);
                 }
             }
             else
             {
-                XmlText newElement = element.OwnerDocument.CreateTextNode(Text);
+                XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
                 element.AppendChild(newElement);
             }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = Text;
+            attribute.Value = Value;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = Text;
+            text.Value = Value;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = Text;
+            section.Value = Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = Text;
+            comment.Value = Value;
         }
     }
 }
