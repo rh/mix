@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -47,7 +48,8 @@ namespace Mix.Console.Commands
                     return;
                 }
 
-                WriteLine("  compiled {0:MMMM %d yyyy, HH:mm:ss}", date);
+                CultureInfo ci = new CultureInfo("en-US");
+                WriteLine("  compiled {0}", date.ToString("MMMM %d yyyy, HH:mm:ss", ci));
                 Write(Environment.NewLine);
             }
         }
