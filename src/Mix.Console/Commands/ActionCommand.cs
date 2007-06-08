@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using log4net;
@@ -37,52 +36,15 @@ namespace Mix.Console.Commands
 
         public override int Execute()
         {
-            Debug.Assert(Context != null, "Context != null");
+            IList<string> files = GetFiles(Context["file"]);
 
-            if (Context["file"] == null)
+            if (files.Count == 0)
             {
                 Context.Output.WriteLine("No files have been selected.");
                 return 1;
             }
 
-            string[] patterns = Context["file"].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
-            IList<FileInfo> allfiles = new List<FileInfo>();
-
-            foreach (string pattern in patterns)
-            {
-                try
-                {
-                    DirectoryInfo directory = new DirectoryInfo(".");
-                    FileInfo[] files = directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly);
-                    foreach (FileInfo file in files)
-                    {
-                        allfiles.Add(file);
-                    }
-                }
-                catch (ArgumentException e)
-                {
-                    log.Error("The pattern is not valid.", e);
-                    Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                    return 1;
-                }
-            }
-
-            IList<string> uniquefiles = new List<string>();
-            foreach (FileInfo file in allfiles)
-            {
-                if (!uniquefiles.Contains(file.FullName))
-                {
-                    uniquefiles.Add(file.FullName);
-                }
-            }
-
-            if (uniquefiles.Count == 0)
-            {
-                Context.Output.WriteLine("No files have been selected.");
-                return 1;
-            }
-
-            foreach (string file in uniquefiles)
+            foreach (string file in files)
             {
                 if (!ExecuteAction(file))
                 {
@@ -155,6 +117,57 @@ namespace Mix.Console.Commands
                 return false;
             }
             return true;
+        }
+
+        private IList<string> GetFiles(string patterns)
+        {
+            if (String.IsNullOrEmpty(patterns))
+            {
+                return new List<string>();
+            }
+            return GetFiles(patterns.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        private IList<string> GetFiles(string[] patterns)
+        {
+            IList<string> files = new List<string>();
+
+            foreach (string pattern in patterns)
+            {
+                try
+                {
+                    DirectoryInfo directory = new DirectoryInfo(".");
+                    foreach (FileInfo file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
+                    {
+                        files.Add(file.FullName);
+                    }
+                }
+                catch (IOException e)
+                {
+                    log.Error("The pattern is not valid.", e);
+                    Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                }
+                catch (ArgumentException e)
+                {
+                    log.Error("The pattern is not valid.", e);
+                    Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                }
+            }
+
+            return Uniquefy(files);
+        }
+
+        private IList<string> Uniquefy(IList<string> list)
+        {
+            IList<string> unique = new List<string>();
+            foreach (string item in list)
+            {
+                if (!unique.Contains(item))
+                {
+                    unique.Add(item);
+                }
+            }
+            return unique;
         }
 
         public override string ToString()
