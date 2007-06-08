@@ -73,6 +73,9 @@ namespace Mix.Console.Commands
             WriteActions();
 
             Write(Environment.NewLine);
+            WriteLine("Actions marked with * do not change files.");
+
+            Write(Environment.NewLine);
             WriteLine("Mix is a tool for XML refactoring.");
             WriteLine("For additional information, see http://mix.sourceforge.net/");
         }
@@ -83,8 +86,9 @@ namespace Mix.Console.Commands
             WriteLine("Available actions:");
             foreach (IActionInfo info in ActionInfo.All())
             {
+                string readOnly = info.Instance is IReadOnly ? "*" : "";
                 string aliases = Aliases(info);
-                WriteLine("  {0}{1}", info.Name, aliases);
+                WriteLine("  {0}{1}{2}", info.Name, readOnly, aliases);
             }
         }
 
