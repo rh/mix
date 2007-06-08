@@ -45,6 +45,7 @@
     <Compile Include="AddRootElementAction.cs" />
     <Compile Include="ClearAction.cs" />
     <Compile Include="AddElementAction.cs" />
+    <Compile Include="CommentAction.cs" />
     <Compile Include="ConvertAttributesToElementsAction.cs" />
     <Compile Include="ConvertElementsToAttributesAction.cs" />
     <Compile Include="CopyAttributeAction.cs" />

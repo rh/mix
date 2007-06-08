@@ -49,6 +49,7 @@
     <Compile Include="AppendActionFixture.cs" />
     <Compile Include="AddFragmentActionFixture.cs" />
     <Compile Include="ClearActionFixture.cs" />
+    <Compile Include="CommentActionFixture.cs" />
     <Compile Include="ConvertAttributesToElementsActionFixture.cs" />
     <Compile Include="ConvertElementsToAttributesActionFixture.cs" />
     <Compile Include="CopyAttributeActionFixture.cs" />
