@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
@@ -38,27 +39,50 @@ namespace Mix.Console.Commands
         {
             Debug.Assert(Context != null, "Context != null");
 
-            string pattern = Context["file"];
-            string[] files;
-
-            try
-            {
-                files = Directory.GetFiles(".", pattern);
-            }
-            catch (ArgumentException e)
-            {
-                log.Error("The pattern is not valid.", e);
-                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                return 1;
-            }
-
-            if (files == null || files.Length == 0)
+            if (Context["file"] == null)
             {
                 Context.Output.WriteLine("No files have been selected.");
                 return 1;
             }
 
-            foreach (string file in files)
+            string[] patterns = Context["file"].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            IList<FileInfo> allfiles = new List<FileInfo>();
+
+            foreach (string pattern in patterns)
+            {
+                try
+                {
+                    DirectoryInfo directory = new DirectoryInfo(".");
+                    FileInfo[] files = directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly);
+                    foreach (FileInfo file in files)
+                    {
+                        allfiles.Add(file);
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    log.Error("The pattern is not valid.", e);
+                    Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                    return 1;
+                }
+            }
+
+            IList<string> uniquefiles = new List<string>();
+            foreach (FileInfo file in allfiles)
+            {
+                if (!uniquefiles.Contains(file.FullName))
+                {
+                    uniquefiles.Add(file.FullName);
+                }
+            }
+
+            if (uniquefiles.Count == 0)
+            {
+                Context.Output.WriteLine("No files have been selected.");
+                return 1;
+            }
+
+            foreach (string file in uniquefiles)
             {
                 if (!ExecuteAction(file))
                 {
