@@ -44,6 +44,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AddAttributeActionFixture.cs" />
+    <Compile Include="AddCommentFixture.cs" />
     <Compile Include="AppendActionFixture.cs" />
     <Compile Include="AddFragmentActionFixture.cs" />
     <Compile Include="ClearActionFixture.cs" />
