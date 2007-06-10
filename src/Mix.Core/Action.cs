@@ -41,10 +41,13 @@ namespace Mix.Core
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
 
+            // Actions may need to recreate child nodes. If they do, these nodes
+            // will not be selected. Processing all nodes in reverse order
+            // solves this.
             XmlNodeList nodes = SelectNodes(context, document);
-
-            foreach (XmlNode node in nodes)
+            for (int i = nodes.Count - 1; i >= 0; i--)
             {
+                XmlNode node = nodes[i];
                 if (node is XmlElement)
                 {
                     Execute(node as XmlElement);
@@ -66,7 +69,6 @@ namespace Mix.Core
                     Execute(node as XmlComment);
                 }
             }
-
             context.Xml = document.InnerXml;
         }
 
