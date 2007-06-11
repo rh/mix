@@ -25,7 +25,7 @@ namespace Mix.Core
         public void Execute(IContext context)
         {
             Initialize(context);
-            Validate();
+            Validate(context);
 
             if (ExecuteCore(context))
             {
@@ -176,7 +176,19 @@ namespace Mix.Core
             }
         }
 
-        private void Validate()
+        private void Validate(IContext context)
+        {
+            ValidateXml(context);
+            ValidateProperties();
+        }
+
+        private void ValidateXml(IContext context)
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(context.Xml);
+        }
+
+        private void ValidateProperties()
         {
             foreach (PropertyInfo property in GetType().GetProperties())
             {

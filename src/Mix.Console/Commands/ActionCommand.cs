@@ -64,6 +64,15 @@ namespace Mix.Console.Commands
             {
                 Action.Execute(Context);
             }
+            catch (XmlException e)
+            {
+                log.Error(e.Message, e);
+                string message =
+                    String.Format("File '{0}' is not a valid XML document.",
+                                  file);
+                WriteLine(message);
+                WriteLine(e.Message);
+            }
             catch (RequirementException e)
             {
                 log.Error(e.Message, e);

@@ -19,11 +19,23 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        [ExpectedException(typeof(XmlException))]
+        public void XmlNotSet()
+        {
+            ExtractAction action = new ExtractAction();
+            action.Execute(Context.Null);
+            Assert.Fail("An XmlException should have been thrown.");
+        }
+
+        [Test]
         [ExpectedException(typeof(RequirementException))]
         public void NameNotSet()
         {
             ExtractAction action = new ExtractAction();
-            action.Execute(Context.Null);
+            string xml = @"<root><node/><node/></root>";
+            string xpath = "//node";
+            Context context = new Context(xml, xpath);
+            action.Execute(context);
             Assert.Fail("A RequirementException should have been thrown.");
         }
 
