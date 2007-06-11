@@ -67,11 +67,8 @@ namespace Mix.Console.Commands
             catch (XmlException e)
             {
                 log.Error(e.Message, e);
-                string message =
-                    String.Format("File '{0}' is not a valid XML document.",
-                                  file);
-                WriteLine(message);
                 WriteLine(e.Message);
+                return false;
             }
             catch (RequirementException e)
             {

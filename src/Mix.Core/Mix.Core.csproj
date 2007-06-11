@@ -47,6 +47,7 @@
     <Compile Include="ArgumentInfo.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />
     <Compile Include="Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Attributes\XmlArgumentAttribute.cs" />
     <Compile Include="Exceptions\ActionExecutionException.cs" />
     <Compile Include="Attributes\ArgumentAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mix.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class AliasAttribute : Attribute
     {
         private readonly string alias;

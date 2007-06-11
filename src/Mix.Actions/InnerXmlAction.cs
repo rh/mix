@@ -10,7 +10,7 @@ namespace Mix.Actions
     {
         private string xml = String.Empty;
 
-        [Argument, Required]
+        [Argument, XmlArgument, Required]
         [Description("The literal XML of the selected elements.")]
         public virtual string Xml
         {
@@ -41,7 +41,7 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlComment comment)
         {
             // InnerText is used because InnerXml will throw; an XmlComment
-            // cannaot have children.
+            // cannot have children.
             comment.InnerText = Xml;
         }
     }

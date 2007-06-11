@@ -10,7 +10,7 @@ namespace Mix.Actions
     {
         private string fragment = String.Empty;
 
-        [Argument, Required]
+        [Argument, XmlArgument, Required]
         [Description("The raw xml of the new element.")]
         public virtual string Fragment
         {

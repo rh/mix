@@ -21,7 +21,7 @@ namespace Mix.Core.Attributes
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class DescriptionAttribute : Attribute
     {
         private readonly string description;

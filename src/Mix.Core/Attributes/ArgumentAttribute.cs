@@ -21,7 +21,7 @@ namespace Mix.Core.Attributes
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class ArgumentAttribute : Attribute
     {
         public static bool IsDefinedOn(PropertyInfo property)

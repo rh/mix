@@ -185,7 +185,16 @@ namespace Mix.Core
         private void ValidateXml(IContext context)
         {
             XmlDocument document = new XmlDocument();
-            document.LoadXml(context.Xml);
+            try
+            {
+                document.LoadXml(context.Xml);
+            }
+            catch (XmlException e)
+            {
+                string message = String.Format("File '{0}' is not a valid XML document. {1}",
+                                               context.FileName, e.Message);
+                throw new XmlException(message, e);
+            }
         }
 
         private void ValidateProperties()
@@ -210,6 +219,31 @@ namespace Mix.Core
                             description = attribute.Description;
                         }
                         throw new RequirementException(message, property.Name, description);
+                    }
+                }
+
+                if (property.IsDefined(typeof(ArgumentAttribute), true) &&
+                    property.IsDefined(typeof(XmlArgumentAttribute), true))
+                {
+                    object value = property.GetValue(this, null);
+                    if (value != null && value.ToString().Trim().Length > 0)
+                    {
+                        string xml = value as string;
+                        if (xml != null)
+                        {
+                            try
+                            {
+                                XmlDocument document = new XmlDocument();
+                                // Create a root node, because the XML is just a fragment.
+                                document.LoadXml(String.Format("<root>{0}</root>", xml));
+                            }
+                            catch (XmlException e)
+                            {
+                                string message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}",
+                                                               property.Name.ToLower(), xml, e.Message);
+                                throw new XmlException(message, e);
+                            }
+                        }
                     }
                 }
             }
