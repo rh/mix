@@ -9,6 +9,7 @@ namespace Mix.Actions
     public class AddElementAction : Action
     {
         private string name = String.Empty;
+        private string @value = String.Empty;
 
         [Argument, Required]
         [Description("The name of the new element.")]
@@ -18,9 +19,18 @@ namespace Mix.Actions
             set { name = value; }
         }
 
+        [Argument]
+        [Description("The value of the new element.")]
+        public virtual string Value
+        {
+            get { return @value; }
+            set { this.@value = value; }
+        }
+
         protected override void ExecuteCore(XmlElement element)
         {
             XmlElement child = element.OwnerDocument.CreateElement(Name);
+            child.InnerText = Value;
             element.AppendChild(child);
         }
 
