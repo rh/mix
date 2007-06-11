@@ -8,19 +8,19 @@ namespace Mix.Actions
     [Description("Adds a new CDATA section.")]
     public class AddCDataSectionAction : Action
     {
-        private string text = String.Empty;
+        private string @value = String.Empty;
 
         [Argument]
-        [Description("The text of the CDATA section.")]
-        public virtual string Text
+        [Description("The value of the CDATA section.")]
+        public virtual string Value
         {
-            get { return text; }
-            set { text = value; }
+            get { return @value; }
+            set { this.@value = value; }
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlCDataSection section = element.OwnerDocument.CreateCDataSection(Text);
+            XmlCDataSection section = element.OwnerDocument.CreateCDataSection(Value);
             element.AppendChild(section);
         }
 
@@ -36,7 +36,7 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value + Text;
+            section.Value = section.Value + Value;
         }
     }
 }

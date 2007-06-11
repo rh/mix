@@ -8,14 +8,14 @@ namespace Mix.Actions
     [Description("Sets the value of the selected elements or attributes.")]
     public class SetAction : Action
     {
-        private string text = String.Empty;
+        private string @value = String.Empty;
 
         [Argument]
-        [Description("The text to set.")]
+        [Description("The value to set.")]
         public virtual string Value
         {
-            get { return text; }
-            set { text = value; }
+            get { return @value; }
+            set { this.@value = value; }
         }
 
         protected override void ExecuteCore(XmlElement element)

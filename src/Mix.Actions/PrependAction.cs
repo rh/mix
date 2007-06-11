@@ -9,14 +9,14 @@ namespace Mix.Actions
                  "or to the value of the selected attributes.")]
     public class PrependAction : Action
     {
-        private string text = String.Empty;
+        private string @value = String.Empty;
 
         [Argument, Required]
-        [Description("The text to prepend.")]
-        public virtual string Text
+        [Description("The value to prepend.")]
+        public virtual string Value
         {
-            get { return text; }
-            set { text = value; }
+            get { return @value; }
+            set { this.@value = value; }
         }
 
         protected override void ExecuteCore(XmlElement element)
@@ -37,29 +37,29 @@ namespace Mix.Actions
             }
             else
             {
-                XmlText newElement = element.OwnerDocument.CreateTextNode(Text);
+                XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
                 element.AppendChild(newElement);
             }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = Text + attribute.Value;
+            attribute.Value = Value + attribute.Value;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = Text + text.Value;
+            text.Value = Value + text.Value;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = Text + section.Value;
+            section.Value = Value + section.Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = Text + comment.Value;
+            comment.Value = Value + comment.Value;
         }
     }
 }

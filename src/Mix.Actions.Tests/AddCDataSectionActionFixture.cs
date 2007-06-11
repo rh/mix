@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root><![CDATA[text]]></root>";
             const string xpath = "root";
             AddCDataSectionAction action = new AddCDataSectionAction();
-            action.Text = "text";
+            action.Value = "text";
             Run(pre, post, xpath, action);
         }
 
@@ -23,7 +23,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root a=""""><![CDATA[text]]></root>";
             const string xpath = "root/@a";
             AddCDataSectionAction action = new AddCDataSectionAction();
-            action.Text = "text";
+            action.Value = "text";
             Run(pre, post, xpath, action);
         }
 
@@ -34,7 +34,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root>text<![CDATA[text]]></root>";
             const string xpath = "//text()";
             AddCDataSectionAction action = new AddCDataSectionAction();
-            action.Text = "text";
+            action.Value = "text";
             Run(pre, post, xpath, action);
         }
 
@@ -45,7 +45,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root><![CDATA[texttext]]></root>";
             const string xpath = "//text()";
             AddCDataSectionAction action = new AddCDataSectionAction();
-            action.Text = "text";
+            action.Value = "text";
             Run(pre, post, xpath, action);
         }
     }

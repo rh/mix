@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root><!--COMMENT--></root>";
             const string xpath = "root";
             AddCommentAction action = new AddCommentAction();
-            action.Text = "COMMENT";
+            action.Value = "COMMENT";
             Run(pre, post, xpath, action);
         }
 
@@ -23,7 +23,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root a=""""><!--COMMENT--></root>";
             const string xpath = "root/@a";
             AddCommentAction action = new AddCommentAction();
-            action.Text = "COMMENT";
+            action.Value = "COMMENT";
             Run(pre, post, xpath, action);
         }
 
@@ -34,7 +34,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root>text<!--COMMENT--></root>";
             const string xpath = "//text()";
             AddCommentAction action = new AddCommentAction();
-            action.Text = "COMMENT";
+            action.Value = "COMMENT";
             Run(pre, post, xpath, action);
         }
 
@@ -45,7 +45,7 @@ namespace Mix.Actions.Tests
             const string post = @"<root><!--COMMENTCOMMENT--></root>";
             const string xpath = "//comment()";
             AddCommentAction action = new AddCommentAction();
-            action.Text = "COMMENT";
+            action.Value = "COMMENT";
             Run(pre, post, xpath, action);
         }
     }

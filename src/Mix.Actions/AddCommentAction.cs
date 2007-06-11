@@ -8,19 +8,19 @@ namespace Mix.Actions
     [Description("Adds a new comment.")]
     public class AddCommentAction : Action
     {
-        private string text = String.Empty;
+        private string @value = String.Empty;
 
         [Argument]
-        [Description("The text of the comment.")]
-        public virtual string Text
+        [Description("The value of the comment.")]
+        public virtual string Value
         {
-            get { return text; }
-            set { text = value; }
+            get { return @value; }
+            set { this.@value = value; }
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlComment comment = element.OwnerDocument.CreateComment(Text);
+            XmlComment comment = element.OwnerDocument.CreateComment(Value);
             element.AppendChild(comment);
         }
 
@@ -36,7 +36,7 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value + Text;
+            comment.Value = comment.Value + Value;
         }
     }
 }

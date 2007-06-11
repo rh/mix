@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>prefixpre</root>";
             string xpath = "root";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
 
@@ -23,7 +23,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>prefixpre<![CDATA[prefixpre]]>prefixpre</root>";
             string xpath = "root";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
 
@@ -34,7 +34,7 @@ namespace Mix.Actions.Tests
             string post = @"<root pre=""prefixpre"" />";
             string xpath = "root/@pre";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
 
@@ -45,7 +45,7 @@ namespace Mix.Actions.Tests
             string post = @"<root>prefixtext</root>";
             string xpath = "//text()";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
 
@@ -56,7 +56,7 @@ namespace Mix.Actions.Tests
             string post = @"<root><![CDATA[prefixtext]]></root>";
             string xpath = "//root";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
 
@@ -67,7 +67,7 @@ namespace Mix.Actions.Tests
             string post = @"<root><!--prefixCOMMENT--></root>";
             string xpath = "//comment()";
             PrependAction action = new PrependAction();
-            action.Text = "prefix";
+            action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
     }
