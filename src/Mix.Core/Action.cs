@@ -25,6 +25,7 @@ namespace Mix.Core
         public void Execute(IContext context)
         {
             Initialize(context);
+            Validate();
 
             if (ExecuteCore(context))
             {
@@ -35,8 +36,6 @@ namespace Mix.Core
             {
                 throw new RequirementException("'xpath' is required.", "xpath", "");
             }
-
-            Validate();
 
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
