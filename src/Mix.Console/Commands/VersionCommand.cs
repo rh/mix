@@ -20,7 +20,7 @@ namespace Mix.Console.Commands
 
         private void WriteVersion()
         {
-            WriteLine("Mix, version: {0}", Application.ProductVersion);
+            WriteLine("Mix, version {0}", Application.ProductVersion);
         }
 
         private void WriteCompilationDate()
