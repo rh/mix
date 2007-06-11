@@ -88,8 +88,8 @@ namespace Mix.Core
                 }
 
                 string message =
-                    String.Format("'{0}' is not a valid XPath expression: {1}{2}",
-                                  context.XPath, e.Message, info);
+                    String.Format("'{0}' is not a valid XPath expression:{1}{2}{3}",
+                                  context.XPath, Environment.NewLine, e.Message, info);
                 throw new ActionExecutionException(message, e);
             }
         }

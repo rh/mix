@@ -26,8 +26,8 @@ namespace Mix.Actions
                     catch (XPathException e)
                     {
                         string message =
-                            String.Format("XPath expression '{0}' is not valid.",
-                                          context.XPath);
+                            String.Format("'{0}' is not a valid XPath expression: {1}{2}",
+                                          context.XPath, Environment.NewLine, e.Message);
                         throw new ActionExecutionException(message, e);
                     }
                 }
