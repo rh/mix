@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Xml;
 using Mix.Core;
@@ -11,6 +12,16 @@ namespace Mix.Actions
     public class ExtractAction : Action
     {
         private string name = String.Empty;
+        private readonly TextWriter writer;
+
+        public ExtractAction()
+        {
+        }
+
+        public ExtractAction(TextWriter writer)
+        {
+            this.writer = writer;
+        }
 
         [Argument, Required]
         [Description("The name of the new file(s)." +
@@ -31,7 +42,15 @@ namespace Mix.Actions
             document.AppendChild(root);
 
             string filename = GetFileName(element);
-            document.Save(filename);
+
+            if (writer == null)
+            {
+                document.Save(filename);
+            }
+            else
+            {
+                document.Save(writer);
+            }
         }
 
         protected virtual string GetFileName(XmlElement element)
