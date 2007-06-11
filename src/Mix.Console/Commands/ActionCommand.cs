@@ -58,7 +58,16 @@ namespace Mix.Console.Commands
         private bool ExecuteAction(string file)
         {
             Context.FileName = file;
-            Context.Xml = File.ReadAllText(file);
+            try
+            {
+                Context.Xml = File.ReadAllText(file);
+            }
+            catch (ArgumentNullException)
+            {
+                string message = String.Format("File '{0}' is empty.", file);
+                WriteLine(message);
+                return false;
+            }
 
             try
             {
