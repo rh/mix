@@ -54,6 +54,7 @@
     <Compile Include="InnerXmlAction.cs" />
     <Compile Include="LowerCaseAction.cs" />
     <Compile Include="PrependAction.cs" />
+    <Compile Include="PrettyPrintAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveAction.cs" />
     <Compile Include="RenameAction.cs" />
