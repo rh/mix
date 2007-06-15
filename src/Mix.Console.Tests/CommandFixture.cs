@@ -12,7 +12,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ContextNull()
         {
-            Command command = new InfoCommand();
+            Command command = new HelpCommand();
             Assert.AreEqual(Context.Null, command.Context);
         }
 
@@ -20,7 +20,7 @@ namespace Mix.Console.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullContext()
         {
-            Command command = new InfoCommand();
+            Command command = new HelpCommand();
             command.Context = null;
         }
 

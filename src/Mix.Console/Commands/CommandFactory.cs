@@ -47,7 +47,7 @@ namespace Mix.Console.Commands
         {
             if (!properties.ContainsKey("action"))
             {
-                return new InfoCommand();
+                return new HelpCommand(Commands);
             }
 
             string name = properties["action"].ToLower();

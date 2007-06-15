@@ -35,7 +35,6 @@ namespace Mix.Console.Tests
             TestTypeOfCommand(new string[] {"help"}, typeof(HelpCommand));
             TestTypeOfCommand(new string[] {"version"}, typeof(VersionCommand));
             TestTypeOfCommand(new string[] {"foo"}, typeof(UnknownCommand));
-            TestTypeOfCommand(new string[] {}, typeof(InfoCommand));
         }
 
         [Test]
@@ -57,12 +56,12 @@ namespace Mix.Console.Tests
         }
 
         [Test]
-        public void InfoCommand()
+        public void HelpCommand()
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {});
-            Assert.AreEqual(typeof(InfoCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new InfoCommand()));
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
 
         [Test]
