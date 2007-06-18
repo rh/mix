@@ -68,7 +68,7 @@ namespace Mix.Console.Commands
 
             WriteLine("Examples:");
             WriteLine("  mix addattribute file:test.xml xpath://node() name:id");
-            WriteLine("  mix set file:test.xml xpath://foo text:\"Some text\"");
+            WriteLine("  mix set file:test.xml xpath://foo value:\"Some text\"");
 
             WriteActions();
 
