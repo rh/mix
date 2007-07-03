@@ -10,8 +10,7 @@ namespace Mix.Console
         [STAThread]
         private static int Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException +=
-                new UnhandledExceptionEventHandler(OnUnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
             XmlConfigurator.Configure();
 
             try

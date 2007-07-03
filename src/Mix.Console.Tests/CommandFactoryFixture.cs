@@ -32,9 +32,9 @@ namespace Mix.Console.Tests
         [Test]
         public void TypeOfCommand()
         {
-            TestTypeOfCommand(new string[] {"help"}, typeof(HelpCommand));
-            TestTypeOfCommand(new string[] {"version"}, typeof(VersionCommand));
-            TestTypeOfCommand(new string[] {"foo"}, typeof(UnknownCommand));
+            TestTypeOfCommand(new string[] {"help"}, typeof (HelpCommand));
+            TestTypeOfCommand(new string[] {"version"}, typeof (VersionCommand));
+            TestTypeOfCommand(new string[] {"foo"}, typeof (UnknownCommand));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"foo"});
-            Assert.AreEqual(typeof(UnknownCommand), command.GetType());
+            Assert.AreEqual(typeof (UnknownCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new UnknownCommand("foo")));
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"version"});
-            Assert.AreEqual(typeof(VersionCommand), command.GetType());
+            Assert.AreEqual(typeof (VersionCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new VersionCommand()));
         }
 
@@ -60,7 +60,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {});
-            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Assert.AreEqual(typeof (HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
 
@@ -68,8 +68,8 @@ namespace Mix.Console.Tests
         public void HelpCommand1()
         {
             CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] { "help"});
-            Assert.AreEqual(typeof(HelpCommand), command.GetType());
+            Command command = factory.Create(new string[] {"help"});
+            Assert.AreEqual(typeof (HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
 
@@ -78,42 +78,34 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "clear"});
-            Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "clear")));
+            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "clear")));
         }
 
         [Test]
         public void HelpCommand3()
         {
             CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] { "help", "rename" });
-            Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "rename")));
+            Command command = factory.Create(new string[] {"help", "rename"});
+            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "rename")));
         }
 
         [Test]
         public void HelpCommand4()
         {
             CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] { "help", "foo" });
-            Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Commands, "foo")));
+            Command command = factory.Create(new string[] {"help", "foo"});
+            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "foo")));
         }
 
         [Test]
         public void ActionCommand()
         {
             CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] { "clear", "file:*.xml", "xpath://@*" });
-            Assert.AreEqual(typeof(ActionCommand), command.GetType());
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Register()
-        {
-            CommandFactory.Register(new HelpCommand());
-            CommandFactory.Register(new HelpCommand());
+            Command command = factory.Create(new string[] {"clear", "file:*.xml", "xpath://@*"});
+            Assert.AreEqual(typeof (ActionCommand), command.GetType());
         }
     }
 }

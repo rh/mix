@@ -6,29 +6,33 @@ namespace Mix.Console.Commands
 {
     public class CommandFactory
     {
-        private static IDictionary<string, Command> commands =
-            new Dictionary<string, Command>();
+        private static readonly CommandRegistry registry = new CommandRegistry();
 
+        /// <summary>
+        /// Registers <see cref="HelpCommand"/> and <see cref="VersionCommand"/>
+        /// and an <see cref="ActionCommand"/> for every known implementation of
+        /// <see cref="IAction"/>.
+        /// </summary>
         static CommandFactory()
         {
-            Register(new HelpCommand());
-            Register(new VersionCommand());
+            registry.Register(new HelpCommand());
+            registry.Register(new VersionCommand());
 
             foreach (IActionInfo info in ActionInfo.All())
             {
                 Command command = new ActionCommand(info.Instance);
-                Register(command);
+                registry.Register(command);
                 foreach (string alias in info.Aliases)
                 {
-                    Register(command, alias);
+                    registry.Register(command, alias);
                 }
             }
         }
 
         /// <summary>
-        /// Creates a <see cref="Command"/> from the supplied args.
+        /// Creates a <see cref="Command"/> from the supplied arguments.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">The command-line arguments for this program.</param>
         /// <returns>A <see cref="Command"/> is always returned, i.e.
         /// <c>null</c> is never returned.
         /// </returns>
@@ -37,17 +41,32 @@ namespace Mix.Console.Commands
             Check.ArgumentIsNotNull(args, "args");
 
             IDictionary<string, string> properties = Parse(args);
-
             Command command = CreateCommand(properties, args);
             command.Context = CreateContext(properties);
             return command;
         }
 
+        /// <summary>
+        /// Creates a <see cref="Command"/> for the given name.
+        /// </summary>
+        /// <param name="properties">
+        /// The properties which were read from the command-line arguments.
+        /// </param>
+        /// <param name="args">
+        /// The command-line arguments for this program.
+        /// </param>
+        /// <returns>
+        /// One of the registered commands, or an instance of <see cref="HelpCommand"/>
+        /// if no name of an action was given, an instance of <see cref="UnknownCommand"/> if
+        /// if the name given does not match (the first part of) the name of a
+        /// registered command, or an instance of <see cref="AmbiguousMatchCommand"/>
+        /// if the given name matches more than one commands.
+        /// </returns>
         private Command CreateCommand(IDictionary<string, string> properties, string[] args)
         {
             if (!properties.ContainsKey("action"))
             {
-                return new HelpCommand(Commands);
+                return new HelpCommand(registry);
             }
 
             string name = properties["action"].ToLower();
@@ -56,28 +75,20 @@ namespace Mix.Console.Commands
             {
                 if (args.Length <= 1)
                 {
-                    return new HelpCommand(Commands);
+                    return new HelpCommand(registry);
                 }
                 else
                 {
-                    return new HelpCommand(Commands, args[1]);
+                    return new HelpCommand(registry, args[1]);
                 }
             }
-            else if (commands.ContainsKey(name))
+            else if (registry.Contains(name))
             {
-                return commands[name];
+                return registry.Commands[name];
             }
             else
             {
-                List<string> matches = new List<string>();
-
-                foreach (string key in commands.Keys)
-                {
-                    if (key.StartsWith(name))
-                    {
-                        matches.Add(key);
-                    }
-                }
+                IList<Command> matches = registry.Find(name);
 
                 if (matches.Count == 0)
                 {
@@ -85,7 +96,7 @@ namespace Mix.Console.Commands
                 }
                 else if (matches.Count == 1)
                 {
-                    return commands[matches[0]];
+                    return matches[0];
                 }
                 else
                 {
@@ -94,7 +105,17 @@ namespace Mix.Console.Commands
             }
         }
 
-        public IContext CreateContext(IDictionary<string, string> properties)
+        /// <summary>
+        /// Creates a <see cref="IContext"/> for the newly created <see cref="Command"/>.
+        /// </summary>
+        /// <param name="properties">
+        /// </param>
+        /// <returns>
+        /// A new <see cref="IContext"/>, with <see cref="IContext.Output"/> and
+        /// <see cref="IContext.Error"/> set to <see cref="System.Console"/>'s
+        /// <see cref="System.Console.Out"/> and <see cref="System.Console.Error"/> respectively.
+        /// </returns>
+        private IContext CreateContext(IDictionary<string, string> properties)
         {
             Context context = new Context(properties);
             context.Output = System.Console.Out;
@@ -106,7 +127,7 @@ namespace Mix.Console.Commands
         ///
         /// </summary>
         /// <param name="args">
-        /// The command-line to parse. May be <c>null</c>.
+        /// The command-line arguments for this program. May be <c>null</c>.
         /// </param>
         /// <returns></returns>
         private IDictionary<string, string> Parse(string[] args)
@@ -134,9 +155,19 @@ namespace Mix.Console.Commands
             return properties;
         }
 
+        /// <summary>
+        /// Gets the name of the property of a property-value pair.
+        /// </summary>
+        /// <param name="arg">A property-value pair.</param>
+        /// <returns>
+        /// The name of the property of a property-value pair.
+        /// </returns>
+        /// <remarks>
+        /// Properties and values can be separated by ':' or '='.
+        /// </remarks>
         private string GetName(string arg)
         {
-            foreach (char c in ":=")
+            foreach (char c in new char[] {':', '='})
             {
                 if (arg.Contains(c.ToString()))
                 {
@@ -147,9 +178,20 @@ namespace Mix.Console.Commands
             return arg;
         }
 
+        /// <summary>
+        /// Gets the value of the property of a property-value pair.
+        /// </summary>
+        /// <param name="arg">A property-value pair.</param>
+        /// <returns>
+        /// The value of the property of a property-value pair, or
+        /// <see cref="string.Empty"/> of no value has been set.
+        /// </returns>
+        /// <remarks>
+        /// Properties and values can be separated by ':' or '='.
+        /// </remarks>
         private string GetValue(string arg)
         {
-            foreach (char c in ":=")
+            foreach (char c in new char[] {':', '='})
             {
                 int index = arg.IndexOf(c);
                 if (index > 0)
@@ -161,51 +203,11 @@ namespace Mix.Console.Commands
         }
 
         /// <summary>
-        /// Registers <paramref name="command"/> for use in the application.
+        /// Gets the <see cref="CommandRegistry"/>, which contains all registered commands.
         /// </summary>
-        /// <param name="command">The command to register.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="command"/> is <c>null</c>.
-        /// </exception>
-        /// <remarks>
-        /// The 'name' of the <see cref="Command"/> is used as a unique key.
-        /// The command's implementation of <see cref="object.ToString"/> is
-        /// used for this key.
-        /// </remarks>
-        public static void Register(Command command)
+        public CommandRegistry Registry
         {
-            Check.ArgumentIsNotNull(command, "command");
-
-            Register(command, command.ToString());
-        }
-
-        /// <summary>
-        /// Registers <paramref name="command"/> for use in the application.
-        /// </summary>
-        /// <param name="command">The command to register.</param>
-        /// <param name="name">The name or alias of the command.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="command"/> is <c>null</c>, or
-        /// <paramref name="name"/> is <c>null</c> or empty.
-        /// </exception>
-        public static void Register(Command command, string name)
-        {
-            Check.ArgumentIsNotNull(command, "command");
-            Check.ArgumentIsNotNullOrEmpty(name, "name");
-
-            if (commands.ContainsKey(name))
-            {
-                string message =
-                    String.Format("A command with the name or alias '{0}' is already registered.",
-                                  name);
-                throw new ArgumentException(message, "command");
-            }
-            commands[name] = command;
-        }
-
-        public IDictionary<string, Command> Commands
-        {
-            get { return commands; }
+            get { return registry; }
         }
     }
 }

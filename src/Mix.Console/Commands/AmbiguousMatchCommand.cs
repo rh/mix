@@ -6,9 +6,9 @@ namespace Mix.Console.Commands
     public class AmbiguousMatchCommand : Command
     {
         private readonly string name;
-        private readonly List<string> matches;
+        private readonly IList<Command> matches;
 
-        public AmbiguousMatchCommand(string name, List<string> matches)
+        public AmbiguousMatchCommand(string name, IList<Command> matches)
         {
             this.name = name;
             this.matches = matches;
@@ -17,9 +17,9 @@ namespace Mix.Console.Commands
         public override int Execute()
         {
             WriteLine("Multiple actions start with '{0}':", name);
-            foreach (string action in matches)
+            foreach (Command command in matches)
             {
-                WriteLine("  {0}", action);
+                WriteLine("  {0}", command);
             }
             Write(Environment.NewLine);
 

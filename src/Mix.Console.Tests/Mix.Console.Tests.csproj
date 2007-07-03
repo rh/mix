@@ -45,6 +45,7 @@
     <Compile Include="ActionCommandFixture.cs" />
     <Compile Include="CommandFactoryFixture.cs" />
     <Compile Include="CommandFixture.cs" />
+    <Compile Include="CommandRegistryFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

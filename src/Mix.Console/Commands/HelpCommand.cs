@@ -7,22 +7,21 @@ namespace Mix.Console.Commands
 {
     public class HelpCommand : Command
     {
-        private string name = String.Empty;
-        private IDictionary<string, Command> commands =
-            new Dictionary<string, Command>();
+        private readonly string name = String.Empty;
+        private readonly CommandRegistry registry;
 
         public HelpCommand()
         {
         }
 
-        public HelpCommand(IDictionary<string, Command> commands)
+        public HelpCommand(CommandRegistry registry)
         {
-            this.commands = commands;
+            this.registry = registry;
         }
 
-        public HelpCommand(IDictionary<string, Command> commands, string name)
+        public HelpCommand(CommandRegistry registry, string name)
         {
-            this.commands = commands;
+            this.registry = registry;
             this.name = name;
         }
 
@@ -31,6 +30,11 @@ namespace Mix.Console.Commands
             if (ActionIsNotSet)
             {
                 WriteUsage();
+            }
+            else if (ActionIsAmbiguous)
+            {
+                WriteAmbiguousActionUsage();
+                return 1;
             }
             else if (ActionIsKnown)
             {
@@ -49,9 +53,14 @@ namespace Mix.Console.Commands
             get { return String.IsNullOrEmpty(name); }
         }
 
+        private bool ActionIsAmbiguous
+        {
+            get { return registry.Find(name).Count > 1; }
+        }
+
         private bool ActionIsKnown
         {
-            get { return commands.ContainsKey(name); }
+            get { return registry.Find(name).Count == 1; }
         }
 
         private void WriteUsage()
@@ -92,9 +101,17 @@ namespace Mix.Console.Commands
             }
         }
 
+        private void WriteAmbiguousActionUsage()
+        {
+            IList<Command> matches = registry.Find(name);
+            AmbiguousMatchCommand command = new AmbiguousMatchCommand(name, matches);
+            command.Context = Context;
+            command.Execute();
+        }
+
         private void WriteActionUsage()
         {
-            object obj = commands[name];
+            object obj = registry.Find(name)[0];
 
             if (obj is ActionCommand)
             {
@@ -102,7 +119,7 @@ namespace Mix.Console.Commands
             }
 
             IActionInfo info = ActionInfo.For(obj);
-            WriteLine("{0}: {1}", name, info.Description);
+            WriteLine("{0}: {1}", obj, info.Description);
 
             if (info.Arguments.Length > 0)
             {
