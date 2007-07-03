@@ -20,7 +20,7 @@ namespace Mix.Actions
             set { oldValue = value; }
         }
 
-        [Argument, Required]
+        [Argument]
         [Description("The value to replace the old value.")]
         public virtual string NewValue
         {

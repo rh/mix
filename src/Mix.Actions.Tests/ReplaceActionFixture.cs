@@ -100,5 +100,16 @@ namespace Mix.Actions.Tests
             action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void ReplaceWithoutSettingNewValue()
+        {
+            string pre = @"<root>abcdefgh</root>";
+            string post = @"<root>abgh</root>";
+            string xpath = "root";
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            Run(pre, post, xpath, action);
+        }
     }
 }
