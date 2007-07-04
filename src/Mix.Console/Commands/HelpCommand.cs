@@ -127,7 +127,8 @@ namespace Mix.Console.Commands
                 WriteLine("Arguments:");
                 foreach (IArgumentInfo argument in info.Arguments)
                 {
-                    WriteLine("  {0,-15}{1}", argument.Name.ToLower(), argument.Description);
+                    string description = argument.Description.Replace("\n", "\n                 ");
+                    WriteLine("  {0,-15}{1}", argument.Name.ToLower(), description);
                     if (argument.Required)
                     {
                         WriteLine("                 [required]");
