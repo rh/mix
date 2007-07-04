@@ -21,7 +21,8 @@ namespace Mix.Actions
         }
 
         [Argument]
-        [Description("The value of the new attribute.")]
+        [Description("The value of the new attribute." +
+                     "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
         public virtual string Value
         {
             get { return @value; }
@@ -30,12 +31,23 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlHelper.AddAttribute(element.OwnerDocument, element, Name, Value);
+            XmlHelper.AddAttribute(element.OwnerDocument, element, Name, GetValue(element));
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            XmlHelper.AddAttribute(attribute.OwnerDocument, attribute.OwnerElement, Name, Value);
+            XmlHelper.AddAttribute(attribute.OwnerDocument, attribute.OwnerElement, Name, GetValue(attribute.OwnerElement));
+        }
+
+        private string GetValue(XmlNode element)
+        {
+            if (Value.StartsWith("xpath:"))
+            {
+                string xpath = Value.Replace("xpath:", "");
+                XmlNode node = element.SelectSingleNode(xpath);
+                return node.Value;
+            }
+            return Value;
         }
     }
 }
