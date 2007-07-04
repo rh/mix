@@ -144,24 +144,14 @@ namespace Mix.Console.Commands
 
         private string Aliases(IActionInfo info)
         {
-            string result = String.Empty;
-
-            IList<string> aliases = info.Aliases;
-
-            if (aliases.Count > 0)
+            if (info.Aliases.Length > 0)
             {
-                foreach (string alias in aliases)
-                {
-                    if (result != String.Empty)
-                    {
-                        result = result + ", ";
-                    }
-                    result = result + alias;
-                }
-                result = "\n    (" + result + ")";
+                return String.Format("{1}    ({0})", String.Join(", ", info.Aliases), Environment.NewLine);
             }
-
-            return result;
+            else
+            {
+                return String.Empty;
+            }
         }
     }
 }

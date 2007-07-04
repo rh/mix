@@ -6,20 +6,22 @@ namespace Mix.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class AliasAttribute : Attribute
     {
-        private readonly string alias;
+        private readonly string[] aliases;
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="alias"></param>
+        /// <param name="aliases">
+        /// An alias for the class that has been decorated with this attribute,
+        /// or a comma-separated-list of aliases. 
+        /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="alias"/> is <c>null</c>, or empty.
+        /// Thrown when <paramref name="aliases"/> is <c>null</c>, or empty.
         /// </exception>
-        public AliasAttribute(string alias)
+        public AliasAttribute(string aliases)
         {
-            Check.ArgumentIsNotNullOrEmpty(alias, "alias");
-
-            this.alias = alias;
+            Check.ArgumentIsNotNullOrEmpty(aliases, "aliases");
+            this.aliases = aliases.Replace(" ", "").Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>
@@ -28,9 +30,9 @@ namespace Mix.Core.Attributes
         /// <remarks>
         /// The value returned is never <c>null</c>.
         /// </remarks>
-        public virtual string Aliases
+        public virtual string[] Aliases
         {
-            get { return alias; }
+            get { return aliases; }
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace Mix.Core.Attributes
         /// <returns></returns>
         public static bool IsDefinedOn(object obj)
         {
-            return obj.GetType().IsDefined(typeof(AliasAttribute), false);
+            return obj.GetType().IsDefined(typeof (AliasAttribute), false);
         }
 
         /// <summary>
@@ -52,25 +54,14 @@ namespace Mix.Core.Attributes
         /// All aliases defined on <paramref name="obj"/>, or an empty
         /// <seealso cref="IList{T}"/>
         /// </returns>
-        public static IList<string> GetAliasesFrom(object obj)
+        public static string[] GetAliasesFrom(object obj)
         {
             if (IsDefinedOn(obj))
             {
-                AliasAttribute attribute =
-                    (AliasAttribute)
-                    obj.GetType().GetCustomAttributes(typeof(AliasAttribute), false)[0];
-                string aliases = attribute.Aliases;
-                IList<string> result = new List<string>();
-                foreach (string alias in aliases.Split(','))
-                {
-                    if (alias.Trim().Length > 0)
-                    {
-                        result.Add(alias.Trim());
-                    }
-                }
-                return result;
+                AliasAttribute attribute = (AliasAttribute) obj.GetType().GetCustomAttributes(typeof (AliasAttribute), false)[0];
+                return attribute.Aliases;
             }
-            return new List<string>();
+            return new string[] {};
         }
     }
 }

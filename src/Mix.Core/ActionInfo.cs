@@ -10,7 +10,7 @@ namespace Mix.Core
         private IAction action;
         private string name = String.Empty;
         private string description = "[no description]";
-        private IList<string> aliases = new List<string>();
+        private string[] aliases = new string[] {};
         private IArgumentInfo[] arguments = new IArgumentInfo[0] {};
 
         public ActionInfo()
@@ -32,7 +32,7 @@ namespace Mix.Core
             get { return description; }
         }
 
-        public IList<string> Aliases
+        public string[] Aliases
         {
             get { return aliases; }
         }
@@ -47,8 +47,7 @@ namespace Mix.Core
             ActionInfo info = new ActionInfo();
             info.action = obj as IAction;
             info.name = obj.ToString();
-            info.description =
-                DescriptionAttribute.GetDescriptionFrom(obj, "[no description]");
+            info.description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]");
             info.aliases = AliasAttribute.GetAliasesFrom(obj);
             info.arguments = ArgumentInfo.For(obj);
             return info;
@@ -81,7 +80,7 @@ namespace Mix.Core
             return actionTypes;
         }
 
-        private static void AddActions(Assembly[] assemblies)
+        private static void AddActions(IEnumerable<Assembly> assemblies)
         {
             foreach (Assembly assembly in assemblies)
             {
@@ -119,7 +118,7 @@ namespace Mix.Core
 
         private static bool IsAction(Type type)
         {
-            return typeof(IAction).IsAssignableFrom(type) &&
+            return typeof (IAction).IsAssignableFrom(type) &&
                    !type.IsInterface &&
                    !type.IsAbstract;
         }

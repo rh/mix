@@ -17,13 +17,13 @@ namespace Mix.Core
         string Action { get; set; }
 
         /// <summary>
-        /// A <seealso cref="TextWriter"/> that represents the standard output
+        /// A <see cref="TextWriter"/> that represents the standard output
         /// stream.
         /// </summary>
         TextWriter Output { get; }
 
         /// <summary>
-        /// A <seealso cref="TextWriter"/> that represents the standard error
+        /// A <see cref="TextWriter"/> that represents the standard error
         /// stream.
         /// </summary>
         TextWriter Error { get; }
