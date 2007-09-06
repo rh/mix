@@ -28,10 +28,15 @@
     <include name="Mix.Util.log4net/Mix.Util.log4net.build" />
   </fileset>
 
+  <fileset id="mix.assemblies" basedir="${build.dir}">
+    <include name="Mix.Core.dll" />
+    <include name="Mix.Actions.dll" />
+    <include name="mix.exe" />
+  </fileset>
+
   <!-- Main Targets -->
 
-  <target name="default" description="Compiles all sources and runs the unit tests"
-    depends="compile, test"/>
+  <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test, analyze"/>
 
   <target name="compile" description="Compiles all sources">
   	<delete dir="${build.base.dir}" if="${directory::exists(property::get-value('build.base.dir'))}"/>
@@ -55,6 +60,27 @@
       <test assemblyname="${build.dir}/Mix.Console.Tests.dll"/>
     </nunit2>
   </target>
+
+	<target name="analyze" depends="compile">
+    <property name="analysis.reports.dir" value="${build.base.dir}/analysis-reports" />
+    <delete dir="${analysis.reports.dir}" />
+    <mkdir dir="${analysis.reports.dir}" />
+    <!-- FxCop 1.35 is assumed -->
+		<fxcop>
+			<targets refid="mix.assemblies" />
+			<arg value="/rule:DesignRules.dll" />
+			<!-- CA1020: Avoid namespaces with few types -->
+			<arg value="/ruleid:-Microsoft.Design#CA1020" />
+			<arg value="/rule:UsageRules.dll" />
+			<!-- CA2209: Assemblies should declare minimum security -->
+			<arg value="/ruleid:-Microsoft.Usage#CA2209" />
+			<arg value="/rule:PerformanceRules.dll" />
+			<!-- CA1822: Mark members as static -->
+			<arg value="/ruleid:-Microsoft.Performance#CA1822" />
+			<arg value="/rule:SecurityRules.dll" />
+			<arg value="/out:${analysis.reports.dir}/analysis.xml" />
+		</fxcop>
+	</target>
 
   <!--
   Sub Targets (NAnt sees targets without a description attribute as Sub Targets)
