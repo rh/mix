@@ -201,8 +201,8 @@ namespace Mix.Core
         {
             foreach (PropertyInfo property in GetType().GetProperties())
             {
-                if (property.IsDefined(typeof(ArgumentAttribute), true) &&
-                    property.IsDefined(typeof(RequiredAttribute), true))
+                if (property.IsDefined(typeof(ArgumentAttribute), false) &&
+					property.IsDefined(typeof(RequiredAttribute), false))
                 {
                     object value = property.GetValue(this, null);
                     if (value == null || value.ToString().Trim().Length == 0)
@@ -211,7 +211,7 @@ namespace Mix.Core
                             String.Format("'{0}' is required.",
                                           property.Name.ToLower());
                         string description = "";
-                        if (property.IsDefined(typeof(DescriptionAttribute), true))
+						if (property.IsDefined(typeof(DescriptionAttribute), false))
                         {
                             DescriptionAttribute attribute =
                                 (DescriptionAttribute)
@@ -222,8 +222,8 @@ namespace Mix.Core
                     }
                 }
 
-                if (property.IsDefined(typeof(ArgumentAttribute), true) &&
-                    property.IsDefined(typeof(XmlArgumentAttribute), true))
+				if (property.IsDefined(typeof(ArgumentAttribute), false) &&
+					property.IsDefined(typeof(XmlArgumentAttribute), false))
                 {
                     object value = property.GetValue(this, null);
                     if (value != null && value.ToString().Trim().Length > 0)
