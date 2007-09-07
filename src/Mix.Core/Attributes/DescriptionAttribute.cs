@@ -22,7 +22,7 @@ namespace Mix.Core.Attributes
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class DescriptionAttribute : Attribute
+    public sealed class DescriptionAttribute : Attribute
     {
         private readonly string description;
 
@@ -31,7 +31,7 @@ namespace Mix.Core.Attributes
             this.description = description;
         }
 
-        public virtual string Description
+        public string Description
         {
             get { return description; }
         }

@@ -1,3 +1,8 @@
+using System;
 using System.Reflection;
-[assembly: AssemblyTitle("Mix.Core")]
-[assembly: AssemblyDescription("")]
+using System.Runtime.InteropServices;
+
+[assembly : CLSCompliant(true)]
+[assembly : ComVisible(false)]
+[assembly : AssemblyTitle("Mix.Core")]
+[assembly : AssemblyDescription("")]

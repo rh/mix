@@ -1,5 +1,10 @@
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-[assembly: AssemblyTitle("Mix.Console")]
-[assembly: AssemblyDescription("")]
-[assembly: InternalsVisibleTo("Mix.Console.Tests")]
+using System.Runtime.InteropServices;
+
+[assembly : CLSCompliant(true)]
+[assembly : ComVisible(false)]
+[assembly : AssemblyTitle("Mix.Console")]
+[assembly : AssemblyDescription("")]
+[assembly : InternalsVisibleTo("Mix.Console.Tests")]

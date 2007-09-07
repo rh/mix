@@ -25,7 +25,7 @@ namespace Mix.Core.Exceptions
         {
         }
 
-        public ActionExecutionException(SerializationInfo info, StreamingContext context)
+    	protected ActionExecutionException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Mix.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class AliasAttribute : Attribute
+    public sealed class AliasAttribute : Attribute
     {
         private readonly string[] aliases;
 
@@ -30,7 +30,7 @@ namespace Mix.Core.Attributes
         /// <remarks>
         /// The value returned is never <c>null</c>.
         /// </remarks>
-        public virtual string[] Aliases
+        public string[] Aliases
         {
             get { return aliases; }
         }

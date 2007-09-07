@@ -9,7 +9,7 @@ namespace Mix.Core
     {
         private string name = String.Empty;
         private string description = "[no description]";
-        private bool required = false;
+        private bool required;
 
         public ArgumentInfo()
         {

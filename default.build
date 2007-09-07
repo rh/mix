@@ -69,8 +69,12 @@
 		<fxcop>
 			<targets refid="mix.assemblies" />
 			<arg value="/rule:DesignRules.dll" />
+			<!-- CA2210: Assemblies should have valid strong names -->
+			<arg value="/ruleid:-Microsoft.Design#CA2210" />
 			<!-- CA1020: Avoid namespaces with few types -->
 			<arg value="/ruleid:-Microsoft.Design#CA1020" />
+			<!-- CA1059: Members should not expose certain concrete types -->
+			<arg value="/ruleid:-Microsoft.Design#CA1059" />
 			<arg value="/rule:UsageRules.dll" />
 			<!-- CA2209: Assemblies should declare minimum security -->
 			<arg value="/ruleid:-Microsoft.Usage#CA2209" />

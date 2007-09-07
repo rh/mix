@@ -6,8 +6,8 @@ namespace Mix.Core.Exceptions
     [Serializable]
     public class RequirementException : Exception
     {
-        private string property = String.Empty;
-        private string description = String.Empty;
+        private readonly string property = String.Empty;
+        private readonly string description = String.Empty;
 
         public RequirementException()
         {
@@ -36,7 +36,7 @@ namespace Mix.Core.Exceptions
         {
         }
 
-        public RequirementException(SerializationInfo info, StreamingContext context)
+    	protected RequirementException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

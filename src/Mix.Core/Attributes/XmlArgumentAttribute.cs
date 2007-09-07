@@ -23,7 +23,7 @@ namespace Mix.Core.Attributes
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class XmlArgumentAttribute : Attribute
+    public sealed class XmlArgumentAttribute : Attribute
     {
     }
 }

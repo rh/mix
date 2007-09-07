@@ -4,9 +4,6 @@ using System.IO;
 
 namespace Mix.Core
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class Context : Dictionary<string, string>, IContext
     {
         private string filename = String.Empty;
