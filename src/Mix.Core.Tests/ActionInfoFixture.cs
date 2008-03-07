@@ -6,20 +6,20 @@ namespace Mix.Core.Tests
     [TestFixture]
     public class ActionInfoFixture
     {
-        private SomeAction someAaction;
+        private SomeAction someAction;
         private SomeOtherAction otherAction;
 
         [SetUp]
         public void SetUp()
         {
-            someAaction = new SomeAction();
+            someAction = new SomeAction();
             otherAction = new SomeOtherAction();
         }
 
         [Test]
         public void Name()
         {
-            IActionInfo info1 = ActionInfo.For(someAaction);
+            IActionInfo info1 = ActionInfo.For(someAction);
             Assert.AreEqual("name", info1.Name);
 
             IActionInfo info2 = ActionInfo.For(otherAction);
@@ -29,7 +29,7 @@ namespace Mix.Core.Tests
         [Test]
         public void Description()
         {
-            IActionInfo info1 = ActionInfo.For(someAaction);
+            IActionInfo info1 = ActionInfo.For(someAction);
             Assert.AreEqual("description", info1.Description);
 
             IActionInfo info2 = ActionInfo.For(otherAction);
@@ -39,7 +39,7 @@ namespace Mix.Core.Tests
         [Test]
         public void Arguments()
         {
-            IActionInfo info1 = ActionInfo.For(someAaction);
+            IActionInfo info1 = ActionInfo.For(someAction);
             Assert.AreEqual(0, info1.Arguments.Length);
 
             IActionInfo info2 = ActionInfo.For(otherAction);
