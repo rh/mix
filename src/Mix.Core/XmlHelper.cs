@@ -7,6 +7,30 @@ namespace Mix.Core
     public static class XmlHelper
     {
         /// <summary>
+        /// Creates a <see cref="XmlNamespaceManager"/> for <paramref name="document"/>.
+        /// Namespaces declared in the document node are automatically added.
+        /// The default namespace is given the prefix 'default'.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
+        {
+            XmlNamespaceManager manager = new XmlNamespaceManager(document.NameTable);
+            foreach (XmlAttribute attribute in document.SelectSingleNode("/*").Attributes)
+            {
+                if (attribute.Name == "xmlns")
+                {
+                    manager.AddNamespace("default", attribute.Value);
+                }
+                if (attribute.Prefix == "xmlns")
+                {
+                    manager.AddNamespace(attribute.LocalName, attribute.Value);
+                }
+            }
+            return manager;
+        }
+
+        /// <summary>
         /// Removes the XML declaration from <paramref name="xml"/>.
         /// </summary>
         /// <param name="xml"></param>

@@ -1,48 +1,18 @@
 using System;
-using System.IO;
-using System.Xml.XPath;
+using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
-using Mix.Core.Exceptions;
 
 namespace Mix.Actions
 {
     [Description("Shows all selected nodes.")]
     public class ShowAction : Action, IReadOnly
     {
-        protected override bool ExecuteCore(IContext context)
+        protected override void ExecuteCore(XmlNode node)
         {
-            if (!String.IsNullOrEmpty(context.XPath))
-            {
-                using (TextReader reader = new StringReader(context.Xml))
-                {
-                    XPathDocument document = new XPathDocument(reader);
-                    XPathNavigator navigator = document.CreateNavigator();
-                    try
-                    {
-                        XPathNodeIterator iterator = navigator.Select(context.XPath);
-                        context.Output.WriteLine("{0}: {1}", context.FileName, iterator.Count);
-                        while (iterator.MoveNext())
-                        {
-                            string xml = iterator.Current.OuterXml.Trim();
-                            xml = xml.Replace(Environment.NewLine, String.Format("{0}  ", Environment.NewLine));
-                            context.Output.WriteLine("  {0}", xml);
-                        }
-                    }
-                    catch (XPathException e)
-                    {
-                        string message =
-                            String.Format("'{0}' is not a valid XPath expression: {1}{2}",
-                                          context.XPath, Environment.NewLine, e.Message);
-                        throw new ActionExecutionException(message, e);
-                    }
-                }
-            }
-            else
-            {
-                context.Output.WriteLine("{0}: no selection.", context.FileName);
-            }
-            return true;
+            string xml = node.OuterXml.Trim();
+            xml = xml.Replace(Environment.NewLine, String.Format("{0}  ", Environment.NewLine));
+            Context.Output.WriteLine("  {0}", xml);
         }
     }
 }

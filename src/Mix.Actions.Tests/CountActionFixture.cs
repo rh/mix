@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
         [Test]
         public void Test()
         {
-            string pre = @"<root><child/><child/></root>";
+            string pre = @"<root><child /><child /></root>";
             string post = pre;
             string xpath = "//child";
             CountAction action = new CountAction();
@@ -37,13 +37,13 @@ namespace Mix.Actions.Tests
         public void NoSelection()
         {
             string xml = @"<root><child/><child/></root>";
-            string xpath = null;
+            string xpath = "//foo";
             Context context = new Context(xml, xpath);
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
             new CountAction().Execute(context);
-            string expected = String.Format("file: no selection.{0}", Environment.NewLine);
+            string expected = String.Format("file: 0{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 

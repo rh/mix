@@ -1,3 +1,8 @@
+Create an IContext property on Action
+Make count of selected nodes available to action
+Create events BeforeExecute, AfterExecute
+Refactor XMlHelper
+
 DONE: Move ArgumentAttribute, RequiredAttribute logic to Mix.Core (see HelpCommand)
 Better: create a new class (ActionInfo and ArgumentInfo?) with information about properties(arguments) to set, which are required, what is their description etc.
 This class will be used to format the information for display.

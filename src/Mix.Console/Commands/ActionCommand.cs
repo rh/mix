@@ -10,9 +10,7 @@ namespace Mix.Console.Commands
 {
 	public class ActionCommand : Command
 	{
-		private static readonly ILog log =
-			LogManager.GetLogger(typeof(ActionCommand));
-
+		private static readonly ILog log = LogManager.GetLogger(typeof(ActionCommand));
 		private readonly IAction action;
 
 		public ActionCommand(IAction action)
@@ -82,9 +80,7 @@ namespace Mix.Console.Commands
 			catch (RequirementException e)
 			{
 				log.Error(e.Message, e);
-				string message =
-					String.Format("Required argument '{0}' is missing.",
-					              e.Property.ToLower());
+				string message = String.Format("Required argument '{0}' is missing.", e.Property.ToLower());
 				WriteLine(message);
 				if (e.Description.Length > 0)
 				{
@@ -174,15 +170,15 @@ namespace Mix.Console.Commands
 
 		private IList<string> Uniquefy(IList<string> list)
 		{
-			IList<string> unique = new List<string>();
+			IList<string> uniques = new List<string>();
 			foreach (string item in list)
 			{
-				if (!unique.Contains(item))
+				if (!uniques.Contains(item))
 				{
-					unique.Add(item);
+					uniques.Add(item);
 				}
 			}
-			return unique;
+			return uniques;
 		}
 
 		public override string ToString()

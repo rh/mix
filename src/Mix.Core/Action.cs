@@ -7,11 +7,18 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Core
 {
-    /// <summary/>
     public abstract class Action : IAction
     {
+        private IContext context;
+
+        public IContext Context
+        {
+            get { return context; }
+        }
+
         private void Initialize(IContext context)
         {
+            this.context = context;
             foreach (PropertyInfo property in GetType().GetProperties())
             {
                 string name = property.Name.ToLower();
@@ -29,9 +36,10 @@ namespace Mix.Core
 
             if (ExecuteCore(context))
             {
-                return;
+                return; // The subclass has handled the action
             }
 
+            // XPath is required for actions that don't implement ExecuteCore(IContext)
             if (String.IsNullOrEmpty(context.XPath))
             {
                 throw new RequirementException("'xpath' is required.", "xpath", "");
@@ -39,11 +47,12 @@ namespace Mix.Core
 
             XmlDocument document = new XmlDocument();
             document.InnerXml = context.Xml;
+            XmlNamespaceManager manager = XmlHelper.CreateNamespaceManager(document);
 
             // Actions may need to recreate child nodes. If they do, these nodes
-            // will not be selected. Processing all nodes in reverse order
-            // solves this.
-            XmlNodeList nodes = SelectNodes(context, document);
+            // will not be selected. Processing all nodes in reverse order solves this.
+            XmlNodeList nodes = SelectNodes(context, document, manager);
+            BeforeExecute(nodes.Count);
             for (int i = nodes.Count - 1; i >= 0; i--)
             {
                 XmlNode node = nodes[i];
@@ -67,44 +76,52 @@ namespace Mix.Core
                 {
                     Execute(node as XmlComment);
                 }
+
+                // The 'generic' method is always executed, so subclasses need only to
+                // implement ExecuteCore(XmlNode) for generic behaviour.
+                Execute(node);
             }
+            AfterExecute();
             context.Xml = document.InnerXml;
         }
 
-        private XmlNodeList SelectNodes(IContext context, XmlDocument document)
+        private XmlNodeList SelectNodes(IContext context, XmlDocument document, XmlNamespaceManager manager)
         {
             try
             {
-                return document.SelectNodes(context.XPath);
+                return document.SelectNodes(context.XPath, manager);
             }
             catch (XPathException e)
             {
-                string info = String.Empty;
-
-                if (e.Message.StartsWith("Namespace prefix"))
-                {
-                    info = "\nNamespace-prefixes can be set like:" +
-                           "\nnamespace:prefix:uri";
-                }
-
-                string message =
-                    String.Format("'{0}' is not a valid XPath expression:{1}{2}{3}",
-                                  context.XPath, Environment.NewLine, e.Message, info);
+                string message = String.Format("'{0}' is not a valid XPath expression:{1}{2}", context.XPath, Environment.NewLine, e.Message);
                 throw new ActionExecutionException(message, e);
             }
         }
 
-        /// <summary>
-        /// Executes the action for the specified element.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <c>element</c> is <c>null</c>.
-        /// </exception>
-        /// <exception cref="ActionExecutionException">
-        /// Thrown when <see cref="ExecuteCore(XmlElement)"/> throws an
-        /// <see cref="Exception"/>.
-        /// </exception>
+        private void BeforeExecute(int count)
+        {
+            try
+            {
+                OnBeforeExecute(count);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
+        private void AfterExecute()
+        {
+            try
+            {
+                OnAfterExecute();
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
         private void Execute(XmlElement element)
         {
             try
@@ -117,17 +134,6 @@ namespace Mix.Core
             }
         }
 
-        /// <summary>
-        /// Executes the action for the specified attribute.
-        /// </summary>
-        /// <param name="attribute">The attribute.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <c>attribute</c> is <c>null</c>.
-        /// </exception>
-        /// <exception cref="ActionExecutionException">
-        /// Thrown when <see cref="ExecuteCore(XmlAttribute)"/> throws an
-        /// <see cref="Exception"/>.
-        /// </exception>
         private void Execute(XmlAttribute attribute)
         {
             try
@@ -176,6 +182,18 @@ namespace Mix.Core
             }
         }
 
+        private void Execute(XmlNode node)
+        {
+            try
+            {
+                ExecuteCore(node);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
         private void Validate(IContext context)
         {
             ValidateXml(context);
@@ -191,8 +209,7 @@ namespace Mix.Core
             }
             catch (XmlException e)
             {
-                string message = String.Format("File '{0}' is not a valid XML document. {1}",
-                                               context.FileName, e.Message);
+                string message = String.Format("File '{0}' is not a valid XML document. {1}", context.FileName, e.Message);
                 throw new XmlException(message, e);
             }
         }
@@ -202,28 +219,24 @@ namespace Mix.Core
             foreach (PropertyInfo property in GetType().GetProperties())
             {
                 if (property.IsDefined(typeof(ArgumentAttribute), false) &&
-					property.IsDefined(typeof(RequiredAttribute), false))
+                    property.IsDefined(typeof(RequiredAttribute), false))
                 {
                     object value = property.GetValue(this, null);
                     if (value == null || value.ToString().Trim().Length == 0)
                     {
-                        string message =
-                            String.Format("'{0}' is required.",
-                                          property.Name.ToLower());
+                        string message = String.Format("'{0}' is required.", property.Name.ToLower());
                         string description = "";
-						if (property.IsDefined(typeof(DescriptionAttribute), false))
+                        if (property.IsDefined(typeof(DescriptionAttribute), false))
                         {
-                            DescriptionAttribute attribute =
-                                (DescriptionAttribute)
-                                property.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
+                            DescriptionAttribute attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
                             description = attribute.Description;
                         }
                         throw new RequirementException(message, property.Name, description);
                     }
                 }
 
-				if (property.IsDefined(typeof(ArgumentAttribute), false) &&
-					property.IsDefined(typeof(XmlArgumentAttribute), false))
+                if (property.IsDefined(typeof(ArgumentAttribute), false) &&
+                    property.IsDefined(typeof(XmlArgumentAttribute), false))
                 {
                     object value = property.GetValue(this, null);
                     if (value != null && value.ToString().Trim().Length > 0)
@@ -239,8 +252,7 @@ namespace Mix.Core
                             }
                             catch (XmlException e)
                             {
-                                string message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}",
-                                                               property.Name.ToLower(), xml, e.Message);
+                                string message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
                                 throw new XmlException(message, e);
                             }
                         }
@@ -249,17 +261,23 @@ namespace Mix.Core
             }
         }
 
+        /// <param name="count">The number of selected nodes.</param>
+        protected virtual void OnBeforeExecute(int count)
+        {
+        }
+
+        protected virtual void OnAfterExecute()
+        {
+        }
+
         /// <summary>
-        /// A method for derived classes to override if they do not wish to use
-        /// <see cref="ExecuteCore(XmlElement)"/> or
-        /// <see cref="ExecuteCore(XmlAttribute)"/>.
+        /// A method for derived classes to override if they do not wish to use one of
+        /// the other ExecuteCore(*) methods.
         /// </summary>
         /// <param name="context">
-        /// An <see cref="IContext"/> instance containing all the necessary
-        /// properties.
+        /// An <see cref="IContext"/> instance containing all the necessary properties.
         /// </param>
-        /// <returns><c>true</c> if the <see cref="IAction"/> is handled,
-        /// <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="IAction"/> is handled, <c>false</c> otherwise.</returns>
         protected virtual bool ExecuteCore(IContext context)
         {
             return false;
@@ -282,6 +300,10 @@ namespace Mix.Core
         }
 
         protected virtual void ExecuteCore(XmlComment comment)
+        {
+        }
+
+        protected virtual void ExecuteCore(XmlNode node)
         {
         }
 

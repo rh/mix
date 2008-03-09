@@ -11,20 +11,17 @@ namespace Mix.Core
         string FileName { get; set; }
 
         /// <summary>
-        /// The name of the <see cref="Action"/> this <see cref="IContext"/>
-        /// applies to.
+        /// The name of the <see cref="Action"/> this <see cref="IContext"/> applies to.
         /// </summary>
         string Action { get; set; }
 
         /// <summary>
-        /// A <see cref="TextWriter"/> that represents the standard output
-        /// stream.
+        /// A <see cref="TextWriter"/> that represents the standard output stream.
         /// </summary>
         TextWriter Output { get; }
 
         /// <summary>
-        /// A <see cref="TextWriter"/> that represents the standard error
-        /// stream.
+        /// A <see cref="TextWriter"/> that represents the standard error stream.
         /// </summary>
         TextWriter Error { get; }
 

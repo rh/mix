@@ -36,7 +36,7 @@
 
   <!-- Main Targets -->
 
-  <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test, analyze"/>
+  <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test"/>
 
   <target name="compile" description="Compiles all sources">
   	<delete dir="${build.base.dir}" if="${directory::exists(property::get-value('build.base.dir'))}"/>

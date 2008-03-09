@@ -11,7 +11,7 @@ namespace Mix.Core
         private TextWriter output = TextWriter.Null;
         private TextWriter error = TextWriter.Null;
         private string xml = String.Empty;
-        private string xpath = String.Empty;
+        private readonly string xpath = String.Empty;
 
         /// <summary>
         /// 
