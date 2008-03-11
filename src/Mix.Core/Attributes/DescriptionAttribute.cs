@@ -50,9 +50,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(obj))
             {
-                DescriptionAttribute attribute =
-                    (DescriptionAttribute)
-                    obj.GetType().GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                DescriptionAttribute attribute = (DescriptionAttribute) obj.GetType().GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
             return defaultValue;
@@ -62,9 +60,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(property))
             {
-                DescriptionAttribute attribute =
-                    (DescriptionAttribute)
-                    property.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                DescriptionAttribute attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
             return defaultValue;

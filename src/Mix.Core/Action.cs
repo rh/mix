@@ -24,7 +24,31 @@ namespace Mix.Core
                 string name = property.Name.ToLower();
                 if (context.ContainsKey(name))
                 {
-                    property.SetValue(this, context[name], null);
+                    Type type = property.PropertyType;
+                    if (type == typeof(string))
+                    {
+                        property.SetValue(this, context[name], null);
+                    }
+                    else if (type == typeof(int))
+                    {
+                        int value;
+                        if (Int32.TryParse(context[name], out value))
+                        {
+                            string description;
+                            RangeValidator validator = new RangeValidator();
+                            if (!validator.Validate(property, value, out description))
+                            {
+                                string message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
+                                throw new ActionExecutionException(message);
+                            }
+                            property.SetValue(this, value, null);
+                        }
+                        else
+                        {
+                            string message = String.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
+                            throw new ActionExecutionException(message);
+                        }
+                    }
                 }
             }
         }

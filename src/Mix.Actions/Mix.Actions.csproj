@@ -52,6 +52,7 @@
     <Compile Include="ExtractAction.cs" />
     <Compile Include="InnerXmlAction.cs" />
     <Compile Include="LowerCaseAction.cs" />
+    <Compile Include="OutlineAction.cs" />
     <Compile Include="PrependAction.cs" />
     <Compile Include="PrettyPrintAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

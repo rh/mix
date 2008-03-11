@@ -46,6 +46,7 @@
     <Compile Include="ArgumentInfoFixture.cs" />
     <Compile Include="ContextFixture.cs" />
     <Compile Include="DescriptionAttributeFixture.cs" />
+    <Compile Include="RangeValidatorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
