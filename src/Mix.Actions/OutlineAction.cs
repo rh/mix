@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Shows an outline of the selected elements.")]
-    public class OutlineAction : Action
+    public class OutlineAction : Action, IReadOnly
     {
         private int depth = 1;
 
