@@ -62,7 +62,7 @@ namespace Mix.Core.Tests
             }
 
             [Argument]
-            [Description("Description for Name2")]
+            [Attributes.Description("Description for Name2")]
             public string Name2
             {
                 get { return ""; }

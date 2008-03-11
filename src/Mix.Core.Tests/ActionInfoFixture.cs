@@ -46,7 +46,7 @@ namespace Mix.Core.Tests
             Assert.AreEqual(1, info2.Arguments.Length);
         }
 
-        [Description("description")]
+        [Attributes.Description("description")]
         private class SomeAction
         {
             public override string ToString()
@@ -55,7 +55,7 @@ namespace Mix.Core.Tests
             }
         }
 
-        [Description("otherdescription")]
+        [Attributes.Description("otherdescription")]
         private class SomeOtherAction
         {
             [Argument, Required]

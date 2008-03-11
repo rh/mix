@@ -1,5 +1,5 @@
-using Mix.Core.Attributes;
 using NUnit.Framework;
+using DescriptionAttribute=Mix.Core.Attributes.DescriptionAttribute;
 
 namespace Mix.Core.Tests
 {
@@ -10,7 +10,7 @@ namespace Mix.Core.Tests
         {
         }
 
-        [Description("description")]
+        [Attributes.Description("description")]
         private class WithDescription
         {
         }
@@ -19,9 +19,7 @@ namespace Mix.Core.Tests
         public void ClassWithoutDescription()
         {
             string defaultValue = "[no description]";
-            string description =
-                DescriptionAttribute.GetDescriptionFrom(new WithoutDescription(),
-                                                        defaultValue);
+            string description = DescriptionAttribute.GetDescriptionFrom(new WithoutDescription(), defaultValue);
             Assert.AreEqual(defaultValue, description);
         }
 
@@ -29,9 +27,7 @@ namespace Mix.Core.Tests
         public void ClassWithDescription()
         {
             string defaultValue = "[no description]";
-            string description =
-                DescriptionAttribute.GetDescriptionFrom(new WithDescription(),
-                                                        defaultValue);
+            string description = DescriptionAttribute.GetDescriptionFrom(new WithDescription(), defaultValue);
             Assert.AreEqual("description", description);
         }
     }
