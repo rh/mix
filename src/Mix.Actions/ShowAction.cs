@@ -8,6 +8,11 @@ namespace Mix.Actions
     [Description("Shows all selected nodes.")]
     public class ShowAction : Action, IReadOnly
     {
+        protected override void OnBeforeExecute(int count)
+        {
+            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+        }
+
         protected override void ExecuteCore(XmlNode node)
         {
             string xml = node.OuterXml.Trim();
