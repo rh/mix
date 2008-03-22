@@ -6,8 +6,8 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     /// <summary>
-    /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s).
-    /// If or adds the value of the new <see cref="XmlCDataSection"/> to 
+    /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s),
+    /// or adds the value of the new <see cref="XmlCDataSection"/> to selected <see cref="XmlCDataSection"/>(s).
     /// </summary>
     [Description("Adds a new CDATA section.")]
     public class AddCDataSectionAction : Action
@@ -16,7 +16,8 @@ namespace Mix.Actions
 
         /// <summary>
         /// Gets or sets the value of the <see cref="XmlCDataSection"/>.
-        /// This argument is not required. If it is not set, an empty <see cref="XmlCDataSection"/> will be added.
+        /// This argument is not required.
+        /// If it is not set, an empty <see cref="XmlCDataSection"/> will be added.
         /// </summary>
         [Argument]
         [Description("The value of the CDATA section.")]
@@ -46,7 +47,7 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value + Value;
+            section.Value += Value;
         }
     }
 }

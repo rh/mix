@@ -17,28 +17,6 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void AddToAttribute()
-        {
-            const string pre = @"<root a=""""></root>";
-            const string post = @"<root a=""""><!--COMMENT--></root>";
-            const string xpath = "root/@a";
-            AddCommentAction action = new AddCommentAction();
-            action.Value = "COMMENT";
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void AddToTextNode()
-        {
-            const string pre = @"<root>text</root>";
-            const string post = @"<root>text<!--COMMENT--></root>";
-            const string xpath = "//text()";
-            AddCommentAction action = new AddCommentAction();
-            action.Value = "COMMENT";
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
         public void AddToComment()
         {
             const string pre = @"<root><!--COMMENT--></root>";

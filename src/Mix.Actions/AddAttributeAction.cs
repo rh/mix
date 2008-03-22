@@ -29,8 +29,8 @@ namespace Mix.Actions
 
         /// <summary>
         /// Gets or sets the value of the <see cref="XmlAttribute"/>.
-        /// This argument is not required. If it is not set, an empty
-        /// <see cref="XmlAttribute"/> will be added.
+        /// This argument is not required.
+        /// If it is not set, an empty <see cref="XmlAttribute"/> will be added.
         /// </summary>
         [Argument]
         [Description("The value of the new attribute." +
