@@ -28,8 +28,8 @@ namespace Mix.Actions.Tests
         [Test]
         public void LowerCaseMixedElements()
         {
-            string pre = @"<root>A<![CDATA[VALUE]]>B</root>";
-            string post = @"<root>a<![CDATA[value]]>b</root>";
+            string pre = @"<root>A<![CDATA[VALUE]]><?foo BAR?><!--COMMENT-->B</root>";
+            string post = @"<root>a<![CDATA[value]]><?foo bar?><!--comment-->b</root>";
             string xpath = "root";
             LowerCaseAction action = new LowerCaseAction();
             Run(pre, post, xpath, action);

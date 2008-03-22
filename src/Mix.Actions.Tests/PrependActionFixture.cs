@@ -17,10 +17,21 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void PrependNonExistingTextNode()
+        {
+            string pre = @"<root></root>";
+            string post = @"<root>prefix</root>";
+            string xpath = "root";
+            PrependAction action = new PrependAction();
+            action.Value = "prefix";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void PrependMixedElements()
         {
-            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
-            string post = @"<root>prefixpre<![CDATA[prefixpre]]>prefixpre</root>";
+            string pre = @"<root>pre<![CDATA[pre]]><?foo bar?><!--comment-->pre</root>";
+            string post = @"<root>prefixpre<![CDATA[prefixpre]]><?foo prefixbar?><!--prefixcomment-->prefixpre</root>";
             string xpath = "root";
             PrependAction action = new PrependAction();
             action.Value = "prefix";

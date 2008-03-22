@@ -28,10 +28,10 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void PrependMixedElements()
+        public void AppendMixedElements()
         {
-            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
-            string post = @"<root>preappend<![CDATA[preappend]]>preappend</root>";
+            string pre = @"<root>pre<![CDATA[pre]]><?foo bar?><!--comment-->pre</root>";
+            string post = @"<root>preappend<![CDATA[preappend]]><?foo barappend?><!--commentappend-->preappend</root>";
             string xpath = "root";
             AppendAction action = new AppendAction();
             action.Value = "append";

@@ -21,10 +21,12 @@ namespace Mix.Actions
         protected override bool ExecuteCore(IContext context)
         {
             XmlDocument document = new XmlDocument();
+            XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+            document.AppendChild(declaration);
             XmlElement root = document.CreateElement(Name);
             root.InnerXml = XmlHelper.RemoveXmlDeclaration(context.Xml);
             document.AppendChild(root);
-            context.Xml = document.InnerXml;
+            context.Xml = document.OuterXml;
             return true;
         }
     }

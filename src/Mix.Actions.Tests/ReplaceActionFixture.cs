@@ -56,8 +56,8 @@ namespace Mix.Actions.Tests
         [Test]
         public void ReplaceMixedElementValues()
         {
-            string pre = @"<root><child>abcdefgh<![CDATA[abcdefgh]]>abcdefgh</child></root>";
-            string post = @"<root><child>abFOOgh<![CDATA[abFOOgh]]>abFOOgh</child></root>";
+            string pre = @"<root><child a=""abcdefgh"">abcdefgh<![CDATA[abcdefgh]]><?foo abcdefgh?><!--abcdefgh-->abcdefgh</child></root>";
+            string post = @"<root><child a=""abFOOgh"">abFOOgh<![CDATA[abFOOgh]]><?foo abFOOgh?><!--abFOOgh-->abFOOgh</child></root>";
             string xpath = "//child";
             ReplaceAction action = new ReplaceAction();
             action.OldValue = "cdef";
@@ -109,6 +109,18 @@ namespace Mix.Actions.Tests
             string xpath = "root";
             ReplaceAction action = new ReplaceAction();
             action.OldValue = "cdef";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
+        public void ReplaceProcessingInstructions()
+        {
+            string pre = @"<root><?foo abcdefgh?></root>";
+            string post = @"<root><?foo abFOOgh?></root>";
+            string xpath = "//processing-instruction()";
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
             Run(pre, post, xpath, action);
         }
     }

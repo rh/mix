@@ -16,9 +16,14 @@ namespace Mix.Actions
             set { depth = value; }
         }
 
+        protected override void OnBeforeExecute(int count)
+        {
+            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+        }
+
         protected override void ExecuteCore(XmlElement element)
         {
-            WriteElement(element, "  ", depth);
+            WriteElement(element, "", depth);
         }
 
         private void WriteElement(XmlNode element, string indentation, int depth)

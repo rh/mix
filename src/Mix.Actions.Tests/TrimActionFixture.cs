@@ -16,6 +16,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ElementWithMixedContent()
+        {
+            string pre = @"<root a=""  foo   ""><node></node><![CDATA[ text  ]]><?foo    bar  ?><!-- comment   --></root>";
+            string post = @"<root a=""foo""><node></node><![CDATA[text]]><?foo bar?><!--comment--></root>";
+            string xpath = "root";
+            TrimAction action = new TrimAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void Attributes()
         {
             string pre = @"<root attribute="" some text  ""></root>";

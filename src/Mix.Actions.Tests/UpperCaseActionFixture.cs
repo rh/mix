@@ -28,8 +28,8 @@ namespace Mix.Actions.Tests
         [Test]
         public void UpperCaseMixedElements()
         {
-            string pre = @"<root a=""a"">a<![CDATA[value]]><?foo bar?>b</root>";
-            string post = @"<root a=""A"">A<![CDATA[VALUE]]><?foo BAR?>B</root>";
+            string pre = @"<root a=""a"">a<![CDATA[value]]><?foo bar?><!--comment-->b</root>";
+            string post = @"<root a=""A"">A<![CDATA[VALUE]]><?foo BAR?><!--COMMENT-->B</root>";
             string xpath = "root";
             UpperCaseAction action = new UpperCaseAction();
             Run(pre, post, xpath, action);
