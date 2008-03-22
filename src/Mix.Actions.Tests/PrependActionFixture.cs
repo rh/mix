@@ -70,5 +70,16 @@ namespace Mix.Actions.Tests
             action.Value = "prefix";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void PrependProcessingInstructions()
+        {
+            string pre = @"<root><?foo bar ?></root>";
+            string post = @"<root><?foo prefixbar ?></root>";
+            string xpath = "//processing-instruction()";
+            PrependAction action = new PrependAction();
+            action.Value = "prefix";
+            Run(pre, post, xpath, action);
+        }
     }
 }

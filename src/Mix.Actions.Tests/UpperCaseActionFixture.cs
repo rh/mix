@@ -74,5 +74,15 @@ namespace Mix.Actions.Tests
             UpperCaseAction action = new UpperCaseAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void UpperCaseProcessingInstructions()
+        {
+            string pre = @"<root><?foo bar ?></root>";
+            string post = @"<root><?foo BAR ?></root>";
+            string xpath = "//processing-instruction()";
+            UpperCaseAction action = new UpperCaseAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

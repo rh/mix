@@ -54,5 +54,15 @@ namespace Mix.Actions.Tests
             CommentAction action = new CommentAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void CommentProcessingInstruction()
+        {
+            string pre = @"<root><?foo bar ?></root>";
+            string post = @"<root><!--<?foo bar ?>--></root>";
+            string xpath = "//processing-instruction()";
+            CommentAction action = new CommentAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

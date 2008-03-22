@@ -45,5 +45,10 @@ namespace Mix.Actions
         {
             comment.Value = comment.Value.Trim();
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            instruction.Value = instruction.Value.Trim();
+        }
     }
 }

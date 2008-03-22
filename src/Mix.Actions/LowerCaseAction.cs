@@ -44,5 +44,10 @@ namespace Mix.Actions
         {
             comment.Value = comment.Value.ToLower();
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            instruction.Value = instruction.Value.ToLower();
+        }
     }
 }

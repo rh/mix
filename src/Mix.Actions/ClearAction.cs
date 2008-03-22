@@ -46,5 +46,10 @@ namespace Mix.Actions
         {
             comment.Value = String.Empty;
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            instruction.Value = String.Empty;
+        }
     }
 }

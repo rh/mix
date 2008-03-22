@@ -41,11 +41,17 @@ namespace Mix.Actions
                 return;
             }
 
-            XmlAttribute newattribute =
-                attribute.OwnerDocument.CreateAttribute(Name);
+            XmlAttribute newattribute = attribute.OwnerDocument.CreateAttribute(Name);
             newattribute.Value = attribute.Value;
             owner.Attributes.InsertBefore(newattribute, attribute);
             owner.Attributes.Remove(attribute);
+        }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            XmlNode parent = instruction.ParentNode;
+            XmlProcessingInstruction newinstruction = instruction.OwnerDocument.CreateProcessingInstruction(Name, instruction.Value);
+            parent.ReplaceChild(newinstruction, instruction);
         }
     }
 }

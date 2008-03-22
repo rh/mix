@@ -74,5 +74,15 @@ namespace Mix.Actions.Tests
             RemoveAction action = new RemoveAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void RemoveProcessingInstructions()
+        {
+            string pre = @"<root><?foo bar ?><node /><?foo bar ?></root>";
+            string post = @"<root><node /></root>";
+            string xpath = "//processing-instruction()";
+            RemoveAction action = new RemoveAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

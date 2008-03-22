@@ -61,5 +61,10 @@ namespace Mix.Actions
         {
             comment.Value = Value + comment.Value;
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            instruction.Value = Value + instruction.Value;
+        }
     }
 }

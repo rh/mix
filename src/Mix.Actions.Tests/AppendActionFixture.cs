@@ -81,5 +81,16 @@ namespace Mix.Actions.Tests
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void AppendToProcessingInstruction()
+        {
+            const string pre = @"<root><?foo bar?></root>";
+            const string post = @"<root><?foo barappend?></root>";
+            const string xpath = "//processing-instruction()";
+            AppendAction action = new AppendAction();
+            action.Value = "append";
+            Run(pre, post, xpath, action);
+        }
     }
 }

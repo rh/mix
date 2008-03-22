@@ -32,5 +32,11 @@ namespace Mix.Actions
             section.ParentNode.InsertBefore(comment, section);
             section.ParentNode.RemoveChild(section);
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            XmlComment comment = instruction.OwnerDocument.CreateComment(instruction.OuterXml);
+            instruction.ParentNode.ReplaceChild(comment, instruction);
+        }
     }
 }

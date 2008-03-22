@@ -31,5 +31,10 @@ namespace Mix.Actions
         {
             comment.ParentNode.RemoveChild(comment);
         }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            instruction.ParentNode.RemoveChild(instruction);
+        }
     }
 }

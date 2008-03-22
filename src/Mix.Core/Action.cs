@@ -100,6 +100,10 @@ namespace Mix.Core
                 {
                     Execute(node as XmlComment);
                 }
+                else if (node is XmlProcessingInstruction)
+                {
+                    Execute(node as XmlProcessingInstruction);
+                }
 
                 // The 'generic' method is always executed, so subclasses need only to
                 // implement ExecuteCore(XmlNode) for generic behaviour.
@@ -199,6 +203,18 @@ namespace Mix.Core
             try
             {
                 ExecuteCore(comment);
+            }
+            catch (Exception e)
+            {
+                throw new ActionExecutionException(e);
+            }
+        }
+
+        private void Execute(XmlProcessingInstruction instruction)
+        {
+            try
+            {
+                ExecuteCore(instruction);
             }
             catch (Exception e)
             {
@@ -324,6 +340,10 @@ namespace Mix.Core
         }
 
         protected virtual void ExecuteCore(XmlComment comment)
+        {
+        }
+
+        protected virtual void ExecuteCore(XmlProcessingInstruction instruction)
         {
         }
 

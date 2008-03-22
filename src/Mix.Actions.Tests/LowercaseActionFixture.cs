@@ -74,5 +74,15 @@ namespace Mix.Actions.Tests
             LowerCaseAction action = new LowerCaseAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void LowerCaseProcessingInstructions()
+        {
+            string pre = @"<root><?foo BAR ?></root>";
+            string post = @"<root><?foo bar ?></root>";
+            string xpath = "//processing-instruction()";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

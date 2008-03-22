@@ -70,5 +70,16 @@ namespace Mix.Actions.Tests
             action.Name = "pre";
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void RenameProcessingInstruction()
+        {
+            string pre = @"<root><?foo ?></root>";
+            string post = @"<root><?bar ?></root>";
+            string xpath = "//processing-instruction()";
+            RenameAction action = new RenameAction();
+            action.Name = "bar";
+            Run(pre, post, xpath, action);
+        }
     }
 }
