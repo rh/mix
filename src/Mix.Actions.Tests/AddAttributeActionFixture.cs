@@ -27,23 +27,11 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void AddAttributes()
-        {
-            const string pre = @"<root pre="""" />";
-            const string post = @"<root pre="""" post=""value"" />";
-            const string xpath = "root/@pre";
-            AddAttributeAction action = new AddAttributeAction();
-            action.Name = "post";
-            action.Value = "value";
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
         public void AddAttributesUsingXPathExpression()
         {
             const string pre = @"<root pre=""pre"" />";
             const string post = @"<root pre=""pre"" post=""pre"" />";
-            const string xpath = "root/@pre";
+            const string xpath = "root";
             AddAttributeAction action = new AddAttributeAction();
             action.Name = "post";
             action.Value = "xpath:@pre";
