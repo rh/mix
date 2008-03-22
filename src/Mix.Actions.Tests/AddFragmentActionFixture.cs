@@ -16,17 +16,5 @@ namespace Mix.Actions.Tests
             action.Fragment = fragment;
             Run(pre, post, xpath, action);
         }
-
-        [Test]
-        public void Attribute()
-        {
-            const string fragment = "<child>Some text</child>";
-            const string pre = @"<root attribute=""""/>";
-            const string post = @"<root attribute="""">" + fragment + "</root>";
-            const string xpath = @"root/@attribute";
-            AddFragmentAction action = new AddFragmentAction();
-            action.Fragment = fragment;
-            Run(pre, post, xpath, action);
-        }
     }
 }

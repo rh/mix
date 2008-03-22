@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The new name for the elements or attributes.")]
-        public virtual string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }

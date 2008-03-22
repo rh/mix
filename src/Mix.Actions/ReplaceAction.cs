@@ -14,7 +14,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The value to replace.")]
-        public virtual string OldValue
+        public string OldValue
         {
             get { return oldValue; }
             set { oldValue = value; }
@@ -22,7 +22,7 @@ namespace Mix.Actions
 
         [Argument]
         [Description("The value to replace the old value.")]
-        public virtual string NewValue
+        public string NewValue
         {
             get { return newValue; }
             set { newValue = value; }

@@ -20,7 +20,7 @@ namespace Mix.Actions
         /// </summary>
         [Argument, Required]
         [Description("The name of the new element.")]
-        public virtual string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }
@@ -33,7 +33,7 @@ namespace Mix.Actions
         /// </summary>
         [Argument]
         [Description("The value of the new element.")]
-        public virtual string Value
+        public string Value
         {
             get { return @value; }
             set { this.@value = value; }

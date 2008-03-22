@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument]
         [Description("The value to set.")]
-        public virtual string Value
+        public string Value
         {
             get { return @value; }
             set { this.@value = value; }

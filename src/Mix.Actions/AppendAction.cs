@@ -13,7 +13,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The value to append.")]
-        public virtual string Value
+        public string Value
         {
             get { return @value; }
             set { this.@value = value; }

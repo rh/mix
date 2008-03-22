@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument, XmlArgument, Required]
         [Description("The raw xml of the new element.")]
-        public virtual string Fragment
+        public string Fragment
         {
             get { return fragment; }
             set { fragment = value; }
@@ -24,11 +24,6 @@ namespace Mix.Actions
             XmlDocumentFragment child = document.CreateDocumentFragment();
             child.InnerXml = Fragment;
             element.AppendChild(child);
-        }
-
-        protected override void ExecuteCore(XmlAttribute attribute)
-        {
-            ExecuteCore(attribute.OwnerElement);
         }
     }
 }

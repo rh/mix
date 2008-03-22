@@ -21,7 +21,7 @@ namespace Mix.Actions
         /// </summary>
         [Argument, Required]
         [Description("The name of the new attribute.")]
-        public virtual string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }
@@ -35,7 +35,7 @@ namespace Mix.Actions
         [Argument]
         [Description("The value of the new attribute." +
                      "\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
-        public virtual string Value
+        public string Value
         {
             get { return @value; }
             set { this.@value = value; }

@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument, Required]
         [Description("The name of the new root element.")]
-        public virtual string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }

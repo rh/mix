@@ -35,7 +35,7 @@ namespace Mix.Actions
         /// </summary>
         [Argument]
         [Description("The value of the processing instruction.")]
-        public virtual string Value
+        public string Value
         {
             get { return @value; }
             set { this.@value = value; }

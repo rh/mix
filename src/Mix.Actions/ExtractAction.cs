@@ -26,7 +26,7 @@ namespace Mix.Actions
         [Argument, Required]
         [Description("The name of the new file(s)." +
                      "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
-        public virtual string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }

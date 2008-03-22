@@ -12,7 +12,7 @@ namespace Mix.Actions
 
         [Argument, XmlArgument, Required]
         [Description("The literal XML of the selected elements.")]
-        public virtual string Xml
+        public string Xml
         {
             get { return xml; }
             set { xml = value; }
