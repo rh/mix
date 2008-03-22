@@ -16,6 +16,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void TryToRemoveDocumentElement()
+        {
+            string pre = @"<root><pre /><dummy /></root>";
+            string post = pre;
+            string xpath = "root";
+            RemoveAction action = new RemoveAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void RemoveAttribute()
         {
             string pre = @"<root pre="""" />";

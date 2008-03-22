@@ -6,8 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     /// <summary>
-    /// Adds an <see cref="XmlComment"/> to the selected <see cref="XmlElement"/>(s),
-    /// or adds the value of the new <see cref="XmlComment"/> to selected <see cref="XmlComment"/>(s).
+    /// Adds an <see cref="XmlComment"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new comment.")]
     public class AddCommentAction : Action
@@ -37,17 +36,6 @@ namespace Mix.Actions
         {
             XmlComment comment = element.OwnerDocument.CreateComment(Value);
             element.AppendChild(comment);
-        }
-
-        /// <summary>
-        /// Adds the value of the new <see cref="XmlComment"/> (e.g. <see cref="Value"/>) to the value of <paramref name="comment"/>.
-        /// </summary>
-        /// <param name="comment">
-        /// The <see cref="XmlComment"/> to which <see cref="Value"/> should be added.
-        /// </param>
-        protected override void ExecuteCore(XmlComment comment)
-        {
-            comment.Value += Value;
         }
     }
 }

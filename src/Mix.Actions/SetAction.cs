@@ -20,31 +20,7 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlElement element)
         {
-            if (element.HasChildNodes)
-            {
-                if (element.ChildNodes.Count == 1)
-                {
-                    if (element.FirstChild is XmlText)
-                    {
-                        ExecuteCore(element.FirstChild as XmlText);
-                    }
-                    else if (element.FirstChild is XmlCDataSection)
-                    {
-                        ExecuteCore(element.FirstChild as XmlCDataSection);
-                    }
-                }
-                else
-                {
-                    element.InnerXml = String.Empty;
-                    XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
-                    element.AppendChild(newElement);
-                }
-            }
-            else
-            {
-                XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
-                element.AppendChild(newElement);
-            }
+            element.InnerXml = Value;
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)

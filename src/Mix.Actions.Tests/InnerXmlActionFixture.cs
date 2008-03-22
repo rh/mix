@@ -18,42 +18,6 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void Attribute()
-        {
-            const string xml = "<new>Some text</new>";
-            string pre = @"<root><child attribute="""">something</child></root>";
-            string post = @"<root><child attribute="""">" + xml + "</child></root>";
-            string xpath = "//child/@attribute";
-            InnerXmlAction action = new InnerXmlAction();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void TextNode()
-        {
-            const string xml = "<new>text</new>";
-            string pre = @"<root>text</root>";
-            string post = @"<root>" + xml + "</root>";
-            string xpath = "//text()";
-            InnerXmlAction action = new InnerXmlAction();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
-        public void CDataSection()
-        {
-            const string xml = "<new>text</new>";
-            string pre = @"<root><![CDATA[text]]></root>";
-            string post = @"<root>" + xml + "</root>";
-            string xpath = "//text()";
-            InnerXmlAction action = new InnerXmlAction();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
-        }
-
-        [Test]
         public void Comment()
         {
             const string xml = "<new>Some text</new>";

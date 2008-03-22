@@ -5,8 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Prepends text to the text nodes of the selected elements, " +
-                 "or to the value of the selected attributes.")]
+    [Description("Prepends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
     public class PrependAction : Action
     {
         private string @value = String.Empty;
@@ -32,6 +31,14 @@ namespace Mix.Actions
                     else if (node is XmlCDataSection)
                     {
                         ExecuteCore(node as XmlCDataSection);
+                    }
+                    else if (node is XmlComment)
+                    {
+                        ExecuteCore(node as XmlComment);
+                    }
+                    else if (node is XmlProcessingInstruction)
+                    {
+                        ExecuteCore(node as XmlProcessingInstruction);
                     }
                 }
             }

@@ -10,8 +10,7 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlElement element)
         {
             XmlComment comment = element.OwnerDocument.CreateComment(element.OuterXml);
-            element.ParentNode.InsertBefore(comment, element);
-            element.ParentNode.RemoveChild(element);
+            element.ParentNode.ReplaceChild(comment, element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
@@ -22,15 +21,13 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlText text)
         {
             XmlComment comment = text.OwnerDocument.CreateComment(text.OuterXml);
-            text.ParentNode.InsertBefore(comment, text);
-            text.ParentNode.RemoveChild(text);
+            text.ParentNode.ReplaceChild(comment, text);
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
             XmlComment comment = section.OwnerDocument.CreateComment(section.OuterXml);
-            section.ParentNode.InsertBefore(comment, section);
-            section.ParentNode.RemoveChild(section);
+            section.ParentNode.ReplaceChild(comment, section);
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)

@@ -42,7 +42,7 @@ namespace Mix.Actions
         }
 
         /// <summary>
-        /// Adds a <see cref="XmlProcessingInstruction"/> to <paramref name="element"/>.
+        /// Adds an <see cref="XmlProcessingInstruction"/> to <paramref name="element"/>.
         /// </summary>
         /// <param name="element">
         /// The <see cref="XmlElement"/> to which the <see cref="XmlProcessingInstruction"/> should be added.

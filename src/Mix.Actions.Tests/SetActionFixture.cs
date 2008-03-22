@@ -17,13 +17,24 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
-        public void ElementWithOneCDataSection()
+        public void NormalText()
         {
-            string pre = @"<root><![CDATA[pre]]></root>";
-            string post = @"<root><![CDATA[post]]></root>";
+            string pre = @"<root></root>";
+            string post = @"<root>post</root>";
             string xpath = "root";
             SetAction action = new SetAction();
             action.Value = "post";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
+        public void SpecialText()
+        {
+            string pre = @"<root></root>";
+            string post = @"<root>&gt;</root>";
+            string xpath = "root";
+            SetAction action = new SetAction();
+            action.Value = ">";
             Run(pre, post, xpath, action);
         }
 
@@ -81,6 +92,7 @@ namespace Mix.Actions.Tests
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
+
         [Test]
         public void CDataSections()
         {
@@ -98,6 +110,17 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
             string post = @"<root><!--value--><!--value--></root>";
             string xpath = "//comment()";
+            SetAction action = new SetAction();
+            action.Value = "value";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
+        public void ProcessingInstructions()
+        {
+            string pre = @"<root><?foo bar?><?foo bar?></root>";
+            string post = @"<root><?foo value?><?foo value?></root>";
+            string xpath = "//processing-instruction()";
             SetAction action = new SetAction();
             action.Value = "value";
             Run(pre, post, xpath, action);

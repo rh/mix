@@ -54,5 +54,15 @@ namespace Mix.Actions.Tests
             TrimAction action = new TrimAction();
             Run(pre, post, xpath, action);
         }
+
+        [Test]
+        public void ProcessingInstructions()
+        {
+            string pre = @"<root><?foo     bar  ?><?foo  bar ?></root>";
+            string post = @"<root><?foo bar?><?foo bar?></root>";
+            string xpath = "//processing-instruction()";
+            TrimAction action = new TrimAction();
+            Run(pre, post, xpath, action);
+        }
     }
 }

@@ -5,8 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Replaces text in the text nodes of selected elements " +
-                 "or in the values of selected attributes.")]
+    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.")]
     public class ReplaceAction : Action
     {
         private string oldValue = String.Empty;
@@ -30,18 +29,28 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlElement element)
         {
-            if (element.HasChildNodes)
+            foreach (XmlAttribute attribute in element.Attributes)
             {
-                foreach (XmlNode node in element.ChildNodes)
+                ExecuteCore(attribute);
+            }
+
+            foreach (XmlNode node in element.ChildNodes)
+            {
+                if (node is XmlText)
                 {
-                    if (node is XmlText)
-                    {
-                        ExecuteCore(node as XmlText);
-                    }
-                    else if (node is XmlCDataSection)
-                    {
-                        ExecuteCore(node as XmlCDataSection);
-                    }
+                    ExecuteCore(node as XmlText);
+                }
+                else if (node is XmlCDataSection)
+                {
+                    ExecuteCore(node as XmlCDataSection);
+                }
+                else if (node is XmlComment)
+                {
+                    ExecuteCore(node as XmlComment);
+                }
+                else if (node is XmlProcessingInstruction)
+                {
+                    ExecuteCore(node as XmlProcessingInstruction);
                 }
             }
         }

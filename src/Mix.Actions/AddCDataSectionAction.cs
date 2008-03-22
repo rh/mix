@@ -6,8 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     /// <summary>
-    /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s),
-    /// or adds the value of the new <see cref="XmlCDataSection"/> to selected <see cref="XmlCDataSection"/>(s).
+    /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new CDATA section.")]
     public class AddCDataSectionAction : Action
@@ -37,17 +36,6 @@ namespace Mix.Actions
         {
             XmlCDataSection section = element.OwnerDocument.CreateCDataSection(Value);
             element.AppendChild(section);
-        }
-
-        /// <summary>
-        /// Adds the value of the new <see cref="XmlCDataSection"/> (e.g. <see cref="Value"/>) to the value of <paramref name="section"/>.
-        /// </summary>
-        /// <param name="section">
-        /// The <see cref="XmlCDataSection"/> to which <see cref="Value"/> should be added.
-        /// </param>
-        protected override void ExecuteCore(XmlCDataSection section)
-        {
-            section.Value += Value;
         }
     }
 }

@@ -4,11 +4,16 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Removes all selected elements or attributes.")]
+    [Description("Removes all selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
     public class RemoveAction : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {
+            if (element == element.OwnerDocument.DocumentElement)
+            {
+                Context.Output.WriteLine("The document element cannot be removed.");
+                return;
+            }
             element.ParentNode.RemoveChild(element);
         }
 

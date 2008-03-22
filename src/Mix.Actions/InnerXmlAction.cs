@@ -23,25 +23,10 @@ namespace Mix.Actions
             element.InnerXml = Xml;
         }
 
-        protected override void ExecuteCore(XmlAttribute attribute)
-        {
-            ExecuteCore(attribute.OwnerElement);
-        }
-
-        protected override void ExecuteCore(XmlText text)
-        {
-            ExecuteCore(text.ParentNode as XmlElement);
-        }
-
-        protected override void ExecuteCore(XmlCDataSection section)
-        {
-            ExecuteCore(section.ParentNode as XmlElement);
-        }
-
         protected override void ExecuteCore(XmlComment comment)
         {
-            // InnerText is used because InnerXml will throw; an XmlComment
-            // cannot have children.
+            // InnerText is used because InnerXml will throw;
+            // an XmlComment cannot have children.
             comment.InnerText = Xml;
         }
     }

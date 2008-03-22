@@ -24,8 +24,7 @@ namespace Mix.Actions
         }
 
         [Argument, Required]
-        [Description("The name of the new file(s)." +
-                     "\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
+        [Description("The name of the new file(s).\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
         public string Name
         {
             get { return name; }
@@ -35,8 +34,7 @@ namespace Mix.Actions
         protected override void ExecuteCore(XmlElement element)
         {
             XmlDocument document = new XmlDocument();
-            XmlDeclaration declaration =
-                document.CreateXmlDeclaration("1.0", Encoding.UTF8.HeaderName, null);
+            XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", Encoding.UTF8.HeaderName, null);
             document.AppendChild(declaration);
             XmlNode root = document.ImportNode(element, true);
             document.AppendChild(root);
