@@ -44,22 +44,22 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = attribute.Value + Value;
+            attribute.Value += Value;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = text.Value + Value;
+            text.Value += Value;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value + Value;
+            section.Value += Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value + Value;
+            comment.Value += Value;
         }
     }
 }
