@@ -27,17 +27,5 @@ namespace Mix.Actions.Tests
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
-
-        [Test]
-        public void SelectAttributeAddElementWithValue()
-        {
-            const string pre = @"<root a=""""/>";
-            const string post = @"<root a=""""><name>value</name></root>";
-            const string xpath = "root/@a";
-            AddElementAction action = new AddElementAction();
-            action.Name = "name";
-            action.Value = "value";
-            Run(pre, post, xpath, action);
-        }
     }
 }
