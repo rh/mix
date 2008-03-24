@@ -3,6 +3,7 @@ using System.IO;
 using Mix.Console.Commands;
 using Mix.Core;
 using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 
 namespace Mix.Console.Tests
 {
@@ -32,9 +33,9 @@ namespace Mix.Console.Tests
         [Test]
         public void TypeOfCommand()
         {
-            TestTypeOfCommand(new string[] {"help"}, typeof (HelpCommand));
-            TestTypeOfCommand(new string[] {"version"}, typeof (VersionCommand));
-            TestTypeOfCommand(new string[] {"foo"}, typeof (UnknownCommand));
+            TestTypeOfCommand(new string[] {"help"}, typeof(HelpCommand));
+            TestTypeOfCommand(new string[] {"version"}, typeof(VersionCommand));
+            TestTypeOfCommand(new string[] {"foo"}, typeof(UnknownCommand));
         }
 
         [Test]
@@ -42,7 +43,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"foo"});
-            Assert.AreEqual(typeof (UnknownCommand), command.GetType());
+            Assert.AreEqual(typeof(UnknownCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new UnknownCommand("foo")));
         }
 
@@ -51,7 +52,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"version"});
-            Assert.AreEqual(typeof (VersionCommand), command.GetType());
+            Assert.AreEqual(typeof(VersionCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new VersionCommand()));
         }
 
@@ -60,7 +61,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {});
-            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
 
@@ -69,7 +70,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help"});
-            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
 
@@ -78,7 +79,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "clear"});
-            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "clear")));
         }
 
@@ -87,7 +88,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "rename"});
-            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "rename")));
         }
 
@@ -96,7 +97,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"help", "foo"});
-            Assert.AreEqual(typeof (HelpCommand), command.GetType());
+            Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "foo")));
         }
 
@@ -105,7 +106,40 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"clear", "file:*.xml", "xpath://@*"});
-            Assert.AreEqual(typeof (ActionCommand), command.GetType());
+            Assert.AreEqual(typeof(ActionCommand), command.GetType());
+        }
+
+        [Test]
+        public void AmbiguousMatchCommand()
+        {
+            CommandRegistry registry = new CommandRegistry();
+            registry.Register(new BarCommand());
+            registry.Register(new BazCommand());
+            CommandFactory factory = new CommandFactory(registry);
+            Command command = factory.Create(new string[] {"ba"});
+            Assert.That(command, Is.InstanceOfType(typeof(AmbiguousMatchCommand)));
+        }
+
+        [Test]
+        public void OutputForAmbiguousMatchCommand()
+        {
+            CommandRegistry registry = new CommandRegistry();
+            registry.Register(new BarCommand());
+            registry.Register(new BazCommand());
+            CommandFactory factory = new CommandFactory(registry);
+            Command command = factory.Create(new string[] {"ba"});
+            string output = OutputFor(command);
+            Assert.That(output, Text.Contains("Multiple actions start with 'ba':"));
+            Assert.That(output, Text.Contains("  bar"));
+            Assert.That(output, Text.Contains("  baz"));
+        }
+
+        private class BarCommand : Command
+        {
+        }
+
+        private class BazCommand : Command
+        {
         }
     }
 }

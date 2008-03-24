@@ -6,14 +6,14 @@ namespace Mix.Console.Commands
 {
     public class CommandFactory
     {
-        private static readonly CommandRegistry registry = new CommandRegistry();
+        private readonly CommandRegistry registry = new CommandRegistry();
 
         /// <summary>
         /// Registers <see cref="HelpCommand"/> and <see cref="VersionCommand"/>
         /// and an <see cref="ActionCommand"/> for every known implementation of
         /// <see cref="IAction"/>.
         /// </summary>
-        static CommandFactory()
+        public CommandFactory()
         {
             registry.Register(new HelpCommand());
             registry.Register(new VersionCommand());
@@ -27,6 +27,11 @@ namespace Mix.Console.Commands
                     registry.Register(command, alias);
                 }
             }
+        }
+
+        public CommandFactory(CommandRegistry registry)
+        {
+            this.registry = registry;
         }
 
         /// <summary>
@@ -93,10 +98,6 @@ namespace Mix.Console.Commands
                 if (matches.Count == 0)
                 {
                     return new UnknownCommand(name);
-                }
-                else if (matches.Count == 1)
-                {
-                    return matches[0];
                 }
                 else
                 {
