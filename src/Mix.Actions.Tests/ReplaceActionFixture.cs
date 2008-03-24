@@ -66,6 +66,18 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ReplaceElementWithChildElements()
+        {
+            string pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
+            string post = @"<root><child><child-of-child>abFOOgh</child-of-child></child></root>";
+            string xpath = "root";
+            ReplaceAction action = new ReplaceAction();
+            action.OldValue = "cdef";
+            action.NewValue = "FOO";
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void ReplaceTextNodes()
         {
             string pre = @"<root>abcdefgh</root>";

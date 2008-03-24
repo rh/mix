@@ -36,6 +36,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void UpperCaseElementRecursively()
+        {
+            string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            string post = @"<root><child><child-of-child>FOO</child-of-child></child></root>";
+            string xpath = "root";
+            UpperCaseAction action = new UpperCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void UpperCaseAttributeValues()
         {
             string pre = @"<root attribute=""value""></root>";

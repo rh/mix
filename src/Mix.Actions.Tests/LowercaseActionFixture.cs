@@ -36,6 +36,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void LowerCaseElementWithChildElements()
+        {
+            string pre = @"<root><child><child-of-child>FOO</child-of-child></child></root>";
+            string post = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            string xpath = "root";
+            LowerCaseAction action = new LowerCaseAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void LowerCaseAttributeValues()
         {
             string pre = @"<root attribute=""VALUE""></root>";

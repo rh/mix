@@ -26,6 +26,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ClearElementWithChildElements()
+        {
+            string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            string post = @"<root><child><child-of-child></child-of-child></child></root>";
+            string xpath = "root";
+            ClearAction action = new ClearAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void ClearAttribute()
         {
             string pre = @"<root pre=""something"" />";

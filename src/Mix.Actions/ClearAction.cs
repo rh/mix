@@ -10,30 +10,7 @@ namespace Mix.Actions
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                ExecuteCore(attribute);
-            }
-
-            foreach (XmlNode node in element.ChildNodes)
-            {
-                if (node is XmlText)
-                {
-                    ExecuteCore(node as XmlText);
-                }
-                else if (node is XmlCDataSection)
-                {
-                    ExecuteCore(node as XmlCDataSection);
-                }
-                else if (node is XmlComment)
-                {
-                    ExecuteCore(node as XmlComment);
-                }
-                else if (node is XmlProcessingInstruction)
-                {
-                    ExecuteCore(node as XmlProcessingInstruction);
-                }
-            }
+            Recurse(element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)

@@ -26,6 +26,16 @@ namespace Mix.Actions.Tests
         }
 
         [Test]
+        public void ElementWithChildElements()
+        {
+            string pre = @"<root><child><child-of-child>  foo    </child-of-child></child></root>";
+            string post = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            string xpath = "root";
+            TrimAction action = new TrimAction();
+            Run(pre, post, xpath, action);
+        }
+
+        [Test]
         public void Attributes()
         {
             string pre = @"<root attribute="" some text  ""></root>";
