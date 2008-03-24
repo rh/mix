@@ -59,7 +59,9 @@
     <Compile Include="ExtractActionFixture.cs" />
     <Compile Include="InnerXmlActionFixture.cs" />
     <Compile Include="LowercaseActionFixture.cs" />
+    <Compile Include="OutlineActionFixture.cs" />
     <Compile Include="PrependActionFixture.cs" />
+    <Compile Include="PrettyPrintActionFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveActionFixture.cs" />
     <Compile Include="RenameActionFixture.cs" />

@@ -8,8 +8,21 @@ using NUnit.Framework.SyntaxHelpers;
 namespace Mix.Actions.Tests
 {
     [TestFixture]
-    public class ShowActionFixture : TestFixture
+    public class ShowActionFixture
     {
+        [Test]
+        public void Count()
+        {
+            using (TextWriter writer = new StringWriter())
+            {
+                Context context = new Context("<root />", "root", writer);
+                context.FileName = "file";
+                ShowAction action = new ShowAction();
+                action.Execute(context);
+                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 1{0}<root />{0}", Environment.NewLine)));
+            }
+        }
+
         [Test]
         public void Count0()
         {
@@ -40,7 +53,7 @@ namespace Mix.Actions.Tests
 
         [Test]
         [ExpectedException(typeof(ActionExecutionException))]
-        public void InvalidXPathExpression()
+        public void AnInvalidXPathExpressionShouldThrow()
         {
             using (TextWriter writer = new StringWriter())
             {

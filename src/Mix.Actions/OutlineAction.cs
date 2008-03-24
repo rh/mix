@@ -23,7 +23,7 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlElement element)
         {
-            WriteElement(element, "", depth);
+            WriteElement(element, "", Depth);
         }
 
         private void WriteElement(XmlNode element, string indentation, int depth)
