@@ -9,6 +9,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Extracts the selected elements to new files.")]
+    [ProcessingOrder(ProcessingOrder.Reverse)]
     public class ExtractAction : Action
     {
         private string name = String.Empty;

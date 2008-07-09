@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using Mix.Core;
+using Mix.Core.Attributes;
 using Mix.Core.Exceptions;
 using NUnit.Framework;
 
@@ -88,6 +89,7 @@ namespace Mix.Actions.Tests
             Assert.AreEqual(expected, writer.ToString());
         }
 
+        [ProcessingOrder(ProcessingOrder.Reverse)]
         private class DerivedExtractAction : ExtractAction
         {
             public DerivedExtractAction()

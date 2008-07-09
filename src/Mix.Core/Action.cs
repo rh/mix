@@ -77,37 +77,78 @@ namespace Mix.Core
             // will not be selected. Processing all nodes in reverse order solves this.
             XmlNodeList nodes = SelectNodes(context, document, manager);
             BeforeExecute(nodes.Count);
-            for (int i = nodes.Count - 1; i >= 0; i--)
-            {
-                XmlNode node = nodes[i];
-                if (node is XmlElement)
-                {
-                    Execute(node as XmlElement);
-                }
-                else if (node is XmlAttribute)
-                {
-                    Execute(node as XmlAttribute);
-                }
-                else if (node is XmlText)
-                {
-                    Execute(node as XmlText);
-                }
-                else if (node is XmlCDataSection)
-                {
-                    Execute(node as XmlCDataSection);
-                }
-                else if (node is XmlComment)
-                {
-                    Execute(node as XmlComment);
-                }
-                else if (node is XmlProcessingInstruction)
-                {
-                    Execute(node as XmlProcessingInstruction);
-                }
 
-                // The 'generic' method is always executed, so subclasses need only to
-                // implement ExecuteCore(XmlNode) for generic behaviour.
-                Execute(node);
+            ProcessingOrder order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
+
+            if (order == ProcessingOrder.Normal)
+            {
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    XmlNode node = nodes[i];
+                    if (node is XmlElement)
+                    {
+                        Execute(node as XmlElement);
+                    }
+                    else if (node is XmlAttribute)
+                    {
+                        Execute(node as XmlAttribute);
+                    }
+                    else if (node is XmlText)
+                    {
+                        Execute(node as XmlText);
+                    }
+                    else if (node is XmlCDataSection)
+                    {
+                        Execute(node as XmlCDataSection);
+                    }
+                    else if (node is XmlComment)
+                    {
+                        Execute(node as XmlComment);
+                    }
+                    else if (node is XmlProcessingInstruction)
+                    {
+                        Execute(node as XmlProcessingInstruction);
+                    }
+
+                    // The 'generic' method is always executed, so subclasses need only to
+                    // implement ExecuteCore(XmlNode) for generic behaviour.
+                    Execute(node);
+                }
+            }
+            else
+            {
+                for (int i = nodes.Count - 1; i >= 0; i--)
+                {
+                    XmlNode node = nodes[i];
+                    if (node is XmlElement)
+                    {
+                        Execute(node as XmlElement);
+                    }
+                    else if (node is XmlAttribute)
+                    {
+                        Execute(node as XmlAttribute);
+                    }
+                    else if (node is XmlText)
+                    {
+                        Execute(node as XmlText);
+                    }
+                    else if (node is XmlCDataSection)
+                    {
+                        Execute(node as XmlCDataSection);
+                    }
+                    else if (node is XmlComment)
+                    {
+                        Execute(node as XmlComment);
+                    }
+                    else if (node is XmlProcessingInstruction)
+                    {
+                        Execute(node as XmlProcessingInstruction);
+                    }
+
+                    // The 'generic' method is always executed, so subclasses need only to
+                    // implement ExecuteCore(XmlNode) for generic behaviour.
+                    Execute(node);
+                }
             }
             AfterExecute();
             context.Xml = document.InnerXml;
