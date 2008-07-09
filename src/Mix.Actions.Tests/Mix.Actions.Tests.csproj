@@ -67,6 +67,7 @@
     <Compile Include="RenameActionFixture.cs" />
     <Compile Include="ReplaceActionFixture.cs" />
     <Compile Include="SetActionFixture.cs" />
+    <Compile Include="SetGuidActionFixture.cs" />
     <Compile Include="ShowActionFixture.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="TrimActionFixture.cs" />

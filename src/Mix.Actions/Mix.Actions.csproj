@@ -62,6 +62,7 @@
     <Compile Include="AppendAction.cs" />
     <Compile Include="ReplaceAction.cs" />
     <Compile Include="SetAction.cs" />
+    <Compile Include="SetGuidAction.cs" />
     <Compile Include="ShowAction.cs" />
     <Compile Include="TrimAction.cs" />
     <Compile Include="UpperCaseAction.cs" />
