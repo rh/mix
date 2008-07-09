@@ -49,6 +49,23 @@ namespace Mix.Core
                             throw new ActionExecutionException(message);
                         }
                     }
+                    else if (type == typeof(bool))
+                    {
+                        bool value;
+                        if (String.IsNullOrEmpty(context[name]))
+                        {
+                            property.SetValue(this, true, null);
+                        }
+                        else if (Boolean.TryParse(context[name], out value))
+                        {
+                            property.SetValue(this, value, null);
+                        }
+                        else
+                        {
+                            string message = String.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
+                            throw new ActionExecutionException(message);
+                        }
+                    }
                 }
             }
         }
