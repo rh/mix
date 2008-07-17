@@ -34,7 +34,23 @@ namespace Mix.Actions
             }
             else
             {
-                Context.Output.WriteLine("{0}<{1}>", indentation, element.Name);
+                if (element.HasChildNodes)
+                {
+                    if (element.ChildNodes.Count == 1 && element.FirstChild.NodeType == XmlNodeType.Text)
+                    {
+                        Context.Output.WriteLine("{0}<{1}></{1}>", indentation, element.Name);
+                        return;
+                    }
+                    else
+                    {
+                        Context.Output.WriteLine("{0}<{1}>", indentation, element.Name);
+                    }
+                }
+                else
+                {
+                    Context.Output.WriteLine("{0}<{1} />", indentation, element.Name);
+                    return;
+                }
             }
 
             if (depth > 0)
