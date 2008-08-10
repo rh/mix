@@ -82,28 +82,27 @@ namespace Mix.Console.Commands
                 {
                     return new HelpCommand(registry);
                 }
-                else
-                {
-                    return new HelpCommand(registry, args[1]);
-                }
+                return new HelpCommand(registry, args[1]);
             }
-            else if (registry.Contains(name))
+
+            if (registry.Contains(name))
             {
                 return registry.Commands[name];
             }
-            else
-            {
-                IList<Command> matches = registry.Find(name);
 
-                if (matches.Count == 0)
-                {
-                    return new UnknownCommand(name);
-                }
-                else
-                {
-                    return new AmbiguousMatchCommand(name, matches);
-                }
+            IList<Command> matches = registry.Find(name);
+
+            if (matches.Count == 0)
+            {
+                return new UnknownCommand(name);
             }
+
+            if (matches.Count == 1)
+            {
+                return matches[0];
+            }
+
+            return new AmbiguousMatchCommand(name, matches);
         }
 
         /// <summary>

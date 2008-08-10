@@ -15,6 +15,7 @@ namespace Mix.Actions.Tests
             action.Name = "post";
             Run(pre, post, xpath, action);
         }
+
         [Test]
         public void AddAttributeBySelectingElementsAndUsingAnXPathExpression()
         {

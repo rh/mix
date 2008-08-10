@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using Mix.Core.Attributes;
@@ -171,7 +172,7 @@ namespace Mix.Core
             context.Xml = document.InnerXml;
         }
 
-        private XmlNodeList SelectNodes(IContext context, XmlDocument document, XmlNamespaceManager manager)
+        private XmlNodeList SelectNodes(IContext context, XmlNode document, XmlNamespaceManager manager)
         {
             try
             {
@@ -450,9 +451,25 @@ namespace Mix.Core
             }
         }
 
+        private string Dasherize(string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Char.ToLower(value[0]));
+            for (int i = 1; i < value.Length; i++)
+            {
+                char c = value[i];
+                if (Char.IsUpper(c))
+                {
+                    sb.Append("-");
+                }
+                sb.Append(Char.ToLower(c));
+            }
+            return sb.ToString();
+        }
+
         public override string ToString()
         {
-            return GetType().Name.ToLower().Replace("action", "");
+            return Dasherize(GetType().Name).ToLower().Replace("-action", "");
         }
     }
 }

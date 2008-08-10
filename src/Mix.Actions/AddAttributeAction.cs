@@ -8,8 +8,7 @@ namespace Mix.Actions
     /// <summary>
     /// Adds an <see cref="XmlAttribute"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
-    [Description("Adds a new attribute to the selected elements, " +
-                 "or to the owner element of the selected attributes.")]
+    [Description("Adds a new attribute to the selected elements, or to the owner element of the selected attributes.")]
     public class AddAttributeAction : Action
     {
         private string name = String.Empty;
@@ -33,8 +32,7 @@ namespace Mix.Actions
         /// If it is not set, an empty <see cref="XmlAttribute"/> will be added.
         /// </summary>
         [Argument]
-        [Description("The value of the new attribute." +
-                     "\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
+        [Description("The value of the new attribute.\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
         public string Value
         {
             get { return @value; }

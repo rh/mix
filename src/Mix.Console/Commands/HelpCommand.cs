@@ -76,7 +76,7 @@ namespace Mix.Console.Commands
             Write(Environment.NewLine);
 
             WriteLine("Examples:");
-            WriteLine("  mix addattribute file:test.xml xpath://node() name:id");
+            WriteLine("  mix add-attribute file:test.xml xpath://node() name:id");
             WriteLine("  mix set file:test.xml xpath://foo value:\"Some text\"");
 
             WriteActions();
@@ -149,10 +149,7 @@ namespace Mix.Console.Commands
             {
                 return String.Format("{1}    ({0})", String.Join(", ", info.Aliases), Environment.NewLine);
             }
-            else
-            {
-                return String.Empty;
-            }
+            return String.Empty;
         }
     }
 }
