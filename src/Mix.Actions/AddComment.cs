@@ -9,7 +9,7 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlComment"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new comment.")]
-    public class AddCommentAction : Action
+    public class AddComment : Action
     {
         private string @value = String.Empty;
 

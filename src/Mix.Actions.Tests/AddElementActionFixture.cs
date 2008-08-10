@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root />";
             const string post = @"<root><name></name></root>";
             const string xpath = "root";
-            AddElementAction action = new AddElementAction();
+            AddElement action = new AddElement();
             action.Name = "name";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root />";
             const string post = @"<root><name>value</name></root>";
             const string xpath = "root";
-            AddElementAction action = new AddElementAction();
+            AddElement action = new AddElement();
             action.Name = "name";
             action.Value = "value";
             Run(pre, post, xpath, action);

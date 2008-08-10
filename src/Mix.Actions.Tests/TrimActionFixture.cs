@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><node> some text  </node></root>";
             string post = @"<root><node>some text</node></root>";
             string xpath = "//node";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -21,7 +21,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root a=""  foo   ""><node></node><![CDATA[ text  ]]><?foo    bar  ?><!-- comment   --></root>";
             string post = @"<root a=""foo""><node></node><![CDATA[text]]><?foo bar?><!--comment--></root>";
             string xpath = "root";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -31,7 +31,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child><child-of-child>  foo    </child-of-child></child></root>";
             string post = @"<root><child><child-of-child>foo</child-of-child></child></root>";
             string xpath = "root";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -41,7 +41,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root attribute="" some text  ""></root>";
             string post = @"<root attribute=""some text""></root>";
             string xpath = "//@*";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root> text  </root>";
             string post = @"<root>text</root>";
             string xpath = "//text()";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -61,7 +61,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><![CDATA[ text  ]]></root>";
             string post = @"<root><![CDATA[text]]></root>";
             string xpath = "//text()";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -71,7 +71,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!-- COMMENT  --><!--   COMMENT --></root>";
             string post = @"<root><!--COMMENT--><!--COMMENT--></root>";
             string xpath = "//comment()";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
 
@@ -81,7 +81,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo     bar  ?><?foo  bar ?></root>";
             string post = @"<root><?foo bar?><?foo bar?></root>";
             string xpath = "//processing-instruction()";
-            TrimAction action = new TrimAction();
+            Trim action = new Trim();
             Run(pre, post, xpath, action);
         }
     }

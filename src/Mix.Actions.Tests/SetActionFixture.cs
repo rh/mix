@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>pre</root>";
             string post = @"<root>post</root>";
             string xpath = "root";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "post";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root></root>";
             string post = @"<root>post</root>";
             string xpath = "root";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "post";
             Run(pre, post, xpath, action);
         }
@@ -33,7 +33,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root></root>";
             string post = @"<root>&gt;</root>";
             string xpath = "root";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = ">";
             Run(pre, post, xpath, action);
         }
@@ -44,7 +44,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
             string post = @"<root>post</root>";
             string xpath = "root";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "post";
             Run(pre, post, xpath, action);
         }
@@ -55,7 +55,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root></root>";
             string post = @"<root>post</root>";
             string xpath = "root";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "post";
             Run(pre, post, xpath, action);
         }
@@ -66,7 +66,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root attribute=""""></root>";
             string post = @"<root attribute=""value""></root>";
             string xpath = "root/@attribute";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
@@ -77,7 +77,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root a="""" b="""" c=""""></root>";
             string post = @"<root a=""value"" b=""value"" c=""value""></root>";
             string xpath = "//@*";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
@@ -88,7 +88,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>text</root>";
             string post = @"<root>value</root>";
             string xpath = "//text()";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
@@ -99,7 +99,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><![CDATA[text]]></root>";
             string post = @"<root><![CDATA[value]]></root>";
             string xpath = "//text()";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
@@ -110,7 +110,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
             string post = @"<root><!--value--><!--value--></root>";
             string xpath = "//comment()";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }
@@ -121,7 +121,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo bar?><?foo bar?></root>";
             string post = @"<root><?foo value?><?foo value?></root>";
             string xpath = "//processing-instruction()";
-            SetAction action = new SetAction();
+            Set action = new Set();
             action.Value = "value";
             Run(pre, post, xpath, action);
         }

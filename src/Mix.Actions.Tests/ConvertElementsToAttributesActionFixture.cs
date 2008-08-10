@@ -11,8 +11,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root><foo>bar</foo></root>";
             const string post = @"<root foo=""bar""></root>";
             const string xpath = "//foo";
-            ConvertElementsToAttributesAction action =
-                new ConvertElementsToAttributesAction();
+            ConvertElementsToAttributes action =
+                new ConvertElementsToAttributes();
             Run(pre, post, xpath, action);
         }
 
@@ -22,8 +22,8 @@ namespace Mix.Actions.Tests
             const string pre = @"<root><foo><bar />bar</foo></root>";
             const string post = pre;
             const string xpath = "//foo";
-            ConvertElementsToAttributesAction action =
-                new ConvertElementsToAttributesAction();
+            ConvertElementsToAttributes action =
+                new ConvertElementsToAttributes();
             Run(pre, post, xpath, action);
         }
     }

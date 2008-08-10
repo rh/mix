@@ -7,7 +7,7 @@ namespace Mix.Actions
 {
     [Description("Renames all selected elements or attributes.")]
     [ProcessingOrder(ProcessingOrder.Reverse)]
-    public class RenameAction : Action
+    public class Rename : Action
     {
         private string name = String.Empty;
 

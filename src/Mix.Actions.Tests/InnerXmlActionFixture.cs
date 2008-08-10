@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child>something</child></root>";
             string post = @"<root><child>" + xml + "</child></root>";
             string xpath = "//child";
-            InnerXmlAction action = new InnerXmlAction();
+            InnerXml action = new InnerXml();
             action.Xml = xml;
             Run(pre, post, xpath, action);
         }
@@ -24,7 +24,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!----></root>";
             string post = @"<root><!--" + xml + "--></root>";
             string xpath = "//comment()";
-            InnerXmlAction action = new InnerXmlAction();
+            InnerXml action = new InnerXml();
             action.Xml = xml;
             Run(pre, post, xpath, action);
         }
@@ -36,7 +36,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--></root>";
             string post = @"<root><!--" + xml + "--></root>";
             string xpath = "//comment()";
-            InnerXmlAction action = new InnerXmlAction();
+            InnerXml action = new InnerXml();
             action.Xml = xml;
             Run(pre, post, xpath, action);
         }

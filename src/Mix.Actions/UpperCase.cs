@@ -1,12 +1,11 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Clears the text nodes of elements, or the value of attributes, CDATA sections, comments or processing instructions.")]
-    public class ClearAction : Action
+    [Description("Makes the value of all selected nodes uppercase.")]
+    public class UpperCase : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {
@@ -15,27 +14,27 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = String.Empty;
+            attribute.Value = attribute.Value.ToUpper();
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = String.Empty;
+            text.Value = text.Value.ToUpper();
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = String.Empty;
+            section.Value = section.Value.ToUpper();
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = String.Empty;
+            comment.Value = comment.Value.ToUpper();
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = String.Empty;
+            instruction.Value = instruction.Value.ToUpper();
         }
     }
 }

@@ -5,47 +5,37 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class SetAction : Action
+    [Description("Clears the text nodes of elements, or the value of attributes, CDATA sections, comments or processing instructions.")]
+    public class Clear : Action
     {
-        private string @value = String.Empty;
-
-        [Argument]
-        [Description("The value to set.")]
-        public string Value
-        {
-            get { return @value; }
-            set { this.@value = value; }
-        }
-
         protected override void ExecuteCore(XmlElement element)
         {
-            element.InnerXml = Value;
+            Recurse(element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = Value;
+            attribute.Value = String.Empty;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = Value;
+            text.Value = String.Empty;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = Value;
+            section.Value = String.Empty;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = Value;
+            comment.Value = String.Empty;
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = Value;
+            instruction.Value = String.Empty;
         }
     }
 }

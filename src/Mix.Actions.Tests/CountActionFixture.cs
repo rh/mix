@@ -15,7 +15,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child /><child /></root>";
             string post = pre;
             string xpath = "//child";
-            CountAction action = new CountAction();
+            Count action = new Count();
             Run(pre, post, xpath, action);
         }
 
@@ -28,7 +28,7 @@ namespace Mix.Actions.Tests
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
-            new CountAction().Execute(context);
+            new Count().Execute(context);
             string expected = String.Format("file: 2{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
@@ -42,7 +42,7 @@ namespace Mix.Actions.Tests
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
-            new CountAction().Execute(context);
+            new Count().Execute(context);
             string expected = String.Format("file: 0{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
@@ -54,7 +54,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child/><child/></root>";
             string post = pre;
             string xpath = "//";
-            CountAction action = new CountAction();
+            Count action = new Count();
             Run(pre, post, xpath, action);
         }
     }

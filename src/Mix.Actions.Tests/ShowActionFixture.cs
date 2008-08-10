@@ -17,7 +17,7 @@ namespace Mix.Actions.Tests
             {
                 Context context = new Context("<root />", "root", writer);
                 context.FileName = "file";
-                ShowAction action = new ShowAction();
+                Show action = new Show();
                 action.Execute(context);
                 Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 1{0}<root />{0}", Environment.NewLine)));
             }
@@ -30,7 +30,7 @@ namespace Mix.Actions.Tests
             {
                 Context context = new Context("<root />", "foo", writer);
                 context.FileName = "file";
-                ShowAction action = new ShowAction();
+                Show action = new Show();
                 action.Execute(context);
                 Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 0{0}", Environment.NewLine)));
             }
@@ -45,7 +45,7 @@ namespace Mix.Actions.Tests
                 context.Xml = "<root/>";
                 context.FileName = "file";
                 context.Output = writer;
-                ShowAction action = new ShowAction();
+                Show action = new Show();
                 action.Execute(context);
                 Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: no selection.{0}", Environment.NewLine)));
             }
@@ -60,7 +60,7 @@ namespace Mix.Actions.Tests
                 Context context = new Context("<root/>", "///");
                 context.FileName = "file";
                 context.Output = writer;
-                ShowAction action = new ShowAction();
+                Show action = new Show();
                 action.Execute(context);
             }
         }

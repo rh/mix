@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Adds a new root element.")]
-    public class AddRootElementAction : Action
+    public class AddRootElement : Action
     {
         private string name = String.Empty;
 

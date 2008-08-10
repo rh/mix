@@ -14,7 +14,7 @@ namespace Mix.Actions
     /// </summary>
     [Description("Converts elements to attributes.")]
     [Alias("etoa")]
-    public class ConvertElementsToAttributesAction : Action
+    public class ConvertElementsToAttributes : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {

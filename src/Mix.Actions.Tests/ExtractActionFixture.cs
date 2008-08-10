@@ -14,7 +14,7 @@ namespace Mix.Actions.Tests
         [Test]
         public void EmptyConstructor()
         {
-            ExtractAction action = new ExtractAction();
+            Extract action = new Extract();
             Assert.IsNotNull(action.Name);
             Assert.AreEqual(0, action.Name.Length);
         }
@@ -23,7 +23,7 @@ namespace Mix.Actions.Tests
         [ExpectedException(typeof(XmlException))]
         public void XmlNotSet()
         {
-            ExtractAction action = new ExtractAction();
+            Extract action = new Extract();
             action.Execute(Context.Null);
             Assert.Fail("An XmlException should have been thrown.");
         }
@@ -32,7 +32,7 @@ namespace Mix.Actions.Tests
         [ExpectedException(typeof(RequirementException))]
         public void NameNotSet()
         {
-            ExtractAction action = new ExtractAction();
+            Extract action = new Extract();
             string xml = @"<root><node/><node/></root>";
             string xpath = "//node";
             Context context = new Context(xml, xpath);
@@ -90,7 +90,7 @@ namespace Mix.Actions.Tests
         }
 
         [ProcessingOrder(ProcessingOrder.Reverse)]
-        private class DerivedExtractAction : ExtractAction
+        private class DerivedExtractAction : Extract
         {
             public DerivedExtractAction()
             {

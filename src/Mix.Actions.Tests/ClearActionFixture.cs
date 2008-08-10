@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>something</root>";
             string post = @"<root></root>";
             string xpath = "root";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -21,7 +21,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root a=""foo"">something<![CDATA[something]]><?foo bar?><!--comment-->something</root>";
             string post = @"<root a=""""><![CDATA[]]><?foo ?><!----></root>";
             string xpath = "root";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -31,7 +31,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
             string post = @"<root><child><child-of-child></child-of-child></child></root>";
             string xpath = "root";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -41,7 +41,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre=""something"" />";
             string post = @"<root pre="""" />";
             string xpath = "//@pre";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre=""something""><node pre=""something""/></root>";
             string post = @"<root pre=""""><node pre="""" /></root>";
             string xpath = "//@pre";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -61,7 +61,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>text</root>";
             string post = @"<root></root>";
             string xpath = "//text()";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -71,7 +71,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--></root>";
             string post = @"<root><!----></root>";
             string xpath = "//comment()";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -81,7 +81,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
             string post = @"<root><!----><!----></root>";
             string xpath = "//comment()";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
 
@@ -91,7 +91,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo bar ?><?foo bar ?></root>";
             string post = @"<root><?foo ?><?foo ?></root>";
             string xpath = "//processing-instruction()";
-            ClearAction action = new ClearAction();
+            Clear action = new Clear();
             Run(pre, post, xpath, action);
         }
     }

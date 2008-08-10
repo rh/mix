@@ -12,7 +12,7 @@ namespace Mix.Actions.Tests
             const string pre = "<root />";
             const string post = "<root>" + fragment + "</root>";
             const string xpath = "root";
-            AddFragmentAction action = new AddFragmentAction();
+            AddFragment action = new AddFragment();
             action.Fragment = fragment;
             Run(pre, post, xpath, action);
         }

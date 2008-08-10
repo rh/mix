@@ -4,8 +4,8 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Trims the text nodes of the selected elements, or the value of the selected attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class TrimAction : Action
+    [Description("Makes the value of all selected nodes lowercase.")]
+    public class LowerCase : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {
@@ -14,27 +14,27 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = attribute.Value.Trim();
+            attribute.Value = attribute.Value.ToLower();
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = text.Value.Trim();
+            text.Value = text.Value.ToLower();
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value.Trim();
+            section.Value = section.Value.ToLower();
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value.Trim();
+            comment.Value = comment.Value.ToLower();
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = instruction.Value.Trim();
+            instruction.Value = instruction.Value.ToLower();
         }
     }
 }

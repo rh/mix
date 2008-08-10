@@ -10,7 +10,7 @@ namespace Mix.Actions.Tests
         {
             const string pre = @"<oldroot></oldroot>";
             const string post = @"<newroot><oldroot></oldroot></newroot>";
-            AddRootElementAction action = new AddRootElementAction();
+            AddRootElement action = new AddRootElement();
             action.Name = "newroot";
             Run(pre, post, "", action);
         }

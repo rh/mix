@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root>Some text</root>";
             const string post = @"<root>Some textappend</root>";
             const string xpath = "root";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = @"<root>append</root>";
             const string xpath = "root";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -33,7 +33,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>pre<![CDATA[pre]]><?foo bar?><!--comment-->pre</root>";
             string post = @"<root>preappend<![CDATA[preappend]]><?foo barappend?><!--commentappend-->preappend</root>";
             string xpath = "root";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -44,7 +44,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root attribute=""""></root>";
             const string post = @"<root attribute=""append""></root>";
             const string xpath = "root/@attribute";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -55,7 +55,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root>text</root>";
             const string post = @"<root>textappend</root>";
             const string xpath = "//text()";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -66,7 +66,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root><![CDATA[pre]]></root>";
             const string post = @"<root><![CDATA[preappend]]></root>";
             const string xpath = "//root";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -77,7 +77,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root><!--COMMENT--></root>";
             const string post = @"<root><!--COMMENTappend--></root>";
             const string xpath = "//comment()";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }
@@ -88,7 +88,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root><?foo bar?></root>";
             const string post = @"<root><?foo barappend?></root>";
             const string xpath = "//processing-instruction()";
-            AppendAction action = new AppendAction();
+            Append action = new Append();
             action.Value = "append";
             Run(pre, post, xpath, action);
         }

@@ -9,7 +9,7 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlDocumentFragment"/> to the selected elements.
     /// </summary>
     [Description("Adds an XML fragment to the selected elements.")]
-    public class AddFragmentAction : Action
+    public class AddFragment : Action
     {
         private string fragment = String.Empty;
 

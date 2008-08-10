@@ -5,13 +5,13 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Prepends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
-    public class PrependAction : Action
+    [Description("Appends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
+    public class Append : Action
     {
         private string @value = String.Empty;
 
         [Argument, Required]
-        [Description("The value to prepend.")]
+        [Description("The value to append.")]
         public string Value
         {
             get { return @value; }
@@ -51,27 +51,27 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = Value + attribute.Value;
+            attribute.Value += Value;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = Value + text.Value;
+            text.Value += Value;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = Value + section.Value;
+            section.Value += Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = Value + comment.Value;
+            comment.Value += Value;
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = Value + instruction.Value;
+            instruction.Value += Value;
         }
     }
 }

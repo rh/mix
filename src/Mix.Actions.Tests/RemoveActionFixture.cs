@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /><dummy /></root>";
             string post = @"<root><dummy /></root>";
             string xpath = "root/pre";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -21,7 +21,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /><dummy /></root>";
             string post = pre;
             string xpath = "root";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -31,7 +31,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre="""" />";
             string post = @"<root />";
             string xpath = "//@pre";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -41,7 +41,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre=""""><node pre=""""/></root>";
             string post = @"<root><node /></root>";
             string xpath = "//@pre";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--></root>";
             string post = @"<root></root>";
             string xpath = "//comment()";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -61,7 +61,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>text</root>";
             string post = @"<root></root>";
             string xpath = "//text()";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -71,7 +71,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><![CDATA[]]></root>";
             string post = @"<root></root>";
             string xpath = "//text()";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -81,7 +81,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><!--COMMENT--><node /><!--COMMENT--></root>";
             string post = @"<root><node /></root>";
             string xpath = "//comment()";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
 
@@ -91,7 +91,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo bar ?><node /><?foo bar ?></root>";
             string post = @"<root><node /></root>";
             string xpath = "//processing-instruction()";
-            RemoveAction action = new RemoveAction();
+            Remove action = new Remove();
             Run(pre, post, xpath, action);
         }
     }

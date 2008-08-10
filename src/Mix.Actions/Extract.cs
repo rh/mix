@@ -10,16 +10,16 @@ namespace Mix.Actions
 {
     [Description("Extracts the selected elements to new files.")]
     [ProcessingOrder(ProcessingOrder.Reverse)]
-    public class ExtractAction : Action
+    public class Extract : Action
     {
         private string name = String.Empty;
         private readonly TextWriter writer;
 
-        public ExtractAction()
+        public Extract()
         {
         }
 
-        public ExtractAction(TextWriter writer)
+        public Extract(TextWriter writer)
         {
             this.writer = writer;
         }

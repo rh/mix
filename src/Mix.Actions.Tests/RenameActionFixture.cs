@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /></root>";
             string post = @"<root><post /></root>";
             string xpath = "root/pre";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "post";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root />";
             string post = @"<root />";
             string xpath = "root";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "root";
             Run(pre, post, xpath, action);
         }
@@ -33,7 +33,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre /><pre /></root>";
             string post = @"<root><post /><post /></root>";
             string xpath = "root/pre";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "post";
             Run(pre, post, xpath, action);
         }
@@ -44,7 +44,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><pre><pre /></pre></root>";
             string post = @"<root><post><post /></post></root>";
             string xpath = "//pre";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "post";
             Run(pre, post, xpath, action);
         }
@@ -55,7 +55,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre="""" />";
             string post = @"<root post="""" />";
             string xpath = "//@pre";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "post";
             Run(pre, post, xpath, action);
         }
@@ -66,7 +66,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root pre="""" />";
             string post = @"<root pre="""" />";
             string xpath = "//@pre";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "pre";
             Run(pre, post, xpath, action);
         }
@@ -77,7 +77,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo ?></root>";
             string post = @"<root><?bar ?></root>";
             string xpath = "//processing-instruction()";
-            RenameAction action = new RenameAction();
+            Rename action = new Rename();
             action.Name = "bar";
             Run(pre, post, xpath, action);
         }

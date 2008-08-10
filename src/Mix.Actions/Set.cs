@@ -1,40 +1,51 @@
+using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    [Description("Makes the value of all selected nodes lowercase.")]
-    public class LowerCaseAction : Action
+    [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
+    public class Set : Action
     {
+        private string @value = String.Empty;
+
+        [Argument]
+        [Description("The value to set.")]
+        public string Value
+        {
+            get { return @value; }
+            set { this.@value = value; }
+        }
+
         protected override void ExecuteCore(XmlElement element)
         {
-            Recurse(element);
+            element.InnerXml = Value;
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = attribute.Value.ToLower();
+            attribute.Value = Value;
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = text.Value.ToLower();
+            text.Value = Value;
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value.ToLower();
+            section.Value = Value;
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value.ToLower();
+            comment.Value = Value;
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = instruction.Value.ToLower();
+            instruction.Value = Value;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Mix.Actions.Tests
         public void JustExecute()
         {
             Context context = new Context("<root />");
-            PrettyPrintAction action = new PrettyPrintAction();
+            PrettyPrint action = new PrettyPrint();
             action.Execute(context);
         }
     }

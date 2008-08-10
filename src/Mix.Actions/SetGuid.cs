@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions to a newly generated GUID.")]
-    public class SetGuidAction : Action
+    public class SetGuid : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {

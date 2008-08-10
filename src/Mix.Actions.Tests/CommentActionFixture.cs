@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><element /></root>";
             string post = @"<root><!--<element />--></root>";
             string xpath = "//element";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
 
@@ -21,7 +21,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><element /><element /></root>";
             string post = @"<root><!--<element />--><!--<element />--></root>";
             string xpath = "//element";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
 
@@ -31,7 +31,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><element a="""" /><element a="""" /></root>";
             string post = @"<root><!--<element a="""" />--><!--<element a="""" />--></root>";
             string xpath = "//@a";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
 
@@ -41,7 +41,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root>text</root>";
             string post = @"<root><!--text--></root>";
             string xpath = "//text()";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><![CDATA[text]]></root>";
             string post = @"<root><!--<![CDATA[text]]>--></root>";
             string xpath = "//text()";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
 
@@ -61,7 +61,7 @@ namespace Mix.Actions.Tests
             string pre = @"<root><?foo bar ?></root>";
             string post = @"<root><!--<?foo bar ?>--></root>";
             string xpath = "//processing-instruction()";
-            CommentAction action = new CommentAction();
+            Comment action = new Comment();
             Run(pre, post, xpath, action);
         }
     }

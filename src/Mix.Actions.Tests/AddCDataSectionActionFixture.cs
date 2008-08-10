@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><![CDATA[text]]></root>";
             const string xpath = "root";
-            AddCDataSectionAction action = new AddCDataSectionAction();
+            AddCdataSection action = new AddCdataSection();
             action.Value = "text";
             Run(pre, post, xpath, action);
         }

@@ -108,7 +108,7 @@ namespace Mix.Actions.Tests
             Run(pre, post, xpath, action);
         }
 
-        private class DerivedSetGuidAction : SetGuidAction
+        private class DerivedSetGuidAction : SetGuid
         {
             protected override string NewGuid()
             {

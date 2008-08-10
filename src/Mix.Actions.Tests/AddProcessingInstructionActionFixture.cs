@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><?name ?></root>";
             const string xpath = "root";
-            AddProcessingInstructionAction action = new AddProcessingInstructionAction();
+            AddProcessingInstruction action = new AddProcessingInstruction();
             action.Name = "name";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><?name value?></root>";
             const string xpath = "root";
-            AddProcessingInstructionAction action = new AddProcessingInstructionAction();
+            AddProcessingInstruction action = new AddProcessingInstruction();
             action.Name = "name";
             action.Value = "value";
             Run(pre, post, xpath, action);
@@ -34,7 +34,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root></root>";
             const string post = pre;
             const string xpath = "foo";
-            AddProcessingInstructionAction action = new AddProcessingInstructionAction();
+            AddProcessingInstruction action = new AddProcessingInstruction();
             action.Name = "name";
             action.Value = "value";
             Run(pre, post, xpath, action);

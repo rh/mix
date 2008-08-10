@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Comments the selected elements.")]
-    public class CommentAction : Action
+    public class Comment : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {

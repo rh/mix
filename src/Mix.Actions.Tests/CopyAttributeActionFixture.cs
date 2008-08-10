@@ -11,7 +11,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root attribute=""value"" />";
             const string post = @"<root attribute=""value"" newattribute=""value"" />";
             const string xpath = "//@attribute";
-            CopyAttributeAction action = new CopyAttributeAction();
+            CopyAttribute action = new CopyAttribute();
             action.Name = "newattribute";
             Run(pre, post, xpath, action);
         }
@@ -22,7 +22,7 @@ namespace Mix.Actions.Tests
             const string pre = @"<root attribute=""foo"" existingattribute=""bar""/>";
             const string post = @"<root attribute=""foo"" existingattribute=""foo"" />";
             const string xpath = "//@attribute";
-            CopyAttributeAction action = new CopyAttributeAction();
+            CopyAttribute action = new CopyAttribute();
             action.Name = "existingattribute";
             Run(pre, post, xpath, action);
         }
