@@ -77,10 +77,6 @@ namespace Mix.Core
 		/// </exception>
 		public static void AddAttribute(XmlDocument document, XmlElement element, string name, string value)
 		{
-			Check.ArgumentIsNotNull(document, "document");
-			Check.ArgumentIsNotNull(element, "element");
-			Check.ArgumentIsNotNullOrEmpty(name, "name");
-
 			if (element.HasAttribute(name))
 			{
 				return;
@@ -108,9 +104,6 @@ namespace Mix.Core
 		/// </exception>
 		public static XmlAttribute CopyAttribute(XmlDocument document, XmlAttribute attribute)
 		{
-			Check.ArgumentIsNotNull(document, "document");
-			Check.ArgumentIsNotNull(attribute, "attribute");
-
 			XmlAttribute newattribute = document.CreateAttribute(attribute.Name);
 			newattribute.Value = attribute.Value;
 			return newattribute;
@@ -118,10 +111,6 @@ namespace Mix.Core
 
 		public static void CopyAttributes(XmlDocument document, XmlElement from, XmlElement to)
 		{
-			Check.ArgumentIsNotNull(document, "document");
-			Check.ArgumentIsNotNull(from, "from");
-			Check.ArgumentIsNotNull(to, "to");
-
 			foreach (XmlAttribute attribute in from.Attributes)
 			{
 				to.Attributes.Append(CopyAttribute(document, attribute));
@@ -130,9 +119,6 @@ namespace Mix.Core
 
 		public static void CopyChildNodes(XmlElement from, XmlElement to)
 		{
-			Check.ArgumentIsNotNull(from, "from");
-			Check.ArgumentIsNotNull(to, "to");
-
 			foreach (XmlNode node in from.ChildNodes)
 			{
 				to.AppendChild(node.CloneNode(true));

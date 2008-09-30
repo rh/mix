@@ -20,7 +20,6 @@ namespace Mix.Core.Attributes
         /// </exception>
         public AliasAttribute(string aliases)
         {
-            Check.ArgumentIsNotNullOrEmpty(aliases, "aliases");
             this.aliases = aliases.Replace(" ", "").Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
 

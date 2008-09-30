@@ -43,8 +43,6 @@ namespace Mix.Console.Commands
         /// </returns>
         public Command Create(string[] args)
         {
-            Check.ArgumentIsNotNull(args, "args");
-
             IDictionary<string, string> properties = Parse(args);
             Command command = CreateCommand(properties, args);
             command.Context = CreateContext(properties);

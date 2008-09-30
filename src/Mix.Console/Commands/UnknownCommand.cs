@@ -8,8 +8,6 @@ namespace Mix.Console.Commands
 
         public UnknownCommand(string name)
         {
-            Check.ArgumentIsNotNullOrEmpty(name, "name");
-
             this.name = name;
         }
 

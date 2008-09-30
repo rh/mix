@@ -63,10 +63,6 @@ namespace Mix.Core
         /// represent the standard error stream.</param>
         public Context(string xml, string xpath, TextWriter output, TextWriter error)
         {
-            Check.ArgumentIsNotNullOrEmpty(xml, "xml");
-            Check.ArgumentIsNotNull(output, "output");
-            Check.ArgumentIsNotNull(error, "error");
-
             this.xml = xml;
             this.xpath = xpath ?? String.Empty;
             this.output = output;
