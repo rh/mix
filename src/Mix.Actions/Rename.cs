@@ -30,7 +30,7 @@ namespace Mix.Actions
             XmlElement newelement = element.OwnerDocument.CreateElement(Name);
             XmlHelper.CopyAttributes(element.OwnerDocument, element, newelement);
             XmlHelper.CopyChildNodes(element, newelement);
-            XmlHelper.ReplaceElement(element, newelement);
+			element.ParentNode.ReplaceChild(newelement, element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
