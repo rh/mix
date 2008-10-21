@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Mix.Core
 {
@@ -9,6 +10,8 @@ namespace Mix.Core
         /// The name of the file this <see cref="IContext"/> applies to.
         /// </summary>
         string FileName { get; set; }
+
+		Encoding Encoding { get; set; }
 
         /// <summary>
         /// The name of the <see cref="Action"/> this <see cref="IContext"/> applies to.

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 using log4net;
 using Mix.Core;
@@ -56,6 +57,8 @@ namespace Mix.Console.Commands
 		private bool ExecuteAction(string file)
 		{
 			Context.FileName = file;
+			Context.Encoding = GetFileEncoding(file);
+
 			try
 			{
 				Context.Xml = File.ReadAllText(file);
@@ -115,6 +118,7 @@ namespace Mix.Console.Commands
 				document.LoadXml(Context.Xml);
 				XmlWriterSettings settings = new XmlWriterSettings();
 				settings.Indent = true;
+				settings.Encoding = Context.Encoding;
 				using (XmlWriter writer = XmlWriter.Create(file, settings))
 				{
 					document.WriteContentTo(writer);
@@ -168,6 +172,46 @@ namespace Mix.Console.Commands
 			return Uniquefy(files);
 		}
 
+		/// <summary>
+		/// Reads the encoding of <paramref name="file"/> from the byte order mark.
+		/// If no byte order mark is found, <see cref="Encoding.Default"/> is assumed.
+		/// </summary>
+		private Encoding GetFileEncoding(string file)
+		{
+			using (StreamReader reader = new StreamReader(file, true))
+			{
+				reader.Read();
+				Encoding encoding = reader.CurrentEncoding;
+				if (encoding != null)
+				{
+					return encoding;
+				}
+			}
+
+			using (XmlReader reader = XmlReader.Create(file))
+			{
+				if (reader.Read() && reader.NodeType == XmlNodeType.XmlDeclaration)
+				{
+					string name = reader.GetAttribute("encoding");
+					if (name != null)
+					{
+						try
+						{
+							return Encoding.GetEncoding(name);
+						}
+						catch (ArgumentException)
+						{
+							// An ArgumentException is raised by Encoding.GetEncoding() if no valid code page name is given
+							// or the code page is not supported by the underlying platform
+							return Encoding.UTF8;
+						}
+					}
+				}
+			}
+
+			return Encoding.UTF8;
+		}
+
 		private IList<string> Uniquefy(IList<string> list)
 		{
 			IList<string> uniques = new List<string>();
@@ -188,14 +232,23 @@ namespace Mix.Console.Commands
 
 		protected bool Equals(ActionCommand actionCommand)
 		{
-			if (actionCommand == null) return false;
-			if (!base.Equals(actionCommand)) return false;
+			if (actionCommand == null)
+			{
+				return false;
+			}
+			if (!base.Equals(actionCommand))
+			{
+				return false;
+			}
 			return Equals(action, actionCommand.action);
 		}
 
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(this, obj)) return true;
+			if (ReferenceEquals(this, obj))
+			{
+				return true;
+			}
 			return Equals(obj as ActionCommand);
 		}
 
