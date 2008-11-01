@@ -1,22 +1,16 @@
 <?xml version="1.0"?>
 <project name="nant" default="default" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-  <description>Builds Mix. Requires .NET 2.0.</description>
-
   <property name="configuration"    value="Debug"/>
   <!-- These properties are set using full paths, so build files called by this build file
        can always use these properties, no matter where these build files are located  -->
   <property name="base.dir"         value="${directory::get-current-directory()}"/>
   <property name="build.base.dir"   value="${path::combine(base.dir, 'build')}"/>
   <property name="build.dir"        value="${path::combine(build.base.dir, configuration)}"/>
-  <property name="install.dir"      value="${path::combine(build.base.dir, 'install')}"/>
   <property name="lib.dir"          value="${path::combine(base.dir, 'lib')}" />
   <property name="src.dir"          value="${path::combine(base.dir, 'src')}" />
   <property name="tools.dir"        value="${path::combine(base.dir, 'tools')}" />
-  <property name="help.dir"         value="${path::combine(base.dir, 'doc/help')}"/>
-  <property name="help.build.dir"   value="${path::combine(build.base.dir, 'doc/help')}"/>
   <property name="test-results.dir" value="${path::combine(build.dir, 'test-results')}" />
-  <property name="version.file"     value="${src.dir}\Mix.Version"/>
 
   <fileset id="mix.projects" basedir="src">
     <include name="Mix.Core/Mix.Core.build" />
@@ -33,8 +27,6 @@
     <include name="Mix.Actions.dll" />
     <include name="mix.exe" />
   </fileset>
-
-  <!-- Main Targets -->
 
   <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test"/>
 
@@ -59,79 +51,6 @@
       <test assemblyname="${build.dir}/Mix.Core.Tests.dll"/>
       <test assemblyname="${build.dir}/Mix.Console.Tests.dll"/>
     </nunit2>
-  </target>
-
-	<target name="analyze" depends="compile">
-    <property name="analysis.reports.dir" value="${build.base.dir}/analysis-reports" />
-    <delete dir="${analysis.reports.dir}" />
-    <mkdir dir="${analysis.reports.dir}" />
-    <!-- FxCop 1.35 is assumed -->
-		<fxcop>
-			<targets refid="mix.assemblies" />
-			<arg value="/rule:DesignRules.dll" />
-			<!-- CA2210: Assemblies should have valid strong names -->
-			<arg value="/ruleid:-Microsoft.Design#CA2210" />
-			<!-- CA1020: Avoid namespaces with few types -->
-			<arg value="/ruleid:-Microsoft.Design#CA1020" />
-			<!-- CA1059: Members should not expose certain concrete types -->
-			<arg value="/ruleid:-Microsoft.Design#CA1059" />
-			<arg value="/rule:UsageRules.dll" />
-			<!-- CA2209: Assemblies should declare minimum security -->
-			<arg value="/ruleid:-Microsoft.Usage#CA2209" />
-			<arg value="/rule:PerformanceRules.dll" />
-			<!-- CA1822: Mark members as static -->
-			<arg value="/ruleid:-Microsoft.Performance#CA1822" />
-			<arg value="/rule:SecurityRules.dll" />
-			<arg value="/out:${analysis.reports.dir}/analysis.xml" />
-		</fxcop>
-	</target>
-
-  <!--
-  Sub Targets (NAnt sees targets without a description attribute as Sub Targets)
-  -->
-
-  <target name="version">
-    <loadfile file="${property::get-value('version.file')}" property="version"/>
-    <property name="version.major"    value="${version::get-major(version::parse(property::get-value('version')))}"/>
-    <property name="version.minor"    value="${version::get-minor(version::parse(property::get-value('version')))}"/>
-    <property name="version.build"    value="${int::parse(version::get-build(version::parse(property::get-value('version'))))}"/>
-    <property name="version.revision" value="${int::parse(version::get-revision(version::parse(property::get-value('version'))))}"/>
-    <property name="version"          value="${version.major}.${version.minor}.${version.build}.${version.revision}"/>
-  </target>
-
-  <target name="help">
-    <description>Builds the user help files</description>
-    <mkdir dir="${help.build.dir}" failonerror="false"/>
-    <copy todir="${help.build.dir}">
-      <fileset basedir="${help.dir}">
-        <include name="**.*"/>
-      </fileset>
-    </copy>
-    <exec program="xsltproc.exe" basedir="${tools.dir}\xsltproc" workingdir="${help.build.dir}">
-    	<arg value="${help.build.dir}\src\book.xsl"/>
-      <arg value="${help.build.dir}\src\book.xml"/>
-    </exec>
-    <!-- hhc.exe may return 1, but still be successful -->
-    <exec program="hhc.exe" workingdir="${help.build.dir}" failonerror="false">
-      <arg value="htmlhelp.hhp"/>
-    </exec>
-  </target>
-
-  <target name="setup" depends="compile, version">
-    <nant buildfile="${src.dir}\Mix.Setup\Mix.Setup.build" />
-  </target>
-
-  <target name="archive">
-    <if test="${property::exists('CCNetLabel')}">
-      <if test="${property::exists('archive.dir')}">
-        <mkdir dir="${archive.dir}\${CCNetLabel}" />
-        <copy todir="${archive.dir}\${CCNetLabel}">
-          <fileset basedir="${build.base.dir}">
-            <includes name="**/*"/>
-          </fileset>
-        </copy>
-      </if>
-    </if>
   </target>
 
 </project>
