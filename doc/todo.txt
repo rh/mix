@@ -192,3 +192,59 @@ Make an element of an attribute:
     <child>value</child>
   </parent>
 </root>
+
+------------------------------------------------------------------------------
+
+AddAction, MoveAction
+
+Distinguish between element, attribute, text node, CDATA section, comment and processing instruction.
+
+An element is always selected. What can be done when adding a
+* element:                append (default), add before,                     add after
+* attribute:              append (default), add before <name-of-attribute>, add after <name-of-attribute>, position
+* text node:              append (default), add before,                     add after
+* CDATA:                  append (default), add before,                     add after
+* comment:                append (default), add before,                     add after
+* processing instruction: append (default), add before,                     add after
+
+Positions: [+-]0..n, first, last
+
+Examples for add:
+* position:1 (which equals position:first)
+* position:2
+* position:foo+1 (which equals after:foo)
+* position:foo+2
+* position:foo-1 (which equals before:foo)
+* position:foo-2
+* position:first
+* position:last
+
+Examples for move,
+absolute:
+* position:1 (which equals position:first)
+* position:2
+* position:foo+1 (which equals after:foo)
+* position:foo+2
+* position:foo-1 (which equals before:foo)
+* position:foo-2
+* position:first
+* position:last
+relative:
+* position:+1
+* position:-1
+* position:left (which equals position:-1)
+* position:right (which equals position:+1)
+* position:up (which moves the node to its grandparent)
+* position:down (which moves the node to a child), TODO: which child?
+
+<root>
+	<before-selected />
+	<selected att1="" att2="">
+		<child-element />
+		<!-- comment -->
+		<? pi ?>
+		<child-element />
+		<child-element />
+	</selected>
+	<after-selected />
+</root>
