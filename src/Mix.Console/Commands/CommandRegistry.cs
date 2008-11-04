@@ -44,7 +44,7 @@ namespace Mix.Console.Commands
         }
 
         /// <summary>
-        /// Gets a <see cref="IDictionary{TKey,TValue}"/> of all registered <see cref="Command"/>s.
+        /// Gets a dictionary of all registered <see cref="Command"/>s.
         /// </summary>
         public IDictionary<string, Command> Commands
         {

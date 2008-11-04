@@ -50,8 +50,7 @@ namespace Mix.Core.Attributes
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>
-        /// All aliases defined on <paramref name="obj"/>, or an empty
-        /// <seealso cref="IList{T}"/>
+        /// All aliases defined on <paramref name="obj"/>, or an empty IList.
         /// </returns>
         public static string[] GetAliasesFrom(object obj)
         {

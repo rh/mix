@@ -10,7 +10,7 @@ namespace Mix.Core.Attributes
     /// In the following example, AddFragmentAction.Fragment is marked as an XML
     /// argument:
     /// <code>
-    /// public class AddFragmentAction : Action
+    /// public class AddFragmentAction : Mix.Core.Action
     /// {
     ///     [Argument, XmlArgument]
     ///     public string Fragment

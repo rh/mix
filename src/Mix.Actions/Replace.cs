@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.")]
-    public class Replace : Action
+    public class Replace : Mix.Core.Action
     {
         private string oldValue = String.Empty;
         private string newValue = String.Empty;

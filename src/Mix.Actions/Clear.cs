@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Clears the text nodes of elements, or the value of attributes, CDATA sections, comments or processing instructions.")]
-    public class Clear : Action
+    public class Clear : Mix.Core.Action
     {
         protected override void ExecuteCore(XmlElement element)
         {

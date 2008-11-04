@@ -9,7 +9,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Actions
 {
     [Description("Shows all selected nodes.")]
-    public class Show : Action, IReadOnly
+    public class Show : Mix.Core.Action, IReadOnly
     {
         private bool showLineNumbers;
 

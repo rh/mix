@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Reflection;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -66,7 +66,7 @@ namespace Mix.Console.Commands
         private void WriteUsage()
         {
             WriteLine("Usage: mix <action> [arguments]");
-            WriteLine("Mix command-line client, version {0}.", Application.ProductVersion);
+            WriteLine("Mix command-line client, version {0}.", Assembly.GetExecutingAssembly().GetName().Version);
             WriteLine("Type 'mix help <action>' for help on a specific action.");
             WriteLine("Type 'mix version' to see the program version.");
             Write(Environment.NewLine);

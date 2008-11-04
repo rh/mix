@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Sets the inner XML of the selected elements or comments.")]
-    public class InnerXml : Action
+    public class InnerXml : Mix.Core.Action
     {
         private string xml = String.Empty;
 

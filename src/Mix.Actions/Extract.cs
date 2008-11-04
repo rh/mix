@@ -10,7 +10,7 @@ namespace Mix.Actions
 {
     [Description("Extracts the selected elements to new files.")]
     [ProcessingOrder(ProcessingOrder.Reverse)]
-    public class Extract : Action
+    public class Extract : Mix.Core.Action
     {
         private string name = String.Empty;
         private readonly TextWriter writer;

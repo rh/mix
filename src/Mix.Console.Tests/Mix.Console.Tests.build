@@ -28,6 +28,8 @@
         <include name="Mix.Actions.dll" />
         <include name="mix.exe" />
         <include name="nunit.framework.dll" />
+        <!-- NOTE: log4net.dll has to be explicitly referenced or compiling on Mono fails -->
+        <include name="log4net.dll" />
       </references>
     </csc>
   </target>

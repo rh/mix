@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
 using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
@@ -20,7 +19,10 @@ namespace Mix.Console.Commands
 
         private void WriteVersion()
         {
-            WriteLine("Mix, version {0}", Application.ProductVersion);
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            AssemblyName name = assembly.GetName();
+            Version version = name.Version;
+            WriteLine("Mix, version {0}", version);
         }
 
         private void WriteCompilationDate()
@@ -29,7 +31,7 @@ namespace Mix.Console.Commands
 
             try
             {
-                fileInfo = new FileInfo(Assembly.GetEntryAssembly().Location);
+                fileInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
             }
             catch (Exception)
             {

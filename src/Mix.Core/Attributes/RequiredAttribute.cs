@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// In the following example, PrependAction.Text is marked as required:
     /// <code>
-    /// public class PrependAction : Action
+    /// public class PrependAction : Mix.Core.Action
     /// {
     ///     [Required]
     ///     public string Text

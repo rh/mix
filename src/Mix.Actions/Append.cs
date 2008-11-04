@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Appends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
-    public class Append : Action
+    public class Append : Mix.Core.Action
     {
         private string @value = String.Empty;
 

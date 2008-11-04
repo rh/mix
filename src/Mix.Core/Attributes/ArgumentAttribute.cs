@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// In the following example, PrependAction.Text is marked as an argument:
     /// <code>
-    /// public class PrependAction : Action
+    /// public class PrependAction : Mix.Core.Action
     /// {
     ///     [Argument]
     ///     public string Text

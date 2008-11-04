@@ -9,7 +9,9 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlAttribute"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new attribute to the selected elements, or to the owner element of the selected attributes.")]
-    public class AddAttribute : Action
+// ReSharper disable RedundantNameQualifier
+    public class AddAttribute : Mix.Core.Action
+// ReSharper restore RedundantNameQualifier
     {
         private string name = String.Empty;
         private string @value = String.Empty;
