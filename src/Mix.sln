@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Console", "Mix.Console\Mix.Console.csproj", "{E5F2DEFF-9CA9-40A3-B291-43D463D1A894}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Actions", "Mix.Actions\Mix.Actions.csproj", "{122DC43F-106B-409D-8819-FE9BAC42520B}"
