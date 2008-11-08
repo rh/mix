@@ -149,44 +149,56 @@ namespace Mix.Console.Commands
 
 			foreach (string pattern in patterns)
 			{
-                if (Directory.Exists(pattern))
-                {
-                    DirectoryInfo directory = new DirectoryInfo(pattern);
-                    foreach (FileInfo file in directory.GetFiles("*.xml", SearchOption.TopDirectoryOnly))
-                    {
-                        files.Add(file.FullName);
-                    }
-                }
-                else if (Directory.Exists(Path.GetDirectoryName(pattern)))
-                {
-                    DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(pattern));
-                    foreach (FileInfo file in directory.GetFiles(Path.GetFileName(pattern), SearchOption.TopDirectoryOnly))
-                    {
-                        files.Add(file.FullName);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        DirectoryInfo directory = new DirectoryInfo(".");
-                        foreach (FileInfo file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
-                        {
-                            files.Add(file.FullName);
-                        }
-                    }
-                    catch (IOException e)
-                    {
-                        log.Error("The pattern is not valid.", e);
-                        Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                    }
-                    catch (ArgumentException e)
-                    {
-                        log.Error("The pattern is not valid.", e);
-                        Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                    }
-                }
-			}
+			    if (Directory.Exists(pattern))
+			    {
+			        DirectoryInfo directory = new DirectoryInfo(pattern);
+			        foreach (FileInfo file in directory.GetFiles("*.xml", SearchOption.TopDirectoryOnly))
+			        {
+			            files.Add(file.FullName);
+			        }
+			    }
+			    else
+			    {
+			        string path = null;
+			        try
+			        {
+                        path = Path.GetDirectoryName(pattern);
+			        }
+			        catch
+			        {
+			        }
+
+			        if (path != null && Directory.Exists(path))
+			        {
+			            DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(pattern));
+			            foreach (FileInfo file in directory.GetFiles(Path.GetFileName(pattern), SearchOption.TopDirectoryOnly))
+			            {
+			                files.Add(file.FullName);
+			            }
+			        }
+			        else
+			        {
+			            try
+			            {
+			                DirectoryInfo directory = new DirectoryInfo(".");
+			                foreach (FileInfo file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
+			                {
+			                    files.Add(file.FullName);
+			                }
+			            }
+			            catch (IOException e)
+			            {
+			                log.Error("The pattern is not valid.", e);
+			                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+			            }
+			            catch (ArgumentException e)
+			            {
+			                log.Error("The pattern is not valid.", e);
+			                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+			            }
+			        }
+			    }
+		    }
 
 			return Uniquefy(files);
 		}
