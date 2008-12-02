@@ -128,7 +128,7 @@ namespace Mix.Console.Commands
                 WriteLine("Arguments:");
                 foreach (var argument in info.Arguments)
                 {
-                    var description = argument.Description; //.Replace("\n", "\n                 ");
+                    var description = argument.Description;
                     Write("  {0,-15}", argument.Name.ToLower());
                     if (description.Length > System.Console.WindowWidth - 17)
                     {
