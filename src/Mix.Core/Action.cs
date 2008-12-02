@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
@@ -10,22 +9,17 @@ namespace Mix.Core
 {
     public abstract class Action : IAction
     {
-        private IContext context;
-
-        public IContext Context
-        {
-            get { return context; }
-        }
+        public IContext Context { get; private set; }
 
         private void Initialize(IContext context)
         {
-            this.context = context;
-            foreach (PropertyInfo property in GetType().GetProperties())
+            Context = context;
+            foreach (var property in GetType().GetProperties())
             {
-                string name = property.Name.ToLower();
+                var name = property.Name.ToLower();
                 if (context.ContainsKey(name))
                 {
-                    Type type = property.PropertyType;
+                    var type = property.PropertyType;
                     if (type == typeof(string))
                     {
                         property.SetValue(this, context[name], null);
@@ -36,17 +30,17 @@ namespace Mix.Core
                         if (Int32.TryParse(context[name], out value))
                         {
                             string description;
-                            RangeValidator validator = new RangeValidator();
+                            var validator = new RangeValidator();
                             if (!validator.Validate(property, value, out description))
                             {
-                                string message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
+                                var message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
                                 throw new ActionExecutionException(message);
                             }
                             property.SetValue(this, value, null);
                         }
                         else
                         {
-                            string message = String.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
+                            var message = String.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
                             throw new ActionExecutionException(message);
                         }
                     }
@@ -63,7 +57,7 @@ namespace Mix.Core
                         }
                         else
                         {
-                            string message = String.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
+                            var message = String.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
                             throw new ActionExecutionException(message);
                         }
                     }
@@ -87,22 +81,21 @@ namespace Mix.Core
                 throw new RequirementException("'xpath' is required.", "xpath", "");
             }
 
-            XmlDocument document = new XmlDocument();
-            document.InnerXml = context.Xml;
-            XmlNamespaceManager manager = XmlHelper.CreateNamespaceManager(document);
+            var document = new XmlDocument {InnerXml = context.Xml};
+            var manager = XmlHelper.CreateNamespaceManager(document);
 
             // Actions may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
-            XmlNodeList nodes = SelectNodes(context, document, manager);
+            var nodes = SelectNodes(context, document, manager);
             BeforeExecute(nodes.Count);
 
-            ProcessingOrder order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
+            var order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
 
             if (order == ProcessingOrder.Normal)
             {
-                for (int i = 0; i < nodes.Count; i++)
+                for (var i = 0; i < nodes.Count; i++)
                 {
-                    XmlNode node = nodes[i];
+                    var node = nodes[i];
                     if (node is XmlElement)
                     {
                         Execute(node as XmlElement);
@@ -135,9 +128,9 @@ namespace Mix.Core
             }
             else
             {
-                for (int i = nodes.Count - 1; i >= 0; i--)
+                for (var i = nodes.Count - 1; i >= 0; i--)
                 {
-                    XmlNode node = nodes[i];
+                    var node = nodes[i];
                     if (node is XmlElement)
                     {
                         Execute(node as XmlElement);
@@ -172,7 +165,7 @@ namespace Mix.Core
             context.Xml = document.InnerXml;
         }
 
-        private XmlNodeList SelectNodes(IContext context, XmlNode document, XmlNamespaceManager manager)
+        private static XmlNodeList SelectNodes(IContext context, XmlNode document, XmlNamespaceManager manager)
         {
             try
             {
@@ -180,7 +173,7 @@ namespace Mix.Core
             }
             catch (XPathException e)
             {
-                string message = String.Format("'{0}' is not a valid XPath expression:{1}{2}", context.XPath, Environment.NewLine, e.Message);
+                var message = String.Format("'{0}' is not a valid XPath expression:{1}{2}", context.XPath, Environment.NewLine, e.Message);
                 throw new ActionExecutionException(message, e);
             }
         }
@@ -299,35 +292,35 @@ namespace Mix.Core
             ValidateProperties();
         }
 
-        private void ValidateXml(IContext context)
+        private static void ValidateXml(IContext context)
         {
-            XmlDocument document = new XmlDocument();
+            var document = new XmlDocument();
             try
             {
                 document.LoadXml(context.Xml);
             }
             catch (XmlException e)
             {
-                string message = String.Format("File '{0}' is not a valid XML document. {1}", context.FileName, e.Message);
+                var message = String.Format("File '{0}' is not a valid XML document. {1}", context.FileName, e.Message);
                 throw new XmlException(message, e);
             }
         }
 
         private void ValidateProperties()
         {
-            foreach (PropertyInfo property in GetType().GetProperties())
+            foreach (var property in GetType().GetProperties())
             {
                 if (property.IsDefined(typeof(ArgumentAttribute), false) &&
                     property.IsDefined(typeof(RequiredAttribute), false))
                 {
-                    object value = property.GetValue(this, null);
+                    var value = property.GetValue(this, null);
                     if (value == null || value.ToString().Trim().Length == 0)
                     {
-                        string message = String.Format("'{0}' is required.", property.Name.ToLower());
-                        string description = "";
+                        var message = String.Format("'{0}' is required.", property.Name.ToLower());
+                        var description = "";
                         if (property.IsDefined(typeof(DescriptionAttribute), false))
                         {
-                            DescriptionAttribute attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
+                            var attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
                             description = attribute.Description;
                         }
                         throw new RequirementException(message, property.Name, description);
@@ -337,21 +330,21 @@ namespace Mix.Core
                 if (property.IsDefined(typeof(ArgumentAttribute), false) &&
                     property.IsDefined(typeof(XmlArgumentAttribute), false))
                 {
-                    object value = property.GetValue(this, null);
+                    var value = property.GetValue(this, null);
                     if (value != null && value.ToString().Trim().Length > 0)
                     {
-                        string xml = value as string;
+                        var xml = value as string;
                         if (xml != null)
                         {
                             try
                             {
-                                XmlDocument document = new XmlDocument();
+                                var document = new XmlDocument();
                                 // Create a root node, because the XML is just a fragment.
                                 document.LoadXml(String.Format("<root>{0}</root>", xml));
                             }
                             catch (XmlException e)
                             {
-                                string message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
+                                var message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
                                 throw new XmlException(message, e);
                             }
                         }
@@ -451,13 +444,13 @@ namespace Mix.Core
             }
         }
 
-        private string Dasherize(string value)
+        private static string Dasherize(string value)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(Char.ToLower(value[0]));
-            for (int i = 1; i < value.Length; i++)
+            for (var i = 1; i < value.Length; i++)
             {
-                char c = value[i];
+                var c = value[i];
                 if (Char.IsUpper(c))
                 {
                     sb.Append("-");

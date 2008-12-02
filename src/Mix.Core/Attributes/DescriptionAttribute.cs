@@ -24,16 +24,11 @@ namespace Mix.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class DescriptionAttribute : Attribute
     {
-        private readonly string description;
+        public string Description { get; private set; }
 
         public DescriptionAttribute(string description)
         {
-            this.description = description;
-        }
-
-        public string Description
-        {
-            get { return description; }
+            Description = description;
         }
 
         public static bool IsDefinedOn(object obj)
@@ -50,7 +45,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(obj))
             {
-                DescriptionAttribute attribute = (DescriptionAttribute) obj.GetType().GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                var attribute = (DescriptionAttribute) obj.GetType().GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
             return defaultValue;
@@ -60,7 +55,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(property))
             {
-                DescriptionAttribute attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                var attribute = (DescriptionAttribute) property.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 return attribute.Description;
             }
             return defaultValue;

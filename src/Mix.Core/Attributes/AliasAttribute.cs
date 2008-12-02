@@ -1,12 +1,17 @@
 using System;
-using System.Collections.Generic;
 
 namespace Mix.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class AliasAttribute : Attribute
     {
-        private readonly string[] aliases;
+        /// <summary>
+        /// Gets a comma-separated <see cref="String"/> of aliases.
+        /// </summary>
+        /// <remarks>
+        /// The value returned is never <c>null</c>.
+        /// </remarks>
+        public string[] Aliases { get; private set; }
 
         /// <summary>
         ///
@@ -20,18 +25,7 @@ namespace Mix.Core.Attributes
         /// </exception>
         public AliasAttribute(string aliases)
         {
-            this.aliases = aliases.Replace(" ", "").Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
-        }
-
-        /// <summary>
-        /// Gets a comma-separated <see cref="String"/> of aliases.
-        /// </summary>
-        /// <remarks>
-        /// The value returned is never <c>null</c>.
-        /// </remarks>
-        public string[] Aliases
-        {
-            get { return aliases; }
+            Aliases = aliases.Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>
@@ -42,7 +36,7 @@ namespace Mix.Core.Attributes
         /// <returns></returns>
         public static bool IsDefinedOn(object obj)
         {
-            return obj.GetType().IsDefined(typeof (AliasAttribute), false);
+            return obj.GetType().IsDefined(typeof(AliasAttribute), false);
         }
 
         /// <summary>
@@ -56,7 +50,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(obj))
             {
-                AliasAttribute attribute = (AliasAttribute) obj.GetType().GetCustomAttributes(typeof (AliasAttribute), false)[0];
+                var attribute = (AliasAttribute) obj.GetType().GetCustomAttributes(typeof(AliasAttribute), false)[0];
                 return attribute.Aliases;
             }
             return new string[] {};

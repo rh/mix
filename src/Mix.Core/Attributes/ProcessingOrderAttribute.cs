@@ -11,20 +11,16 @@ namespace Mix.Core.Attributes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ProcessingOrderAttribute : Attribute
     {
-        private readonly ProcessingOrder order = ProcessingOrder.Normal;
+        public ProcessingOrder ProcessingOrder { get; private set; }
 
         public ProcessingOrderAttribute()
         {
+            ProcessingOrder = ProcessingOrder.Normal;
         }
 
         public ProcessingOrderAttribute(ProcessingOrder order)
         {
-            this.order = order;
-        }
-
-        public ProcessingOrder ProcessingOrder
-        {
-            get { return order; }
+            ProcessingOrder = order;
         }
 
         public static bool IsDefinedOn(Type type)
@@ -36,7 +32,7 @@ namespace Mix.Core.Attributes
         {
             if (IsDefinedOn(obj.GetType()))
             {
-                ProcessingOrderAttribute attribute = (ProcessingOrderAttribute) obj.GetType().GetCustomAttributes(typeof(ProcessingOrderAttribute), false)[0];
+                var attribute = (ProcessingOrderAttribute) obj.GetType().GetCustomAttributes(typeof(ProcessingOrderAttribute), false)[0];
                 return attribute.ProcessingOrder;
             }
             return ProcessingOrder.Normal;

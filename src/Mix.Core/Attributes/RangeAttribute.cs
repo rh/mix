@@ -6,27 +6,19 @@ namespace Mix.Core.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class RangeAttribute : Attribute
     {
-        private readonly int minValue = 1;
-        private readonly int maxValue = Int32.MaxValue;
+        public int MinValue { get; private set; }
+        public int MaxValue { get; private set; }
 
         public RangeAttribute(int maxValue)
         {
-            this.maxValue = maxValue;
+            MinValue = 1;
+            MaxValue = maxValue;
         }
 
         public RangeAttribute(int minValue, int maxValue)
         {
-            this.minValue = minValue;
-            this.maxValue = maxValue;
-        }
-
-        public int MinValue
-        {
-            get { return minValue; }
-        }
-        public int MaxValue
-        {
-            get { return maxValue; }
+            MinValue = minValue;
+            MaxValue = maxValue;
         }
 
         public static bool IsDefinedOn(PropertyInfo property)

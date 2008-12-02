@@ -31,13 +31,15 @@ namespace Mix.Core
         {
             if (RangeAttribute.IsDefinedOn(property))
             {
-                RangeAttribute attribute = (RangeAttribute) property.GetCustomAttributes(typeof(RangeAttribute), false)[0];
+                var attribute = (RangeAttribute) property.GetCustomAttributes(typeof(RangeAttribute), false)[0];
+                
                 if (value < attribute.MinValue)
                 {
                     description = String.Format("Value should be greater than {0}.", attribute.MinValue);
                     return false;
                 }
-                else if (value > attribute.MaxValue)
+
+                if (value > attribute.MaxValue)
                 {
                     description = String.Format("Value should be less than {0}.", attribute.MaxValue);
                     return false;
