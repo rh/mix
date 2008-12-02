@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using Mix.Core;
 
 namespace Mix.Console.Commands
@@ -93,18 +94,18 @@ namespace Mix.Console.Commands
         {
             Write(Environment.NewLine);
             WriteLine("Available actions:");
-            foreach (IActionInfo info in ActionInfo.All())
+            foreach (var info in ActionInfo.All())
             {
-                string readOnly = info.Instance is IReadOnly ? "*" : "";
-                string aliases = Aliases(info);
+                var readOnly = info.Instance is IReadOnly ? "*" : "";
+                var aliases = Aliases(info);
                 WriteLine("  {0}{1}{2}", info.Name, readOnly, aliases);
             }
         }
 
         private void WriteAmbiguousActionUsage()
         {
-            IList<Command> matches = registry.Find(name);
-            AmbiguousMatchCommand command = new AmbiguousMatchCommand(name, matches);
+            var matches = registry.Find(name);
+            var command = new AmbiguousMatchCommand(name, matches);
             command.Context = Context;
             command.Execute();
         }
@@ -118,17 +119,37 @@ namespace Mix.Console.Commands
                 obj = (obj as ActionCommand).Action;
             }
 
-            IActionInfo info = ActionInfo.For(obj);
+            var info = ActionInfo.For(obj);
             WriteLine("{0}: {1}", obj, info.Description);
 
             if (info.Arguments.Length > 0)
             {
                 Write(Environment.NewLine);
                 WriteLine("Arguments:");
-                foreach (IArgumentInfo argument in info.Arguments)
+                foreach (var argument in info.Arguments)
                 {
-                    string description = argument.Description.Replace("\n", "\n                 ");
-                    WriteLine("  {0,-15}{1}", argument.Name.ToLower(), description);
+                    var description = argument.Description.Replace("\n", "\n                 ");
+                    Write("  {0,-15}", argument.Name.ToLower());
+                    if (description.Length > System.Console.WindowWidth - 17)
+                    {
+                        var parts = Wrap(description, System.Console.WindowWidth - 19);
+                        for (var i = 0; i < parts.Length; i++)
+                        {
+                            var part = parts[i];
+                            if (i == 0)
+                            {
+                                WriteLine(part);
+                            }
+                            else
+                            {
+                                WriteLine("                 {0}", part);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        WriteLine(description);
+                    }
                     if (argument.Required)
                     {
                         WriteLine("                 [required]");
@@ -150,6 +171,33 @@ namespace Mix.Console.Commands
                 return String.Format("{1}    ({0})", String.Join(", ", info.Aliases), Environment.NewLine);
             }
             return String.Empty;
+        }
+
+        private static string[] Wrap(string value, int length)
+        {
+            var parts = value.Split(' ');
+            var builder = new StringBuilder();
+            var list = new List<string>();
+            foreach (var part in parts)
+            {
+                if (builder.Length + part.Length + 1 < length)
+                {
+                    builder.AppendFormat("{0} ", part);
+                }
+                else
+                {
+                    list.Add(builder.ToString());
+                    builder = new StringBuilder();
+                    builder.AppendFormat("{0} ", part);
+                }
+            }
+
+            if (builder.Length > 0)
+            {
+                list.Add(builder.ToString());
+            }
+
+            return list.ToArray();
         }
     }
 }
