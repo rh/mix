@@ -1,6 +1,5 @@
 using System;
 using System.Xml;
-using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Actions
@@ -9,10 +8,12 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlElement"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new element.")]
-    public class AddElement : Mix.Core.Action
+    public class AddElement : Core.Action
     {
         private string name = String.Empty;
         private string @value = String.Empty;
+        private string before = String.Empty;
+        private string after = String.Empty;
 
         /// <summary>
         /// Gets or sets the name of the <see cref="XmlElement"/>.
@@ -39,6 +40,22 @@ namespace Mix.Actions
             set { this.@value = value; }
         }
 
+        [Argument]
+        [Description("An XPath expression, applied to the selected element, which determines before which child the new element is added.")]
+        public string Before
+        {
+            get { return before; }
+            set { before = value; }
+        }
+
+        [Argument]
+        [Description("An XPath expression, applied to the selected element, which determines after which child the new element is added.")]
+        public string After
+        {
+            get { return after; }
+            set { after = value; }
+        }
+
         /// <summary>
         /// Adds an <see cref="XmlElement"/> to <paramref name="element"/>.
         /// </summary>
@@ -47,8 +64,29 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlElement child = element.OwnerDocument.CreateElement(Name);
+            var child = element.OwnerDocument.CreateElement(Name);
             child.InnerText = Value;
+
+            if (!String.IsNullOrEmpty(After))
+            {
+                var node = element.SelectSingleNode(After);
+                if (node != null)
+                {
+                    element.InsertAfter(child, node);
+                    return;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(Before))
+            {
+                var node = element.SelectSingleNode(Before);
+                if (node != null)
+                {
+                    element.InsertBefore(child, node);
+                    return;
+                }
+            }
+
             element.AppendChild(child);
         }
     }
