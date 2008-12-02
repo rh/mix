@@ -248,3 +248,11 @@ relative:
 	</selected>
 	<after-selected />
 </root>
+
+Add 'before' and 'after' to these actions:
+* add-element
+* add-cdata-section
+* add-comment
+* add-attribute
+* add-fragment
+* add-processing-instruction
