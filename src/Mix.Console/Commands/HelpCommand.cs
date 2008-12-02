@@ -128,7 +128,7 @@ namespace Mix.Console.Commands
                 WriteLine("Arguments:");
                 foreach (var argument in info.Arguments)
                 {
-                    var description = argument.Description.Replace("\n", "\n                 ");
+                    var description = argument.Description; //.Replace("\n", "\n                 ");
                     Write("  {0,-15}", argument.Name.ToLower());
                     if (description.Length > System.Console.WindowWidth - 17)
                     {
@@ -175,26 +175,32 @@ namespace Mix.Console.Commands
 
         private static string[] Wrap(string value, int length)
         {
-            var parts = value.Split(' ');
-            var builder = new StringBuilder();
+            StringBuilder builder;
             var list = new List<string>();
-            foreach (var part in parts)
+
+            var lines = value.Split('\n');
+            foreach (var line in lines)
             {
-                if (builder.Length + part.Length + 1 < length)
+                builder = new StringBuilder();
+                var parts = line.Split(' ');
+                foreach (var part in parts)
                 {
-                    builder.AppendFormat("{0} ", part);
+                    if (builder.Length + part.Length + 1 < length)
+                    {
+                        builder.AppendFormat("{0} ", part);
+                    }
+                    else
+                    {
+                        list.Add(builder.ToString());
+                        builder = new StringBuilder();
+                        builder.AppendFormat("{0} ", part);
+                    }
                 }
-                else
+
+                if (builder.Length > 0)
                 {
                     list.Add(builder.ToString());
-                    builder = new StringBuilder();
-                    builder.AppendFormat("{0} ", part);
                 }
-            }
-
-            if (builder.Length > 0)
-            {
-                list.Add(builder.ToString());
             }
 
             return list.ToArray();
