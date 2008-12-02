@@ -18,11 +18,11 @@ namespace Mix.Console.Commands
             registry.Register(new HelpCommand());
             registry.Register(new VersionCommand());
 
-            foreach (IActionInfo info in ActionInfo.All())
+            foreach (var info in ActionInfo.All())
             {
                 Command command = new ActionCommand(info.Instance);
                 registry.Register(command);
-                foreach (string alias in info.Aliases)
+                foreach (var alias in info.Aliases)
                 {
                     registry.Register(command, alias);
                 }
@@ -43,8 +43,8 @@ namespace Mix.Console.Commands
         /// </returns>
         public Command Create(string[] args)
         {
-            IDictionary<string, string> properties = Parse(args);
-            Command command = CreateCommand(properties, args);
+            var properties = Parse(args);
+            var command = CreateCommand(properties, args);
             command.Context = CreateContext(properties);
             return command;
         }
@@ -72,7 +72,7 @@ namespace Mix.Console.Commands
                 return new HelpCommand(registry);
             }
 
-            string name = properties["action"].ToLower();
+            var name = properties["action"].ToLower();
 
             if (name == "help")
             {
@@ -88,7 +88,7 @@ namespace Mix.Console.Commands
                 return registry.Commands[name];
             }
 
-            IList<Command> matches = registry.Find(name);
+            var matches = registry.Find(name);
 
             if (matches.Count == 0)
             {
@@ -113,11 +113,9 @@ namespace Mix.Console.Commands
         /// <see cref="IContext.Error"/> set to <see cref="System.Console"/>'s
         /// <see cref="System.Console.Out"/> and <see cref="System.Console.Error"/> respectively.
         /// </returns>
-        private IContext CreateContext(IDictionary<string, string> properties)
+        private static IContext CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
         {
-            Context context = new Context(properties);
-            context.Output = System.Console.Out;
-            context.Error = System.Console.Error;
+            var context = new Context(properties) {Output = System.Console.Out, Error = System.Console.Error};
             return context;
         }
 
@@ -136,16 +134,16 @@ namespace Mix.Console.Commands
             {
                 // The first argument should ALWAYS be the name of the action
                 // to invoke.
-                string action = args[0];
+                var action = args[0];
                 properties.Add("action", action);
 
                 if (args.Length > 1)
                 {
-                    for (int i = 1; i < args.Length; i++)
+                    for (var i = 1; i < args.Length; i++)
                     {
-                        string arg = args[i];
-                        string name = GetName(arg);
-                        string value = GetValue(arg);
+                        var arg = args[i];
+                        var name = GetName(arg);
+                        var value = GetValue(arg);
                         properties.Add(name, value);
                     }
                 }
@@ -163,13 +161,13 @@ namespace Mix.Console.Commands
         /// <remarks>
         /// Properties and values can be separated by ':' or '='.
         /// </remarks>
-        private string GetName(string arg)
+        private static string GetName(string arg)
         {
-            foreach (char c in new char[] {':', '='})
+            foreach (var c in new[] {':', '='})
             {
                 if (arg.Contains(c.ToString()))
                 {
-                    string name = arg.Split(c)[0].Replace("/", "").ToLower();
+                    var name = arg.Split(c)[0].Replace("/", "").ToLower();
                     return name;
                 }
             }
@@ -187,11 +185,11 @@ namespace Mix.Console.Commands
         /// <remarks>
         /// Properties and values can be separated by ':' or '='.
         /// </remarks>
-        private string GetValue(string arg)
+        private static string GetValue(string arg)
         {
-            foreach (char c in new char[] {':', '='})
+            foreach (var c in new[] {':', '='})
             {
-                int index = arg.IndexOf(c);
+                var index = arg.IndexOf(c);
                 if (index > 0)
                 {
                     return arg.Substring(index + 1);

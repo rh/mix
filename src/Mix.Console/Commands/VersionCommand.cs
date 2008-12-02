@@ -19,9 +19,9 @@ namespace Mix.Console.Commands
 
         private void WriteVersion()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            AssemblyName name = assembly.GetName();
-            Version version = name.Version;
+            var assembly = Assembly.GetExecutingAssembly();
+            var name = assembly.GetName();
+            var version = name.Version;
             WriteLine("Mix, version {0}", version);
         }
 
@@ -50,7 +50,7 @@ namespace Mix.Console.Commands
                     return;
                 }
 
-                CultureInfo ci = new CultureInfo("en-US");
+                var ci = new CultureInfo("en-US");
                 WriteLine("  compiled {0}", date.ToString("MMMM %d yyyy, HH:mm:ss", ci));
                 Write(Environment.NewLine);
             }

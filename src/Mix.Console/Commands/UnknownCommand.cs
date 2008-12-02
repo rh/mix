@@ -1,5 +1,3 @@
-using Mix.Core;
-
 namespace Mix.Console.Commands
 {
     public class UnknownCommand : Command

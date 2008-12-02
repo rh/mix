@@ -37,7 +37,7 @@ namespace Mix.Console.Commands
         {
             if (commands.ContainsKey(name))
             {
-                string message = String.Format("A command with the name or alias '{0}' is already registered.", name);
+                var message = String.Format("A command with the name or alias '{0}' is already registered.", name);
                 throw new ArgumentException(message, "command");
             }
             commands[name] = command;
@@ -85,11 +85,11 @@ namespace Mix.Console.Commands
                 return matches;
             }
 
-            foreach (string key in commands.Keys)
+            foreach (var key in commands.Keys)
             {
                 if (key.StartsWith(prefix))
                 {
-                    Command command = commands[key];
+                    var command = commands[key];
                     if (!matches.Contains(command))
                     {
                         matches.Add(command);

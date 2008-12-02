@@ -15,13 +15,13 @@ namespace Mix.Console
 
             try
             {
-                CommandFactory factory = new CommandFactory();
-                Command command = factory.Create(args);
+                var factory = new CommandFactory();
+                var command = factory.Create(args);
                 return command.Execute();
             }
             catch (Exception e)
             {
-                string message = "An exception was caught. Mix exits.";
+                var message = "An exception was caught. Mix exits.";
                 LogManager.GetLogger(typeof(Program)).Error(message, e);
                 System.Console.WriteLine(message);
                 System.Console.WriteLine(e);
@@ -31,7 +31,7 @@ namespace Mix.Console
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            ILog logger = LogManager.GetLogger(typeof(Program));
+            var logger = LogManager.GetLogger(typeof(Program));
             logger.Error("An unhandled exception was caught.", e.ExceptionObject as Exception);
         }
     }

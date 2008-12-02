@@ -9,283 +9,278 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Console.Commands
 {
-	public class ActionCommand : Command
-	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(ActionCommand));
-		private readonly IAction action;
+    public class ActionCommand : Command
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(ActionCommand));
+        private readonly IAction action;
 
-		public ActionCommand(IAction action)
-		{
-			this.action = action;
-		}
+        public ActionCommand(IAction action)
+        {
+            this.action = action;
+        }
 
-		public override IContext Context
-		{
-			set
-			{
-				base.Context = value;
-				base.Context.Action = Action.ToString();
-			}
-		}
+        public override IContext Context
+        {
+            set
+            {
+                base.Context = value;
+                base.Context.Action = Action.ToString();
+            }
+        }
 
-		public virtual IAction Action
-		{
-			get { return action; }
-		}
+        public virtual IAction Action
+        {
+            get { return action; }
+        }
 
-		public override int Execute()
-		{
-			IList<string> files = GetFiles(Context["file"]);
+        public override int Execute()
+        {
+            var files = GetFiles(Context["file"]);
 
-			if (files.Count == 0)
-			{
-				Context.Output.WriteLine("No files have been selected.");
-				return 1;
-			}
+            if (files.Count == 0)
+            {
+                Context.Output.WriteLine("No files have been selected.");
+                return 1;
+            }
 
-			foreach (string file in files)
-			{
-				if (!ExecuteAction(file))
-				{
-					return 1;
-				}
-			}
+            foreach (var file in files)
+            {
+                if (!ExecuteAction(file))
+                {
+                    return 1;
+                }
+            }
 
-			return 0;
-		}
+            return 0;
+        }
 
-		private bool ExecuteAction(string file)
-		{
-			Context.FileName = file;
-			Context.Encoding = GetFileEncoding(file);
+        private bool ExecuteAction(string file)
+        {
+            Context.FileName = file;
+            Context.Encoding = GetFileEncoding(file);
 
-			try
-			{
-				Context.Xml = File.ReadAllText(file);
-			}
-			catch (ArgumentNullException)
-			{
-				string message = String.Format("File '{0}' is empty.", file);
-				WriteLine(message);
-				return false;
-			}
+            try
+            {
+                Context.Xml = File.ReadAllText(file);
+            }
+            catch (ArgumentNullException)
+            {
+                var message = String.Format("File '{0}' is empty.", file);
+                WriteLine(message);
+                return false;
+            }
 
-			try
-			{
-				Action.Execute(Context);
-			}
-			catch (XmlException e)
-			{
-				log.Error(e.Message, e);
-				WriteLine(e.Message);
-				return false;
-			}
-			catch (RequirementException e)
-			{
-				log.Error(e.Message, e);
-				string message = String.Format("Required argument '{0}' is missing.", e.Property.ToLower());
-				WriteLine(message);
-				if (e.Description.Length > 0)
-				{
-					WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
-				}
-				Write(Environment.NewLine);
-				WriteLine("Type 'mix help {0}' for usage.", Context.Action);
-				return false;
-			}
-			catch (ActionExecutionException e)
-			{
-				log.Error(e.Message, e);
-				WriteLine(e.Message);
-				return false;
-			}
+            try
+            {
+                Action.Execute(Context);
+            }
+            catch (XmlException e)
+            {
+                log.Error(e.Message, e);
+                WriteLine(e.Message);
+                return false;
+            }
+            catch (RequirementException e)
+            {
+                log.Error(e.Message, e);
+                var message = String.Format("Required argument '{0}' is missing.", e.Property.ToLower());
+                WriteLine(message);
+                if (e.Description.Length > 0)
+                {
+                    WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
+                }
+                Write(Environment.NewLine);
+                WriteLine("Type 'mix help {0}' for usage.", Context.Action);
+                return false;
+            }
+            catch (ActionExecutionException e)
+            {
+                log.Error(e.Message, e);
+                WriteLine(e.Message);
+                return false;
+            }
 
-			if (Action is IReadOnly)
-			{
-				return true;
-			}
-			else
-			{
-				return Save(file);
-			}
-		}
+            if (Action is IReadOnly)
+            {
+                return true;
+            }
+            return Save(file);
+        }
 
-		private bool Save(string file)
-		{
-			try
-			{
-				XmlDocument document = new XmlDocument();
-				document.LoadXml(Context.Xml);
-				XmlWriterSettings settings = new XmlWriterSettings();
-				settings.Indent = true;
-				settings.Encoding = Context.Encoding;
-				using (XmlWriter writer = XmlWriter.Create(file, settings))
-				{
-					document.WriteContentTo(writer);
-				}
-			}
-			catch (Exception e)
-			{
-				log.Error(e.Message, e);
-				log.Error(Context.Xml);
-				WriteLine(e.Message);
-				return false;
-			}
-			return true;
-		}
+        private bool Save(string file)
+        {
+            try
+            {
+                var document = new XmlDocument();
+                document.LoadXml(Context.Xml);
+                var settings = new XmlWriterSettings {Indent = true, Encoding = Context.Encoding};
+                using (var writer = XmlWriter.Create(file, settings))
+                {
+                    document.WriteContentTo(writer);
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message, e);
+                log.Error(Context.Xml);
+                WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
 
-		private IList<string> GetFiles(string patterns)
-		{
-			if (String.IsNullOrEmpty(patterns))
-			{
-				return new List<string>();
-			}
-			return GetFiles(patterns.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries));
-		}
+        private IList<string> GetFiles(string patterns)
+        {
+            if (String.IsNullOrEmpty(patterns))
+            {
+                return new List<string>();
+            }
+            return GetFiles(patterns.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries));
+        }
 
-		private IList<string> GetFiles(string[] patterns)
-		{
-			IList<string> files = new List<string>();
+        private IList<string> GetFiles(IEnumerable<string> patterns)
+        {
+            IList<string> files = new List<string>();
 
-			foreach (string pattern in patterns)
-			{
-			    if (Directory.Exists(pattern))
-			    {
-			        DirectoryInfo directory = new DirectoryInfo(pattern);
-			        foreach (FileInfo file in directory.GetFiles("*.xml", SearchOption.TopDirectoryOnly))
-			        {
-			            files.Add(file.FullName);
-			        }
-			    }
-			    else
-			    {
-			        string path = null;
-			        try
-			        {
+            foreach (var pattern in patterns)
+            {
+                if (Directory.Exists(pattern))
+                {
+                    var directory = new DirectoryInfo(pattern);
+                    foreach (var file in directory.GetFiles("*.xml", SearchOption.TopDirectoryOnly))
+                    {
+                        files.Add(file.FullName);
+                    }
+                }
+                else
+                {
+                    string path = null;
+                    try
+                    {
                         path = Path.GetDirectoryName(pattern);
-			        }
-			        catch
-			        {
-			        }
+                    }
+                    catch
+                    {
+                    }
 
-			        if (path != null && Directory.Exists(path))
-			        {
-			            DirectoryInfo directory = new DirectoryInfo(Path.GetDirectoryName(pattern));
-			            foreach (FileInfo file in directory.GetFiles(Path.GetFileName(pattern), SearchOption.TopDirectoryOnly))
-			            {
-			                files.Add(file.FullName);
-			            }
-			        }
-			        else
-			        {
-			            try
-			            {
-			                DirectoryInfo directory = new DirectoryInfo(".");
-			                foreach (FileInfo file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
-			                {
-			                    files.Add(file.FullName);
-			                }
-			            }
-			            catch (IOException e)
-			            {
-			                log.Error("The pattern is not valid.", e);
-			                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-			            }
-			            catch (ArgumentException e)
-			            {
-			                log.Error("The pattern is not valid.", e);
-			                Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-			            }
-			        }
-			    }
-		    }
+                    if (path != null && Directory.Exists(path))
+                    {
+                        var directory = new DirectoryInfo(Path.GetDirectoryName(pattern));
+                        foreach (var file in directory.GetFiles(Path.GetFileName(pattern), SearchOption.TopDirectoryOnly))
+                        {
+                            files.Add(file.FullName);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var directory = new DirectoryInfo(".");
+                            foreach (var file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
+                            {
+                                files.Add(file.FullName);
+                            }
+                        }
+                        catch (IOException e)
+                        {
+                            log.Error("The pattern is not valid.", e);
+                            Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            log.Error("The pattern is not valid.", e);
+                            Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
+                        }
+                    }
+                }
+            }
 
-			return Uniquefy(files);
-		}
+            return Uniquefy(files);
+        }
 
-		/// <summary>
-		/// Reads the encoding of <paramref name="file"/> from the byte order mark.
-		/// If no byte order mark is found, <see cref="Encoding.Default"/> is assumed.
-		/// </summary>
-		private Encoding GetFileEncoding(string file)
-		{
-			using (StreamReader reader = new StreamReader(file, true))
-			{
-				reader.Read();
-				Encoding encoding = reader.CurrentEncoding;
-				if (encoding != null)
-				{
-					return encoding;
-				}
-			}
+        /// <summary>
+        /// Reads the encoding of <paramref name="file"/> from the byte order mark.
+        /// If no byte order mark is found, <see cref="Encoding.Default"/> is assumed.
+        /// </summary>
+        private static Encoding GetFileEncoding(string file)
+        {
+            using (var reader = new StreamReader(file, true))
+            {
+                reader.Read();
+                var encoding = reader.CurrentEncoding;
+                if (encoding != null)
+                {
+                    return encoding;
+                }
+            }
 
-			using (XmlReader reader = XmlReader.Create(file))
-			{
-				if (reader.Read() && reader.NodeType == XmlNodeType.XmlDeclaration)
-				{
-					string name = reader.GetAttribute("encoding");
-					if (name != null)
-					{
-						try
-						{
-							return Encoding.GetEncoding(name);
-						}
-						catch (ArgumentException)
-						{
-							// An ArgumentException is raised by Encoding.GetEncoding() if no valid code page name is given
-							// or the code page is not supported by the underlying platform
-							return Encoding.UTF8;
-						}
-					}
-				}
-			}
+            using (var reader = XmlReader.Create(file))
+            {
+                if (reader.Read() && reader.NodeType == XmlNodeType.XmlDeclaration)
+                {
+                    var name = reader.GetAttribute("encoding");
+                    if (name != null)
+                    {
+                        try
+                        {
+                            return Encoding.GetEncoding(name);
+                        }
+                        catch (ArgumentException)
+                        {
+                            // An ArgumentException is raised by Encoding.GetEncoding() if no valid code page name is given
+                            // or the code page is not supported by the underlying platform
+                            return Encoding.UTF8;
+                        }
+                    }
+                }
+            }
 
-			return Encoding.UTF8;
-		}
+            return Encoding.UTF8;
+        }
 
-		private IList<string> Uniquefy(IList<string> list)
-		{
-			IList<string> uniques = new List<string>();
-			foreach (string item in list)
-			{
-				if (!uniques.Contains(item))
-				{
-					uniques.Add(item);
-				}
-			}
-			return uniques;
-		}
+        private static IList<string> Uniquefy(IEnumerable<string> list)
+        {
+            IList<string> uniques = new List<string>();
+            foreach (var item in list)
+            {
+                if (!uniques.Contains(item))
+                {
+                    uniques.Add(item);
+                }
+            }
+            return uniques;
+        }
 
-		public override string ToString()
-		{
-			return Action.ToString();
-		}
+        public override string ToString()
+        {
+            return Action.ToString();
+        }
 
-		protected bool Equals(ActionCommand actionCommand)
-		{
-			if (actionCommand == null)
-			{
-				return false;
-			}
-			if (!base.Equals(actionCommand))
-			{
-				return false;
-			}
-			return Equals(action, actionCommand.action);
-		}
+        protected bool Equals(ActionCommand actionCommand)
+        {
+            if (actionCommand == null)
+            {
+                return false;
+            }
+            if (!base.Equals(actionCommand))
+            {
+                return false;
+            }
+            return Equals(action, actionCommand.action);
+        }
 
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(this, obj))
-			{
-				return true;
-			}
-			return Equals(obj as ActionCommand);
-		}
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            return Equals(obj as ActionCommand);
+        }
 
-		public override int GetHashCode()
-		{
-			return base.GetHashCode() + 29 * action.GetHashCode();
-		}
-	}
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + 29 * action.GetHashCode();
+        }
+    }
 }

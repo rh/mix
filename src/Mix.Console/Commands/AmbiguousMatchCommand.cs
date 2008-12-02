@@ -40,7 +40,7 @@ namespace Mix.Console.Commands
         public override int Execute()
         {
             WriteLine("Multiple actions start with '{0}':", prefix);
-            foreach (Command command in matches)
+            foreach (var command in matches)
             {
                 WriteLine("  {0}", command);
                 WriteAliases(command);
@@ -58,13 +58,13 @@ namespace Mix.Console.Commands
         /// </param>
         private void WriteAliases(Command command)
         {
-            ActionCommand actionCommand = command as ActionCommand;
+            var actionCommand = command as ActionCommand;
             if (actionCommand == null)
             {
                 return;
             }
 
-            string[] aliases = ActionInfo.For(actionCommand.Action).Aliases;
+            var aliases = ActionInfo.For(actionCommand.Action).Aliases;
             if (aliases.Length > 0)
             {
                 WriteLine(String.Format("    ({0})", String.Join(", ", aliases)));
