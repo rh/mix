@@ -314,7 +314,7 @@ namespace Mix.Core
                     property.IsDefined(typeof(RequiredAttribute), false))
                 {
                     var value = property.GetValue(this, null);
-                    if (value == null || value.ToString().Trim().Length == 0)
+                    if (value == null || value.ToString().Length == 0)
                     {
                         var message = String.Format("'{0}' is required.", property.Name.ToLower());
                         var description = "";
