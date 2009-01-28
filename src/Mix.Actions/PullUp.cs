@@ -25,5 +25,21 @@ namespace Mix.Actions
             parent.ParentNode.InsertBefore(clone, parent);
             parent.RemoveChild(element);
         }
+
+        protected override void ExecuteCore(XmlAttribute attribute)
+        {
+            var parent = attribute.OwnerElement;
+
+            if (parent == attribute.OwnerDocument.DocumentElement)
+            {
+                Context.Output.WriteLine("An attribute of the document element cannot be pulled-up.");
+                return;
+            }
+
+            var element = attribute.OwnerDocument.CreateElement(attribute.Name);
+            element.InnerXml = attribute.Value;
+            parent.ParentNode.InsertBefore(element, parent);
+            parent.RemoveAttributeNode(attribute);
+        }
     }
 }
