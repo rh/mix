@@ -65,6 +65,7 @@
     <Compile Include="InnerXmlActionFixture.cs" />
     <Compile Include="LowercaseActionFixture.cs" />
     <Compile Include="MoveAttributeFixture.cs" />
+    <Compile Include="MoveFixture.cs" />
     <Compile Include="OutlineActionFixture.cs" />
     <Compile Include="PrependActionFixture.cs" />
     <Compile Include="PrettyPrintActionFixture.cs" />

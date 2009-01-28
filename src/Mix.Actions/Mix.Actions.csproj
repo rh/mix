@@ -58,6 +58,7 @@
     <Compile Include="Extract.cs" />
     <Compile Include="InnerXml.cs" />
     <Compile Include="LowerCase.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="MoveAttribute.cs" />
     <Compile Include="Outline.cs" />
     <Compile Include="Prepend.cs" />
