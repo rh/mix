@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E7413A47-8B01-457C-9387-8110DD983C29}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -64,6 +64,7 @@
     <Compile Include="ExtractActionFixture.cs" />
     <Compile Include="InnerXmlActionFixture.cs" />
     <Compile Include="LowercaseActionFixture.cs" />
+    <Compile Include="MoveAttributeFixture.cs" />
     <Compile Include="OutlineActionFixture.cs" />
     <Compile Include="PrependActionFixture.cs" />
     <Compile Include="PrettyPrintActionFixture.cs" />
