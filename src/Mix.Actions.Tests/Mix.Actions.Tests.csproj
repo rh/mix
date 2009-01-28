@@ -69,6 +69,7 @@
     <Compile Include="PrependActionFixture.cs" />
     <Compile Include="PrettyPrintActionFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PullUpFixture.cs" />
     <Compile Include="RemoveActionFixture.cs" />
     <Compile Include="RenameActionFixture.cs" />
     <Compile Include="ReplaceActionFixture.cs" />
