@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -9,9 +8,9 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlDocumentFragment"/> to the selected elements.
     /// </summary>
     [Description("Adds an XML fragment to the selected elements.")]
-    public class AddFragment : Mix.Core.Action
+    public class AddFragment : Action
     {
-        private string fragment = String.Empty;
+        private string fragment = string.Empty;
 
         /// <summary>
         /// Gets or sets the raw XML which will be added.
@@ -34,7 +33,7 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlDocumentFragment child = element.OwnerDocument.CreateDocumentFragment();
+            var child = element.OwnerDocument.CreateDocumentFragment();
             child.InnerXml = Fragment;
             element.AppendChild(child);
         }

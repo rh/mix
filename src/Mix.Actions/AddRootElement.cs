@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -6,9 +5,9 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Adds a new root element.")]
-    public class AddRootElement : Mix.Core.Action
+    public class AddRootElement : Action
     {
-        private string name = String.Empty;
+        private string name = string.Empty;
 
         [Argument, Required]
         [Description("The name of the new root element.")]
@@ -20,10 +19,10 @@ namespace Mix.Actions
 
         protected override bool ExecuteCore(IContext context)
         {
-            XmlDocument document = new XmlDocument();
-            XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+            var document = new XmlDocument();
+            var declaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
             document.AppendChild(declaration);
-            XmlElement root = document.CreateElement(Name);
+            var root = document.CreateElement(Name);
             root.InnerXml = XmlHelper.RemoveXmlDeclaration(context.Xml);
             document.AppendChild(root);
             context.Xml = document.OuterXml;

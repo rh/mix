@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -9,9 +8,9 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new CDATA section.")]
-    public class AddCdataSection : Mix.Core.Action
+    public class AddCdataSection : Action
     {
-        private string @value = String.Empty;
+        private string @value = string.Empty;
 
         /// <summary>
         /// Gets or sets the value of the <see cref="XmlCDataSection"/>.
@@ -34,7 +33,7 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlCDataSection section = element.OwnerDocument.CreateCDataSection(Value);
+            var section = element.OwnerDocument.CreateCDataSection(Value);
             element.AppendChild(section);
         }
     }

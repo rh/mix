@@ -1,5 +1,5 @@
-using System;
 using System.Xml;
+using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Actions
@@ -8,12 +8,12 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlElement"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new element.")]
-    public class AddElement : Core.Action
+    public class AddElement : Action
     {
-        private string name = String.Empty;
-        private string @value = String.Empty;
-        private string before = String.Empty;
-        private string after = String.Empty;
+        private string name = string.Empty;
+        private string @value = string.Empty;
+        private string before = string.Empty;
+        private string after = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the <see cref="XmlElement"/>.
@@ -67,7 +67,7 @@ namespace Mix.Actions
             var child = element.OwnerDocument.CreateElement(Name);
             child.InnerText = Value;
 
-            if (!String.IsNullOrEmpty(After))
+            if (!string.IsNullOrEmpty(After))
             {
                 var node = element.SelectSingleNode(After);
                 if (node != null)
@@ -77,7 +77,7 @@ namespace Mix.Actions
                 }
             }
 
-            if (!String.IsNullOrEmpty(Before))
+            if (!string.IsNullOrEmpty(Before))
             {
                 var node = element.SelectSingleNode(Before);
                 if (node != null)

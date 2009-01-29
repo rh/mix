@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -9,12 +8,10 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlAttribute"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new attribute to the selected elements, or to the owner element of the selected attributes.")]
-// ReSharper disable RedundantNameQualifier
-    public class AddAttribute : Mix.Core.Action
-// ReSharper restore RedundantNameQualifier
+    public class AddAttribute : Action
     {
-        private string name = String.Empty;
-        private string @value = String.Empty;
+        private string name = string.Empty;
+        private string @value = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the <see cref="XmlAttribute"/>.
@@ -56,8 +53,8 @@ namespace Mix.Actions
         {
             if (Value.StartsWith("xpath:"))
             {
-                string xpath = Value.Replace("xpath:", "");
-                XmlNode node = element.SelectSingleNode(xpath);
+                var xpath = Value.Replace("xpath:", "");
+                var node = element.SelectSingleNode(xpath);
                 return node.Value;
             }
             return Value;

@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -9,9 +8,9 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlComment"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new comment.")]
-    public class AddComment : Mix.Core.Action
+    public class AddComment : Action
     {
-        private string @value = String.Empty;
+        private string @value = string.Empty;
 
         /// <summary>
         /// Gets or sets the value of the <see cref="XmlComment"/>.
@@ -34,7 +33,7 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlComment comment = element.OwnerDocument.CreateComment(Value);
+            var comment = element.OwnerDocument.CreateComment(Value);
             element.AppendChild(comment);
         }
     }

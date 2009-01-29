@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -11,10 +10,10 @@ namespace Mix.Actions
     /// the value will be <see cref="Value"/>.
     /// </summary>
     [Description("Adds a new processing instruction.")]
-    public class AddProcessingInstruction : Mix.Core.Action
+    public class AddProcessingInstruction : Action
     {
-        private string name = String.Empty;
-        private string @value = String.Empty;
+        private string name = string.Empty;
+        private string @value = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the <see cref="XmlProcessingInstruction"/>.
@@ -49,7 +48,7 @@ namespace Mix.Actions
         /// </param>
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlProcessingInstruction instruction = element.OwnerDocument.CreateProcessingInstruction(Name, Value);
+            var instruction = element.OwnerDocument.CreateProcessingInstruction(Name, Value);
             element.AppendChild(instruction);
         }
     }
