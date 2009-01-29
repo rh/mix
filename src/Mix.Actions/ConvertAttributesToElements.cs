@@ -13,17 +13,17 @@ namespace Mix.Actions
     /// </summary>
     [Description("Converts attributes to elements.")]
     [Alias("atoe")]
-    public class ConvertAttributesToElements : Mix.Core.Action
+    public class ConvertAttributesToElements : Action
     {
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            XmlElement owner = attribute.OwnerElement;
-            string name = attribute.Name;
+            var owner = attribute.OwnerElement;
+            var name = attribute.Name;
 
             // Only create a new element if no such element exists yet
             if (owner.SelectSingleNode(name) == null)
             {
-                XmlElement newElement = attribute.OwnerDocument.CreateElement(name);
+                var newElement = attribute.OwnerDocument.CreateElement(name);
                 newElement.InnerText = attribute.Value;
                 owner.InsertBefore(newElement, owner.FirstChild);
                 owner.RemoveAttribute(name);

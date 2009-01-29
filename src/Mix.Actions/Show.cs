@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Xml;
 using System.Xml.XPath;
@@ -9,7 +8,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Actions
 {
     [Description("Shows all selected nodes.")]
-    public class Show : Mix.Core.Action, IReadOnly
+    public class Show : Action, IReadOnly
     {
         private bool showLineNumbers;
 
@@ -21,24 +20,24 @@ namespace Mix.Actions
 
         protected override bool ExecuteCore(IContext context)
         {
-            if (!String.IsNullOrEmpty(context.XPath))
+            if (!string.IsNullOrEmpty(context.XPath))
             {
                 using (TextReader reader = new StringReader(context.Xml))
                 {
-                    XPathDocument document = new XPathDocument(reader);
-                    XPathNavigator navigator = document.CreateNavigator();
+                    var document = new XPathDocument(reader);
+                    var navigator = document.CreateNavigator();
                     try
                     {
-                        XPathNodeIterator iterator = navigator.Select(context.XPath);
+                        var iterator = navigator.Select(context.XPath);
                         context.Output.WriteLine("{0}: {1}", context.FileName, iterator.Count);
                         while (iterator.MoveNext())
                         {
-                            XPathNavigator current = iterator.Current;
-                            IXmlLineInfo info = current as IXmlLineInfo;
+                            var current = iterator.Current;
+                            var info = current as IXmlLineInfo;
                             if (info != null)
                             {
-                                string prefix = showLineNumbers ? String.Format("{0,4}: ", info.LineNumber) : String.Empty;
-                                string xml = prefix + current.OuterXml.Trim().Replace(Environment.NewLine, Environment.NewLine + new string(' ', prefix.Length));
+                                var prefix = showLineNumbers ? string.Format("{0,4}: ", info.LineNumber) : string.Empty;
+                                var xml = prefix + current.OuterXml.Trim().Replace(System.Environment.NewLine, System.Environment.NewLine + new string(' ', prefix.Length));
                                 context.Output.WriteLine(xml);
                             }
                             else
@@ -49,7 +48,7 @@ namespace Mix.Actions
                     }
                     catch (XPathException e)
                     {
-                        string message = String.Format("'{0}' is not a valid XPath expression: {1}{2}", context.XPath, Environment.NewLine, e.Message);
+                        var message = string.Format("'{0}' is not a valid XPath expression: {1}{2}", context.XPath, System.Environment.NewLine, e.Message);
                         throw new ActionExecutionException(message, e);
                     }
                 }

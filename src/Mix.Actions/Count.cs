@@ -7,7 +7,7 @@ namespace Mix.Actions
     /// Counts and shows the number of selected nodes.
     /// </summary>
     [Description("Counts all selected nodes.")]
-    public class Count : Mix.Core.Action, IReadOnly
+    public class Count : Action, IReadOnly
     {
         /// <summary>
         /// Outputs the name of the file and the number of selected nodes

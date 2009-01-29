@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -6,9 +5,9 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class Set : Mix.Core.Action
+    public class Set : Action
     {
-        private string @value = String.Empty;
+        private string @value = string.Empty;
 
         [Argument]
         [Description("The value to set.")]

@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -6,9 +5,9 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Sets the inner XML of the selected elements or comments.")]
-    public class InnerXml : Mix.Core.Action
+    public class InnerXml : Action
     {
-        private string xml = String.Empty;
+        private string xml = string.Empty;
 
         [Argument, XmlArgument, Required]
         [Description("The literal XML of the selected elements.")]

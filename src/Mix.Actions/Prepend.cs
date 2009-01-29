@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -6,9 +5,9 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Prepends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
-    public class Prepend : Mix.Core.Action
+    public class Prepend : Action
     {
-        private string @value = String.Empty;
+        private string @value = string.Empty;
 
         [Argument, Required]
         [Description("The value to prepend.")]
@@ -44,7 +43,7 @@ namespace Mix.Actions
             }
             else
             {
-                XmlText newElement = element.OwnerDocument.CreateTextNode(Value);
+                var newElement = element.OwnerDocument.CreateTextNode(Value);
                 element.AppendChild(newElement);
             }
         }

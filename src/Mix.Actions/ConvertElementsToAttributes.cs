@@ -14,19 +14,19 @@ namespace Mix.Actions
     /// </summary>
     [Description("Converts elements to attributes.")]
     [Alias("etoa")]
-    public class ConvertElementsToAttributes : Mix.Core.Action
+    public class ConvertElementsToAttributes : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlElement owner = element.ParentNode as XmlElement;
-            string name = element.Name;
+            var owner = element.ParentNode as XmlElement;
+            var name = element.Name;
 
             if (owner != null && owner.Attributes[name] == null)
             {
-                XmlText xmlText = element.FirstChild as XmlText;
+                var xmlText = element.FirstChild as XmlText;
                 if (xmlText != null)
                 {
-                    XmlAttribute attribute = element.OwnerDocument.CreateAttribute(name);
+                    var attribute = element.OwnerDocument.CreateAttribute(name);
                     attribute.Value = xmlText.Value;
                     owner.Attributes.Append(attribute);
                     owner.RemoveChild(element);

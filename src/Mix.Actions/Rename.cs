@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -7,9 +6,9 @@ namespace Mix.Actions
 {
     [Description("Renames all selected elements or attributes.")]
     [ProcessingOrder(ProcessingOrder.Reverse)]
-    public class Rename : Mix.Core.Action
+    public class Rename : Action
     {
-        private string name = String.Empty;
+        private string name = string.Empty;
 
         [Argument, Required]
         [Description("The new name for the elements or attributes.")]
@@ -27,22 +26,22 @@ namespace Mix.Actions
                 return;
             }
 
-            XmlElement newelement = element.OwnerDocument.CreateElement(Name);
+            var newelement = element.OwnerDocument.CreateElement(Name);
             XmlHelper.CopyAttributes(element.OwnerDocument, element, newelement);
             XmlHelper.CopyChildNodes(element, newelement);
-			element.ParentNode.ReplaceChild(newelement, element);
+            element.ParentNode.ReplaceChild(newelement, element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            XmlElement owner = attribute.OwnerElement;
+            var owner = attribute.OwnerElement;
 
             if (owner.HasAttribute(Name))
             {
                 return;
             }
 
-            XmlAttribute newattribute = attribute.OwnerDocument.CreateAttribute(Name);
+            var newattribute = attribute.OwnerDocument.CreateAttribute(Name);
             newattribute.Value = attribute.Value;
             owner.Attributes.InsertBefore(newattribute, attribute);
             owner.Attributes.Remove(attribute);
@@ -50,8 +49,8 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            XmlNode parent = instruction.ParentNode;
-            XmlProcessingInstruction newinstruction = instruction.OwnerDocument.CreateProcessingInstruction(Name, instruction.Value);
+            var parent = instruction.ParentNode;
+            var newinstruction = instruction.OwnerDocument.CreateProcessingInstruction(Name, instruction.Value);
             parent.ReplaceChild(newinstruction, instruction);
         }
     }

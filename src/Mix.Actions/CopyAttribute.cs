@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -6,9 +5,9 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Copies the values of the selected attributes to new or existing attributes.")]
-    public class CopyAttribute : Mix.Core.Action
+    public class CopyAttribute : Action
     {
-        private string name = String.Empty;
+        private string name = string.Empty;
 
         [Argument, Required]
         [Description("The name of the new or existing attribute.")]
@@ -20,7 +19,7 @@ namespace Mix.Actions
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            XmlElement owner = attribute.OwnerElement;
+            var owner = attribute.OwnerElement;
 
             if (owner.HasAttribute(Name))
             {

@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Makes the value of all selected nodes uppercase.")]
-    public class UpperCase : Mix.Core.Action
+    public class UpperCase : Action
     {
         protected override void ExecuteCore(XmlElement element)
         {
