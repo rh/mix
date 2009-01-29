@@ -1,34 +1,37 @@
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
+using Environment = System.Environment;
 
 namespace Mix.Actions
 {
-    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.")]
+    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.\nUse \\n for new-line and \\t for tab.")]
     public class Replace : Action
     {
-        private string oldValue = string.Empty;
-        private string newValue = string.Empty;
-
-        [Argument, Required]
-        [Description("The value to replace.")]
-        public string OldValue
+        public Replace()
         {
-            get { return oldValue; }
-            set { oldValue = value; }
+            OldValue = string.Empty;
+            NewValue = string.Empty;
         }
 
-        [Argument]
-        [Description("The value to replace the old value.")]
-        public string NewValue
+        [Argument, Required, Description("The value to be replaced.")]
+        public string OldValue { get; set; }
+
+        [Argument, Description("The value to replace the old value.")]
+        public string NewValue { get; set; }
+
+        protected override void OnBeforeExecute(int count)
         {
-            get { return newValue; }
-            set { newValue = value; }
+            OldValue = OldValue.Replace("\\n", Environment.NewLine);
+            OldValue = OldValue.Replace("\\t", "\t");
+
+            NewValue = NewValue.Replace("\\n", Environment.NewLine);
+            NewValue = NewValue.Replace("\\t", "\t");
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            Recurse(element);
+            element.InnerXml = element.InnerXml.Replace(OldValue, NewValue);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
