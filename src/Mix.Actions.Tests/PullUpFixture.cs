@@ -19,7 +19,7 @@ namespace Mix.Actions.Tests
         public void PullUpAttribute()
         {
             const string pre = @"<a><b><c foo=""bar""></c></b></a>";
-            const string post = @"<a><b><foo>bar</foo><c></c></b></a>";
+            const string post = @"<a><b foo=""bar""><c></c></b></a>";
             const string xpath = "a/b/c/@foo";
             var action = new PullUp();
             Run(pre, post, xpath, action);

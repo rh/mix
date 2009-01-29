@@ -36,9 +36,9 @@ namespace Mix.Actions
                 return;
             }
 
-            var element = attribute.OwnerDocument.CreateElement(attribute.Name);
-            element.InnerXml = attribute.Value;
-            parent.ParentNode.InsertBefore(element, parent);
+            var clone = attribute.Clone() as XmlAttribute;
+            clone.InnerXml = attribute.Value;
+            parent.ParentNode.Attributes.Append(clone);
             parent.RemoveAttributeNode(attribute);
         }
     }
