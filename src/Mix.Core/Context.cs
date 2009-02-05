@@ -8,7 +8,7 @@ namespace Mix.Core
     public class Context : Dictionary<string, string>, IContext
     {
         private string filename = String.Empty;
-        private string action = String.Empty;
+        private string task = String.Empty;
         private TextWriter output = TextWriter.Null;
         private TextWriter error = TextWriter.Null;
         private string xml = String.Empty;
@@ -78,7 +78,7 @@ namespace Mix.Core
         public Context(IContext context)
         {
             filename = context.FileName;
-            action = context.Action;
+            task = context.Task;
             output = context.Output;
             error = context.Error;
             xml = context.Xml;
@@ -99,9 +99,9 @@ namespace Mix.Core
                 this[pair.Key] = pair.Value;
             }
 
-            if (ContainsKey("action"))
+            if (ContainsKey("task"))
             {
-                action = this["action"] ?? String.Empty;
+                task = this["task"] ?? String.Empty;
             }
 
             if (ContainsKey("xpath"))
@@ -132,20 +132,17 @@ namespace Mix.Core
 
         public virtual Encoding Encoding { get; set; }
 
-        /// <summary>
-        /// The name of the <see cref="Action"/> this <see cref="IContext"/>
-        /// applies to.
-        /// </summary>
-        public virtual string Action
+        /// <summary>The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.</summary>
+        public virtual string Task
         {
-            get { return action; }
+            get { return task; }
             set
             {
                 if (String.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException("value");
                 }
-                action = value;
+                task = value;
             }
         }
 

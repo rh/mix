@@ -15,8 +15,8 @@
   <fileset id="mix.projects" basedir="src">
     <include name="Mix.Core/Mix.Core.build" />
     <include name="Mix.Core.Tests/Mix.Core.Tests.build" />
-    <include name="Mix.Actions/Mix.Actions.build" />
-    <include name="Mix.Actions.Tests/Mix.Actions.Tests.build" />
+    <include name="Mix.Tasks/Mix.Tasks.build" />
+    <include name="Mix.Tasks.Tests/Mix.Tasks.Tests.build" />
     <include name="Mix.Console/Mix.Console.build" />
     <include name="Mix.Console.Tests/Mix.Console.Tests.build" />
     <include name="Mix.Util.log4net/Mix.Util.log4net.build" />
@@ -24,7 +24,7 @@
 
   <fileset id="mix.assemblies" basedir="${build.dir}">
     <include name="Mix.Core.dll" />
-    <include name="Mix.Actions.dll" />
+    <include name="Mix.Tasks.dll" />
     <include name="mix.exe" />
   </fileset>
 
@@ -47,7 +47,7 @@
     <nunit2>
       <!-- Use type="Xml" when the output is actually used -->
       <formatter type="Plain" usefile="false"/>
-      <test assemblyname="${build.dir}/Mix.Actions.Tests.dll"/>
+      <test assemblyname="${build.dir}/Mix.Tasks.Tests.dll"/>
       <test assemblyname="${build.dir}/Mix.Core.Tests.dll"/>
       <test assemblyname="${build.dir}/Mix.Console.Tests.dll"/>
     </nunit2>

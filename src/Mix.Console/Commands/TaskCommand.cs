@@ -24,7 +24,7 @@ namespace Mix.Console.Commands
             set
             {
                 base.Context = value;
-                base.Context.Action = Task.ToString();
+                base.Context.Task = Task.ToString();
             }
         }
 
@@ -90,7 +90,7 @@ namespace Mix.Console.Commands
                     WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
                 Write(Environment.NewLine);
-                WriteLine("Type 'mix help {0}' for usage.", Context.Action);
+                WriteLine("Type 'mix help {0}' for usage.", Context.Task);
                 return false;
             }
             catch (ActionExecutionException e)

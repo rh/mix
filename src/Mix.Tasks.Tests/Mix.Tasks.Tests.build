@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<project name="Mix.Console" default="build">
+<project name="Mix.Tasks.Tests" default="build">
 
-  <property name="name" value="Mix.Console"/>
+  <property name="name" value="Mix.Tasks.Tests"/>
 
-  <target name="build" description="Builds the Mix.Console assembly">
-    <csc target="exe" warnaserror="true" debug="true"
-         output="${build.dir}/mix.exe" doc="${build.dir}/${name}.xml">
+  <target name="build" description="Builds the Mix.Tasks.Tests assembly">
+    <csc target="library" warnaserror="true" debug="true"
+         output="${build.dir}/${name}.dll" doc="${build.dir}/${name}.xml">
       <nowarn>
         <!-- 1591: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
         <warning number="1591" />
@@ -24,12 +24,11 @@
           <include name="${build.dir}" />
           <include name="${lib.dir}" />
         </lib>
-        <include name="log4net.dll" />
         <include name="Mix.Core.dll" />
         <include name="Mix.Tasks.dll" />
+        <include name="${lib.dir}/nunit.framework.dll" />
       </references>
     </csc>
-    <copy file="${src.dir}/App.config" tofile="${build.dir}/mix.exe.config" />
   </target>
 
 </project>

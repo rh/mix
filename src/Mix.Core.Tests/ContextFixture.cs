@@ -106,7 +106,7 @@ namespace Mix.Core.Tests
         public void InvalidAction()
         {
             Context context = new Context();
-            context.Action = null;
+            context.Task = null;
         }
 
         [Test]

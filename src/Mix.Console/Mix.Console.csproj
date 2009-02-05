@@ -59,9 +59,9 @@
     <Compile Include="Commands\VersionCommand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mix.Actions\Mix.Actions.csproj">
+    <ProjectReference Include="..\Mix.Tasks\Mix.Tasks.csproj">
       <Project>{122DC43F-106B-409D-8819-FE9BAC42520B}</Project>
-      <Name>Mix.Actions</Name>
+      <Name>Mix.Tasks</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mix.Core\Mix.Core.csproj">
       <Project>{917B9ECF-889A-4CCE-A87C-282D2BFF8F9E}</Project>

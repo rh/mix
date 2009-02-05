@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Console", "Mix.Console\Mix.Console.csproj", "{E5F2DEFF-9CA9-40A3-B291-43D463D1A894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Actions", "Mix.Actions\Mix.Actions.csproj", "{122DC43F-106B-409D-8819-FE9BAC42520B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Tasks", "Mix.Tasks\Mix.Tasks.csproj", "{122DC43F-106B-409D-8819-FE9BAC42520B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Actions.Tests", "Mix.Actions.Tests\Mix.Actions.Tests.csproj", "{E7413A47-8B01-457C-9387-8110DD983C29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Tasks.Tests", "Mix.Tasks.Tests\Mix.Tasks.Tests.csproj", "{E7413A47-8B01-457C-9387-8110DD983C29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Core", "Mix.Core\Mix.Core.csproj", "{917B9ECF-889A-4CCE-A87C-282D2BFF8F9E}"
 EndProject

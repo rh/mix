@@ -64,7 +64,7 @@ namespace Mix.Core
             {
                 actionTypes = new List<Type>();
                 // Explicitly load assembly Mix.Actions
-                Assembly.Load("Mix.Actions");
+                Assembly.Load("Mix.Tasks");
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 AddActions(assemblies);
             }

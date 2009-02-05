@@ -67,12 +67,12 @@ namespace Mix.Console.Commands
         /// </returns>
         private Command CreateCommand(IDictionary<string, string> properties, string[] args)
         {
-            if (!properties.ContainsKey("action"))
+            if (!properties.ContainsKey("task"))
             {
                 return new HelpCommand(registry);
             }
 
-            var name = properties["action"].ToLower();
+            var name = properties["task"].ToLower();
 
             if (name == "help")
             {
@@ -135,7 +135,7 @@ namespace Mix.Console.Commands
                 // The first argument should ALWAYS be the name of the action
                 // to invoke.
                 var action = args[0];
-                properties.Add("action", action);
+                properties.Add("task", action);
 
                 if (args.Length > 1)
                 {

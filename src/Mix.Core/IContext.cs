@@ -14,9 +14,9 @@ namespace Mix.Core
 		Encoding Encoding { get; set; }
 
         /// <summary>
-        /// The name of the <see cref="Action"/> this <see cref="IContext"/> applies to.
+        /// The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.
         /// </summary>
-        string Action { get; set; }
+        string Task { get; set; }
 
         /// <summary>
         /// A <see cref="TextWriter"/> that represents the standard output stream.

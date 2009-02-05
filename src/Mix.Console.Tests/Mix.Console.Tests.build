@@ -25,7 +25,7 @@
           <include name="${lib.dir}" />
         </lib>
         <include name="Mix.Core.dll" />
-        <include name="Mix.Actions.dll" />
+        <include name="Mix.Tasks.dll" />
         <include name="mix.exe" />
         <include name="${lib.dir}/nunit.framework.dll" />
         <!-- NOTE: log4net.dll has to be explicitly referenced or compiling on Mono fails -->
