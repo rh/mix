@@ -43,7 +43,7 @@ namespace Mix.Actions.Tests
             context.Output = writer;
             context.FileName = "file";
             new Count().Execute(context);
-            string expected = String.Format("file: 0{0}", Environment.NewLine);
+            string expected = String.Empty;
             Assert.AreEqual(expected, writer.ToString());
         }
 
