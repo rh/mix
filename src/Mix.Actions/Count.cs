@@ -18,7 +18,11 @@ namespace Mix.Actions
         /// </param>
         protected override void OnBeforeExecute(int count)
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+            // TODO: let this be the result of --quiet, -verbose arguments etc.
+            if (count > 0)
+            {
+                Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+            }
         }
     }
 }
