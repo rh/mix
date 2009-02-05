@@ -10,7 +10,7 @@ namespace Mix.Core.Tests
         {
         }
 
-        [Attributes.Description("description")]
+        [Description("description")]
         private class WithDescription
         {
         }
@@ -18,16 +18,16 @@ namespace Mix.Core.Tests
         [Test]
         public void ClassWithoutDescription()
         {
-            string defaultValue = "[no description]";
-            string description = DescriptionAttribute.GetDescriptionFrom(new WithoutDescription(), defaultValue);
+            const string defaultValue = "[no description]";
+            var description = DescriptionAttribute.GetDescriptionFrom(new WithoutDescription(), defaultValue);
             Assert.AreEqual(defaultValue, description);
         }
 
         [Test]
         public void ClassWithDescription()
         {
-            string defaultValue = "[no description]";
-            string description = DescriptionAttribute.GetDescriptionFrom(new WithDescription(), defaultValue);
+            const string defaultValue = "[no description]";
+            var description = DescriptionAttribute.GetDescriptionFrom(new WithDescription(), defaultValue);
             Assert.AreEqual("description", description);
         }
     }

@@ -8,8 +8,7 @@ namespace Mix.Core.Tests
     [TestFixture]
     public class ContextFixture
     {
-        private const string xml =
-            @"<?xml version=""1.0"" encoding=""UTF-8""?><root/>";
+        private const string xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><root/>";
         private const string xpath = "/root";
 
         [Test]
@@ -79,7 +78,7 @@ namespace Mix.Core.Tests
         [Test]
         public void NullContext()
         {
-            IContext context = Context.Null;
+            var context = Context.Null;
             Assert.IsNotNull(context.Xml);
             Assert.IsNotNull(context.XPath);
             Assert.IsNotNull(context.Output);
@@ -91,9 +90,9 @@ namespace Mix.Core.Tests
         [Test]
         public void Output()
         {
-            Context context = Context.Null as Context;
+            var context = Context.Null as Context;
             Assert.IsNotNull(context);
-            StringWriter writer = new StringWriter();
+            var writer = new StringWriter();
             context.Output = writer;
             context.Error = writer;
             context.Output.Write("test");
@@ -105,39 +104,34 @@ namespace Mix.Core.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidTask()
         {
-            Context context = new Context();
-            context.Task = null;
+            new Context {Task = null};
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidOutput()
         {
-            Context context = new Context();
-            context.Output = null;
+            new Context {Output = null};
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidError()
         {
-            Context context = new Context();
-            context.Error = null;
+            new Context {Error = null};
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidFileName()
         {
-            Context context = new Context();
-            context.FileName = null;
+            new Context {FileName = null};
         }
 
         [Test]
         public void FormatFileName()
         {
-            Context context = new Context();
-            context.FileName = @".\file.xml";
+            var context = new Context {FileName = @".\file.xml"};
             Assert.AreEqual("file.xml", context.FileName);
         }
 
@@ -145,8 +139,7 @@ namespace Mix.Core.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void InvalidXml()
         {
-            Context context = new Context();
-            context.Xml = null;
+            new Context {Xml = null};
         }
     }
 }

@@ -11,34 +11,23 @@ namespace Mix.Core.Tests
 
         private class Foo
         {
-            private int bar;
-            private int percentage;
-
-            public int Bar
-            {
-                get { return bar; }
-                set { bar = value; }
-            }
+            public int Bar { get; set; }
 
             [Range(0, 100)]
-            public int Percentage
-            {
-                get { return percentage; }
-                set { percentage = value; }
-            }
+            public int Percentage { get; set; }
         }
 
         private void AssertIsValid(PropertyInfo property, int value)
         {
             string description;
-            bool valid = validator.Validate(property, value, out description);
+            var valid = validator.Validate(property, value, out description);
             Assert.IsTrue(valid);
         }
 
         private void AssertIsInvalid(PropertyInfo property, int value)
         {
             string description;
-            bool valid = validator.Validate(property, value, out description);
+            var valid = validator.Validate(property, value, out description);
             Assert.IsFalse(valid);
         }
 
@@ -51,12 +40,12 @@ namespace Mix.Core.Tests
         [Test]
         public void Test()
         {
-            PropertyInfo property = typeof(Foo).GetProperty("Percentage");
-            foreach (int value in new int[] {0, 1, 100})
+            var property = typeof(Foo).GetProperty("Percentage");
+            foreach (var value in new[] {0, 1, 100})
             {
                 AssertIsValid(property, value);
             }
-            foreach (int value in new int[] {-1, 101, 200})
+            foreach (var value in new[] {-1, 101, 200})
             {
                 AssertIsInvalid(property, value);
             }
@@ -65,12 +54,12 @@ namespace Mix.Core.Tests
         [Test]
         public void Test2()
         {
-            PropertyInfo property = typeof(Foo).GetProperty("Bar");
-            foreach (int value in new int[] {1, 2, 100, 100, 10000})
+            var property = typeof(Foo).GetProperty("Bar");
+            foreach (var value in new[] {1, 2, 100, 100, 10000})
             {
                 AssertIsValid(property, value);
             }
-            foreach (int value in new int[] {-1, 0})
+            foreach (var value in new[] {-1, 0})
             {
                 AssertIsInvalid(property, value);
             }
