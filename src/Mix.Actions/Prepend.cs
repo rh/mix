@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Prepends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
-    public class Prepend : Action
+    public class Prepend : Task
     {
         private string @value = string.Empty;
 

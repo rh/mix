@@ -7,7 +7,7 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Core
 {
-    public abstract class Action : IAction
+    public abstract class Task : ITask
     {
         public IContext Context { get; private set; }
 
@@ -369,7 +369,7 @@ namespace Mix.Core
         /// <param name="context">
         /// An <see cref="IContext"/> instance containing all the necessary properties.
         /// </param>
-        /// <returns><c>true</c> if the <see cref="IAction"/> is handled, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the <see cref="ITask"/> is handled, <c>false</c> otherwise.</returns>
         protected virtual bool ExecuteCore(IContext context)
         {
             return false;

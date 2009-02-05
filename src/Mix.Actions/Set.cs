@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class Set : Action
+    public class Set : Task
     {
         private string @value = string.Empty;
 

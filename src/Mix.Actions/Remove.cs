@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Removes all selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class Remove : Action
+    public class Remove : Task
     {
         protected override void ExecuteCore(XmlElement element)
         {

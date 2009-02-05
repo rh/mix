@@ -10,8 +10,8 @@ namespace Mix.Console.Commands
 
         /// <summary>
         /// Registers <see cref="HelpCommand"/> and <see cref="VersionCommand"/>
-        /// and an <see cref="ActionCommand"/> for every known implementation of
-        /// <see cref="IAction"/>.
+        /// and an <see cref="TaskCommand"/> for every known implementation of
+        /// <see cref="ITask"/>.
         /// </summary>
         public CommandFactory()
         {
@@ -20,7 +20,7 @@ namespace Mix.Console.Commands
 
             foreach (var info in ActionInfo.All())
             {
-                Command command = new ActionCommand(info.Instance);
+                Command command = new TaskCommand(info.Instance);
                 registry.Register(command);
                 foreach (var alias in info.Aliases)
                 {

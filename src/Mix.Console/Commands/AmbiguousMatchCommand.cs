@@ -58,13 +58,13 @@ namespace Mix.Console.Commands
         /// </param>
         private void WriteAliases(Command command)
         {
-            var actionCommand = command as ActionCommand;
+            var actionCommand = command as TaskCommand;
             if (actionCommand == null)
             {
                 return;
             }
 
-            var aliases = ActionInfo.For(actionCommand.Action).Aliases;
+            var aliases = ActionInfo.For(actionCommand.Task).Aliases;
             if (aliases.Length > 0)
             {
                 WriteLine(String.Format("    ({0})", String.Join(", ", aliases)));

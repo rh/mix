@@ -3,7 +3,7 @@ using Mix.Core;
 
 namespace Mix.Actions
 {
-    public class PullUp : Action
+    public class PullUp : Task
     {
         protected override void ExecuteCore(XmlElement element)
         {

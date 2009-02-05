@@ -4,7 +4,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Actions
 {
-    public class Move : Action
+    public class Move : Task
     {
         [Argument, Required]
         [Description("An XPath expression, relative to the selected node, which determines to which node the selected node should be moved.")]

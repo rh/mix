@@ -8,7 +8,7 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlElement"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new element.")]
-    public class AddElement : Action
+    public class AddElement : Task
     {
         private string name = string.Empty;
         private string @value = string.Empty;

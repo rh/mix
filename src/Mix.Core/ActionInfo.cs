@@ -7,15 +7,15 @@ namespace Mix.Core
 {
     public class ActionInfo : IActionInfo
     {
-        private IAction action;
+        private ITask task;
         private string name = String.Empty;
         private string description = "[no description]";
         private string[] aliases = new string[] {};
         private IArgumentInfo[] arguments = new IArgumentInfo[] {};
 
-        public IAction Instance
+        public ITask Instance
         {
-            get { return action; }
+            get { return task; }
         }
 
         public string Name
@@ -40,7 +40,7 @@ namespace Mix.Core
 
         public static IActionInfo For(object obj)
         {
-            var info = new ActionInfo {action = (obj as IAction), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), arguments = ArgumentInfo.For(obj)};
+            var info = new ActionInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), arguments = ArgumentInfo.For(obj)};
             return info;
         }
 
@@ -109,7 +109,7 @@ namespace Mix.Core
 
         private static bool IsAction(Type type)
         {
-            return typeof(IAction).IsAssignableFrom(type) &&
+            return typeof(ITask).IsAssignableFrom(type) &&
                    !type.IsInterface &&
                    !type.IsAbstract;
         }

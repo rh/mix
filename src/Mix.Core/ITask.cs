@@ -1,6 +1,6 @@
 namespace Mix.Core
 {
-    public interface IAction
+    public interface ITask
     {
         void Execute(IContext context);
     }

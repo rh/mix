@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("")]
-    public class MoveAttribute : Action
+    public class MoveAttribute : Task
     {
         [Argument, Required]
         [Description("The position of the selected attribute.")]

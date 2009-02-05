@@ -6,7 +6,7 @@ namespace Mix.Actions
 {
     [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions to a newly generated GUID.")]
 // ReSharper disable RedundantNameQualifier
-    public class SetGuid : Mix.Core.Action
+    public class SetGuid : Mix.Core.Task
 // ReSharper restore RedundantNameQualifier
     {
         protected override void ExecuteCore(XmlElement element)

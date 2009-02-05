@@ -13,7 +13,7 @@ namespace Mix.Actions
     /// </summary>
     [Description("Converts attributes to elements.")]
     [Alias("atoe")]
-    public class ConvertAttributesToElements : Action
+    public class ConvertAttributesToElements : Task
     {
         protected override void ExecuteCore(XmlAttribute attribute)
         {

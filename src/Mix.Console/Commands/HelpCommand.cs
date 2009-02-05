@@ -114,9 +114,9 @@ namespace Mix.Console.Commands
         {
             object obj = registry.Find(name)[0];
 
-            if (obj is ActionCommand)
+            if (obj is TaskCommand)
             {
-                obj = (obj as ActionCommand).Action;
+                obj = (obj as TaskCommand).Task;
             }
 
             var info = ActionInfo.For(obj);

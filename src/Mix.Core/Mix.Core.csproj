@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{917B9ECF-889A-4CCE-A87C-282D2BFF8F9E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -46,7 +46,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Action.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="ActionInfo.cs" />
     <Compile Include="ArgumentInfo.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="IAction.cs" />
+    <Compile Include="ITask.cs" />
     <Compile Include="IActionInfo.cs" />
     <Compile Include="IArgumentInfo.cs" />
     <Compile Include="IContext.cs" />

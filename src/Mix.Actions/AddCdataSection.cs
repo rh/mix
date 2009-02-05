@@ -8,7 +8,7 @@ namespace Mix.Actions
     /// Adds an <see cref="XmlCDataSection"/> to the selected <see cref="XmlElement"/>(s).
     /// </summary>
     [Description("Adds a new CDATA section.")]
-    public class AddCdataSection : Action
+    public class AddCdataSection : Task
     {
         private string @value = string.Empty;
 

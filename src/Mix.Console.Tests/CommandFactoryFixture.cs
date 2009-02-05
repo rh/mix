@@ -106,7 +106,7 @@ namespace Mix.Console.Tests
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"clear", "file:*.xml", "xpath://@*"});
-            Assert.AreEqual(typeof(ActionCommand), command.GetType());
+            Assert.AreEqual(typeof(TaskCommand), command.GetType());
         }
 
         [Test]

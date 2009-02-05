@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E5F2DEFF-9CA9-40A3-B291-43D463D1A894}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -47,7 +47,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\TaskCommand.cs" />
     <Compile Include="Commands\AmbiguousMatchCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandFactory.cs" />

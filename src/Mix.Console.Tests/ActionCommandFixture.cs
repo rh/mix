@@ -11,32 +11,32 @@ namespace Mix.Console.Tests
         [Test]
         public void Action()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
-            Assert.AreEqual(action, command.Action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
+            Assert.AreEqual(task, command.Task);
         }
 
         [Test]
         public void CommandToString()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
             Assert.AreEqual("clear", command.ToString());
         }
 
         [Test]
         public void Execute()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
             Assert.IsTrue(command.Execute() > 0);
         }
 
         [Test]
         public void ExecuteWithFileNotProperlySet()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
             command.Context["file"] = null;
             Assert.IsTrue(command.Execute() > 0);
         }
@@ -44,8 +44,8 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSet()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
             // This will not actually select a file
             command.Context["file"] = "file";
             Assert.IsTrue(command.Execute() == 1);
@@ -54,8 +54,8 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSetWithWrongCharacters()
         {
-            IAction action = new Clear();
-            ActionCommand command = new ActionCommand(action);
+            ITask task = new Clear();
+            TaskCommand command = new TaskCommand(task);
             command.Context["file"] = ":";
             Assert.IsTrue(command.Execute() > 0);
         }

@@ -10,7 +10,7 @@ namespace Mix.Actions
     /// the value will be <see cref="Value"/>.
     /// </summary>
     [Description("Adds a new processing instruction.")]
-    public class AddProcessingInstruction : Action
+    public class AddProcessingInstruction : Task
     {
         private string name = string.Empty;
         private string @value = string.Empty;

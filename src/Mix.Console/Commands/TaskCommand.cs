@@ -9,14 +9,14 @@ using Mix.Core.Exceptions;
 
 namespace Mix.Console.Commands
 {
-    public class ActionCommand : Command
+    public class TaskCommand : Command
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ActionCommand));
-        private readonly IAction action;
+        private static readonly ILog log = LogManager.GetLogger(typeof(TaskCommand));
+        private readonly ITask task;
 
-        public ActionCommand(IAction action)
+        public TaskCommand(ITask task)
         {
-            this.action = action;
+            this.task = task;
         }
 
         public override IContext Context
@@ -24,13 +24,13 @@ namespace Mix.Console.Commands
             set
             {
                 base.Context = value;
-                base.Context.Action = Action.ToString();
+                base.Context.Action = Task.ToString();
             }
         }
 
-        public virtual IAction Action
+        public virtual ITask Task
         {
-            get { return action; }
+            get { return task; }
         }
 
         public override int Execute()
@@ -72,7 +72,7 @@ namespace Mix.Console.Commands
 
             try
             {
-                Action.Execute(Context);
+                Task.Execute(Context);
             }
             catch (XmlException e)
             {
@@ -100,7 +100,7 @@ namespace Mix.Console.Commands
                 return false;
             }
 
-            if (Action is IReadOnly)
+            if (Task is IReadOnly)
             {
                 return true;
             }
@@ -253,20 +253,20 @@ namespace Mix.Console.Commands
 
         public override string ToString()
         {
-            return Action.ToString();
+            return Task.ToString();
         }
 
-        protected bool Equals(ActionCommand actionCommand)
+        protected bool Equals(TaskCommand taskCommand)
         {
-            if (actionCommand == null)
+            if (taskCommand == null)
             {
                 return false;
             }
-            if (!base.Equals(actionCommand))
+            if (!base.Equals(taskCommand))
             {
                 return false;
             }
-            return Equals(action, actionCommand.action);
+            return Equals(task, taskCommand.task);
         }
 
         public override bool Equals(object obj)
@@ -275,12 +275,12 @@ namespace Mix.Console.Commands
             {
                 return true;
             }
-            return Equals(obj as ActionCommand);
+            return Equals(obj as TaskCommand);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() + 29 * action.GetHashCode();
+            return base.GetHashCode() + 29 * task.GetHashCode();
         }
     }
 }

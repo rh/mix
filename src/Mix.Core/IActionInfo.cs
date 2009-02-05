@@ -2,7 +2,7 @@ namespace Mix.Core
 {
     public interface IActionInfo
     {
-        IAction Instance { get; }
+        ITask Instance { get; }
         string Name { get; }
         string Description { get; }
         string[] Aliases { get; }

@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Actions
 {
     [Description("Copies the values of the selected attributes to new or existing attributes.")]
-    public class CopyAttribute : Action
+    public class CopyAttribute : Task
     {
         private string name = string.Empty;
 

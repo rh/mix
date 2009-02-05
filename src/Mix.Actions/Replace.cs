@@ -6,7 +6,7 @@ using Environment = System.Environment;
 namespace Mix.Actions
 {
     [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.\nUse \\n for new-line and \\t for tab.")]
-    public class Replace : Action
+    public class Replace : Task
     {
         public Replace()
         {

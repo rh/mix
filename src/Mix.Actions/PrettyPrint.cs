@@ -8,7 +8,7 @@ namespace Mix.Actions
     /// </summary>
     [Description("Pretty prints all files.")]
     [Alias("pp")]
-    public class PrettyPrint : Action
+    public class PrettyPrint : Task
     {
         /// <summary>
         /// This method just returns <c>true</c>, to indicate that the action has
