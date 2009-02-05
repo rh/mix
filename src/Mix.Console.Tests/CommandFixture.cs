@@ -20,8 +20,7 @@ namespace Mix.Console.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullContext()
         {
-            Command command = new HelpCommand();
-            command.Context = null;
+            new HelpCommand {Context = null};
         }
 
         [Test]
@@ -35,12 +34,12 @@ namespace Mix.Console.Tests
         public void Write()
         {
             Command command = new EmptyCommand();
-            Context context = new Context();
-            StringWriter writer = new StringWriter();
+            var context = new Context();
+            var writer = new StringWriter();
             context.Output = writer;
             command.Context = context;
             command.Execute();
-            string expected = String.Format("12{0}3{0}", Environment.NewLine);
+            var expected = String.Format("12{0}3{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 
@@ -54,16 +53,16 @@ namespace Mix.Console.Tests
         [Test]
         public void TwoInstancesOfOneTypeOfCommandShouldBeEqual()
         {
-            HelpCommand command1 = new HelpCommand();
-            HelpCommand command2 = new HelpCommand();
+            var command1 = new HelpCommand();
+            var command2 = new HelpCommand();
             Assert.AreEqual(command1, command2);
         }
 
         [Test]
         public void TwoTypesOfCommandShouldNotBeEqual()
         {
-            HelpCommand helpCommand = new HelpCommand();
-            VersionCommand versionCommand = new VersionCommand();
+            var helpCommand = new HelpCommand();
+            var versionCommand = new VersionCommand();
             Assert.AreNotEqual(helpCommand, versionCommand);
         }
 

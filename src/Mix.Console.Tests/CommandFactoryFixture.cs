@@ -10,20 +10,19 @@ namespace Mix.Console.Tests
     [TestFixture]
     public class CommandFactoryFixture
     {
-        private void TestTypeOfCommand(string[] args, Type type)
+        private static void TestTypeOfCommand(string[] args, Type type)
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(args);
+            var factory = new CommandFactory();
+            var command = factory.Create(args);
             Assert.IsNotNull(command);
             Assert.AreEqual(type, command.GetType());
         }
 
-        private string OutputFor(Command command)
+        private static string OutputFor(Command command)
         {
             using (TextWriter writer = new StringWriter())
             {
-                Context context = new Context(command.Context);
-                context.Output = writer;
+                var context = new Context(command.Context) {Output = writer};
                 command.Context = context;
                 command.Execute();
                 return writer.ToString();
@@ -33,16 +32,16 @@ namespace Mix.Console.Tests
         [Test]
         public void TypeOfCommand()
         {
-            TestTypeOfCommand(new string[] {"help"}, typeof(HelpCommand));
-            TestTypeOfCommand(new string[] {"version"}, typeof(VersionCommand));
-            TestTypeOfCommand(new string[] {"foo"}, typeof(UnknownCommand));
+            TestTypeOfCommand(new[] {"help"}, typeof(HelpCommand));
+            TestTypeOfCommand(new[] {"version"}, typeof(VersionCommand));
+            TestTypeOfCommand(new[] {"foo"}, typeof(UnknownCommand));
         }
 
         [Test]
         public void UnknownCommand()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"foo"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"foo"});
             Assert.AreEqual(typeof(UnknownCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new UnknownCommand("foo")));
         }
@@ -50,8 +49,8 @@ namespace Mix.Console.Tests
         [Test]
         public void VersionCommand()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"version"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"version"});
             Assert.AreEqual(typeof(VersionCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new VersionCommand()));
         }
@@ -59,8 +58,8 @@ namespace Mix.Console.Tests
         [Test]
         public void HelpCommand()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {});
+            var factory = new CommandFactory();
+            var command = factory.Create(new string[] {});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
@@ -68,8 +67,8 @@ namespace Mix.Console.Tests
         [Test]
         public void HelpCommand1()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"help"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"help"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand()));
         }
@@ -77,8 +76,8 @@ namespace Mix.Console.Tests
         [Test]
         public void HelpCommand2()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"help", "clear"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"help", "clear"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "clear")));
         }
@@ -86,8 +85,8 @@ namespace Mix.Console.Tests
         [Test]
         public void HelpCommand3()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"help", "rename"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"help", "rename"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "rename")));
         }
@@ -95,8 +94,8 @@ namespace Mix.Console.Tests
         [Test]
         public void HelpCommand4()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"help", "foo"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"help", "foo"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
             Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "foo")));
         }
@@ -104,31 +103,31 @@ namespace Mix.Console.Tests
         [Test]
         public void TaskCommand()
         {
-            CommandFactory factory = new CommandFactory();
-            Command command = factory.Create(new string[] {"clear", "file:*.xml", "xpath://@*"});
+            var factory = new CommandFactory();
+            var command = factory.Create(new[] {"clear", "file:*.xml", "xpath://@*"});
             Assert.AreEqual(typeof(TaskCommand), command.GetType());
         }
 
         [Test]
         public void AmbiguousMatchCommand()
         {
-            CommandRegistry registry = new CommandRegistry();
+            var registry = new CommandRegistry();
             registry.Register(new BarCommand());
             registry.Register(new BazCommand());
-            CommandFactory factory = new CommandFactory(registry);
-            Command command = factory.Create(new string[] {"ba"});
+            var factory = new CommandFactory(registry);
+            var command = factory.Create(new[] {"ba"});
             Assert.That(command, Is.InstanceOfType(typeof(AmbiguousMatchCommand)));
         }
 
         [Test]
         public void OutputForAmbiguousMatchCommand()
         {
-            CommandRegistry registry = new CommandRegistry();
+            var registry = new CommandRegistry();
             registry.Register(new BarCommand());
             registry.Register(new BazCommand());
-            CommandFactory factory = new CommandFactory(registry);
-            Command command = factory.Create(new string[] {"ba"});
-            string output = OutputFor(command);
+            var factory = new CommandFactory(registry);
+            var command = factory.Create(new[] {"ba"});
+            var output = OutputFor(command);
             Assert.That(output, Text.Contains("Multiple commands start with 'ba':"));
             Assert.That(output, Text.Contains("  bar"));
             Assert.That(output, Text.Contains("  baz"));
