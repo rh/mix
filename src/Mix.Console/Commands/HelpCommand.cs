@@ -105,8 +105,7 @@ namespace Mix.Console.Commands
         private void WriteAmbiguousTaskUsage()
         {
             var matches = registry.Find(name);
-            var command = new AmbiguousMatchCommand(name, matches);
-            command.Context = Context;
+            var command = new AmbiguousMatchCommand(name, matches) {Context = Context};
             command.Execute();
         }
 
@@ -164,7 +163,7 @@ namespace Mix.Console.Commands
             WriteLine("Type 'mix help' to see a list of all available commands.");
         }
 
-        private string Aliases(ITaskInfo info)
+        private static string Aliases(ITaskInfo info)
         {
             if (info.Aliases.Length > 0)
             {

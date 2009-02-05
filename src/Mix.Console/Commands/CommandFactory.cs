@@ -126,7 +126,7 @@ namespace Mix.Console.Commands
         /// The command-line arguments for this program. May be <c>null</c>.
         /// </param>
         /// <returns></returns>
-        private IDictionary<string, string> Parse(string[] args)
+        private static IDictionary<string, string> Parse(string[] args)
         {
             IDictionary<string, string> properties = new Dictionary<string, string>();
 
