@@ -32,7 +32,7 @@ namespace Mix.Actions.Tests
                 context.FileName = "file";
                 Show action = new Show();
                 action.Execute(context);
-                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 0{0}", Environment.NewLine)));
+                Assert.That(writer.ToString(), Is.EqualTo(String.Empty));
             }
         }
 
