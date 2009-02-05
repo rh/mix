@@ -11,9 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><![CDATA[text]]></root>";
             const string xpath = "root";
-            AddCdataSection action = new AddCdataSection();
-            action.Value = "text";
-            Run(pre, post, xpath, action);
+            var task = new AddCdataSection {Value = "text"};
+            Run(pre, post, xpath, task);
         }
     }
 }

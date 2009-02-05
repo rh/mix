@@ -11,104 +11,104 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ElementWithOneTextNode()
         {
-            string pre = @"<root>pre</root>";
-            string post = @"<root>" + Guid + "</root>";
-            string xpath = "root";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>pre</root>";
+            const string post = @"<root>" + Guid + "</root>";
+            const string xpath = "root";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void NormalText()
         {
-            string pre = @"<root></root>";
-            string post = @"<root>" + Guid + "</root>";
-            string xpath = "root";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root></root>";
+            const string post = @"<root>" + Guid + "</root>";
+            const string xpath = "root";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ElementWithMixedChildNodes()
         {
-            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
-            string post = @"<root>" + Guid + "</root>";
-            string xpath = "root";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
+            const string post = @"<root>" + Guid + "</root>";
+            const string xpath = "root";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ElementWithoutChildNodes()
         {
-            string pre = @"<root></root>";
-            string post = @"<root>" + Guid + "</root>";
-            string xpath = "root";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root></root>";
+            const string post = @"<root>" + Guid + "</root>";
+            const string xpath = "root";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Attribute()
         {
-            string pre = @"<root attribute=""""></root>";
-            string post = String.Format("<root attribute=\"{0}\"></root>", Guid);
-            string xpath = "root/@attribute";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root attribute=""""></root>";
+            var post = String.Format("<root attribute=\"{0}\"></root>", Guid);
+            const string xpath = "root/@attribute";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Attributes()
         {
-            string pre = @"<root a="""" b="""" c=""""></root>";
-            string post = String.Format("<root a=\"{0}\" b=\"{0}\" c=\"{0}\"></root>", Guid);
-            string xpath = "//@*";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root a="""" b="""" c=""""></root>";
+            var post = String.Format("<root a=\"{0}\" b=\"{0}\" c=\"{0}\"></root>", Guid);
+            const string xpath = "//@*";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void TextNodes()
         {
-            string pre = @"<root>text</root>";
-            string post = @"<root>" + Guid + "</root>";
-            string xpath = "//text()";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>text</root>";
+            const string post = @"<root>" + Guid + "</root>";
+            const string xpath = "//text()";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CDataSections()
         {
-            string pre = @"<root><![CDATA[text]]></root>";
-            string post = @"<root><![CDATA[" + Guid + "]]></root>";
-            string xpath = "//text()";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><![CDATA[text]]></root>";
+            const string post = @"<root><![CDATA[" + Guid + "]]></root>";
+            const string xpath = "//text()";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Comments()
         {
-            string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
-            string post = @"<root><!--" + Guid + "--><!--" + Guid + "--></root>";
-            string xpath = "//comment()";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
+            const string post = @"<root><!--" + Guid + "--><!--" + Guid + "--></root>";
+            const string xpath = "//comment()";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ProcessingInstructions()
         {
-            string pre = @"<root><?foo bar?><?foo bar?></root>";
-            string post = @"<root><?foo " + Guid + "?><?foo " + Guid + "?></root>";
-            string xpath = "//processing-instruction()";
-            DerivedSetGuidAction action = new DerivedSetGuidAction();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo bar?><?foo bar?></root>";
+            const string post = @"<root><?foo " + Guid + "?><?foo " + Guid + "?></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new DerivedSetGuid();
+            Run(pre, post, xpath, task);
         }
 
-        private class DerivedSetGuidAction : SetGuid
+        private class DerivedSetGuid : SetGuid
         {
             protected override string NewGuid()
             {

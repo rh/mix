@@ -28,51 +28,51 @@ namespace Mix.Console.Commands
 
         public override int Execute()
         {
-            if (ActionIsNotSet)
+            if (TaskIsNotSet)
             {
                 WriteUsage();
             }
-            else if (ActionIsAmbiguous)
+            else if (TaskIsAmbiguous)
             {
-                WriteAmbiguousActionUsage();
+                WriteAmbiguousTaskUsage();
                 return 1;
             }
-            else if (ActionIsKnown)
+            else if (TaskIsKnown)
             {
-                WriteActionUsage();
+                WriteTaskUsage();
             }
             else
             {
-                WriteUnknownActionUsage();
+                WriteUnknownTaskUsage();
                 return 1;
             }
             return 0;
         }
 
-        private bool ActionIsNotSet
+        private bool TaskIsNotSet
         {
             get { return String.IsNullOrEmpty(name); }
         }
 
-        private bool ActionIsAmbiguous
+        private bool TaskIsAmbiguous
         {
             get { return registry.Find(name).Count > 1; }
         }
 
-        private bool ActionIsKnown
+        private bool TaskIsKnown
         {
             get { return registry.Find(name).Count == 1; }
         }
 
         private void WriteUsage()
         {
-            WriteLine("Usage: mix <action> [arguments]");
+            WriteLine("Usage: mix <command> [arguments]");
             WriteLine("Mix command-line client, version {0}.", Assembly.GetExecutingAssembly().GetName().Version);
-            WriteLine("Type 'mix help <action>' for help on a specific action.");
+            WriteLine("Type 'mix help <command>' for help on a specific command.");
             WriteLine("Type 'mix version' to see the program version.");
             Write(Environment.NewLine);
 
-            WriteLine("Most actions take 'file' and/or 'xpath' arguments.");
+            WriteLine("Most commands take 'file' and/or 'xpath' arguments.");
             WriteLine("If 'file' is not set the value '*.xml' is used.");
             Write(Environment.NewLine);
 
@@ -80,21 +80,21 @@ namespace Mix.Console.Commands
             WriteLine("  mix add-attribute file:test.xml xpath://node() name:id");
             WriteLine("  mix set file:test.xml xpath://foo value:\"Some text\"");
 
-            WriteActions();
+            WriteTasks();
 
             Write(Environment.NewLine);
-            WriteLine("Actions marked with * do not change files.");
+            WriteLine("Commands marked with * do not change files.");
 
             Write(Environment.NewLine);
             WriteLine("Mix is a tool for XML refactoring.");
             WriteLine("For additional information, see http://mix.sourceforge.net/");
         }
 
-        private void WriteActions()
+        private void WriteTasks()
         {
             Write(Environment.NewLine);
-            WriteLine("Available actions:");
-            foreach (var info in ActionInfo.All())
+            WriteLine("Available commands:");
+            foreach (var info in TaskInfo.All())
             {
                 var readOnly = info.Instance is IReadOnly ? "*" : "";
                 var aliases = Aliases(info);
@@ -102,7 +102,7 @@ namespace Mix.Console.Commands
             }
         }
 
-        private void WriteAmbiguousActionUsage()
+        private void WriteAmbiguousTaskUsage()
         {
             var matches = registry.Find(name);
             var command = new AmbiguousMatchCommand(name, matches);
@@ -110,7 +110,7 @@ namespace Mix.Console.Commands
             command.Execute();
         }
 
-        private void WriteActionUsage()
+        private void WriteTaskUsage()
         {
             object obj = registry.Find(name)[0];
 
@@ -119,7 +119,7 @@ namespace Mix.Console.Commands
                 obj = (obj as TaskCommand).Task;
             }
 
-            var info = ActionInfo.For(obj);
+            var info = TaskInfo.For(obj);
             WriteLine("{0}: {1}", obj, info.Description);
 
             if (info.Arguments.Length > 0)
@@ -158,13 +158,13 @@ namespace Mix.Console.Commands
             }
         }
 
-        private void WriteUnknownActionUsage()
+        private void WriteUnknownTaskUsage()
         {
-            WriteLine("Unknown action: '{0}'", name);
-            WriteLine("Type 'mix help' to see a list of all available actions.");
+            WriteLine("Unknown command: '{0}'", name);
+            WriteLine("Type 'mix help' to see a list of all available commands.");
         }
 
-        private string Aliases(IActionInfo info)
+        private string Aliases(ITaskInfo info)
         {
             if (info.Aliases.Length > 0)
             {

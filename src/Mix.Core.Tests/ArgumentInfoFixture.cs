@@ -6,37 +6,37 @@ namespace Mix.Core.Tests
     [TestFixture]
     public class ArgumentInfoFixture
     {
-        private SomeAction someAaction;
-        private SomeOtherAction otherAction;
+        private SomeTask someTask;
+        private SomeOtherTask otherTask;
 
         [SetUp]
         public void SetUp()
         {
-            someAaction = new SomeAction();
-            otherAction = new SomeOtherAction();
+            someTask = new SomeTask();
+            otherTask = new SomeOtherTask();
         }
 
         [Test]
         public void Length()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(someAaction);
+            IArgumentInfo[] arguments = ArgumentInfo.For(someTask);
             Assert.AreEqual(0, arguments.Length);
 
-            arguments = ArgumentInfo.For(otherAction);
+            arguments = ArgumentInfo.For(otherTask);
             Assert.AreEqual(2, arguments.Length);
         }
 
         [Test]
         public void Name()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherAction);
+            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
             Assert.AreEqual("Name", arguments[0].Name);
         }
 
         [Test]
         public void Description()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherAction);
+            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
             Assert.AreEqual("[no description]", arguments[0].Description);
             Assert.AreEqual("Description for Name2", arguments[1].Description);
         }
@@ -44,16 +44,16 @@ namespace Mix.Core.Tests
         [Test]
         public void Required()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherAction);
+            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
             Assert.IsTrue(arguments[0].Required);
             Assert.IsFalse(arguments[1].Required);
         }
 
-        private class SomeAction
+        private class SomeTask
         {
         }
 
-        private class SomeOtherAction
+        private class SomeOtherTask
         {
             [Argument, Required]
             public string Name

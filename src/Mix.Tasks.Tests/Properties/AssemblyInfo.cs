@@ -1,3 +1,3 @@
 using System.Reflection;
-[assembly: AssemblyTitle("Mix.Actions.Tests")]
+[assembly: AssemblyTitle("Mix.Tasks.Tests")]
 [assembly: AssemblyDescription("")]

@@ -9,7 +9,7 @@ namespace Mix.Core.Attributes
     /// <example>
     /// <code>
     /// [Description("Prepends text to...")]
-    /// public class PrependAction : Mix.Core.Action
+    /// public class Prepend : Task
     /// {
     ///     [Description("The text to prepend.")]
     ///     public string Text

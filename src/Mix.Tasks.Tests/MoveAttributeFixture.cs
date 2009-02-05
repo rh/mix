@@ -11,8 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root foo="""" bar="""" baz="""" />";
             const string post = @"<root bar="""" foo="""" baz="""" />";
             const string xpath = "root/@bar";
-            var action = new MoveAttribute {Position = 1};
-            Run(pre, post, xpath, action);
+            var task = new MoveAttribute {Position = 1};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -21,8 +21,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root foo="""" bar="""" baz="""" />";
             const string post = pre;
             const string xpath = "root/@bar";
-            var action = new MoveAttribute {Position = 2};
-            Run(pre, post, xpath, action);
+            var task = new MoveAttribute {Position = 2};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -31,8 +31,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root foo="""" bar="""" baz="""" />";
             const string post = @"<root foo="""" baz="""" bar="""" />";
             const string xpath = "root/@bar";
-            var action = new MoveAttribute {Position = 3};
-            Run(pre, post, xpath, action);
+            var task = new MoveAttribute {Position = 3};
+            Run(pre, post, xpath, task);
         }
     }
 }

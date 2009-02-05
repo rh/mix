@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Tasks
 {
     /// <summary>
-    /// This action creates a new element with the name and value of the
+    /// This task creates a new element with the name and value of the
     /// attribute. The new element is inserted as the first child element of the
     /// attribute's owner element. The attribute itself is removed.
     /// If the attribute's owner element already has a child element with the

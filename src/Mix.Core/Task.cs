@@ -34,14 +34,14 @@ namespace Mix.Core
                             if (!validator.Validate(property, value, out description))
                             {
                                 var message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
-                                throw new ActionExecutionException(message);
+                                throw new TaskExecutionException(message);
                             }
                             property.SetValue(this, value, null);
                         }
                         else
                         {
                             var message = String.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
-                            throw new ActionExecutionException(message);
+                            throw new TaskExecutionException(message);
                         }
                     }
                     else if (type == typeof(bool))
@@ -58,7 +58,7 @@ namespace Mix.Core
                         else
                         {
                             var message = String.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
-                            throw new ActionExecutionException(message);
+                            throw new TaskExecutionException(message);
                         }
                     }
                 }
@@ -72,10 +72,10 @@ namespace Mix.Core
 
             if (ExecuteCore(context))
             {
-                return; // The subclass has handled the action
+                return; // The subclass has handled the task
             }
 
-            // XPath is required for actions that don't implement ExecuteCore(IContext)
+            // XPath is required for tasks that don't implement ExecuteCore(IContext)
             if (String.IsNullOrEmpty(context.XPath))
             {
                 throw new RequirementException("'xpath' is required.", "xpath", "");
@@ -84,7 +84,7 @@ namespace Mix.Core
             var document = new XmlDocument {InnerXml = context.Xml};
             var manager = XmlHelper.CreateNamespaceManager(document);
 
-            // Actions may need to recreate child nodes. If they do, these nodes
+            // Tasks may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
             var nodes = SelectNodes(context, document, manager);
             BeforeExecute(nodes.Count);
@@ -174,7 +174,7 @@ namespace Mix.Core
             catch (XPathException e)
             {
                 var message = String.Format("'{0}' is not a valid XPath expression:{1}{2}", context.XPath, Environment.NewLine, e.Message);
-                throw new ActionExecutionException(message, e);
+                throw new TaskExecutionException(message, e);
             }
         }
 
@@ -186,7 +186,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -198,7 +198,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -210,7 +210,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -222,7 +222,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -234,7 +234,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -258,7 +258,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -270,7 +270,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -282,7 +282,7 @@ namespace Mix.Core
             }
             catch (Exception e)
             {
-                throw new ActionExecutionException(e);
+                throw new TaskExecutionException(e);
             }
         }
 
@@ -462,7 +462,7 @@ namespace Mix.Core
 
         public override string ToString()
         {
-            return Dasherize(GetType().Name).ToLower().Replace("-action", "");
+            return Dasherize(GetType().Name).ToLower().Replace("-task", "");
         }
     }
 }

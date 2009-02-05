@@ -14,17 +14,17 @@ namespace Mix.Tasks.Tests
         [Test]
         public void EmptyConstructor()
         {
-            Extract action = new Extract();
-            Assert.IsNotNull(action.Name);
-            Assert.AreEqual(0, action.Name.Length);
+            var task = new Extract();
+            Assert.IsNotNull(task.Name);
+            Assert.AreEqual(0, task.Name.Length);
         }
 
         [Test]
         [ExpectedException(typeof(XmlException))]
         public void XmlNotSet()
         {
-            Extract action = new Extract();
-            action.Execute(Context.Null);
+            var task = new Extract();
+            task.Execute(Context.Null);
             Assert.Fail("An XmlException should have been thrown.");
         }
 
@@ -32,71 +32,68 @@ namespace Mix.Tasks.Tests
         [ExpectedException(typeof(RequirementException))]
         public void NameNotSet()
         {
-            Extract action = new Extract();
-            string xml = @"<root><node/><node/></root>";
-            string xpath = "//node";
-            Context context = new Context(xml, xpath);
-            action.Execute(context);
+            var task = new Extract();
+            const string xml = @"<root><node/><node/></root>";
+            const string xpath = "//node";
+            var context = new Context(xml, xpath);
+            task.Execute(context);
             Assert.Fail("A RequirementException should have been thrown.");
         }
 
         [Test]
         public void Name()
         {
-            DerivedExtractAction action = new DerivedExtractAction();
-            action.Name = "file";
+            var task = new DerivedExtractTask {Name = "file"};
 
-            string xml = @"<root><node/><node/></root>";
-            string xpath = "//node";
+            const string xml = @"<root><node/><node/></root>";
+            const string xpath = "//node";
 
-            Context context = new Context(xml, xpath);
-            action.Execute(context);
-            Assert.AreEqual("file.xml", action.Filename);
+            var context = new Context(xml, xpath);
+            task.Execute(context);
+            Assert.AreEqual("file.xml", task.Filename);
         }
 
         [Test]
         public void NameWithXPath()
         {
-            DerivedExtractAction action = new DerivedExtractAction();
-            action.Name = "xpath:@file";
+            var task = new DerivedExtractTask {Name = "xpath:@file"};
 
-            string xml = @"<root><node file='file'/><node file='file'/></root>";
-            string xpath = "//node";
+            const string xml = @"<root><node file='file'/><node file='file'/></root>";
+            const string xpath = "//node";
 
-            Context context = new Context(xml, xpath);
-            action.Execute(context);
-            Assert.AreEqual("file.xml", action.Filename);
+            var context = new Context(xml, xpath);
+            task.Execute(context);
+            Assert.AreEqual("file.xml", task.Filename);
         }
 
         [Test]
         public void ExtractWithOredXpath()
         {
-            StringWriter writer = new StringWriter();
-            DerivedExtractAction action = new DerivedExtractAction(writer);
-            action.Name = "foobar";
+            var writer = new StringWriter();
+            var task = new DerivedExtractTask(writer) {Name = "foobar"};
 
-            string xml = @"<root><foo /><bar /></root>";
-            string xpath = "//foo|//bar";
+            const string xml = @"<root><foo /><bar /></root>";
+            const string xpath = "//foo|//bar";
 
-            Context context = new Context(xml, xpath);
-            action.Execute(context);
+            var context = new Context(xml, xpath);
+            task.Execute(context);
 
-            string declaration = @"<?xml version=""1.0"" encoding=""utf-16""?>";
+            const string declaration = @"<?xml version=""1.0"" encoding=""utf-16""?>";
             // NOTE: elements are processed in reverse order.
-            string expected =
+            var expected =
                 String.Format(@"{0}{1}<bar />{0}{1}<foo />",
                               declaration, Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 
         [ProcessingOrder(ProcessingOrder.Reverse)]
-        private class DerivedExtractAction : Extract
+        private class DerivedExtractTask : Extract
         {
-            public DerivedExtractAction()
+            public DerivedExtractTask()
             {
             }
 
-            public DerivedExtractAction(TextWriter writer)
+            public DerivedExtractTask(TextWriter writer)
                 : base(writer)
             {
             }

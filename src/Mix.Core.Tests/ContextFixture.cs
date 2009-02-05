@@ -103,7 +103,7 @@ namespace Mix.Core.Tests
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void InvalidAction()
+        public void InvalidTask()
         {
             Context context = new Context();
             context.Task = null;

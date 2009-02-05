@@ -12,9 +12,8 @@ namespace Mix.Tasks.Tests
             const string pre = "<root />";
             const string post = "<root>" + fragment + "</root>";
             const string xpath = "root";
-            AddFragment action = new AddFragment();
-            action.Fragment = fragment;
-            Run(pre, post, xpath, action);
+            var task = new AddFragment {Fragment = fragment};
+            Run(pre, post, xpath, task);
         }
     }
 }

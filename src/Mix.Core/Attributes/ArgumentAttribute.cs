@@ -7,9 +7,9 @@ namespace Mix.Core.Attributes
     /// An attribute to mark properties as arguments.
     /// </summary>
     /// <example>
-    /// In the following example, PrependAction.Text is marked as an argument:
+    /// In the following example, Prepend.Text is marked as an argument:
     /// <code>
-    /// public class PrependAction : Mix.Core.Action
+    /// public class Prepend : Task
     /// {
     ///     [Argument]
     ///     public string Text

@@ -11,9 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><?name ?></root>";
             const string xpath = "root";
-            AddProcessingInstruction action = new AddProcessingInstruction();
-            action.Name = "name";
-            Run(pre, post, xpath, action);
+            var task = new AddProcessingInstruction {Name = "name"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -22,10 +21,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><?name value?></root>";
             const string xpath = "root";
-            AddProcessingInstruction action = new AddProcessingInstruction();
-            action.Name = "name";
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            var task = new AddProcessingInstruction {Name = "name", Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -34,10 +31,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = pre;
             const string xpath = "foo";
-            AddProcessingInstruction action = new AddProcessingInstruction();
-            action.Name = "name";
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            var task = new AddProcessingInstruction {Name = "name", Value = "value"};
+            Run(pre, post, xpath, task);
         }
     }
 }

@@ -8,91 +8,91 @@ namespace Mix.Tasks.Tests
         [Test]
         public void RemoveElements()
         {
-            string pre = @"<root><pre /><dummy /></root>";
-            string post = @"<root><dummy /></root>";
-            string xpath = "root/pre";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><pre /><dummy /></root>";
+            const string post = @"<root><dummy /></root>";
+            const string xpath = "root/pre";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void TryToRemoveDocumentElement()
         {
-            string pre = @"<root><pre /><dummy /></root>";
-            string post = pre;
-            string xpath = "root";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><pre /><dummy /></root>";
+            const string post = pre;
+            const string xpath = "root";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveAttribute()
         {
-            string pre = @"<root pre="""" />";
-            string post = @"<root />";
-            string xpath = "//@pre";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre="""" />";
+            const string post = @"<root />";
+            const string xpath = "//@pre";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveAttributes()
         {
-            string pre = @"<root pre=""""><node pre=""""/></root>";
-            string post = @"<root><node /></root>";
-            string xpath = "//@pre";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre=""""><node pre=""""/></root>";
+            const string post = @"<root><node /></root>";
+            const string xpath = "//@pre";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveComment()
         {
-            string pre = @"<root><!--COMMENT--></root>";
-            string post = @"<root></root>";
-            string xpath = "//comment()";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--></root>";
+            const string post = @"<root></root>";
+            const string xpath = "//comment()";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveTextNodes()
         {
-            string pre = @"<root>text</root>";
-            string post = @"<root></root>";
-            string xpath = "//text()";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>text</root>";
+            const string post = @"<root></root>";
+            const string xpath = "//text()";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveCDataSections()
         {
-            string pre = @"<root><![CDATA[]]></root>";
-            string post = @"<root></root>";
-            string xpath = "//text()";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><![CDATA[]]></root>";
+            const string post = @"<root></root>";
+            const string xpath = "//text()";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveComments()
         {
-            string pre = @"<root><!--COMMENT--><node /><!--COMMENT--></root>";
-            string post = @"<root><node /></root>";
-            string xpath = "//comment()";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--><node /><!--COMMENT--></root>";
+            const string post = @"<root><node /></root>";
+            const string xpath = "//comment()";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RemoveProcessingInstructions()
         {
-            string pre = @"<root><?foo bar ?><node /><?foo bar ?></root>";
-            string post = @"<root><node /></root>";
-            string xpath = "//processing-instruction()";
-            Remove action = new Remove();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo bar ?><node /><?foo bar ?></root>";
+            const string post = @"<root><node /></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new Remove();
+            Run(pre, post, xpath, task);
         }
     }
 }

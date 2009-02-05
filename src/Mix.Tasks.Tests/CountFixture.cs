@@ -12,50 +12,50 @@ namespace Mix.Tasks.Tests
         [Test]
         public void Test()
         {
-            string pre = @"<root><child /><child /></root>";
-            string post = pre;
-            string xpath = "//child";
-            Count action = new Count();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><child /><child /></root>";
+            const string post = pre;
+            const string xpath = "//child";
+            var task = new Count();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Output()
         {
-            string xml = @"<root><child/><child/></root>";
-            string xpath = "//child";
-            Context context = new Context(xml, xpath);
+            const string xml = @"<root><child/><child/></root>";
+            const string xpath = "//child";
+            var context = new Context(xml, xpath);
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
             new Count().Execute(context);
-            string expected = String.Format("file: 2{0}", Environment.NewLine);
+            var expected = String.Format("file: 2{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 
         [Test]
         public void NoSelection()
         {
-            string xml = @"<root><child/><child/></root>";
-            string xpath = "//foo";
-            Context context = new Context(xml, xpath);
+            const string xml = @"<root><child/><child/></root>";
+            const string xpath = "//foo";
+            var context = new Context(xml, xpath);
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
             new Count().Execute(context);
-            string expected = String.Empty;
+            var expected = String.Empty;
             Assert.AreEqual(expected, writer.ToString());
         }
 
         [Test]
-        [ExpectedException(typeof(ActionExecutionException))]
+        [ExpectedException(typeof(TaskExecutionException))]
         public void InvalidXPath()
         {
-            string pre = @"<root><child/><child/></root>";
-            string post = pre;
-            string xpath = "//";
-            Count action = new Count();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><child/><child/></root>";
+            const string post = pre;
+            const string xpath = "//";
+            var task = new Count();
+            Run(pre, post, xpath, task);
         }
     }
 }

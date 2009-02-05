@@ -8,61 +8,61 @@ namespace Mix.Tasks.Tests
         [Test]
         public void CommentElement()
         {
-            string pre = @"<root><element /></root>";
-            string post = @"<root><!--<element />--></root>";
-            string xpath = "//element";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><element /></root>";
+            const string post = @"<root><!--<element />--></root>";
+            const string xpath = "//element";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentElements()
         {
-            string pre = @"<root><element /><element /></root>";
-            string post = @"<root><!--<element />--><!--<element />--></root>";
-            string xpath = "//element";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><element /><element /></root>";
+            const string post = @"<root><!--<element />--><!--<element />--></root>";
+            const string xpath = "//element";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentAttribute()
         {
-            string pre = @"<root><element a="""" /><element a="""" /></root>";
-            string post = @"<root><!--<element a="""" />--><!--<element a="""" />--></root>";
-            string xpath = "//@a";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><element a="""" /><element a="""" /></root>";
+            const string post = @"<root><!--<element a="""" />--><!--<element a="""" />--></root>";
+            const string xpath = "//@a";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentTextNode()
         {
-            string pre = @"<root>text</root>";
-            string post = @"<root><!--text--></root>";
-            string xpath = "//text()";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>text</root>";
+            const string post = @"<root><!--text--></root>";
+            const string xpath = "//text()";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentCDataSection()
         {
-            string pre = @"<root><![CDATA[text]]></root>";
-            string post = @"<root><!--<![CDATA[text]]>--></root>";
-            string xpath = "//text()";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><![CDATA[text]]></root>";
+            const string post = @"<root><!--<![CDATA[text]]>--></root>";
+            const string xpath = "//text()";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentProcessingInstruction()
         {
-            string pre = @"<root><?foo bar ?></root>";
-            string post = @"<root><!--<?foo bar ?>--></root>";
-            string xpath = "//processing-instruction()";
-            Comment action = new Comment();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo bar ?></root>";
+            const string post = @"<root><!--<?foo bar ?>--></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new Comment();
+            Run(pre, post, xpath, task);
         }
     }
 }

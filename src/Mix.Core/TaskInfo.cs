@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Core
 {
-    public class ActionInfo : IActionInfo
+    public class TaskInfo : ITaskInfo
     {
         private ITask task;
         private string name = String.Empty;
@@ -38,16 +38,16 @@ namespace Mix.Core
             get { return arguments; }
         }
 
-        public static IActionInfo For(object obj)
+        public static ITaskInfo For(object obj)
         {
-            var info = new ActionInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), arguments = ArgumentInfo.For(obj)};
+            var info = new TaskInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), arguments = ArgumentInfo.For(obj)};
             return info;
         }
 
-        public static IActionInfo[] All()
+        public static ITaskInfo[] All()
         {
-            var types = Actions();
-            var infos = new IActionInfo[types.Count];
+            var types = Tasks();
+            var infos = new ITaskInfo[types.Count];
             for (var i = 0; i < types.Count; i++)
             {
                 var obj = Activator.CreateInstance(types[i]);
@@ -56,40 +56,40 @@ namespace Mix.Core
             return infos;
         }
 
-        private static IList<Type> actionTypes;
+        private static IList<Type> taskTypes;
 
-        private static IList<Type> Actions()
+        private static IList<Type> Tasks()
         {
-            if (actionTypes == null)
+            if (taskTypes == null)
             {
-                actionTypes = new List<Type>();
-                // Explicitly load assembly Mix.Actions
+                taskTypes = new List<Type>();
+                // Explicitly load assembly Mix.Tasks
                 Assembly.Load("Mix.Tasks");
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                AddActions(assemblies);
+                AddTasks(assemblies);
             }
-            return actionTypes;
+            return taskTypes;
         }
 
-        private static void AddActions(IEnumerable<Assembly> assemblies)
+        private static void AddTasks(IEnumerable<Assembly> assemblies)
         {
             foreach (var assembly in assemblies)
             {
-                AddActions(assembly);
+                AddTasks(assembly);
             }
         }
 
-        private static void AddActions(Assembly assembly)
+        private static void AddTasks(Assembly assembly)
         {
             if (!IsSystemAssembly(assembly))
             {
                 foreach (var type in assembly.GetTypes())
                 {
-                    if (IsAction(type))
+                    if (IsTask(type))
                     {
-                        if (!actionTypes.Contains(type))
+                        if (!taskTypes.Contains(type))
                         {
-                            actionTypes.Add(type);
+                            taskTypes.Add(type);
                         }
                     }
                 }
@@ -107,7 +107,7 @@ namespace Mix.Core
                    name.Contains("resharper");
         }
 
-        private static bool IsAction(Type type)
+        private static bool IsTask(Type type)
         {
             return typeof(ITask).IsAssignableFrom(type) &&
                    !type.IsInterface &&

@@ -7,9 +7,9 @@ namespace Mix.Core.Attributes
     /// An attribute to mark properties as required.
     /// </summary>
     /// <example>
-    /// In the following example, PrependAction.Text is marked as required:
+    /// In the following example, Prepend.Text is marked as required:
     /// <code>
-    /// public class PrependAction : Mix.Core.Action
+    /// public class Prepend : Task
     /// {
     ///     [Required]
     ///     public string Text

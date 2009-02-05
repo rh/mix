@@ -8,122 +8,111 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ElementWithOneTextNode()
         {
-            string pre = @"<root>pre</root>";
-            string post = @"<root>post</root>";
-            string xpath = "root";
-            Set action = new Set();
-            action.Value = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>pre</root>";
+            const string post = @"<root>post</root>";
+            const string xpath = "root";
+            var task = new Set {Value = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void NormalText()
         {
-            string pre = @"<root></root>";
-            string post = @"<root>post</root>";
-            string xpath = "root";
-            Set action = new Set();
-            action.Value = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root></root>";
+            const string post = @"<root>post</root>";
+            const string xpath = "root";
+            var task = new Set {Value = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void SpecialText()
         {
-            string pre = @"<root></root>";
-            string post = @"<root>&gt;</root>";
-            string xpath = "root";
-            Set action = new Set();
-            action.Value = ">";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root></root>";
+            const string post = @"<root>&gt;</root>";
+            const string xpath = "root";
+            var task = new Set {Value = ">"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ElementWithMixedChildNodes()
         {
-            string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
-            string post = @"<root>post</root>";
-            string xpath = "root";
-            Set action = new Set();
-            action.Value = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>pre<![CDATA[pre]]>pre</root>";
+            const string post = @"<root>post</root>";
+            const string xpath = "root";
+            var task = new Set {Value = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ElementWithoutChildNodes()
         {
-            string pre = @"<root></root>";
-            string post = @"<root>post</root>";
-            string xpath = "root";
-            Set action = new Set();
-            action.Value = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root></root>";
+            const string post = @"<root>post</root>";
+            const string xpath = "root";
+            var task = new Set {Value = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Attribute()
         {
-            string pre = @"<root attribute=""""></root>";
-            string post = @"<root attribute=""value""></root>";
-            string xpath = "root/@attribute";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root attribute=""""></root>";
+            const string post = @"<root attribute=""value""></root>";
+            const string xpath = "root/@attribute";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Attributes()
         {
-            string pre = @"<root a="""" b="""" c=""""></root>";
-            string post = @"<root a=""value"" b=""value"" c=""value""></root>";
-            string xpath = "//@*";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root a="""" b="""" c=""""></root>";
+            const string post = @"<root a=""value"" b=""value"" c=""value""></root>";
+            const string xpath = "//@*";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void TextNodes()
         {
-            string pre = @"<root>text</root>";
-            string post = @"<root>value</root>";
-            string xpath = "//text()";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>text</root>";
+            const string post = @"<root>value</root>";
+            const string xpath = "//text()";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CDataSections()
         {
-            string pre = @"<root><![CDATA[text]]></root>";
-            string post = @"<root><![CDATA[value]]></root>";
-            string xpath = "//text()";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><![CDATA[text]]></root>";
+            const string post = @"<root><![CDATA[value]]></root>";
+            const string xpath = "//text()";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Comments()
         {
-            string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
-            string post = @"<root><!--value--><!--value--></root>";
-            string xpath = "//comment()";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
+            const string post = @"<root><!--value--><!--value--></root>";
+            const string xpath = "//comment()";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ProcessingInstructions()
         {
-            string pre = @"<root><?foo bar?><?foo bar?></root>";
-            string post = @"<root><?foo value?><?foo value?></root>";
-            string xpath = "//processing-instruction()";
-            Set action = new Set();
-            action.Value = "value";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo bar?><?foo bar?></root>";
+            const string post = @"<root><?foo value?><?foo value?></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new Set {Value = "value"};
+            Run(pre, post, xpath, task);
         }
     }
 }

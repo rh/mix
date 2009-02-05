@@ -4,50 +4,50 @@ using NUnit.Framework;
 namespace Mix.Core.Tests
 {
     [TestFixture]
-    public class ActionInfoFixture
+    public class TaskInfoFixture
     {
-        private SomeAction someAction;
-        private SomeOtherAction otherAction;
+        private SomeTask someTask;
+        private SomeOtherTask otherTask;
 
         [SetUp]
         public void SetUp()
         {
-            someAction = new SomeAction();
-            otherAction = new SomeOtherAction();
+            someTask = new SomeTask();
+            otherTask = new SomeOtherTask();
         }
 
         [Test]
         public void Name()
         {
-            IActionInfo info1 = ActionInfo.For(someAction);
+            var info1 = TaskInfo.For(someTask);
             Assert.AreEqual("name", info1.Name);
 
-            IActionInfo info2 = ActionInfo.For(otherAction);
+            var info2 = TaskInfo.For(otherTask);
             Assert.AreEqual("othername", info2.Name);
         }
 
         [Test]
         public void Description()
         {
-            IActionInfo info1 = ActionInfo.For(someAction);
+            var info1 = TaskInfo.For(someTask);
             Assert.AreEqual("description", info1.Description);
 
-            IActionInfo info2 = ActionInfo.For(otherAction);
+            var info2 = TaskInfo.For(otherTask);
             Assert.AreEqual("otherdescription", info2.Description);
         }
 
         [Test]
         public void Arguments()
         {
-            IActionInfo info1 = ActionInfo.For(someAction);
+            var info1 = TaskInfo.For(someTask);
             Assert.AreEqual(0, info1.Arguments.Length);
 
-            IActionInfo info2 = ActionInfo.For(otherAction);
+            var info2 = TaskInfo.For(otherTask);
             Assert.AreEqual(1, info2.Arguments.Length);
         }
 
         [Attributes.Description("description")]
-        private class SomeAction
+        private class SomeTask
         {
             public override string ToString()
             {
@@ -56,7 +56,7 @@ namespace Mix.Core.Tests
         }
 
         [Attributes.Description("otherdescription")]
-        private class SomeOtherAction
+        private class SomeOtherTask
         {
             [Argument, Required]
             public string Name

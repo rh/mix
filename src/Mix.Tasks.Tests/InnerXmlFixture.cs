@@ -9,36 +9,33 @@ namespace Mix.Tasks.Tests
         public void Test()
         {
             const string xml = "<new>Some text</new>";
-            string pre = @"<root><child>something</child></root>";
-            string post = @"<root><child>" + xml + "</child></root>";
-            string xpath = "//child";
-            InnerXml action = new InnerXml();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><child>something</child></root>";
+            const string post = @"<root><child>" + xml + "</child></root>";
+            const string xpath = "//child";
+            var task = new InnerXml {Xml = xml};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void Comment()
         {
             const string xml = "<new>Some text</new>";
-            string pre = @"<root><!----></root>";
-            string post = @"<root><!--" + xml + "--></root>";
-            string xpath = "//comment()";
-            InnerXml action = new InnerXml();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!----></root>";
+            const string post = @"<root><!--" + xml + "--></root>";
+            const string xpath = "//comment()";
+            var task = new InnerXml {Xml = xml};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void CommentValueReplaces()
         {
             const string xml = "<new>Some text</new>";
-            string pre = @"<root><!--COMMENT--></root>";
-            string post = @"<root><!--" + xml + "--></root>";
-            string xpath = "//comment()";
-            InnerXml action = new InnerXml();
-            action.Xml = xml;
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--></root>";
+            const string post = @"<root><!--" + xml + "--></root>";
+            const string xpath = "//comment()";
+            var task = new InnerXml {Xml = xml};
+            Run(pre, post, xpath, task);
         }
     }
 }

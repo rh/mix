@@ -8,91 +8,91 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ClearElements()
         {
-            string pre = @"<root>something</root>";
-            string post = @"<root></root>";
-            string xpath = "root";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>something</root>";
+            const string post = @"<root></root>";
+            const string xpath = "root";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearMixedElements()
         {
-            string pre = @"<root a=""foo"">something<![CDATA[something]]><?foo bar?><!--comment-->something</root>";
-            string post = @"<root a=""""><![CDATA[]]><?foo ?><!----></root>";
-            string xpath = "root";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root a=""foo"">something<![CDATA[something]]><?foo bar?><!--comment-->something</root>";
+            const string post = @"<root a=""""><![CDATA[]]><?foo ?><!----></root>";
+            const string xpath = "root";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearElementWithChildElements()
         {
-            string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
-            string post = @"<root><child><child-of-child></child-of-child></child></root>";
-            string xpath = "root";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            const string post = @"<root><child><child-of-child></child-of-child></child></root>";
+            const string xpath = "root";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearAttribute()
         {
-            string pre = @"<root pre=""something"" />";
-            string post = @"<root pre="""" />";
-            string xpath = "//@pre";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre=""something"" />";
+            const string post = @"<root pre="""" />";
+            const string xpath = "//@pre";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearAttributes()
         {
-            string pre = @"<root pre=""something""><node pre=""something""/></root>";
-            string post = @"<root pre=""""><node pre="""" /></root>";
-            string xpath = "//@pre";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre=""something""><node pre=""something""/></root>";
+            const string post = @"<root pre=""""><node pre="""" /></root>";
+            const string xpath = "//@pre";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearTextNode()
         {
-            string pre = @"<root>text</root>";
-            string post = @"<root></root>";
-            string xpath = "//text()";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root>text</root>";
+            const string post = @"<root></root>";
+            const string xpath = "//text()";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearComment()
         {
-            string pre = @"<root><!--COMMENT--></root>";
-            string post = @"<root><!----></root>";
-            string xpath = "//comment()";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--></root>";
+            const string post = @"<root><!----></root>";
+            const string xpath = "//comment()";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearComments()
         {
-            string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
-            string post = @"<root><!----><!----></root>";
-            string xpath = "//comment()";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><!--COMMENT--><!--COMMENT--></root>";
+            const string post = @"<root><!----><!----></root>";
+            const string xpath = "//comment()";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void ClearProcessingInstructions()
         {
-            string pre = @"<root><?foo bar ?><?foo bar ?></root>";
-            string post = @"<root><?foo ?><?foo ?></root>";
-            string xpath = "//processing-instruction()";
-            Clear action = new Clear();
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo bar ?><?foo bar ?></root>";
+            const string post = @"<root><?foo ?><?foo ?></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new Clear();
+            Run(pre, post, xpath, task);
         }
     }
 }

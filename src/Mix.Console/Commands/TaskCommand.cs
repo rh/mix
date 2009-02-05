@@ -45,7 +45,7 @@ namespace Mix.Console.Commands
 
             foreach (var file in files)
             {
-                if (!ExecuteAction(file))
+                if (!ExecuteTask(file))
                 {
                     return 1;
                 }
@@ -54,7 +54,7 @@ namespace Mix.Console.Commands
             return 0;
         }
 
-        private bool ExecuteAction(string file)
+        private bool ExecuteTask(string file)
         {
             Context.FileName = file;
             Context.Encoding = GetFileEncoding(file);
@@ -93,7 +93,7 @@ namespace Mix.Console.Commands
                 WriteLine("Type 'mix help {0}' for usage.", Context.Task);
                 return false;
             }
-            catch (ActionExecutionException e)
+            catch (TaskExecutionException e)
             {
                 log.Error(e.Message, e);
                 WriteLine(e.Message);

@@ -8,78 +8,71 @@ namespace Mix.Tasks.Tests
         [Test]
         public void RenameElement()
         {
-            string pre = @"<root><pre /></root>";
-            string post = @"<root><post /></root>";
-            string xpath = "root/pre";
-            Rename action = new Rename();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><pre /></root>";
+            const string post = @"<root><post /></root>";
+            const string xpath = "root/pre";
+            var task = new Rename {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameDocumentElement()
         {
-            string pre = @"<root />";
-            string post = @"<root />";
-            string xpath = "root";
-            Rename action = new Rename();
-            action.Name = "root";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root />";
+            const string post = @"<root />";
+            const string xpath = "root";
+            var task = new Rename {Name = "root"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameElements()
         {
-            string pre = @"<root><pre /><pre /></root>";
-            string post = @"<root><post /><post /></root>";
-            string xpath = "root/pre";
-            Rename action = new Rename();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><pre /><pre /></root>";
+            const string post = @"<root><post /><post /></root>";
+            const string xpath = "root/pre";
+            var task = new Rename {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameElementsWithChildElements()
         {
-            string pre = @"<root><pre><pre /></pre></root>";
-            string post = @"<root><post><post /></post></root>";
-            string xpath = "//pre";
-            Rename action = new Rename();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><pre><pre /></pre></root>";
+            const string post = @"<root><post><post /></post></root>";
+            const string xpath = "//pre";
+            var task = new Rename {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameAttributes()
         {
-            string pre = @"<root pre="""" />";
-            string post = @"<root post="""" />";
-            string xpath = "//@pre";
-            Rename action = new Rename();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre="""" />";
+            const string post = @"<root post="""" />";
+            const string xpath = "//@pre";
+            var task = new Rename {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameAttributesWithExistingAttribute()
         {
-            string pre = @"<root pre="""" />";
-            string post = @"<root pre="""" />";
-            string xpath = "//@pre";
-            Rename action = new Rename();
-            action.Name = "pre";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root pre="""" />";
+            const string post = @"<root pre="""" />";
+            const string xpath = "//@pre";
+            var task = new Rename {Name = "pre"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
         public void RenameProcessingInstruction()
         {
-            string pre = @"<root><?foo ?></root>";
-            string post = @"<root><?bar ?></root>";
-            string xpath = "//processing-instruction()";
-            Rename action = new Rename();
-            action.Name = "bar";
-            Run(pre, post, xpath, action);
+            const string pre = @"<root><?foo ?></root>";
+            const string post = @"<root><?bar ?></root>";
+            const string xpath = "//processing-instruction()";
+            var task = new Rename {Name = "bar"};
+            Run(pre, post, xpath, task);
         }
     }
 }

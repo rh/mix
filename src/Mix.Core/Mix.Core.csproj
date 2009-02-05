@@ -47,21 +47,21 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Task.cs" />
-    <Compile Include="ActionInfo.cs" />
+    <Compile Include="TaskInfo.cs" />
     <Compile Include="ArgumentInfo.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />
     <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Attributes\ProcessingOrderAttribute.cs" />
     <Compile Include="Attributes\RangeAttribute.cs" />
     <Compile Include="Attributes\XmlArgumentAttribute.cs" />
-    <Compile Include="Exceptions\ActionExecutionException.cs" />
+    <Compile Include="Exceptions\TaskExecutionException.cs" />
     <Compile Include="Attributes\ArgumentAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="ITask.cs" />
-    <Compile Include="IActionInfo.cs" />
+    <Compile Include="ITaskInfo.cs" />
     <Compile Include="IArgumentInfo.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="RangeValidator.cs" />

@@ -11,8 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<a><b><c></c></b></a>";
             const string post = @"<a><c></c><b></b></a>";
             const string xpath = "a/b/c";
-            var action = new PullUp();
-            Run(pre, post, xpath, action);
+            var task = new PullUp();
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -21,8 +21,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<a><b><c foo=""bar""></c></b></a>";
             const string post = @"<a><b foo=""bar""><c></c></b></a>";
             const string xpath = "a/b/c/@foo";
-            var action = new PullUp();
-            Run(pre, post, xpath, action);
+            var task = new PullUp();
+            Run(pre, post, xpath, task);
         }
     }
 }

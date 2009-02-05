@@ -11,9 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = @"<root><!--COMMENT--></root>";
             const string xpath = "root";
-            AddComment action = new AddComment();
-            action.Value = "COMMENT";
-            Run(pre, post, xpath, action);
+            var task = new AddComment {Value = "COMMENT"};
+            Run(pre, post, xpath, task);
         }
     }
 }

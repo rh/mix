@@ -18,7 +18,7 @@ namespace Mix.Console.Commands
             registry.Register(new HelpCommand());
             registry.Register(new VersionCommand());
 
-            foreach (var info in ActionInfo.All())
+            foreach (var info in TaskInfo.All())
             {
                 Command command = new TaskCommand(info.Instance);
                 registry.Register(command);
@@ -60,7 +60,7 @@ namespace Mix.Console.Commands
         /// </param>
         /// <returns>
         /// One of the registered commands, or an instance of <see cref="HelpCommand"/>
-        /// if no name of an action was given, an instance of <see cref="UnknownCommand"/> if
+        /// if no name of a command was given, an instance of <see cref="UnknownCommand"/> if
         /// if the name given does not match (the first part of) the name of a
         /// registered command, or an instance of <see cref="AmbiguousMatchCommand"/>
         /// if the given name matches more than one commands.
@@ -132,10 +132,9 @@ namespace Mix.Console.Commands
 
             if (args != null && args.Length > 0)
             {
-                // The first argument should ALWAYS be the name of the action
-                // to invoke.
-                var action = args[0];
-                properties.Add("task", action);
+                // The first argument should ALWAYS be the name of the command to invoke.
+                var task = args[0];
+                properties.Add("task", task);
 
                 if (args.Length > 1)
                 {

@@ -7,10 +7,10 @@ namespace Mix.Core.Attributes
     /// Properties marked with this attribute will be automatically validated.
     /// </summary>
     /// <example>
-    /// In the following example, AddFragmentAction.Fragment is marked as an XML
+    /// In the following example, AddFragment.Fragment is marked as an XML
     /// argument:
     /// <code>
-    /// public class AddFragmentAction : Mix.Core.Action
+    /// public class AddFragment : Task
     /// {
     ///     [Argument, XmlArgument]
     ///     public string Fragment

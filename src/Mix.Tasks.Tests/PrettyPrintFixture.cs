@@ -9,9 +9,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void JustExecute()
         {
-            Context context = new Context("<root />");
-            PrettyPrint action = new PrettyPrint();
-            action.Execute(context);
+            var context = new Context("<root />");
+            var task = new PrettyPrint();
+            task.Execute(context);
         }
     }
 }

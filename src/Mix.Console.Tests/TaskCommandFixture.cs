@@ -9,7 +9,7 @@ namespace Mix.Console.Tests
     public class TaskCommandFixture
     {
         [Test]
-        public void Action()
+        public void Task()
         {
             ITask task = new Clear();
             TaskCommand command = new TaskCommand(task);

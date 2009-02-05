@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 namespace Mix.Tasks
 {
     /// <summary>
-    /// This action creates a new attribute with the name and value of the
+    /// This task creates a new attribute with the name and value of the
     /// selected element. The new attribute is inserted as the last attribute
     /// of the element's owner element. The element itself is removed.
     /// If the element is not a text node nothing changes.

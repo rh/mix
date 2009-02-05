@@ -11,9 +11,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root />";
             const string post = @"<root post="""" />";
             const string xpath = "root";
-            AddAttribute action = new AddAttribute();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            var task = new AddAttribute {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -22,9 +21,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root />";
             const string post = @"<root post="""" />";
             const string xpath = "root";
-            AddAttribute action = new AddAttribute();
-            action.Name = "post";
-            Run(pre, post, xpath, action);
+            var task = new AddAttribute {Name = "post"};
+            Run(pre, post, xpath, task);
         }
 
         [Test]
@@ -33,10 +31,8 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root pre=""pre"" />";
             const string post = @"<root pre=""pre"" post=""pre"" />";
             const string xpath = "root";
-            AddAttribute action = new AddAttribute();
-            action.Name = "post";
-            action.Value = "xpath:@pre";
-            Run(pre, post, xpath, action);
+            var task = new AddAttribute {Name = "post", Value = "xpath:@pre"};
+            Run(pre, post, xpath, task);
         }
     }
 }

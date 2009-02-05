@@ -102,7 +102,7 @@ namespace Mix.Console.Tests
         }
 
         [Test]
-        public void ActionCommand()
+        public void TaskCommand()
         {
             CommandFactory factory = new CommandFactory();
             Command command = factory.Create(new string[] {"clear", "file:*.xml", "xpath://@*"});
@@ -129,7 +129,7 @@ namespace Mix.Console.Tests
             CommandFactory factory = new CommandFactory(registry);
             Command command = factory.Create(new string[] {"ba"});
             string output = OutputFor(command);
-            Assert.That(output, Text.Contains("Multiple actions start with 'ba':"));
+            Assert.That(output, Text.Contains("Multiple commands start with 'ba':"));
             Assert.That(output, Text.Contains("  bar"));
             Assert.That(output, Text.Contains("  baz"));
         }

@@ -1,6 +1,6 @@
 namespace Mix.Core
 {
-    public interface IActionInfo
+    public interface ITaskInfo
     {
         ITask Instance { get; }
         string Name { get; }
