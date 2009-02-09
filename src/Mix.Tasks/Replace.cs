@@ -10,53 +10,53 @@ namespace Mix.Tasks
     {
         public Replace()
         {
-            OldValue = string.Empty;
-            NewValue = string.Empty;
+            Old = string.Empty;
+            New = string.Empty;
         }
 
         [Argument, Required, Description("The value to be replaced.")]
-        public string OldValue { get; set; }
+        public string Old { get; set; }
 
         [Argument, Description("The value to replace the old value.")]
-        public string NewValue { get; set; }
+        public string New { get; set; }
 
         protected override void OnBeforeExecute(int count)
         {
-            OldValue = OldValue.Replace("\\n", Environment.NewLine);
-            OldValue = OldValue.Replace("\\t", "\t");
+            Old = Old.Replace("\\n", Environment.NewLine);
+            Old = Old.Replace("\\t", "\t");
 
-            NewValue = NewValue.Replace("\\n", Environment.NewLine);
-            NewValue = NewValue.Replace("\\t", "\t");
+            New = New.Replace("\\n", Environment.NewLine);
+            New = New.Replace("\\t", "\t");
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            element.InnerXml = element.InnerXml.Replace(OldValue, NewValue);
+            element.InnerXml = element.InnerXml.Replace(Old, New);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = attribute.Value.Replace(OldValue, NewValue);
+            attribute.Value = attribute.Value.Replace(Old, New);
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = text.Value.Replace(OldValue, NewValue);
+            text.Value = text.Value.Replace(Old, New);
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value.Replace(OldValue, NewValue);
+            section.Value = section.Value.Replace(Old, New);
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value.Replace(OldValue, NewValue);
+            comment.Value = comment.Value.Replace(Old, New);
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = instruction.Value.Replace(OldValue, NewValue);
+            instruction.Value = instruction.Value.Replace(Old, New);
         }
     }
 }
