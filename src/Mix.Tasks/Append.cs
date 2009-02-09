@@ -4,18 +4,17 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Appends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
+    [Description("Appends text to selected nodes (if they 'behave' like text), or to the value of the selected attributes.")]
     public class Append : Task
     {
-        private string @value = string.Empty;
+        public Append()
+        {
+            Value = string.Empty;
+        }
 
         [Argument, Required]
         [Description("The value to append.")]
-        public string Value
-        {
-            get { return @value; }
-            set { this.@value = value; }
-        }
+        public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {

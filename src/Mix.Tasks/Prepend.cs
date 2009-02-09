@@ -4,18 +4,17 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Prepends text to the text nodes of the selected elements, or to the value of the selected attributes.")]
+    [Description("Prepends text to selected nodes (if they 'behave' like text), or to the value of the selected attributes.")]
     public class Prepend : Task
     {
-        private string @value = string.Empty;
+        public Prepend()
+        {
+            Value = string.Empty;
+        }
 
         [Argument, Required]
         [Description("The value to prepend.")]
-        public string Value
-        {
-            get { return @value; }
-            set { this.@value = value; }
-        }
+        public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {
