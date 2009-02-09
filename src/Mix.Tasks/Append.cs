@@ -21,23 +21,15 @@ namespace Mix.Tasks
         {
             if (element.HasChildNodes)
             {
-                foreach (XmlNode node in element.ChildNodes)
+                if (element.ChildNodes.Count == 1)
                 {
-                    if (node is XmlText)
+                    if (element.FirstChild is XmlText)
                     {
-                        ExecuteCore(node as XmlText);
+                        ExecuteCore(element.FirstChild as XmlText);
                     }
-                    else if (node is XmlCDataSection)
+                    else if (element.FirstChild is XmlCDataSection)
                     {
-                        ExecuteCore(node as XmlCDataSection);
-                    }
-                    else if (node is XmlComment)
-                    {
-                        ExecuteCore(node as XmlComment);
-                    }
-                    else if (node is XmlProcessingInstruction)
-                    {
-                        ExecuteCore(node as XmlProcessingInstruction);
+                        ExecuteCore(element.FirstChild as XmlCDataSection);
                     }
                 }
             }

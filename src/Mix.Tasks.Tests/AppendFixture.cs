@@ -6,7 +6,7 @@ namespace Mix.Tasks.Tests
     public class AppendFixture : TestFixture
     {
         [Test]
-        public void AppendToTextElement()
+        public void AppendToElement()
         {
             const string pre = @"<root>Some text</root>";
             const string post = @"<root>Some textappend</root>";
@@ -29,7 +29,7 @@ namespace Mix.Tasks.Tests
         public void AppendMixedElements()
         {
             const string pre = @"<root>pre<![CDATA[pre]]><?foo bar?><!--comment-->pre</root>";
-            const string post = @"<root>preappend<![CDATA[preappend]]><?foo barappend?><!--commentappend-->preappend</root>";
+            const string post = pre;
             const string xpath = "root";
             var task = new Append {Value = "append"};
             Run(pre, post, xpath, task);

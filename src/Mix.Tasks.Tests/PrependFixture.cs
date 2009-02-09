@@ -29,7 +29,7 @@ namespace Mix.Tasks.Tests
         public void PrependMixedElements()
         {
             const string pre = @"<root>pre<![CDATA[pre]]><?foo bar?><!--comment-->pre</root>";
-            const string post = @"<root>prefixpre<![CDATA[prefixpre]]><?foo prefixbar?><!--prefixcomment-->prefixpre</root>";
+            const string post = pre;
             const string xpath = "root";
             var task = new Prepend {Value = "prefix"};
             Run(pre, post, xpath, task);
