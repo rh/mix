@@ -1,9 +1,9 @@
 using System;
-using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using Mix.Core.Attributes;
 using Mix.Core.Exceptions;
+using Mix.Core.Extensions;
 
 namespace Mix.Core
 {
@@ -444,25 +444,9 @@ namespace Mix.Core
             }
         }
 
-        private static string Dasherize(string value)
-        {
-            var sb = new StringBuilder();
-            sb.Append(Char.ToLower(value[0]));
-            for (var i = 1; i < value.Length; i++)
-            {
-                var c = value[i];
-                if (Char.IsUpper(c))
-                {
-                    sb.Append("-");
-                }
-                sb.Append(Char.ToLower(c));
-            }
-            return sb.ToString();
-        }
-
         public override string ToString()
         {
-            return Dasherize(GetType().Name).ToLower().Replace("-task", "");
+            return GetType().Name.Dasherize().ToLower().Replace("-task", "");
         }
     }
 }
