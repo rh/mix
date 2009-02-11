@@ -47,7 +47,6 @@
     <Compile Include="AddComment.cs" />
     <Compile Include="AddFragment.cs" />
     <Compile Include="AddProcessingInstruction.cs" />
-    <Compile Include="AddRootElement.cs" />
     <Compile Include="Clear.cs" />
     <Compile Include="AddElement.cs" />
     <Compile Include="Comment.cs" />
