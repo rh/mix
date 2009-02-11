@@ -53,7 +53,7 @@ namespace Mix.Tasks
                     }
                     catch (XPathException e)
                     {
-                        var message = string.Format("'{0}' is not a valid XPath expression: {1}{2}", context.XPath, Environment.NewLine, e.Message);
+                        var message = string.Format("The specified XPath expression is not valid: {0}", e.Message);
                         throw new TaskExecutionException(message, e);
                     }
                 }
