@@ -62,6 +62,7 @@
     <Compile Include="ConvertToCommentFixture.cs" />
     <Compile Include="ConvertToElementFixture.cs" />
     <Compile Include="ConvertToAttributeFixture.cs" />
+    <Compile Include="ConvertToTextFixture.cs" />
     <Compile Include="CountFixture.cs" />
     <Compile Include="ExtractFixture.cs" />
     <Compile Include="InnerXmlFixture.cs" />
