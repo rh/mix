@@ -167,7 +167,7 @@ namespace Mix.Console.Commands
         {
             if (info.Aliases.Length > 0)
             {
-                return String.Format("{1}    ({0})", String.Join(", ", info.Aliases), Environment.NewLine);
+                return String.Format(" ({0})", String.Join(", ", info.Aliases));
             }
             return String.Empty;
         }
