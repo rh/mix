@@ -184,6 +184,10 @@ namespace Mix.Core
             {
                 OnBeforeExecute(count);
             }
+            catch (RequirementException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new TaskExecutionException(e);
@@ -195,6 +199,10 @@ namespace Mix.Core
             try
             {
                 OnAfterExecute();
+            }
+            catch (RequirementException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -208,6 +216,10 @@ namespace Mix.Core
             {
                 ExecuteCore(element);
             }
+            catch (RequirementException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new TaskExecutionException(e);
@@ -219,6 +231,10 @@ namespace Mix.Core
             try
             {
                 ExecuteCore(attribute);
+            }
+            catch (RequirementException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -232,6 +248,10 @@ namespace Mix.Core
             {
                 ExecuteCore(text);
             }
+            catch (RequirementException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new TaskExecutionException(e);
@@ -243,6 +263,10 @@ namespace Mix.Core
             try
             {
                 ExecuteCore(section);
+            }
+            catch (RequirementException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -256,6 +280,10 @@ namespace Mix.Core
             {
                 ExecuteCore(comment);
             }
+            catch (RequirementException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new TaskExecutionException(e);
@@ -268,6 +296,10 @@ namespace Mix.Core
             {
                 ExecuteCore(instruction);
             }
+            catch (RequirementException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new TaskExecutionException(e);
@@ -279,6 +311,10 @@ namespace Mix.Core
             try
             {
                 ExecuteCore(node);
+            }
+            catch (RequirementException)
+            {
+                throw;
             }
             catch (Exception e)
             {
