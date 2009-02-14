@@ -5,17 +5,12 @@ using Mix.Core.Attributes;
 namespace Mix.Tasks
 {
     [Description("Comments the selected elements.")]
-    public class Comment : Task
+    public class ConvertToComment : Task
     {
         protected override void ExecuteCore(XmlElement element)
         {
             var comment = element.OwnerDocument.CreateComment(element.OuterXml);
             element.ParentNode.ReplaceChild(comment, element);
-        }
-
-        protected override void ExecuteCore(XmlAttribute attribute)
-        {
-            ExecuteCore(attribute.OwnerElement);
         }
 
         protected override void ExecuteCore(XmlText text)

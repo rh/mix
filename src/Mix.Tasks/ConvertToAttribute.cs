@@ -13,8 +13,7 @@ namespace Mix.Tasks
     /// the element nothing changes.
     /// </summary>
     [Description("Converts elements to attributes.")]
-    [Alias("etoa")]
-    public class ConvertElementsToAttributes : Task
+    public class ConvertToAttribute : Task
     {
         protected override void ExecuteCore(XmlElement element)
         {

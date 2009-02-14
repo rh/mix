@@ -53,9 +53,9 @@
     <Compile Include="AddProcessingInstruction.cs" />
     <Compile Include="Clear.cs" />
     <Compile Include="AddElement.cs" />
-    <Compile Include="Comment.cs" />
-    <Compile Include="ConvertAttributesToElements.cs" />
-    <Compile Include="ConvertElementsToAttributes.cs" />
+    <Compile Include="ConvertToComment.cs" />
+    <Compile Include="ConvertToElement.cs" />
+    <Compile Include="ConvertToAttribute.cs" />
     <Compile Include="Count.cs" />
     <Compile Include="Extract.cs" />
     <Compile Include="InnerXml.cs" />

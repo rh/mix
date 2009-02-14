@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace Mix.Tasks.Tests
 {
     [TestFixture]
-    public class ConvertElementsToAttributesFixture : TestFixture
+    public class ConvertToAttributeFixture : TestFixture
     {
         [Test]
         public void ElementIsTextNode()
@@ -11,7 +11,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><foo>bar</foo></root>";
             const string post = @"<root foo=""bar""></root>";
             const string xpath = "//foo";
-            var task = new ConvertElementsToAttributes();
+            var task = new ConvertToAttribute();
             Run(pre, post, xpath, task);
         }
 
@@ -21,7 +21,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><foo><bar />bar</foo></root>";
             const string post = pre;
             const string xpath = "//foo";
-            var task = new ConvertElementsToAttributes();
+            var task = new ConvertToAttribute();
             Run(pre, post, xpath, task);
         }
     }
