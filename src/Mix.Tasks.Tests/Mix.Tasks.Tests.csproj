@@ -59,7 +59,7 @@
     <Compile Include="AppendFixture.cs" />
     <Compile Include="AddFragmentFixture.cs" />
     <Compile Include="ClearFixture.cs" />
-    <Compile Include="CommentFixture.cs" />
+    <Compile Include="ConvertToCommentFixture.cs" />
     <Compile Include="ConvertToElementFixture.cs" />
     <Compile Include="ConvertToAttributeFixture.cs" />
     <Compile Include="CountFixture.cs" />

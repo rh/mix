@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace Mix.Tasks.Tests
 {
     [TestFixture]
-    public class CommentFixture : TestFixture
+    public class ConvertToCommentFixture : TestFixture
     {
         [Test]
         public void CommentElement()
