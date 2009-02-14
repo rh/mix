@@ -4,7 +4,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Comments the selected elements.")]
+    [Description("Converts the selected nodes to comments.")]
     public class ConvertToComment : Task
     {
         protected override void ExecuteCore(XmlElement element)
