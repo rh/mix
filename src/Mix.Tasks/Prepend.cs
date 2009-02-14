@@ -7,11 +7,6 @@ namespace Mix.Tasks
     [Description("Prepends text to selected nodes (if they 'behave' like text), or to the value of the selected attributes.")]
     public class Prepend : Task
     {
-        public Prepend()
-        {
-            Value = string.Empty;
-        }
-
         [Argument, Required]
         [Description("The value to prepend.")]
         public string Value { get; set; }

@@ -7,15 +7,9 @@ namespace Mix.Tasks
     [Description("Adds a new CDATA section.")]
     public class AddCdataSection : Task
     {
-        private string @value = string.Empty;
-
         [Argument]
         [Description("The value of the CDATA section.")]
-        public string Value
-        {
-            get { return @value; }
-            set { this.@value = value; }
-        }
+        public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {

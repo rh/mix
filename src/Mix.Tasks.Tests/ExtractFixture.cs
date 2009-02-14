@@ -12,14 +12,6 @@ namespace Mix.Tasks.Tests
     public class ExtractFixture : TestFixture
     {
         [Test]
-        public void EmptyConstructor()
-        {
-            var task = new Extract();
-            Assert.IsNotNull(task.Name);
-            Assert.AreEqual(0, task.Name.Length);
-        }
-
-        [Test]
         [ExpectedException(typeof(XmlException))]
         public void XmlNotSet()
         {

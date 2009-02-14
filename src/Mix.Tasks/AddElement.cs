@@ -7,42 +7,18 @@ namespace Mix.Tasks
     [Description("Adds a new element.")]
     public class AddElement : Task
     {
-        private string name = string.Empty;
-        private string @value = string.Empty;
-        private string before = string.Empty;
-        private string after = string.Empty;
-
         [Argument, Required]
         [Description("The name of the new element.")]
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
-        [Argument]
-        [Description("The value of the new element.")]
-        public string Value
-        {
-            get { return @value; }
-            set { this.@value = value; }
-        }
+        [Argument, Description("The value of the new element.")]
+        public string Value { get; set; }
 
-        [Argument]
-        [Description("An XPath expression, applied to the selected element, which determines before which child the new element is added.")]
-        public string Before
-        {
-            get { return before; }
-            set { before = value; }
-        }
+        [Argument, Description("An XPath expression, applied to the selected element, which determines before which child the new element is added.")]
+        public string Before { get; set; }
 
-        [Argument]
-        [Description("An XPath expression, applied to the selected element, which determines after which child the new element is added.")]
-        public string After
-        {
-            get { return after; }
-            set { after = value; }
-        }
+        [Argument, Description("An XPath expression, applied to the selected element, which determines after which child the new element is added.")]
+        public string After { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {

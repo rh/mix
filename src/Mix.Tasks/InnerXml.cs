@@ -7,15 +7,9 @@ namespace Mix.Tasks
     [Description("Sets the inner XML of the selected elements or comments.")]
     public class InnerXml : Task
     {
-        private string xml = string.Empty;
-
         [Argument, XmlArgument, Required]
         [Description("The literal XML of the selected elements.")]
-        public string Xml
-        {
-            get { return xml; }
-            set { xml = value; }
-        }
+        public string Xml { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {
@@ -24,8 +18,7 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            // InnerText is used because InnerXml will throw;
-            // an XmlComment cannot have children.
+            // InnerText is used because InnerXml will throw: an XmlComment cannot have children.
             comment.InnerText = Xml;
         }
     }

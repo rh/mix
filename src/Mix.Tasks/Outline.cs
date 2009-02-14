@@ -7,14 +7,13 @@ namespace Mix.Tasks
     [Description("Shows an outline of the selected elements.")]
     public class Outline : Task, IReadOnly
     {
-        private int depth = 1;
+        public Outline()
+        {
+            Depth = 1;
+        }
 
         [Argument]
-        public int Depth
-        {
-            get { return depth; }
-            set { depth = value; }
-        }
+        public int Depth { get; set; }
 
         protected override void OnBeforeExecute(int count)
         {
@@ -41,10 +40,7 @@ namespace Mix.Tasks
                         Context.Output.WriteLine("{0}<{1}></{1}>", indentation, element.Name);
                         return;
                     }
-                    else
-                    {
-                        Context.Output.WriteLine("{0}<{1}>", indentation, element.Name);
-                    }
+                    Context.Output.WriteLine("{0}<{1}>", indentation, element.Name);
                 }
                 else
                 {

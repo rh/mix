@@ -11,7 +11,6 @@ namespace Mix.Tasks
     [ProcessingOrder(ProcessingOrder.Reverse)]
     public class Extract : Task
     {
-        private string name = string.Empty;
         private readonly TextWriter writer;
 
         public Extract()
@@ -25,11 +24,7 @@ namespace Mix.Tasks
 
         [Argument, Required]
         [Description("The name of the new file(s).\nPrepend with 'xpath:' to use an XPath expression on the current node.")]
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {

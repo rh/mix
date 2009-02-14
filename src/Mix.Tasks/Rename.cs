@@ -8,15 +8,9 @@ namespace Mix.Tasks
     [ProcessingOrder(ProcessingOrder.Reverse)]
     public class Rename : Task
     {
-        private string name = string.Empty;
-
         [Argument, Required]
         [Description("The new name for the elements or attributes.")]
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {
