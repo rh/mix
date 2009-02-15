@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
@@ -11,6 +12,14 @@ namespace Mix.Tasks
         {
             var section = element.OwnerDocument.CreateCDataSection(element.OuterXml);
             element.ParentNode.ReplaceChild(section, element);
+        }
+
+        protected override void ExecuteCore(XmlAttribute attribute)
+        {
+            var data = String.Format("{0}=\"{1}\"", attribute.Name, attribute.Value);
+            var section = attribute.OwnerDocument.CreateCDataSection(data);
+            attribute.OwnerElement.PrependChild(section);
+            attribute.OwnerElement.Attributes.Remove(attribute);
         }
 
         protected override void ExecuteCore(XmlText text)
