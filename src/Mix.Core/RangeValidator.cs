@@ -32,7 +32,7 @@ namespace Mix.Core
             if (RangeAttribute.IsDefinedOn(property))
             {
                 var attribute = (RangeAttribute) property.GetCustomAttributes(typeof(RangeAttribute), false)[0];
-                
+
                 if (value < attribute.MinValue)
                 {
                     description = String.Format("Value should be greater than {0}.", attribute.MinValue);

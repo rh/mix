@@ -19,7 +19,7 @@ namespace Mix.Core.Tests
         [Test]
         public void Length()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(someTask);
+            var arguments = ArgumentInfo.For(someTask);
             Assert.AreEqual(0, arguments.Length);
 
             arguments = ArgumentInfo.For(otherTask);
@@ -29,14 +29,14 @@ namespace Mix.Core.Tests
         [Test]
         public void Name()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
+            var arguments = ArgumentInfo.For(otherTask);
             Assert.AreEqual("Name", arguments[0].Name);
         }
 
         [Test]
         public void Description()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
+            var arguments = ArgumentInfo.For(otherTask);
             Assert.AreEqual("[no description]", arguments[0].Description);
             Assert.AreEqual("Description for Name2", arguments[1].Description);
         }
@@ -44,7 +44,7 @@ namespace Mix.Core.Tests
         [Test]
         public void Required()
         {
-            IArgumentInfo[] arguments = ArgumentInfo.For(otherTask);
+            var arguments = ArgumentInfo.For(otherTask);
             Assert.IsTrue(arguments[0].Required);
             Assert.IsFalse(arguments[1].Required);
         }

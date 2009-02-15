@@ -10,7 +10,7 @@ namespace Mix.Core.Tests
         {
         }
 
-        [Description("description")]
+        [Attributes.Description("description")]
         private class WithDescription
         {
         }

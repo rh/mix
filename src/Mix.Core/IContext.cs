@@ -11,7 +11,7 @@ namespace Mix.Core
         /// </summary>
         string FileName { get; set; }
 
-		Encoding Encoding { get; set; }
+        Encoding Encoding { get; set; }
 
         /// <summary>
         /// The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.

@@ -26,7 +26,7 @@ namespace Mix.Core.Attributes
     {
         public static bool IsDefinedOn(PropertyInfo property)
         {
-			return property.IsDefined(typeof(ArgumentAttribute), false);
+            return property.IsDefined(typeof(ArgumentAttribute), false);
         }
     }
 }

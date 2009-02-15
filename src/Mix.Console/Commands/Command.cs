@@ -76,21 +76,27 @@ namespace Mix.Console.Commands
             return GetType().Name.ToLower().Replace("command", "");
         }
 
-    	protected bool Equals(Command command)
-    	{
-    		if (command == null) return false;
-    		return GetType().Equals(command.GetType());
-    	}
+        protected bool Equals(Command command)
+        {
+            if (command == null)
+            {
+                return false;
+            }
+            return GetType().Equals(command.GetType());
+        }
 
-    	public override bool Equals(object obj)
-    	{
-    		if (ReferenceEquals(this, obj)) return true;
-    		return Equals(obj as Command);
-    	}
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            return Equals(obj as Command);
+        }
 
-    	public override int GetHashCode()
-    	{
-    		return GetType().FullName.GetHashCode();
-    	}
+        public override int GetHashCode()
+        {
+            return GetType().FullName.GetHashCode();
+        }
     }
 }
