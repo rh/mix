@@ -18,6 +18,13 @@ namespace Mix.Tasks
             element.ParentNode.ReplaceChild(instruction, element);
         }
 
+        protected override void ExecuteCore(XmlAttribute attribute)
+        {
+            var instruction = attribute.OwnerDocument.CreateProcessingInstruction(attribute.Name, attribute.Value);
+            attribute.OwnerElement.PrependChild(instruction);
+            attribute.OwnerElement.Attributes.Remove(attribute);
+        }
+
         protected override void ExecuteCore(XmlText text)
         {
             Validate();

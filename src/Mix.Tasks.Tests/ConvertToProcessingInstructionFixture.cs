@@ -16,6 +16,26 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void ConvertAttributeToProcessingInstruction()
+        {
+            const string pre = @"<root name=""value""/>";
+            const string post = @"<root><?name value?></root>";
+            const string xpath = "/root/@name";
+            var task = new ConvertToProcessingInstruction();
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ConvertAttributeToProcessingInstructionAndPrepend()
+        {
+            const string pre = @"<root a=""a"" b=""b"" c=""c""><a /><c /></root>";
+            const string post = @"<root a=""a"" c=""c""><?b b?><a /><c /></root>";
+            const string xpath = "/root/@b";
+            var task = new ConvertToProcessingInstruction();
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
         public void ConvertTextToProcessingInstruction()
         {
             const string pre = @"<root>text</root>";
