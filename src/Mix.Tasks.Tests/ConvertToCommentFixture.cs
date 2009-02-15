@@ -28,8 +28,8 @@ namespace Mix.Tasks.Tests
         [Test]
         public void CommentAttribute()
         {
-            const string pre = @"<root><element a="""" /><element a="""" /></root>";
-            const string post = pre; // Attributes cannot be commented
+            const string pre = @"<root><element a=""a"" /><element a=""a"" /></root>";
+            const string post = @"<root><element><!--a=""a""--></element><element><!--a=""a""--></element></root>";
             const string xpath = "//@a";
             var task = new ConvertToComment();
             Run(pre, post, xpath, task);
