@@ -111,6 +111,8 @@ namespace Mix.Console.Commands
 
         private void WriteTaskUsage()
         {
+            const int LeftMargin = 20;
+
             object obj = registry.Find(name)[0];
 
             if (obj is TaskCommand)
@@ -129,9 +131,9 @@ namespace Mix.Console.Commands
                 {
                     var description = argument.Description;
                     Write("  {0,-18}", argument.Name.ToLower());
-                    if (description.Length > System.Console.WindowWidth - 20)
+                    if (description.Length > System.Console.WindowWidth - LeftMargin)
                     {
-                        var parts = Wrap(description, System.Console.WindowWidth - 22);
+                        var parts = Wrap(description, System.Console.WindowWidth - LeftMargin - 2);
                         for (var i = 0; i < parts.Length; i++)
                         {
                             var part = parts[i];
@@ -141,7 +143,7 @@ namespace Mix.Console.Commands
                             }
                             else
                             {
-                                WriteLine("                    {0}", part);
+                                WriteLine("{0}{1}", new string(' ', LeftMargin), part);
                             }
                         }
                     }
@@ -151,7 +153,7 @@ namespace Mix.Console.Commands
                     }
                     if (argument.Required)
                     {
-                        WriteLine("                    [required]");
+                        WriteLine("{0}[required]", new string(' ', LeftMargin));
                     }
                 }
             }
