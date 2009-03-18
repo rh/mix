@@ -128,10 +128,10 @@ namespace Mix.Console.Commands
                 foreach (var argument in info.Arguments)
                 {
                     var description = argument.Description;
-                    Write("  {0,-15}", argument.Name.ToLower());
-                    if (description.Length > System.Console.WindowWidth - 17)
+                    Write("  {0,-18}", argument.Name.ToLower());
+                    if (description.Length > System.Console.WindowWidth - 20)
                     {
-                        var parts = Wrap(description, System.Console.WindowWidth - 19);
+                        var parts = Wrap(description, System.Console.WindowWidth - 22);
                         for (var i = 0; i < parts.Length; i++)
                         {
                             var part = parts[i];
