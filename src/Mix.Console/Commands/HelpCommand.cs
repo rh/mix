@@ -121,7 +121,12 @@ namespace Mix.Console.Commands
             }
 
             var info = TaskInfo.For(obj);
-            WriteLine("{0}: {1}", obj, info.Description);
+            var taskDescription = String.Format("{0}: {1}", obj, info.Description);
+            var taskParts = Wrap(taskDescription, System.Console.WindowWidth);
+            for (var i = 0; i < taskParts.Length; i++)
+            {
+                WriteLine(taskParts[i]);
+            }
 
             if (info.Arguments.Length > 0)
             {
@@ -131,9 +136,9 @@ namespace Mix.Console.Commands
                 {
                     var description = argument.Description;
                     Write("  {0,-18}", argument.Name.ToLower());
-                    if (description.Length > System.Console.WindowWidth - LeftMargin)
+                    if (description.Length >= System.Console.WindowWidth - LeftMargin)
                     {
-                        var parts = Wrap(description, System.Console.WindowWidth - LeftMargin - 2);
+                        var parts = Wrap(description, System.Console.WindowWidth - LeftMargin);
                         for (var i = 0; i < parts.Length; i++)
                         {
                             var part = parts[i];
@@ -186,13 +191,13 @@ namespace Mix.Console.Commands
                 var parts = line.Split(' ');
                 foreach (var part in parts)
                 {
-                    if (builder.Length + part.Length + 1 < length)
+                    if (builder.Length + part.Length + 1 <= length)
                     {
                         builder.AppendFormat("{0} ", part);
                     }
                     else
                     {
-                        list.Add(builder.ToString());
+                        list.Add(builder.ToString().TrimEnd());
                         builder = new StringBuilder();
                         builder.AppendFormat("{0} ", part);
                     }
@@ -200,7 +205,7 @@ namespace Mix.Console.Commands
 
                 if (builder.Length > 0)
                 {
-                    list.Add(builder.ToString());
+                    list.Add(builder.ToString().TrimEnd());
                 }
             }
 
