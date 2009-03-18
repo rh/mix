@@ -11,6 +11,7 @@ namespace Mix.Tasks
     [Description("Shows all selected nodes.")]
     public class Show : Task, IReadOnly
     {
+        [Argument, Description("If set, line numbers are shown before each selected node.")]
         public bool ShowLineNumbers { get; set; }
 
         protected override bool ExecuteCore(IContext context)
