@@ -141,7 +141,7 @@ namespace Mix.Console.Commands
                             }
                             else
                             {
-                                WriteLine("                 {0}", part);
+                                WriteLine("                    {0}", part);
                             }
                         }
                     }
@@ -151,7 +151,7 @@ namespace Mix.Console.Commands
                     }
                     if (argument.Required)
                     {
-                        WriteLine("                 [required]");
+                        WriteLine("                    [required]");
                     }
                 }
             }
