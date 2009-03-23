@@ -71,7 +71,6 @@
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
     <Compile Include="PrependFixture.cs" />
-    <Compile Include="PrettyPrintFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveFixture.cs" />
     <Compile Include="RenameFixture.cs" />
