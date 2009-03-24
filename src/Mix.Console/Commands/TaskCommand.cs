@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using log4net;
+using Mix.Console.Exceptions;
 using Mix.Core;
 using Mix.Core.Exceptions;
 
@@ -35,7 +36,24 @@ namespace Mix.Console.Commands
 
         public override int Execute()
         {
-            var files = GetFiles(Context["file"]);
+            if (String.IsNullOrEmpty(Context["file"]))
+            {
+                Context.Output.WriteLine("No files have been selected.");
+                return 1;
+            }
+
+            IList<string> files;
+
+            try
+            {
+                var paths = new PathExpander();
+                files = paths.Expand(Environment.CurrentDirectory, Context["file"]);
+            }
+            catch (InvalidPathException e)
+            {
+                Context.Output.WriteLine(e.Message);
+                return 1;
+            }
 
             if (files.Count == 0)
             {
@@ -113,7 +131,7 @@ namespace Mix.Console.Commands
             {
                 var document = new XmlDocument();
                 document.LoadXml(Context.Xml);
-                var settings = new XmlWriterSettings {Indent = true, Encoding = Context.Encoding};
+                var settings = new XmlWriterSettings {Encoding = Context.Encoding};
                 using (var writer = XmlWriter.Create(file, settings))
                 {
                     document.WriteContentTo(writer);
@@ -127,75 +145,6 @@ namespace Mix.Console.Commands
                 return false;
             }
             return true;
-        }
-
-        private IList<string> GetFiles(string patterns)
-        {
-            if (String.IsNullOrEmpty(patterns))
-            {
-                return new List<string>();
-            }
-            return GetFiles(patterns.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries));
-        }
-
-        private IList<string> GetFiles(IEnumerable<string> patterns)
-        {
-            IList<string> files = new List<string>();
-
-            foreach (var pattern in patterns)
-            {
-                if (Directory.Exists(pattern))
-                {
-                    var directory = new DirectoryInfo(pattern);
-                    foreach (var file in directory.GetFiles("*.xml", SearchOption.TopDirectoryOnly))
-                    {
-                        files.Add(file.FullName);
-                    }
-                }
-                else
-                {
-                    string path = null;
-                    try
-                    {
-                        path = Path.GetDirectoryName(pattern);
-                    }
-                    catch
-                    {
-                    }
-
-                    if (path != null && Directory.Exists(path))
-                    {
-                        var directory = new DirectoryInfo(Path.GetDirectoryName(pattern));
-                        foreach (var file in directory.GetFiles(Path.GetFileName(pattern), SearchOption.TopDirectoryOnly))
-                        {
-                            files.Add(file.FullName);
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            var directory = new DirectoryInfo(".");
-                            foreach (var file in directory.GetFiles(pattern.Trim(), SearchOption.TopDirectoryOnly))
-                            {
-                                files.Add(file.FullName);
-                            }
-                        }
-                        catch (IOException e)
-                        {
-                            log.Error("The pattern is not valid.", e);
-                            Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                        }
-                        catch (ArgumentException e)
-                        {
-                            log.Error("The pattern is not valid.", e);
-                            Context.Error.WriteLine("'{0}' is not a valid filename or pattern.", pattern);
-                        }
-                    }
-                }
-            }
-
-            return Uniquefy(files);
         }
 
         /// <summary>
@@ -236,19 +185,6 @@ namespace Mix.Console.Commands
             }
 
             return Encoding.UTF8;
-        }
-
-        private static IList<string> Uniquefy(IEnumerable<string> list)
-        {
-            IList<string> uniques = new List<string>();
-            foreach (var item in list)
-            {
-                if (!uniques.Contains(item))
-                {
-                    uniques.Add(item);
-                }
-            }
-            return uniques;
         }
 
         public override string ToString()
