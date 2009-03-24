@@ -33,17 +33,16 @@ namespace Mix.Tasks
                         while (iterator.MoveNext())
                         {
                             var current = iterator.Current;
+                            var prefix = string.Empty;
+
                             var info = current as IXmlLineInfo;
                             if (info != null)
                             {
-                                var prefix = ShowLineNumbers ? string.Format("{0,4}: ", info.LineNumber) : string.Empty;
-                                var xml = prefix + current.OuterXml.Trim().Replace(Environment.NewLine, Environment.NewLine + new string(' ', prefix.Length));
-                                context.Output.WriteLine(xml);
+                                prefix = ShowLineNumbers ? string.Format("{0,4}: ", info.LineNumber) : prefix;
                             }
-                            else
-                            {
-                                context.Output.WriteLine(current.OuterXml.Trim());
-                            }
+
+                            var xml = prefix + current.OuterXml.Trim().Replace(Environment.NewLine, Environment.NewLine + new string(' ', prefix.Length));
+                            context.Output.WriteLine(xml);
                         }
                     }
                     catch (XPathException e)
