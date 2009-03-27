@@ -30,7 +30,7 @@ namespace Mix.Tasks.Tests
                 var context = new Context("<root />", "foo", writer) {FileName = "file"};
                 var task = new Show();
                 task.Execute(context);
-                Assert.That(writer.ToString(), Is.EqualTo(String.Empty));
+                Assert.IsTrue(writer.ToString().StartsWith("file: 0"));
             }
         }
 
@@ -39,10 +39,10 @@ namespace Mix.Tasks.Tests
         {
             using (TextWriter writer = new StringWriter())
             {
-                var context = new Context {Xml = "<root/>", FileName = "file", Output = writer};
+                var context = new Context("<root/>", "//foo") {FileName = "file", Output = writer};
                 var task = new Show();
                 task.Execute(context);
-                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: no selection.{0}", Environment.NewLine)));
+                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 0{0}", Environment.NewLine)));
             }
         }
 

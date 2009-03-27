@@ -120,6 +120,10 @@ namespace Mix.Core
                     {
                         Execute(node as XmlProcessingInstruction);
                     }
+                    else if (node is XmlDocument)
+                    {
+                        Execute(node as XmlDocument);
+                    }
 
                     // The 'generic' method is always executed, so subclasses need only to
                     // implement ExecuteCore(XmlNode) for generic behaviour.
@@ -154,6 +158,10 @@ namespace Mix.Core
                     else if (node is XmlProcessingInstruction)
                     {
                         Execute(node as XmlProcessingInstruction);
+                    }
+                    else if (node is XmlDocument)
+                    {
+                        Execute(node as XmlDocument);
                     }
 
                     // The 'generic' method is always executed, so subclasses need only to
@@ -199,6 +207,22 @@ namespace Mix.Core
             try
             {
                 OnAfterExecute();
+            }
+            catch (RequirementException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new TaskExecutionException(e);
+            }
+        }
+
+        private void Execute(XmlDocument document)
+        {
+            try
+            {
+                ExecuteCore(document);
             }
             catch (RequirementException)
             {
@@ -409,6 +433,10 @@ namespace Mix.Core
         protected virtual bool ExecuteCore(IContext context)
         {
             return false;
+        }
+
+        protected virtual void ExecuteCore(XmlDocument document)
+        {
         }
 
         protected virtual void ExecuteCore(XmlElement element)
