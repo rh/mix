@@ -74,7 +74,14 @@ namespace Mix.Console.Commands
 
         private bool ExecuteTask(string file)
         {
-            Context.FileName = file;
+            if (file.StartsWith(Environment.CurrentDirectory))
+            {
+                Context.FileName = file.Substring(Environment.CurrentDirectory.Length + 1);
+            }
+            else
+            {
+                Context.FileName = file;
+            }
             Context.Encoding = GetFileEncoding(file);
 
             try
