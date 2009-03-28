@@ -50,7 +50,6 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="NamespaceCollectingXmlReader.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskInfo.cs" />
