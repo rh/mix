@@ -262,8 +262,10 @@ namespace Mix.Tasks
 
         protected override void OnBeforeExecute(int count)
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
             ForegroundColor = Console.ForegroundColor;
+            Context.Output.Write("{0}: ", Context.FileName);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Context.Output.WriteLine("{0}", count);
         }
 
         protected override void OnAfterExecute()
