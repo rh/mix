@@ -16,15 +16,27 @@ namespace Mix.Core
         public static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
-            foreach (XmlAttribute attribute in document.SelectSingleNode("/*").Attributes)
+            foreach (XmlNode node in document.SelectNodes("//node()"))
             {
-                if (attribute.Name == "xmlns")
+                if (node is XmlElement)
                 {
-                    manager.AddNamespace("default", attribute.Value);
-                }
-                if (attribute.Prefix == "xmlns")
-                {
-                    manager.AddNamespace(attribute.LocalName, attribute.Value);
+                    var element = node as XmlElement;
+                    foreach (XmlAttribute attribute in element.Attributes)
+                    {
+                        if (attribute.Name == "xmlns")
+                        {
+                            // The first default namespace wins
+                            // (since using multiple default namespaces in a single file is not considered a good practice)
+                            if (!manager.HasNamespace("default"))
+                            {
+                                manager.AddNamespace("default", attribute.Value);
+                            }
+                        }
+                        if (attribute.Prefix == "xmlns")
+                        {
+                            manager.AddNamespace(attribute.LocalName, attribute.Value);
+                        }
+                    }
                 }
             }
             return manager;
