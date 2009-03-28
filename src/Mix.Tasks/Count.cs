@@ -1,3 +1,4 @@
+using System;
 using Mix.Core;
 using Mix.Core.Attributes;
 
@@ -11,7 +12,11 @@ namespace Mix.Tasks
             // TODO: let this be the result of --quiet, -verbose arguments etc.
             if (count > 0)
             {
-                Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+                var color = Console.ForegroundColor;
+                Context.Output.Write("{0}: ", Context.FileName);
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Context.Output.WriteLine("{0}", count);
+                Console.ForegroundColor = color;
             }
         }
     }
