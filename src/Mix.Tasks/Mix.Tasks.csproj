@@ -63,6 +63,7 @@
     <Compile Include="Extract.cs" />
     <Compile Include="InnerXml.cs" />
     <Compile Include="LowerCase.cs" />
+    <Compile Include="Namespaces.cs" />
     <Compile Include="Outline.cs" />
     <Compile Include="Prepend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
