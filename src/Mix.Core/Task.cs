@@ -11,6 +11,8 @@ namespace Mix.Core
     {
         public IContext Context { get; private set; }
 
+        protected XmlDocument Document { get; private set; }
+
         private void Initialize(IContext context)
         {
             Context = context;
@@ -70,6 +72,10 @@ namespace Mix.Core
             Initialize(context);
             Validate(context);
 
+            var document = new XmlDocument {InnerXml = context.Xml};
+            Document = document;
+            var manager = XmlHelper.CreateNamespaceManager(document);
+
             if (ExecuteCore(context))
             {
                 return; // The subclass has handled the task
@@ -80,9 +86,6 @@ namespace Mix.Core
             {
                 throw new RequirementException("'xpath' is required.", "xpath", "");
             }
-
-            var document = new XmlDocument {InnerXml = context.Xml};
-            var manager = XmlHelper.CreateNamespaceManager(document);
 
             // Tasks may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
