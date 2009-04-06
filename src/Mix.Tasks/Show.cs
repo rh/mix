@@ -51,7 +51,7 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlText text)
         {
-            Print(text);
+            Print(text, true);
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
@@ -215,8 +215,18 @@ namespace Mix.Tasks
 
         public void Print(XmlText text)
         {
+            Print(text, false);
+        }
+
+        public void Print(XmlText text, bool enter)
+        {
             Console.ForegroundColor = TextColor;
             Context.Output.Write(text.Value.Trim());
+
+            if (enter)
+            {
+                Context.Output.WriteLine();
+            }
         }
 
         public void Print(XmlCDataSection section)
