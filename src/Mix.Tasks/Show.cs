@@ -12,10 +12,10 @@ namespace Mix.Tasks
         protected const ConsoleColor ElementColor = ConsoleColor.DarkGray;
         protected const ConsoleColor AttributeColor = ConsoleColor.Gray;
         protected const ConsoleColor StringColor = ConsoleColor.DarkCyan;
-        protected const ConsoleColor TextColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor CDataColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor CommentColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor ProcessingInstructionColor = ConsoleColor.DarkGray;
+        protected const ConsoleColor TextColor = ConsoleColor.DarkCyan;
+        protected const ConsoleColor CDataColor = ConsoleColor.DarkCyan;
+        protected const ConsoleColor CommentColor = ConsoleColor.DarkCyan;
+        protected const ConsoleColor ProcessingInstructionColor = ConsoleColor.DarkCyan;
 
         protected ConsoleColor ForegroundColor;
 
