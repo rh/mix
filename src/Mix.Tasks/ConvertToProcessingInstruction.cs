@@ -51,7 +51,7 @@ namespace Mix.Tasks
             if (string.IsNullOrEmpty(Name))
             {
                 // TODO: remove duplication
-                throw new RequirementException("'Name' is required when a node other then an element is selected.", "Name", "The name of the processing instruction. Required for nodes other then elements.");
+                throw new RequirementException("'Name' is required when a node other then an element or attribute is selected.", "Name", "The name of the processing instruction. Required for nodes other then elements or attributes.");
             }
         }
     }
