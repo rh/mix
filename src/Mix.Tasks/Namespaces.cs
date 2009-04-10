@@ -12,7 +12,7 @@ namespace Mix.Tasks
         {
             context.Output.Write("{0}: ", context.FileName);
 
-            var ForegroundColor = Console.ForegroundColor;
+            var foregroundColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
 
             var manager = XmlHelper.CreateNamespaceManager(Document);
@@ -23,7 +23,7 @@ namespace Mix.Tasks
                 context.Output.WriteLine("  {0,-12} {1}", pair.Key, pair.Value);
             }
 
-            Console.ForegroundColor = ForegroundColor;
+            Console.ForegroundColor = foregroundColor;
 
             return true;
         }
