@@ -60,7 +60,6 @@
     <Compile Include="ConvertToProcessingInstruction.cs" />
     <Compile Include="ConvertToText.cs" />
     <Compile Include="Count.cs" />
-    <Compile Include="Extract.cs" />
     <Compile Include="InnerXml.cs" />
     <Compile Include="LowerCase.cs" />
     <Compile Include="Namespaces.cs" />
