@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Adds an XML fragment to the selected elements.")]
     public class AddFragment : Task
     {
-        [Argument, XmlArgument, Required]
+        [XmlArgument, Required]
         [Description("The raw xml of the new element.")]
         public string Fragment { get; set; }
 

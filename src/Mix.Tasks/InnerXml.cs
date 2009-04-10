@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Sets the inner XML of the selected elements or comments.")]
     public class InnerXml : Task
     {
-        [Argument, XmlArgument, Required]
+        [XmlArgument, Required]
         [Description("The literal XML of the selected elements.")]
         public string Xml { get; set; }
 

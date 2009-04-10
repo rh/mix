@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace Mix.Core.Attributes
 {
@@ -25,5 +26,9 @@ namespace Mix.Core.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class XmlArgumentAttribute : Attribute
     {
+        public static bool IsDefinedOn(PropertyInfo property)
+        {
+            return property.IsDefined(typeof(XmlArgumentAttribute), false);
+        }
     }
 }

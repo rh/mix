@@ -16,7 +16,7 @@ namespace Mix.Core
 
             foreach (var property in obj.GetType().GetProperties())
             {
-                if (ArgumentAttribute.IsDefinedOn(property))
+                if (ArgumentAttribute.IsDefinedOn(property) || XmlArgumentAttribute.IsDefinedOn(property))
                 {
                     properties.Add(property);
                 }
