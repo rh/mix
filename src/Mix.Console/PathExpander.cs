@@ -25,7 +25,7 @@ namespace Mix.Console
         /// This methods resolves the full paths from all files represented by <paramref name="patterns"/>.
         /// Relative paths are resolved relative to <paramref name="workingDirectory"/>.
         /// </summary>
-        /// <param name="workingDirectory">The directory which relative path are relative to.</param>
+        /// <param name="workingDirectory">The directory which relative paths are relative to.</param>
         /// <param name="patterns">A list of absolute or relative directories and/or files and/or patterns.</param>
         /// <returns></returns>
         public IList<string> Expand(string workingDirectory, IEnumerable<string> patterns)
