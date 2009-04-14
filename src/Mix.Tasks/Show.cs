@@ -26,7 +26,7 @@ namespace Mix.Tasks
         public bool SkipComments { get; set; }
 
         [Argument, Description("If set, processing instructions are not shown in the output.")]
-        public bool SkipProcessingInstructions { get; set; }
+        public bool SkipPI { get; set; }
 
         public Show()
         {
@@ -189,7 +189,7 @@ namespace Mix.Tasks
                 }
                 else if (node is XmlProcessingInstruction)
                 {
-                    if (SkipProcessingInstructions == false)
+                    if (SkipPI == false)
                     {
                         Indent(level + 1);
                         Print(node as XmlProcessingInstruction);
@@ -252,7 +252,7 @@ namespace Mix.Tasks
 
         public void Print(XmlProcessingInstruction instruction)
         {
-            if (SkipProcessingInstructions)
+            if (SkipPI)
             {
                 return;
             }
