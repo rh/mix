@@ -47,7 +47,8 @@ namespace Mix.Console.Commands
             try
             {
                 var paths = new PathExpander();
-                files = paths.Expand(Environment.CurrentDirectory, Context["file"]);
+                bool recursive = Context.ContainsKey("recursive");
+                files = paths.Expand(Environment.CurrentDirectory, Context["file"], recursive);
             }
             catch (InvalidPathException e)
             {

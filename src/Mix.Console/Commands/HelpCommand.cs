@@ -8,6 +8,8 @@ namespace Mix.Console.Commands
 {
     public class HelpCommand : Command
     {
+        const int LeftMargin = 20;
+
         private readonly string name = String.Empty;
         private readonly CommandRegistry registry;
 
@@ -111,8 +113,6 @@ namespace Mix.Console.Commands
 
         private void WriteTaskUsage()
         {
-            const int LeftMargin = 20;
-
             object obj = registry.Find(name)[0];
 
             if (obj is TaskCommand)
@@ -128,39 +128,48 @@ namespace Mix.Console.Commands
                 WriteLine(taskParts[i]);
             }
 
-            if (info.Arguments.Length > 0)
+            Write(Environment.NewLine);
+            WriteLine("Arguments:");
+            foreach (var argument in info.Arguments)
             {
-                Write(Environment.NewLine);
-                WriteLine("Arguments:");
-                foreach (var argument in info.Arguments)
+                WriteTaskName(argument.Name.ToLower());
+                WriteTaskDescription(argument.Description);
+
+                if (argument.Required)
                 {
-                    var description = argument.Description;
-                    Write("  {0,-18}", argument.Name.ToLower());
-                    if (description.Length >= System.Console.WindowWidth - LeftMargin)
+                    WriteLine("{0}[required]", new string(' ', LeftMargin));
+                }
+            }
+            WriteTaskName("recursive");
+            WriteTaskDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
+        }
+
+        private void WriteTaskName(string name)
+        {
+            Write("  {0,-18}", name);
+        }
+
+        private void WriteTaskDescription(string description)
+        {
+            if (description.Length >= System.Console.WindowWidth - LeftMargin)
+            {
+                var parts = Wrap(description, System.Console.WindowWidth - LeftMargin);
+                for (var i = 0; i < parts.Length; i++)
+                {
+                    var part = parts[i];
+                    if (i == 0)
                     {
-                        var parts = Wrap(description, System.Console.WindowWidth - LeftMargin);
-                        for (var i = 0; i < parts.Length; i++)
-                        {
-                            var part = parts[i];
-                            if (i == 0)
-                            {
-                                WriteLine(part);
-                            }
-                            else
-                            {
-                                WriteLine("{0}{1}", new string(' ', LeftMargin), part);
-                            }
-                        }
+                        WriteLine(part);
                     }
                     else
                     {
-                        WriteLine(description);
-                    }
-                    if (argument.Required)
-                    {
-                        WriteLine("{0}[required]", new string(' ', LeftMargin));
+                        WriteLine("{0}{1}", new string(' ', LeftMargin), part);
                     }
                 }
+            }
+            else
+            {
+                WriteLine(description);
             }
         }
 

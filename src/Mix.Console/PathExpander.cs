@@ -12,13 +12,13 @@ namespace Mix.Console
         readonly IList<string> files = new List<string>();
         private const SearchOption searchOption = SearchOption.TopDirectoryOnly;
 
-        public IList<string> Expand(string workingDirectory, string patterns)
+        public IList<string> Expand(string workingDirectory, string patterns, bool recursively)
         {
             if (patterns == null)
             {
                 return files;
             }
-            return Expand(workingDirectory, patterns.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries));
+            return Expand(workingDirectory, patterns.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries), recursively);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Mix.Console
         /// <param name="workingDirectory">The directory which relative paths are relative to.</param>
         /// <param name="patterns">A list of absolute or relative directories and/or files and/or patterns.</param>
         /// <returns></returns>
-        public IList<string> Expand(string workingDirectory, IEnumerable<string> patterns)
+        public IList<string> Expand(string workingDirectory, IEnumerable<string> patterns, bool recursively)
         {
             foreach (var pattern in patterns)
             {
@@ -39,7 +39,7 @@ namespace Mix.Console
                     //   temp
                     //   ..\temp
                     //   .
-                    AddFromDirectory(pattern, "*.xml");
+                    AddFromDirectory(pattern, "*.xml", recursively);
                 }
                 else if (File.Exists(pattern))
                 {
@@ -74,7 +74,7 @@ namespace Mix.Console
                     {
                         // Examples of 'pattern' that may lead here:
                         //   C:\Projects\Mix\*.xml
-                        AddFromDirectory(path, Path.GetFileName(pattern));
+                        AddFromDirectory(path, Path.GetFileName(pattern), recursively);
                     }
                     else
                     {
@@ -84,7 +84,7 @@ namespace Mix.Console
                         {
                             // Since 'path = Path.GetDirectoryName(pattern)' above results in path being null,
                             // only a pattern is specified, e.g. '*.xml'
-                            AddFromDirectory(workingDirectory, pattern.Trim());
+                            AddFromDirectory(workingDirectory, pattern.Trim(), recursively);
                         }
                         catch (IOException e)
                         {
@@ -101,12 +101,19 @@ namespace Mix.Console
             return Uniquefy(files);
         }
 
-        private void AddFromDirectory(string path, string searchPattern)
+        private void AddFromDirectory(string path, string searchPattern, bool recursively)
         {
-            var directory = new DirectoryInfo(path);
-            foreach (var file in directory.GetFiles(searchPattern, searchOption))
+            foreach (var file in new DirectoryInfo(path).GetFiles(searchPattern, searchOption))
             {
                 files.Add(file.FullName);
+            }
+            
+            if (recursively)
+            {
+                foreach (var directory in new DirectoryInfo(path).GetDirectories())
+                {
+                    AddFromDirectory(directory.FullName, searchPattern, recursively);
+                }
             }
         }
 
