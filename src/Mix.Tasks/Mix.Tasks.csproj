@@ -74,6 +74,7 @@
     <Compile Include="SetGuid.cs" />
     <Compile Include="Show.cs" />
     <Compile Include="Trim.cs" />
+    <Compile Include="Unwrap.cs" />
     <Compile Include="UpperCase.cs" />
   </ItemGroup>
   <ItemGroup>
