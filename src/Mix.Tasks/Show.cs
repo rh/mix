@@ -19,6 +19,9 @@ namespace Mix.Tasks
 
         protected ConsoleColor ForegroundColor;
 
+        [Argument, Description("A comma-separated list of XPath expressions of nodes to skip in the output.")]
+        public string Skip { get; set; }
+
         [Argument, Description("If set, attributes are not shown in the output.")]
         public bool SkipAttributes { get; set; }
 
@@ -35,11 +38,47 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlDocument document)
         {
+            if (!string.IsNullOrEmpty(Skip))
+            {
+                foreach (var xpath in Skip.Split(','))
+                {
+                    foreach (XmlNode node in document.SelectNodes(xpath))
+                    {
+                        if (node is XmlAttribute)
+                        {
+                            var attribute = node as XmlAttribute;
+                            attribute.OwnerElement.RemoveAttributeNode(attribute);
+                        }
+                        else
+                        {
+                            node.ParentNode.RemoveChild(node);
+                        }
+                    }
+                }
+            }
             Print(document.DocumentElement, 0);
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
+            if (!string.IsNullOrEmpty(Skip))
+            {
+                foreach (var xpath in Skip.Split(','))
+                {
+                    foreach (XmlNode node in element.SelectNodes(xpath))
+                    {
+                        if (node is XmlAttribute)
+                        {
+                            var attribute = node as XmlAttribute;
+                            attribute.OwnerElement.RemoveAttributeNode(attribute);
+                        }
+                        else
+                        {
+                            node.ParentNode.RemoveChild(node);
+                        }
+                    }
+                }
+            }
             Print(element, 0);
         }
 
