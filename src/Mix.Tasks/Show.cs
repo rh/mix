@@ -25,6 +25,9 @@ namespace Mix.Tasks
         [Argument, Description("If set, attributes are not shown in the output.")]
         public bool SkipAttributes { get; set; }
 
+        [Argument, Description("If set, text and CDATA are not shown in the output.")]
+        public bool SkipText { get; set; }
+
         [Argument, Description("If set, comments are not shown in the output.")]
         public bool SkipComments { get; set; }
 
@@ -173,11 +176,17 @@ namespace Mix.Tasks
             }
             else if (node is XmlText)
             {
-                Print(node as XmlText);
+                if (SkipText == false)
+                {
+                    Print(node as XmlText);
+                }
             }
             else if (node is XmlCDataSection)
             {
-                Print(node as XmlCDataSection);
+                if (SkipText == false)
+                {
+                    Print(node as XmlCDataSection);
+                }
             }
             else if (node is XmlComment)
             {
@@ -207,15 +216,21 @@ namespace Mix.Tasks
                 }
                 else if (node is XmlText)
                 {
-                    Indent(level + 1);
-                    Print(node as XmlText);
-                    Context.Output.WriteLine();
+                    if (SkipText == false)
+                    {
+                        Indent(level + 1);
+                        Print(node as XmlText);
+                        Context.Output.WriteLine();
+                    }
                 }
                 else if (node is XmlCDataSection)
                 {
-                    Indent(level + 1);
-                    Print(node as XmlCDataSection);
-                    Context.Output.WriteLine();
+                    if (SkipText == false)
+                    {
+                        Indent(level + 1);
+                        Print(node as XmlCDataSection);
+                        Context.Output.WriteLine();
+                    }
                 }
                 else if (node is XmlComment)
                 {
@@ -259,6 +274,11 @@ namespace Mix.Tasks
 
         public void Print(XmlText text, bool enter)
         {
+            if (SkipText)
+            {
+                return;
+            }
+
             Console.ForegroundColor = TextColor;
             Context.Output.Write(text.Value.Trim());
 
@@ -270,6 +290,11 @@ namespace Mix.Tasks
 
         public void Print(XmlCDataSection section)
         {
+            if (SkipText)
+            {
+                return;
+            }
+
             Console.ForegroundColor = BracketColor;
             Context.Output.Write("<![CDATA[");
             Console.ForegroundColor = CDataColor;
