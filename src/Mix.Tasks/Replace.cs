@@ -1,11 +1,12 @@
 using System;
 using System.Xml;
+using System.Text.RegularExpressions;
 using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes.\nUse \\n for new-line and \\t for tab.")]
+    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes. Regular expressions are allowed.")]
     public class Replace : Task
     {
         public Replace()
@@ -19,44 +20,40 @@ namespace Mix.Tasks
 
         [Argument, Description("The value to replace the old value.")]
         public string New { get; set; }
-
-        protected override void OnBeforeExecute(int count)
+				
+        private string DoReplace(string value)
         {
-            Old = Old.Replace("\\n", Environment.NewLine);
-            Old = Old.Replace("\\t", "\t");
-
-            New = New.Replace("\\n", Environment.NewLine);
-            New = New.Replace("\\t", "\t");
+            return Regex.Replace(value, Old, New);
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            element.InnerXml = element.InnerXml.Replace(Old, New);
+            element.InnerXml = DoReplace(element.InnerXml);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            attribute.Value = attribute.Value.Replace(Old, New);
+            attribute.Value = DoReplace(attribute.Value);
         }
 
         protected override void ExecuteCore(XmlText text)
         {
-            text.Value = text.Value.Replace(Old, New);
+            text.Value = DoReplace(text.Value);
         }
 
         protected override void ExecuteCore(XmlCDataSection section)
         {
-            section.Value = section.Value.Replace(Old, New);
+            section.Value = DoReplace(section.Value);
         }
 
         protected override void ExecuteCore(XmlComment comment)
         {
-            comment.Value = comment.Value.Replace(Old, New);
+            comment.Value = DoReplace(comment.Value);
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
-            instruction.Value = instruction.Value.Replace(Old, New);
+            instruction.Value = DoReplace(instruction.Value);
         }
     }
 }

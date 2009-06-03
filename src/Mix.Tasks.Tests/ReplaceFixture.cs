@@ -41,7 +41,7 @@ namespace Mix.Tasks.Tests
         {
             var pre = @"<root>abcd" + Environment.NewLine + "efgh</root>";
             var post = @"<root>abcd<br />efgh</root>";
-            var xpath = "root"; // &#xa;&#xd;
+            var xpath = "root";
             var task = new Replace {Old = Environment.NewLine, New = "<br />"};
             Run(pre, post, xpath, task);
         }
@@ -51,8 +51,19 @@ namespace Mix.Tasks.Tests
         {
             var pre = @"<root>abcd" + Environment.NewLine + "efgh</root>";
             var post = @"<root>abcd<br />efgh</root>";
-            var xpath = "root"; // &#xa;&#xd;
-            var task = new Replace {Old = "\\n", New = "<br />"};
+            var xpath = "root";
+            // The carriage return \r is optional, because Environment.NewLine is depends upon the platform
+            var task = new Replace {Old = @"(\r)?\n", New = "<br />"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceTab()
+        {
+            var pre = "<root>abcd\tefgh</root>";
+            var post = @"<root>abcd<br />efgh</root>";
+            var xpath = "root";
+            var task = new Replace {Old = "\t", New = "<br />"};
             Run(pre, post, xpath, task);
         }
 
