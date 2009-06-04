@@ -6,24 +6,32 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Replaces text in the text nodes of selected elements or in the values of selected attributes. Regular expressions are allowed.")]
+    [Description("Replaces text in the inner XML of elements and in attributes, text nodes, CDATA sections, comments and processing instructions using regular expressions.")]
     public class Replace : Task
     {
         public Replace()
         {
-            Old = string.Empty;
-            New = string.Empty;
+            Pattern = string.Empty;
+            Replacement = string.Empty;
         }
 
-        [Argument, Required, Description("The value to be replaced.")]
-        public string Old { get; set; }
+        [Argument, Required, Description("A regular expression specifying the value to be replaced.")]
+        public string Pattern { get; set; }
 
-        [Argument, Description("The value to replace the old value.")]
-        public string New { get; set; }
-				
+        [Argument, Description("The replacement string, which may contain backreferences (e.g. $1).")]
+        public string Replacement { get; set; }
+
+        [Argument, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
+        public bool IgnoreCase { get; set; }
+
         private string DoReplace(string value)
         {
-            return Regex.Replace(value, Old, New);
+            RegexOptions options = RegexOptions.None;
+            if (IgnoreCase)
+            {
+                options |= RegexOptions.IgnoreCase;
+            }
+            return Regex.Replace(value, Pattern, Replacement, options);
         }
 
         protected override void ExecuteCore(XmlElement element)
