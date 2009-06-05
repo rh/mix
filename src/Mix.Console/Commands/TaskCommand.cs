@@ -109,7 +109,7 @@ namespace Mix.Console.Commands
             catch (RequirementException e)
             {
                 log.Error(e.Message, e);
-                var message = String.Format("Required argument '{0}' is missing.", e.Property.ToLower());
+                var message = String.Format("Required option '{0}' is missing.", e.Property.ToLower());
                 WriteLine(message);
                 if (e.Description.Length > 0)
                 {

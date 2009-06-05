@@ -68,7 +68,7 @@ namespace Mix.Console.Commands
 
         private void WriteUsage()
         {
-            WriteLine("Usage: mix <command> [arguments]");
+            WriteLine("Usage: mix <command> [options]");
             WriteLine("Mix command-line client, version {0}.", Assembly.GetExecutingAssembly().GetName().Version);
             WriteLine("Type 'mix help <command>' for help on a specific command.");
             WriteLine("Type 'mix version' to see the program version.");
@@ -129,7 +129,7 @@ namespace Mix.Console.Commands
             }
 
             Write(Environment.NewLine);
-            WriteLine("Arguments:");
+            WriteLine("Options:");
             foreach (var argument in info.Arguments)
             {
                 WriteTaskName(argument.Name.ToLower());

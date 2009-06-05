@@ -406,7 +406,7 @@ namespace Mix.Core
                             }
                             catch (XmlException e)
                             {
-                                var message = String.Format("Argument '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
+                                var message = String.Format("Option '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
                                 throw new XmlException(message, e);
                             }
                         }
