@@ -1,6 +1,5 @@
-using System;
-using System.Xml;
 using System.Text.RegularExpressions;
+using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
 
@@ -24,12 +23,19 @@ namespace Mix.Tasks
         [Argument, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
 
+        [Argument, Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
+        public bool Multiline { get; set; }
+
         private string DoReplace(string value)
         {
-            RegexOptions options = RegexOptions.None;
+            var options = RegexOptions.None;
             if (IgnoreCase)
             {
                 options |= RegexOptions.IgnoreCase;
+            }
+            if (Multiline)
+            {
+                options |= RegexOptions.Multiline;
             }
             return Regex.Replace(value, Pattern, Replacement, options);
         }

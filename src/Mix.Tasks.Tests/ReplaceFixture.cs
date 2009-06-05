@@ -88,6 +88,26 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void ReplaceNonMultiline()
+        {
+            var pre = "<root>abc\nabc</root>";
+            var post = pre;
+            var xpath = "root";
+            var task = new Replace {Pattern = "^abc$", Replacement = "FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceMultiline()
+        {
+            var pre = "<root>abc\nabc</root>";
+            var post = "<root>FOO\nFOO</root>";
+            var xpath = "root";
+            var task = new Replace {Pattern = "^abc$", Replacement = "FOO", Multiline = true};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
         public void ReplaceElementValues()
         {
             var pre = @"<root><child>abcdefgh</child><child>abcdefgh</child></root>";
