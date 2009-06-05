@@ -9,9 +9,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceAttributeValue()
         {
-            var pre = @"<root attribute=""abcdefgh""></root>";
-            var post = @"<root attribute=""abFOOgh""></root>";
-            var xpath = "root/@attribute";
+            const string pre = @"<root attribute=""abcdefgh""></root>";
+            const string post = @"<root attribute=""abFOOgh""></root>";
+            const string xpath = "root/@attribute";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -19,9 +19,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceAttributeValues()
         {
-            var pre = @"<root attribute=""abcdefgh""><child attribute=""abcdefgh"" /></root>";
-            var post = @"<root attribute=""abFOOgh""><child attribute=""abFOOgh"" /></root>";
-            var xpath = "//@attribute";
+            const string pre = @"<root attribute=""abcdefgh""><child attribute=""abcdefgh"" /></root>";
+            const string post = @"<root attribute=""abFOOgh""><child attribute=""abFOOgh"" /></root>";
+            const string xpath = "//@attribute";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -29,9 +29,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceElementValue()
         {
-            var pre = @"<root>abcdefgh</root>";
-            var post = @"<root>abFOOgh</root>";
-            var xpath = "root";
+            const string pre = @"<root>abcdefgh</root>";
+            const string post = @"<root>abFOOgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -40,8 +40,8 @@ namespace Mix.Tasks.Tests
         public void ReplaceNewLine()
         {
             var pre = @"<root>abcd" + Environment.NewLine + "efgh</root>";
-            var post = @"<root>abcd<br />efgh</root>";
-            var xpath = "root";
+            const string post = @"<root>abcd<br />efgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = Environment.NewLine, Replacement = "<br />"};
             Run(pre, post, xpath, task);
         }
@@ -50,8 +50,8 @@ namespace Mix.Tasks.Tests
         public void ReplaceNewLineFromCommandLine()
         {
             var pre = @"<root>abcd" + Environment.NewLine + "efgh</root>";
-            var post = @"<root>abcd<br />efgh</root>";
-            var xpath = "root";
+            const string post = @"<root>abcd<br />efgh</root>";
+            const string xpath = "root";
             // The carriage return \r is optional, because Environment.NewLine is depends upon the platform
             var task = new Replace {Pattern = @"(\r)?\n", Replacement = "<br />"};
             Run(pre, post, xpath, task);
@@ -60,9 +60,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceTab()
         {
-            var pre = "<root>abcd\tefgh</root>";
-            var post = @"<root>abcd<br />efgh</root>";
-            var xpath = "root";
+            const string pre = "<root>abcd\tefgh</root>";
+            const string post = @"<root>abcd<br />efgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "\t", Replacement = "<br />"};
             Run(pre, post, xpath, task);
         }
@@ -70,9 +70,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceCaseSensitive()
         {
-            var pre = "<root>abcdefgh</root>";
-            var post = "<root>abcdefgh</root>";
-            var xpath = "root";
+            const string pre = "<root>abcdefgh</root>";
+            const string post = "<root>abcdefgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "ABC", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -80,9 +80,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceCaseInsensitive()
         {
-            var pre = "<root>abcdefgh</root>";
-            var post = "<root>FOOdefgh</root>";
-            var xpath = "root";
+            const string pre = "<root>abcdefgh</root>";
+            const string post = "<root>FOOdefgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "ABC", Replacement = "FOO", IgnoreCase = true};
             Run(pre, post, xpath, task);
         }
@@ -90,9 +90,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceNonSingleline()
         {
-            var pre = "<root>abc\ndef</root>";
-            var post = pre;
-            var xpath = "root";
+            const string pre = "<root>abc\ndef</root>";
+            const string post = pre;
+            const string xpath = "root";
             var task = new Replace {Pattern = "a.*f", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -100,9 +100,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceSingleline()
         {
-            var pre = "<root>abc\ndef</root>";
-            var post = "<root>FOO</root>";
-            var xpath = "root";
+            const string pre = "<root>abc\ndef</root>";
+            const string post = "<root>FOO</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "a.*f", Replacement = "FOO", Singleline = true};
             Run(pre, post, xpath, task);
         }
@@ -110,9 +110,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceNonMultiline()
         {
-            var pre = "<root>abc\nabc</root>";
-            var post = pre;
-            var xpath = "root";
+            const string pre = "<root>abc\nabc</root>";
+            const string post = pre;
+            const string xpath = "root";
             var task = new Replace {Pattern = "^abc$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -120,9 +120,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceMultiline()
         {
-            var pre = "<root>abc\nabc</root>";
-            var post = "<root>FOO\nFOO</root>";
-            var xpath = "root";
+            const string pre = "<root>abc\nabc</root>";
+            const string post = "<root>FOO\nFOO</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "^abc$", Replacement = "FOO", Multiline = true};
             Run(pre, post, xpath, task);
         }
@@ -130,9 +130,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceElementValues()
         {
-            var pre = @"<root><child>abcdefgh</child><child>abcdefgh</child></root>";
-            var post = @"<root><child>abFOOgh</child><child>abFOOgh</child></root>";
-            var xpath = "//child";
+            const string pre = @"<root><child>abcdefgh</child><child>abcdefgh</child></root>";
+            const string post = @"<root><child>abFOOgh</child><child>abFOOgh</child></root>";
+            const string xpath = "//child";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -140,9 +140,9 @@ namespace Mix.Tasks.Tests
         // This test only works when Replace.ExecuteCore(XmlElement) uses Task.Recurse(XmlElement).
         public void ReplaceMixedElementValues()
         {
-            var pre = @"<root><child a=""abcdefgh"">abcdefgh<![CDATA[abcdefgh]]><?foo abcdefgh?><!--abcdefgh-->abcdefgh</child></root>";
-            var post = @"<root><child a=""abFOOgh"">abFOOgh<![CDATA[abFOOgh]]><?foo abFOOgh?><!--abFOOgh-->abFOOgh</child></root>";
-            var xpath = "//child";
+            const string pre = @"<root><child a=""abcdefgh"">abcdefgh<![CDATA[abcdefgh]]><?foo abcdefgh?><!--abcdefgh-->abcdefgh</child></root>";
+            const string post = @"<root><child a=""abFOOgh"">abFOOgh<![CDATA[abFOOgh]]><?foo abFOOgh?><!--abFOOgh-->abFOOgh</child></root>";
+            const string xpath = "//child";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -150,9 +150,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceElementWithChildElements()
         {
-            var pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
-            var post = @"<root><child><child-of-child>abFOOgh</child-of-child></child></root>";
-            var xpath = "root";
+            const string pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
+            const string post = @"<root><child><child-of-child>abFOOgh</child-of-child></child></root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -160,9 +160,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceTextNodes()
         {
-            var pre = @"<root>abcdefgh</root>";
-            var post = @"<root>abFOOgh</root>";
-            var xpath = "//text()";
+            const string pre = @"<root>abcdefgh</root>";
+            const string post = @"<root>abFOOgh</root>";
+            const string xpath = "//text()";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -170,9 +170,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceCDataSections()
         {
-            var pre = @"<root><![CDATA[abcdefgh]]></root>";
-            var post = @"<root><![CDATA[abFOOgh]]></root>";
-            var xpath = "//text()";
+            const string pre = @"<root><![CDATA[abcdefgh]]></root>";
+            const string post = @"<root><![CDATA[abFOOgh]]></root>";
+            const string xpath = "//text()";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -180,9 +180,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceComments()
         {
-            var pre = @"<root><!--abcdefgh--></root>";
-            var post = @"<root><!--abFOOgh--></root>";
-            var xpath = "//comment()";
+            const string pre = @"<root><!--abcdefgh--></root>";
+            const string post = @"<root><!--abFOOgh--></root>";
+            const string xpath = "//comment()";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
@@ -190,9 +190,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceWithoutSettingNewValue()
         {
-            var pre = @"<root>abcdefgh</root>";
-            var post = @"<root>abgh</root>";
-            var xpath = "root";
+            const string pre = @"<root>abcdefgh</root>";
+            const string post = @"<root>abgh</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "cdef"};
             Run(pre, post, xpath, task);
         }
@@ -200,9 +200,9 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceProcessingInstructions()
         {
-            var pre = @"<root><?foo abcdefgh?></root>";
-            var post = @"<root><?foo abFOOgh?></root>";
-            var xpath = "//processing-instruction()";
+            const string pre = @"<root><?foo abcdefgh?></root>";
+            const string post = @"<root><?foo abFOOgh?></root>";
+            const string xpath = "//processing-instruction()";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
