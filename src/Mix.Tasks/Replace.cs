@@ -23,6 +23,9 @@ namespace Mix.Tasks
         [Argument, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
 
+        [Argument, Description("If set, the dot (.) matches every character, instead of very character except \\n.")]
+        public bool Singleline { get; set; }
+
         [Argument, Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
         public bool Multiline { get; set; }
 
@@ -32,6 +35,10 @@ namespace Mix.Tasks
             if (IgnoreCase)
             {
                 options |= RegexOptions.IgnoreCase;
+            }
+            if (Singleline)
+            {
+                options |= RegexOptions.Singleline;
             }
             if (Multiline)
             {

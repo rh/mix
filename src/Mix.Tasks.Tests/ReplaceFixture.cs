@@ -88,6 +88,26 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void ReplaceNonSingleline()
+        {
+            var pre = "<root>abc\ndef</root>";
+            var post = pre;
+            var xpath = "root";
+            var task = new Replace {Pattern = "a.*f", Replacement = "FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceSingleline()
+        {
+            var pre = "<root>abc\ndef</root>";
+            var post = "<root>FOO</root>";
+            var xpath = "root";
+            var task = new Replace {Pattern = "a.*f", Replacement = "FOO", Singleline = true};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
         public void ReplaceNonMultiline()
         {
             var pre = "<root>abc\nabc</root>";
