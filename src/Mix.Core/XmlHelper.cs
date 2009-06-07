@@ -66,21 +66,6 @@ namespace Mix.Core
         /// <param name="document"></param>
         /// <param name="element"></param>
         /// <param name="name"></param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <c>document</c> is <c>null</c>, or <c>element</c>
-        /// is <c>null</c>, or  <c>name</c> is <c>null</c> or empty.
-        /// </exception>
-        public static void AddAttribute(XmlDocument document, XmlElement element, string name)
-        {
-            AddAttribute(document, element, name, null);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="element"></param>
-        /// <param name="name"></param>
         /// <param name="value"></param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when <c>document</c> is <c>null</c>, or <c>element</c>
