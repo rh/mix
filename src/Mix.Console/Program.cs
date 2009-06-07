@@ -21,10 +21,10 @@ namespace Mix.Console
             }
             catch (Exception e)
             {
-                var message = "An exception was caught. Mix exits.";
+                const string message = "An exception was caught. Mix exits.";
                 LogManager.GetLogger(typeof(Program)).Error(message, e);
-                System.Console.WriteLine(message);
-                System.Console.WriteLine(e);
+                System.Console.Error.WriteLine(message);
+                System.Console.Error.WriteLine(e);
                 return 1;
             }
         }
