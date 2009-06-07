@@ -16,7 +16,18 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlHelper.AddAttribute(element.OwnerDocument, element, Name, GetValue(element));
+            var value = GetValue(element);
+            if (element.HasAttribute(Name))
+            {
+                return;
+            }
+
+            var attribute = element.OwnerDocument.CreateAttribute(Name);
+            if (!string.IsNullOrEmpty(value))
+            {
+                attribute.Value = value;
+            }
+            element.Attributes.Append(attribute);
         }
 
         private string GetValue(XmlNode element)
