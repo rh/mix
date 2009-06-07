@@ -52,7 +52,7 @@ namespace Mix.Console.Commands
             }
             catch (InvalidPathException e)
             {
-                Context.Output.WriteLine(e.Message);
+                Context.Error.WriteLine(e.Message);
                 return 1;
             }
 
@@ -92,7 +92,7 @@ namespace Mix.Console.Commands
             catch (ArgumentNullException)
             {
                 var message = String.Format("File '{0}' is empty.", file);
-                WriteLine(message);
+                Context.Error.WriteLine(message);
                 return false;
             }
 
@@ -103,26 +103,26 @@ namespace Mix.Console.Commands
             catch (XmlException e)
             {
                 log.Error(e.Message, e);
-                WriteLine(e.Message);
+                Context.Error.WriteLine(e.Message);
                 return false;
             }
             catch (RequirementException e)
             {
                 log.Error(e.Message, e);
                 var message = String.Format("Required option '{0}' is missing.", e.Property.ToLower());
-                WriteLine(message);
+                Context.Error.WriteLine(message);
                 if (e.Description.Length > 0)
                 {
-                    WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
+                    Context.Error.WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
-                Write(Environment.NewLine);
-                WriteLine("Type 'mix help {0}' for usage.", Context.Task);
+                Context.Error.Write(Environment.NewLine);
+                Context.Error.WriteLine("Type 'mix help {0}' for usage.", Context.Task);
                 return false;
             }
             catch (TaskExecutionException e)
             {
                 log.Error(e.Message, e);
-                WriteLine(e.Message);
+                Context.Error.WriteLine(e.Message);
                 return false;
             }
 
@@ -149,7 +149,7 @@ namespace Mix.Console.Commands
             {
                 log.Error(e.Message, e);
                 log.Error(Context.Xml);
-                WriteLine(e.Message);
+                Context.Error.WriteLine(e.Message);
                 return false;
             }
             return true;
