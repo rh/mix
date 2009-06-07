@@ -10,7 +10,7 @@ namespace Mix.Console
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PathExpander));
         readonly IList<string> files = new List<string>();
-        private const SearchOption SearchOption = SearchOption.TopDirectoryOnly;
+        private const SearchOption TopDirectoryOnly = SearchOption.TopDirectoryOnly;
 
         public IList<string> Expand(string workingDirectory, string patterns, bool recursively)
         {
@@ -104,7 +104,7 @@ namespace Mix.Console
 
         private void AddFromDirectory(string path, string searchPattern, bool recursively)
         {
-            foreach (var file in new DirectoryInfo(path).GetFiles(searchPattern, SearchOption))
+            foreach (var file in new DirectoryInfo(path).GetFiles(searchPattern, TopDirectoryOnly))
             {
                 files.Add(file.FullName);
             }
