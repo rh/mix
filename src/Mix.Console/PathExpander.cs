@@ -10,7 +10,7 @@ namespace Mix.Console
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PathExpander));
         readonly IList<string> files = new List<string>();
-        private const SearchOption searchOption = SearchOption.TopDirectoryOnly;
+        private const SearchOption SearchOption = SearchOption.TopDirectoryOnly;
 
         public IList<string> Expand(string workingDirectory, string patterns, bool recursively)
         {
@@ -27,6 +27,7 @@ namespace Mix.Console
         /// </summary>
         /// <param name="workingDirectory">The directory which relative paths are relative to.</param>
         /// <param name="patterns">A list of absolute or relative directories and/or files and/or patterns.</param>
+        /// <param name="recursively">If <c>true</c>, paths are resolved recursively.</param>
         /// <returns></returns>
         public IList<string> Expand(string workingDirectory, IEnumerable<string> patterns, bool recursively)
         {
@@ -103,7 +104,7 @@ namespace Mix.Console
 
         private void AddFromDirectory(string path, string searchPattern, bool recursively)
         {
-            foreach (var file in new DirectoryInfo(path).GetFiles(searchPattern, searchOption))
+            foreach (var file in new DirectoryInfo(path).GetFiles(searchPattern, SearchOption))
             {
                 files.Add(file.FullName);
             }
@@ -112,7 +113,7 @@ namespace Mix.Console
             {
                 foreach (var directory in new DirectoryInfo(path).GetDirectories())
                 {
-                    AddFromDirectory(directory.FullName, searchPattern, recursively);
+                    AddFromDirectory(directory.FullName, searchPattern, true);
                 }
             }
         }
