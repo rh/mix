@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Mix.Core.Tests
 {
     [TestFixture]
-    public class ArgumentInfoFixture
+    public class OptionInfoFixture
     {
         private SomeTask someTask;
         private SomeOtherTask otherTask;
@@ -19,34 +19,34 @@ namespace Mix.Core.Tests
         [Test]
         public void Length()
         {
-            var arguments = ArgumentInfo.For(someTask);
-            Assert.AreEqual(0, arguments.Length);
+            var options = OptionInfo.For(someTask);
+            Assert.AreEqual(0, options.Length);
 
-            arguments = ArgumentInfo.For(otherTask);
-            Assert.AreEqual(2, arguments.Length);
+            options = OptionInfo.For(otherTask);
+            Assert.AreEqual(2, options.Length);
         }
 
         [Test]
         public void Name()
         {
-            var arguments = ArgumentInfo.For(otherTask);
-            Assert.AreEqual("Name", arguments[0].Name);
+            var options = OptionInfo.For(otherTask);
+            Assert.AreEqual("Name", options[0].Name);
         }
 
         [Test]
         public void Description()
         {
-            var arguments = ArgumentInfo.For(otherTask);
-            Assert.AreEqual("[no description]", arguments[0].Description);
-            Assert.AreEqual("Description for Name2", arguments[1].Description);
+            var options = OptionInfo.For(otherTask);
+            Assert.AreEqual("[no description]", options[0].Description);
+            Assert.AreEqual("Description for Name2", options[1].Description);
         }
 
         [Test]
         public void Required()
         {
-            var arguments = ArgumentInfo.For(otherTask);
-            Assert.IsTrue(arguments[0].Required);
-            Assert.IsFalse(arguments[1].Required);
+            var options = OptionInfo.For(otherTask);
+            Assert.IsTrue(options[0].Required);
+            Assert.IsFalse(options[1].Required);
         }
 
         private class SomeTask
@@ -55,13 +55,13 @@ namespace Mix.Core.Tests
 
         private class SomeOtherTask
         {
-            [Argument, Required]
+            [Option, Required]
             public string Name
             {
                 get { return ""; }
             }
 
-            [Argument]
+            [Option]
             [Attributes.Description("Description for Name2")]
             public string Name2
             {

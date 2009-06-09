@@ -52,7 +52,7 @@
     </Compile>
     <Compile Include="TaskInfoFixture.cs" />
     <Compile Include="AliasAttributeFixture.cs" />
-    <Compile Include="ArgumentInfoFixture.cs" />
+    <Compile Include="OptionInfoFixture.cs" />
     <Compile Include="ContextFixture.cs" />
     <Compile Include="DescriptionAttributeFixture.cs" />
     <Compile Include="RangeValidatorFixture.cs" />

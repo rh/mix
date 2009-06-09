@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Sets the value of the selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
     public class Set : Task
     {
-        [Argument, Description("The value to set.")]
+        [Option, Description("The value to set.")]
         public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)

@@ -8,7 +8,7 @@ namespace Mix.Tasks
     [ProcessingOrder(ProcessingOrder.Reverse)]
     public class Rename : Task
     {
-        [Argument, Required]
+        [Option, Required]
         [Description("The new name for the elements or attributes.")]
         public string Name { get; set; }
 

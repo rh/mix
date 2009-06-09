@@ -6,6 +6,6 @@ namespace Mix.Core
         string Name { get; }
         string Description { get; }
         string[] Aliases { get; }
-        IArgumentInfo[] Arguments { get; }
+        IOptionInfo[] Options { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace Mix.Tasks
     [Description("Converts the selected nodes to processing instructions.")]
     public class ConvertToProcessingInstruction : Task
     {
-        [Argument]
+        [Option]
         [Description("The name of the processing instruction. Required for nodes other then elements.")]
         public string Name { get; set; }
 

@@ -348,7 +348,7 @@ namespace Mix.Core
         {
             foreach (var property in GetType().GetProperties())
             {
-                if ((ArgumentAttribute.IsDefinedOn(property) || XmlArgumentAttribute.IsDefinedOn(property)) &&
+                if ((OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property)) &&
                     RequiredAttribute.IsDefinedOn(property))
                 {
                     var value = property.GetValue(this, null);
@@ -365,7 +365,7 @@ namespace Mix.Core
                     }
                 }
 
-                if (XmlArgumentAttribute.IsDefinedOn(property))
+                if (XmlOptionAttribute.IsDefinedOn(property))
                 {
                     var value = property.GetValue(this, null);
                     if (value != null && value.ToString().Trim().Length > 0)

@@ -14,19 +14,19 @@ namespace Mix.Tasks
             Replacement = string.Empty;
         }
 
-        [Argument, Required, Description("A regular expression specifying the value to be replaced.")]
+        [Option, Required, Description("A regular expression specifying the value to be replaced.")]
         public string Pattern { get; set; }
 
-        [Argument, Description("The replacement string, which may contain backreferences (e.g. $1).")]
+        [Option, Description("The replacement string, which may contain backreferences (e.g. $1).")]
         public string Replacement { get; set; }
 
-        [Argument, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
+        [Option, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
 
-        [Argument, Description("If set, . matches every character, instead of every character except \\n.")]
+        [Option, Description("If set, . matches every character, instead of every character except \\n.")]
         public bool Singleline { get; set; }
 
-        [Argument, Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
+        [Option, Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
         public bool Multiline { get; set; }
 
         private string DoReplace(string value)

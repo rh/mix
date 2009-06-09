@@ -37,13 +37,13 @@ namespace Mix.Core.Tests
         }
 
         [Test]
-        public void Arguments()
+        public void Options()
         {
             var info1 = TaskInfo.For(someTask);
-            Assert.AreEqual(0, info1.Arguments.Length);
+            Assert.AreEqual(0, info1.Options.Length);
 
             var info2 = TaskInfo.For(otherTask);
-            Assert.AreEqual(1, info2.Arguments.Length);
+            Assert.AreEqual(1, info2.Options.Length);
         }
 
         [Attributes.Description("description")]
@@ -58,7 +58,7 @@ namespace Mix.Core.Tests
         [Attributes.Description("otherdescription")]
         private class SomeOtherTask
         {
-            [Argument, Required]
+            [Option, Required]
             public string Name
             {
                 get { return ""; }

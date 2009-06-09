@@ -74,7 +74,7 @@ namespace Mix.Console.Commands
             WriteLine("Type 'mix version' to see the program version.");
             Write(Environment.NewLine);
 
-            WriteLine("Most commands take 'file' and/or 'xpath' arguments.");
+            WriteLine("Most commands take 'file' and/or 'xpath' options.");
             WriteLine("If 'file' is not set the value '*.xml' is used.");
             Write(Environment.NewLine);
 
@@ -130,12 +130,12 @@ namespace Mix.Console.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
-            foreach (var argument in info.Arguments)
+            foreach (var option in info.Options)
             {
-                WriteTaskName(argument.Name.ToLower());
-                WriteTaskDescription(argument.Description);
+                WriteTaskName(option.Name.ToLower());
+                WriteTaskDescription(option.Description);
 
-                if (argument.Required)
+                if (option.Required)
                 {
                     WriteLine("{0}[required]", new string(' ', LeftMargin));
                 }

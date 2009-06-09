@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Adds a new comment.")]
     public class AddComment : Task
     {
-        [Argument, Description("The value of the comment.")]
+        [Option, Description("The value of the comment.")]
         public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)

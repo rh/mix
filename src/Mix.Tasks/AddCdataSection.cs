@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Adds a new CDATA section.")]
     public class AddCdataSection : Task
     {
-        [Argument]
+        [Option]
         [Description("The value of the CDATA section.")]
         public string Value { get; set; }
 

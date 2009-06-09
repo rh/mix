@@ -19,19 +19,19 @@ namespace Mix.Tasks
 
         protected ConsoleColor ForegroundColor;
 
-        [Argument, Description("A comma-separated list of XPath expressions of nodes to skip in the output.")]
+        [Option, Description("A comma-separated list of XPath expressions of nodes to skip in the output.")]
         public string Skip { get; set; }
 
-        [Argument, Description("If set, attributes are not shown in the output.")]
+        [Option, Description("If set, attributes are not shown in the output.")]
         public bool SkipAttributes { get; set; }
 
-        [Argument, Description("If set, text and CDATA are not shown in the output.")]
+        [Option, Description("If set, text and CDATA are not shown in the output.")]
         public bool SkipText { get; set; }
 
-        [Argument, Description("If set, comments are not shown in the output.")]
+        [Option, Description("If set, comments are not shown in the output.")]
         public bool SkipComments { get; set; }
 
-        [Argument, Description("If set, processing instructions are not shown in the output.")]
+        [Option, Description("If set, processing instructions are not shown in the output.")]
         public bool SkipPI { get; set; }
 
         public Show()

@@ -1,6 +1,6 @@
 namespace Mix.Core
 {
-    public interface IArgumentInfo
+    public interface IOptionInfo
     {
         string Name { get; }
         string Description { get; }

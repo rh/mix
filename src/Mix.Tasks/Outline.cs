@@ -12,7 +12,7 @@ namespace Mix.Tasks
             Depth = 1;
         }
 
-        [Argument]
+        [Option]
         public int Depth { get; set; }
 
         protected override void OnBeforeExecute(int count)

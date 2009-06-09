@@ -7,11 +7,11 @@ namespace Mix.Tasks
     [Description("Adds a new processing instruction.")]
     public class AddProcessingInstruction : Task
     {
-        [Argument, Required]
+        [Option, Required]
         [Description("The name of the processing instruction.")]
         public string Name { get; set; }
 
-        [Argument]
+        [Option]
         [Description("The value of the processing instruction.")]
         public string Value { get; set; }
 

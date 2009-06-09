@@ -9,7 +9,7 @@ namespace Mix.Tasks
     {
         protected override void OnBeforeExecute(int count)
         {
-            // TODO: let this be the result of --quiet, -verbose arguments etc.
+            // TODO: let this be the result of --quiet, -verbose options etc.
             if (count > 0)
             {
                 var color = Console.ForegroundColor;

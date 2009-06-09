@@ -7,7 +7,7 @@ namespace Mix.Tasks
     [Description("Appends text to selected nodes (if they 'behave' like text), or to the value of the selected attributes.")]
     public class Append : Task
     {
-        [Argument, Required]
+        [Option, Required]
         [Description("The value to append.")]
         public string Value { get; set; }
 

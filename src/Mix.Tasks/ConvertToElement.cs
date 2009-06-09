@@ -8,7 +8,7 @@ namespace Mix.Tasks
     [Description("Converts the selected nodes to elements.")]
     public class ConvertToElement : Task
     {
-        [Argument]
+        [Option]
         [Description("The name of the element. Required for nodes other then attributes or processing instructions.")]
         public string Name { get; set; }
 

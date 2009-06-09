@@ -7,11 +7,11 @@ namespace Mix.Tasks
     [Description("Adds a new attribute to the selected elements, or to the owner element of the selected attributes.")]
     public class AddAttribute : Task
     {
-        [Argument, Required]
+        [Option, Required]
         [Description("The name of the new attribute.")]
         public string Name { get; set; }
 
-        [Argument, Description("The value of the new attribute.\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
+        [Option, Description("The value of the new attribute.\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
         public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)

@@ -11,7 +11,7 @@ namespace Mix.Core
         private string name = String.Empty;
         private string description = "[no description]";
         private string[] aliases = new string[] {};
-        private IArgumentInfo[] arguments = new IArgumentInfo[] {};
+        private IOptionInfo[] options = new IOptionInfo[] {};
 
         public ITask Instance
         {
@@ -33,14 +33,14 @@ namespace Mix.Core
             get { return aliases; }
         }
 
-        public IArgumentInfo[] Arguments
+        public IOptionInfo[] Options
         {
-            get { return arguments; }
+            get { return options; }
         }
 
         public static ITaskInfo For(object obj)
         {
-            var info = new TaskInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), arguments = ArgumentInfo.For(obj)};
+            var info = new TaskInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), options = OptionInfo.For(obj)};
             return info;
         }
 
