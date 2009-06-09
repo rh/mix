@@ -2,98 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
 
 namespace Mix.Core
 {
     public class Context : Dictionary<string, string>, IContext
     {
         private string filename = String.Empty;
-        private string task = String.Empty;
-        private TextWriter output = TextWriter.Null;
-        private TextWriter error = TextWriter.Null;
-        private string xml = String.Empty;
-        private readonly string xpath = String.Empty;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Context()
         {
+            XPath = String.Empty;
+            Error = TextWriter.Null;
+            Output = TextWriter.Null;
+            Task = String.Empty;
             this["file"] = "*.xml";
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xml"></param>
-        public Context(string xml)
-            : this(xml, String.Empty)
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <param name="xpath"></param>
-        public Context(string xml, string xpath)
-            : this(xml, xpath, TextWriter.Null)
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <param name="xpath"></param>
-        /// <param name="output">A <seealso cref="TextWriter"/> that will 
-        /// represent the standard output stream.</param>
-        public Context(string xml, string xpath, TextWriter output)
-            : this(xml, xpath, output, TextWriter.Null)
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <param name="xpath"></param>
-        /// <param name="output">A <seealso cref="TextWriter"/> that will 
-        /// represent the standard output stream.</param>
-        /// <param name="error">A <seealso cref="TextWriter"/> that will 
-        /// represent the standard error stream.</param>
-        public Context(string xml, string xpath, TextWriter output, TextWriter error)
-        {
-            this.xml = xml;
-            this.xpath = xpath ?? String.Empty;
-            this.output = output;
-            this.error = error;
-            this["file"] = "*.xml";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        public Context(IContext context)
-        {
-            filename = context.FileName;
-            task = context.Task;
-            output = context.Output;
-            error = context.Error;
-            xml = context.Xml;
-            xpath = context.XPath;
-            this["file"] = "*.xml";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="properties"></param>
         public Context(IEnumerable<KeyValuePair<string, string>> properties)
+            : this()
         {
-            this["file"] = "*.xml";
-
             foreach (var pair in properties)
             {
                 this[pair.Key] = pair.Value;
@@ -101,19 +29,17 @@ namespace Mix.Core
 
             if (ContainsKey("task"))
             {
-                task = this["task"] ?? String.Empty;
+                Task = this["task"] ?? String.Empty;
             }
 
             if (ContainsKey("xpath"))
             {
-                xpath = this["xpath"] ?? String.Empty;
+                XPath = this["xpath"] ?? String.Empty;
             }
         }
 
-        /// <summary>
-        /// The name of the file this <see cref="IContext"/> applies to.
-        /// </summary>
-        public virtual string FileName
+        /// <summary>The name of the file this <see cref="IContext"/> applies to.</summary>
+        public string FileName
         {
             get { return filename; }
             set
@@ -130,79 +56,23 @@ namespace Mix.Core
             }
         }
 
-        public virtual Encoding Encoding { get; set; }
+        public Encoding Encoding { get; set; }
 
         /// <summary>The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.</summary>
-        public virtual string Task
-        {
-            get { return task; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException("value");
-                }
-                task = value;
-            }
-        }
+        public string Task { get; set; }
 
-        /// <summary>
-        /// A <seealso cref="TextWriter"/> that represents the standard output
-        /// stream.
-        /// </summary>
-        public virtual TextWriter Output
-        {
-            get { return output; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-                output = value;
-            }
-        }
+        /// <summary>A <seealso cref="TextWriter"/> that represents the standard output stream.</summary>
+        public TextWriter Output { get; set; }
 
-        /// <summary>
-        /// A <seealso cref="TextWriter"/> that represents the standard error
-        /// stream.
-        /// </summary>
-        public virtual TextWriter Error
-        {
-            get { return error; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-                error = value;
-            }
-        }
+        /// <summary>A <seealso cref="TextWriter"/> that represents the standard error stream.</summary>
+        public TextWriter Error { get; set; }
 
-        /// <summary>
-        /// Gets or sets the XML.
-        /// </summary>
-        public virtual string Xml
-        {
-            get { return xml; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException("value");
-                }
-                xml = value;
-            }
-        }
+        public XmlDocument Document { get; set; }
 
-        /// <summary>
-        /// Gets the XPath expression.
-        /// </summary>
-        public virtual string XPath
-        {
-            get { return xpath; }
-        }
+        public XmlNamespaceManager NamespaceManager { get; set; }
+
+        /// <summary>Gets the XPath expression.</summary>
+        public string XPath { get; set; }
 
         public static IContext Null
         {

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Xml;
 using Mix.Core;
 using Mix.Core.Exceptions;
 using NUnit.Framework;
@@ -24,7 +25,9 @@ namespace Mix.Tasks.Tests
         {
             const string xml = @"<root><child/><child/></root>";
             const string xpath = "//child";
-            var context = new Context(xml, xpath);
+            var document = new XmlDocument();
+            document.LoadXml(xml);
+            var context = new Context {Document = document, XPath = xpath};
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";
@@ -38,7 +41,9 @@ namespace Mix.Tasks.Tests
         {
             const string xml = @"<root><child/><child/></root>";
             const string xpath = "//foo";
-            var context = new Context(xml, xpath);
+            var document = new XmlDocument();
+            document.LoadXml(xml);
+            var context = new Context {Document = document, XPath = xpath};
             TextWriter writer = new StringWriter();
             context.Output = writer;
             context.FileName = "file";

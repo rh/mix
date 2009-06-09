@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Xml;
 using Mix.Core;
 using Mix.Core.Exceptions;
 using NUnit.Framework;
@@ -15,7 +16,9 @@ namespace Mix.Tasks.Tests
         {
             using (TextWriter writer = new StringWriter())
             {
-                var context = new Context("<root />", "root", writer) {FileName = "file"};
+                var document = new XmlDocument();
+                document.LoadXml("<root />");
+                var context = new Context {Document = document, XPath = "root", Output = writer, FileName = "file"};
                 var task = new Show();
                 task.Execute(context);
                 Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 1{0}<root />{0}", Environment.NewLine)));
@@ -27,7 +30,9 @@ namespace Mix.Tasks.Tests
         {
             using (TextWriter writer = new StringWriter())
             {
-                var context = new Context("<root />", "foo", writer) {FileName = "file"};
+                var document = new XmlDocument();
+                document.LoadXml("<root />");
+                var context = new Context {Document = document, XPath = "foo", Output = writer, FileName = "file"};
                 var task = new Show();
                 task.Execute(context);
                 Assert.IsTrue(writer.ToString().StartsWith("file: 0"));
@@ -39,7 +44,9 @@ namespace Mix.Tasks.Tests
         {
             using (TextWriter writer = new StringWriter())
             {
-                var context = new Context("<root/>", "//foo") {FileName = "file", Output = writer};
+                var document = new XmlDocument();
+                document.LoadXml("<root/>");
+                var context = new Context {Document = document, XPath = "//foo", FileName = "file", Output = writer};
                 var task = new Show();
                 task.Execute(context);
                 Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 0{0}", Environment.NewLine)));
@@ -52,7 +59,9 @@ namespace Mix.Tasks.Tests
         {
             using (TextWriter writer = new StringWriter())
             {
-                var context = new Context("<root/>", "///") {FileName = "file", Output = writer};
+                var document = new XmlDocument();
+                document.LoadXml("<root/>");
+                var context = new Context {Document = document, XPath = "///", FileName = "file", Output = writer};
                 var task = new Show();
                 task.Execute(context);
             }

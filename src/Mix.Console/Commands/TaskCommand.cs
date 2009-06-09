@@ -47,7 +47,7 @@ namespace Mix.Console.Commands
             try
             {
                 var paths = new PathExpander();
-                bool recursive = Context.ContainsKey("recursive");
+                var recursive = Context.ContainsKey("recursive");
                 files = paths.Expand(Environment.CurrentDirectory, Context["file"], recursive);
             }
             catch (InvalidPathException e)
@@ -87,11 +87,13 @@ namespace Mix.Console.Commands
 
             try
             {
-                Context.Xml = File.ReadAllText(file);
+                var document = new XmlDocument();
+                document.Load(file);
+                Context.Document = document;
             }
-            catch (ArgumentNullException)
+            catch (XmlException)
             {
-                var message = String.Format("File '{0}' is empty.", file);
+                var message = String.Format("File '{0}' is not a valid XML file.", file);
                 Context.Error.WriteLine(message);
                 return false;
             }
@@ -137,18 +139,15 @@ namespace Mix.Console.Commands
         {
             try
             {
-                var document = new XmlDocument();
-                document.LoadXml(Context.Xml);
                 var settings = new XmlWriterSettings {Encoding = Context.Encoding};
                 using (var writer = XmlWriter.Create(file, settings))
                 {
-                    document.WriteContentTo(writer);
+                    Context.Document.WriteContentTo(writer);
                 }
             }
             catch (Exception e)
             {
                 log.Error(e.Message, e);
-                log.Error(Context.Xml);
                 Context.Error.WriteLine(e.Message);
                 return false;
             }

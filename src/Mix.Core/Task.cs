@@ -11,8 +11,6 @@ namespace Mix.Core
     {
         public IContext Context { get; private set; }
 
-        protected XmlDocument Document { get; private set; }
-
         private void Initialize(IContext context)
         {
             Context = context;
@@ -70,11 +68,9 @@ namespace Mix.Core
         public void Execute(IContext context)
         {
             Initialize(context);
-            Validate(context);
+            Validate();
 
-            var document = new XmlDocument {InnerXml = context.Xml};
-            Document = document;
-            var manager = CreateNamespaceManager(document);
+            var manager = CreateNamespaceManager(Context.Document);
 
             if (ExecuteCore(context))
             {
@@ -89,7 +85,7 @@ namespace Mix.Core
 
             // Tasks may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
-            var nodes = SelectNodes(context, document, manager);
+            var nodes = SelectNodes(context, manager);
             BeforeExecute(nodes.Count);
 
             var order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
@@ -173,14 +169,13 @@ namespace Mix.Core
                 }
             }
             AfterExecute();
-            context.Xml = document.InnerXml;
         }
 
-        private static XmlNodeList SelectNodes(IContext context, XmlNode document, XmlNamespaceManager manager)
+        private static XmlNodeList SelectNodes(IContext context, XmlNamespaceManager manager)
         {
             try
             {
-                return document.SelectNodes(context.XPath, manager);
+                return context.Document.SelectNodes(context.XPath, manager);
             }
             catch (XPathException e)
             {
@@ -349,27 +344,7 @@ namespace Mix.Core
             }
         }
 
-        private void Validate(IContext context)
-        {
-            ValidateXml(context);
-            ValidateProperties();
-        }
-
-        private static void ValidateXml(IContext context)
-        {
-            var document = new XmlDocument();
-            try
-            {
-                document.LoadXml(context.Xml);
-            }
-            catch (XmlException e)
-            {
-                var message = String.Format("File '{0}' is not a valid XML document. {1}", context.FileName, e.Message);
-                throw new XmlException(message, e);
-            }
-        }
-
-        private void ValidateProperties()
+        private void Validate()
         {
             foreach (var property in GetType().GetProperties())
             {
@@ -517,7 +492,7 @@ namespace Mix.Core
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        private XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
+        private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
             foreach (XmlNode node in document.SelectNodes("//node()"))

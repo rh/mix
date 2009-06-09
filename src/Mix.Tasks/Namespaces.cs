@@ -15,7 +15,7 @@ namespace Mix.Tasks
             var foregroundColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkGray;
 
-            var manager = CreateNamespaceManager(Document);
+            var manager = CreateNamespaceManager(Context.Document);
             var namespaces = manager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
             context.Output.WriteLine(namespaces.Count);
             foreach (var pair in namespaces)
@@ -35,7 +35,7 @@ namespace Mix.Tasks
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        private XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
+        private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
             foreach (XmlNode node in document.SelectNodes("//node()"))
