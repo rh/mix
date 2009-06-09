@@ -20,10 +20,16 @@ namespace Mix.Tasks
                 return;
             }
 
-            var newelement = element.OwnerDocument.CreateElement(Name);
-            XmlHelper.CopyAttributes(element.OwnerDocument, element, newelement);
-            XmlHelper.CopyChildNodes(element, newelement);
-            element.ParentNode.ReplaceChild(newelement, element);
+            var clone = element.OwnerDocument.CreateElement(Name);
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                clone.Attributes.Append(attribute.Clone() as XmlAttribute);
+            }
+            foreach (XmlNode child in element.ChildNodes)
+            {
+                clone.AppendChild(child.Clone());
+            }
+            element.ParentNode.ReplaceChild(clone, element);
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
@@ -35,17 +41,17 @@ namespace Mix.Tasks
                 return;
             }
 
-            var newattribute = attribute.OwnerDocument.CreateAttribute(Name);
-            newattribute.Value = attribute.Value;
-            owner.Attributes.InsertBefore(newattribute, attribute);
+            var clone = attribute.OwnerDocument.CreateAttribute(Name);
+            clone.Value = attribute.Value;
+            owner.Attributes.InsertBefore(clone, attribute);
             owner.Attributes.Remove(attribute);
         }
 
         protected override void ExecuteCore(XmlProcessingInstruction instruction)
         {
             var parent = instruction.ParentNode;
-            var newinstruction = instruction.OwnerDocument.CreateProcessingInstruction(Name, instruction.Value);
-            parent.ReplaceChild(newinstruction, instruction);
+            var clone = instruction.OwnerDocument.CreateProcessingInstruction(Name, instruction.Value);
+            parent.ReplaceChild(clone, instruction);
         }
     }
 }

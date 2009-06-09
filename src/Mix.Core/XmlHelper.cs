@@ -41,40 +41,5 @@ namespace Mix.Core
             }
             return manager;
         }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="attribute"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <c>document</c> is <c>null</c>.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when <c>attribute</c> is <c>null</c>.
-        /// </exception>
-        public static XmlAttribute CopyAttribute(XmlDocument document, XmlAttribute attribute)
-        {
-            var newattribute = document.CreateAttribute(attribute.Name);
-            newattribute.Value = attribute.Value;
-            return newattribute;
-        }
-
-        public static void CopyAttributes(XmlDocument document, XmlElement from, XmlElement to)
-        {
-            foreach (XmlAttribute attribute in from.Attributes)
-            {
-                to.Attributes.Append(CopyAttribute(document, attribute));
-            }
-        }
-
-        public static void CopyChildNodes(XmlElement from, XmlElement to)
-        {
-            foreach (XmlNode node in from.ChildNodes)
-            {
-                to.AppendChild(node.CloneNode(true));
-            }
-        }
     }
 }
