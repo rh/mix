@@ -7,6 +7,11 @@ namespace Mix.Core.Extensions
     {
         public static string Dasherize(this string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return string;
+            }
+
             var sb = new StringBuilder();
             sb.Append(Char.ToLower(value[0]));
             for (var i = 1; i < value.Length; i++)
