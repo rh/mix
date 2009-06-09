@@ -94,5 +94,15 @@ namespace Mix.Tasks.Tests
             var task = new UpperCase();
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void UpperCaseTextNodesWithRegularExpression()
+        {
+            const string pre = @"<root>text text</root>";
+            const string post = @"<root>Text Text</root>";
+            const string xpath = "//text()";
+            var task = new UpperCase {Pattern = @"\b[a-z]{1}"};
+            Run(pre, post, xpath, task);
+        }
     }
 }

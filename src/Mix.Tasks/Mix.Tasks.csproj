@@ -73,6 +73,7 @@
     <Compile Include="Set.cs" />
     <Compile Include="SetGuid.cs" />
     <Compile Include="Show.cs" />
+    <Compile Include="TextTransformer.cs" />
     <Compile Include="Trim.cs" />
     <Compile Include="Unwrap.cs" />
     <Compile Include="UpperCase.cs" />

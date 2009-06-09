@@ -1,40 +1,13 @@
-using System.Xml;
-using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Makes the value of all selected nodes lowercase.")]
-    public class LowerCase : Task
+    [Description("Makes (part of) the value of all selected nodes lowercase.")]
+    public class LowerCase : TextTransformer
     {
-        protected override void ExecuteCore(XmlElement element)
+        protected override string DoTransform(string value)
         {
-            Recurse(element);
-        }
-
-        protected override void ExecuteCore(XmlAttribute attribute)
-        {
-            attribute.Value = attribute.Value.ToLower();
-        }
-
-        protected override void ExecuteCore(XmlText text)
-        {
-            text.Value = text.Value.ToLower();
-        }
-
-        protected override void ExecuteCore(XmlCDataSection section)
-        {
-            section.Value = section.Value.ToLower();
-        }
-
-        protected override void ExecuteCore(XmlComment comment)
-        {
-            comment.Value = comment.Value.ToLower();
-        }
-
-        protected override void ExecuteCore(XmlProcessingInstruction instruction)
-        {
-            instruction.Value = instruction.Value.ToLower();
+            return value.ToLower();
         }
     }
 }

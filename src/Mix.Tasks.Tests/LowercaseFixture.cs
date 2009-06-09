@@ -94,5 +94,25 @@ namespace Mix.Tasks.Tests
             var task = new LowerCase();
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void LowerCaseTextNodesWithRegularExpression()
+        {
+            const string pre = @"<root>TEXT TEXT</root>";
+            const string post = @"<root>tEXT tEXT</root>";
+            const string xpath = "//text()";
+            var task = new LowerCase {Pattern = @"\b[A-Z]{1}"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void LowerCaseTextNodesWithSimpleRegularExpression()
+        {
+            const string pre = @"<root>ABCDEFGH</root>";
+            const string post = @"<root>ABcdeFGH</root>";
+            const string xpath = "//text()";
+            var task = new LowerCase {Pattern = "CDE"};
+            Run(pre, post, xpath, task);
+        }
     }
 }
