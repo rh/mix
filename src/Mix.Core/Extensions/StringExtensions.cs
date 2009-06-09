@@ -12,18 +12,18 @@ namespace Mix.Core.Extensions
                 return value;
             }
 
-            var sb = new StringBuilder();
-            sb.Append(Char.ToLower(value[0]));
+            var result = new StringBuilder();
+            result.Append(Char.ToLower(value[0]));
             for (var i = 1; i < value.Length; i++)
             {
                 var c = value[i];
                 if (Char.IsUpper(c))
                 {
-                    sb.Append("-");
+                    result.Append("-");
                 }
-                sb.Append(Char.ToLower(c));
+                result.Append(Char.ToLower(c));
             }
-            return sb.ToString();
+            return result.ToString();
         }
     }
 }
