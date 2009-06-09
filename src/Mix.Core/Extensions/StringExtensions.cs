@@ -9,7 +9,7 @@ namespace Mix.Core.Extensions
         {
             if (string.IsNullOrEmpty(value))
             {
-                return string;
+                return value;
             }
 
             var sb = new StringBuilder();
