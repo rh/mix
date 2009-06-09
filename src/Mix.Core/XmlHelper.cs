@@ -43,24 +43,6 @@ namespace Mix.Core
         }
 
         /// <summary>
-        /// Removes the XML declaration from <paramref name="xml"/>.
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <returns></returns>
-        public static string RemoveXmlDeclaration(string xml)
-        {
-            var document = new XmlDocument();
-            document.LoadXml(xml);
-            var builder = new StringBuilder();
-            var settings = new XmlWriterSettings {OmitXmlDeclaration = true};
-            using (var writer = XmlWriter.Create(builder, settings))
-            {
-                document.WriteContentTo(writer);
-            }
-            return builder.ToString();
-        }
-
-        /// <summary>
         ///
         /// </summary>
         /// <param name="document"></param>
