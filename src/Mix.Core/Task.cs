@@ -399,7 +399,7 @@ namespace Mix.Core
                         {
                             try
                             {
-                                var regex = new Regex(pattern);
+                                new Regex(pattern);
                             }
                             catch (ArgumentException e)
                             {
