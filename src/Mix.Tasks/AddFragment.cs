@@ -8,7 +8,7 @@ namespace Mix.Tasks
     public class AddFragment : Task
     {
         [XmlOption, Required]
-        [Description("The raw xml of the new element.")]
+        [Description("The raw XML of the new element.")]
         public string Fragment { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
