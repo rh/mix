@@ -102,6 +102,11 @@ namespace Mix.Console.Commands
             {
                 Task.Execute(Context);
             }
+            catch (ArgumentException e)
+            {
+                Context.Error.WriteLine(e.Message);
+                return false;
+            }
             catch (XmlException e)
             {
                 log.Error(e.Message, e);

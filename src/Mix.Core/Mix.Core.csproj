@@ -59,6 +59,7 @@
     <Compile Include="Attributes\ProcessingOrderAttribute.cs" />
     <Compile Include="Attributes\RangeAttribute.cs" />
     <Compile Include="Attributes\XmlOptionAttribute.cs" />
+    <Compile Include="Attributes\RegexOptionAttribute.cs" />
     <Compile Include="Exceptions\TaskExecutionException.cs" />
     <Compile Include="Attributes\OptionAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />

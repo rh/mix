@@ -14,7 +14,7 @@ namespace Mix.Tasks
             Replacement = string.Empty;
         }
 
-        [Option, Required, Description("A regular expression specifying the value to be replaced.")]
+        [RegexOption, Required, Description("A regular expression specifying the value to be replaced.")]
         public string Pattern { get; set; }
 
         [Option, Description("The replacement string, which may contain backreferences (e.g. $1).")]

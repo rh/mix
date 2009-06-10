@@ -7,7 +7,7 @@ namespace Mix.Tasks
 {
     public abstract class TextTransformer : Task
     {
-        [Option, Description("A regular expression specifying the parts of the value to be changed.\nIf not set, the whole value will be changed.")]
+        [RegexOption, Description("A regular expression specifying the parts of the value to be changed.\nIf not set, the whole value will be changed.")]
         public string Pattern { get; set; }
 
         protected string Transform(string value)

@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 using Mix.Core.Attributes;
@@ -348,7 +349,7 @@ namespace Mix.Core
         {
             foreach (var property in GetType().GetProperties())
             {
-                if ((OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property)) &&
+                if ((OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property) || RegexOptionAttribute.IsDefinedOn(property)) &&
                     RequiredAttribute.IsDefinedOn(property))
                 {
                     var value = property.GetValue(this, null);
@@ -383,6 +384,27 @@ namespace Mix.Core
                             {
                                 var message = String.Format("Option '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
                                 throw new XmlException(message, e);
+                            }
+                        }
+                    }
+                }
+
+                if (RegexOptionAttribute.IsDefinedOn(property))
+                {
+                    var value = property.GetValue(this, null);
+                    if (value != null && value.ToString().Trim().Length > 0)
+                    {
+                        var pattern = value as string;
+                        if (pattern != null)
+                        {
+                            try
+                            {
+                                var regex = new Regex(pattern);
+                            }
+                            catch (ArgumentException e)
+                            {
+                                var message = String.Format("Option '{0}' is not a valid regular expression: {1}", property.Name.ToLower(), e.Message);
+                                throw new ArgumentException(message, e);
                             }
                         }
                     }

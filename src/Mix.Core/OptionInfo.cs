@@ -16,7 +16,7 @@ namespace Mix.Core
 
             foreach (var property in obj.GetType().GetProperties())
             {
-                if (OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property))
+                if (OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property) || RegexOptionAttribute.IsDefinedOn(property))
                 {
                     properties.Add(property);
                 }
