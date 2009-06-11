@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace Mix.Tasks.Tests
 {
     [TestFixture]
-    public class InnerXmlFixture : TestFixture
+    public class SetXmlFixture : TestFixture
     {
         [Test]
         public void Test()
@@ -12,7 +12,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><child>something</child></root>";
             const string post = @"<root><child>" + xml + "</child></root>";
             const string xpath = "//child";
-            var task = new InnerXml {Xml = xml};
+            var task = new SetXml {Xml = xml};
             Run(pre, post, xpath, task);
         }
 
@@ -23,7 +23,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><!----></root>";
             const string post = @"<root><!--" + xml + "--></root>";
             const string xpath = "//comment()";
-            var task = new InnerXml {Xml = xml};
+            var task = new SetXml {Xml = xml};
             Run(pre, post, xpath, task);
         }
 
@@ -34,7 +34,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><!--COMMENT--></root>";
             const string post = @"<root><!--" + xml + "--></root>";
             const string xpath = "//comment()";
-            var task = new InnerXml {Xml = xml};
+            var task = new SetXml {Xml = xml};
             Run(pre, post, xpath, task);
         }
     }

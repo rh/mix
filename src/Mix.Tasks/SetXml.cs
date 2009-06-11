@@ -5,10 +5,10 @@ using Mix.Core.Attributes;
 namespace Mix.Tasks
 {
     [Description("Sets the inner XML of the selected elements or comments.")]
-    public class InnerXml : Task
+    public class SetXml : Task
     {
         [XmlOption, Required]
-        [Description("The literal XML of the selected elements.")]
+        [Description("The inner XML of the selected elements.")]
         public string Xml { get; set; }
 
         protected override void ExecuteCore(XmlElement element)

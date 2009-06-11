@@ -66,7 +66,6 @@
     <Compile Include="ConvertToProcessingInstructionFixture.cs" />
     <Compile Include="ConvertToTextFixture.cs" />
     <Compile Include="CountFixture.cs" />
-    <Compile Include="InnerXmlFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
     <Compile Include="PrependFixture.cs" />
@@ -76,6 +75,7 @@
     <Compile Include="ReplaceFixture.cs" />
     <Compile Include="SetFixture.cs" />
     <Compile Include="SetGuidFixture.cs" />
+    <Compile Include="SetXmlFixture.cs" />
     <Compile Include="ShowFixture.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="TrimFixture.cs" />

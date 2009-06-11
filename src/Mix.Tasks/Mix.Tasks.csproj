@@ -60,7 +60,6 @@
     <Compile Include="ConvertToProcessingInstruction.cs" />
     <Compile Include="ConvertToText.cs" />
     <Compile Include="Count.cs" />
-    <Compile Include="InnerXml.cs" />
     <Compile Include="LowerCase.cs" />
     <Compile Include="Namespaces.cs" />
     <Compile Include="Outline.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Replace.cs" />
     <Compile Include="Set.cs" />
     <Compile Include="SetGuid.cs" />
+    <Compile Include="SetXml.cs" />
     <Compile Include="Show.cs" />
     <Compile Include="TextTransformer.cs" />
     <Compile Include="Trim.cs" />
