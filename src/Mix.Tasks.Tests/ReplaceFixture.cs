@@ -42,7 +42,7 @@ namespace Mix.Tasks.Tests
             var pre = @"<root>abcd" + Environment.NewLine + "efgh</root>";
             const string post = @"<root>abcd<br />efgh</root>";
             const string xpath = "root";
-            var task = new Replace {Pattern = Environment.NewLine, Replacement = "<br />"};
+            var task = new Replace {Pattern = Environment.NewLine, Replacement = "<br />", Xml = true};
             Run(pre, post, xpath, task);
         }
 
@@ -53,7 +53,7 @@ namespace Mix.Tasks.Tests
             const string post = @"<root>abcd<br />efgh</root>";
             const string xpath = "root";
             // The carriage return \r is optional, because Environment.NewLine is depends upon the platform
-            var task = new Replace {Pattern = @"(\r)?\n", Replacement = "<br />"};
+            var task = new Replace {Pattern = @"(\r)?\n", Replacement = "<br />", Xml = true};
             Run(pre, post, xpath, task);
         }
 
@@ -63,7 +63,7 @@ namespace Mix.Tasks.Tests
             const string pre = "<root>abcd\tefgh</root>";
             const string post = @"<root>abcd<br />efgh</root>";
             const string xpath = "root";
-            var task = new Replace {Pattern = "\t", Replacement = "<br />"};
+            var task = new Replace {Pattern = "\t", Replacement = "<br />", Xml = true};
             Run(pre, post, xpath, task);
         }
 
@@ -137,23 +137,43 @@ namespace Mix.Tasks.Tests
             Run(pre, post, xpath, task);
         }
 
-        // This test only works when Replace.ExecuteCore(XmlElement) uses Task.Recurse(XmlElement).
-        public void ReplaceMixedElementValues()
+        [Test]
+        public void ReplaceInnerXmlInElementWithChildElements()
         {
-            const string pre = @"<root><child a=""abcdefgh"">abcdefgh<![CDATA[abcdefgh]]><?foo abcdefgh?><!--abcdefgh-->abcdefgh</child></root>";
-            const string post = @"<root><child a=""abFOOgh"">abFOOgh<![CDATA[abFOOgh]]><?foo abFOOgh?><!--abFOOgh-->abFOOgh</child></root>";
-            const string xpath = "//child";
+            const string pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
+            const string post = @"<root><child><child-of-child>abFOOgh</child-of-child></child></root>";
+            const string xpath = "root";
+            var task = new Replace {Pattern = "cdef", Replacement = "FOO", Xml = true};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void TryToReplaceTextInElementWithChildElements()
+        {
+            const string pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
+            const string post = pre;
+            const string xpath = "root";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
 
         [Test]
-        public void ReplaceElementWithChildElements()
+        public void TryToReplaceTextInElementWithoutChildElements()
         {
-            const string pre = @"<root><child><child-of-child>abcdefgh</child-of-child></child></root>";
-            const string post = @"<root><child><child-of-child>abFOOgh</child-of-child></child></root>";
+            const string pre = @"<root></root>";
+            const string post = pre;
             const string xpath = "root";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceCanWorkAsSet()
+        {
+            const string pre = @"<root></root>";
+            const string post = @"<root>FOO</root>";
+            const string xpath = "root";
+            var task = new Replace {Pattern = "^$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
 
@@ -173,6 +193,16 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><![CDATA[abcdefgh]]></root>";
             const string post = @"<root><![CDATA[abFOOgh]]></root>";
             const string xpath = "//text()";
+            var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceCDataSectionSelectedAsElement()
+        {
+            const string pre = @"<root><![CDATA[abcdefgh]]></root>";
+            const string post = @"<root><![CDATA[abFOOgh]]></root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }

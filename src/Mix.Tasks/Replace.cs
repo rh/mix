@@ -5,7 +5,7 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Replaces text in the inner XML of elements and in attributes, text nodes, CDATA sections, comments and processing instructions using regular expressions.")]
+    [Description("Replaces text in (the inner XML of) elements and in attributes, text nodes, CDATA sections, comments and processing instructions using regular expressions.")]
     public class Replace : Task
     {
         public Replace()
@@ -19,6 +19,9 @@ namespace Mix.Tasks
 
         [Option, Description("The replacement string, which may contain backreferences (e.g. $1).")]
         public string Replacement { get; set; }
+
+        [Option, Description("If set, replacement will take place in the inner XML of selected elements.")]
+        public bool Xml { get; set; }
 
         [Option, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
@@ -49,7 +52,33 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlElement element)
         {
-            element.InnerXml = DoReplace(element.InnerXml);
+            if (Xml)
+            {
+                element.InnerXml = DoReplace(element.InnerXml);
+            }
+            else
+            {
+                if (element.HasChildNodes)
+                {
+                    if (element.ChildNodes.Count == 1)
+                    {
+                        if (element.FirstChild is XmlText)
+                        {
+                            ExecuteCore(element.FirstChild as XmlText);
+                        }
+                        else if (element.FirstChild is XmlCDataSection)
+                        {
+                            ExecuteCore(element.FirstChild as XmlCDataSection);
+                        }
+                    }
+                }
+                else
+                {
+                    var text = element.OwnerDocument.CreateTextNode("");
+                    element.AppendChild(text);
+                    ExecuteCore(text);
+                }
+            }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
