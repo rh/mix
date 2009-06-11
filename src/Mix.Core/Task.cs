@@ -470,7 +470,7 @@ namespace Mix.Core
         /// Recursively executes <see cref="ExecuteCore(XmlElement)"/>, calling
         /// <see cref="ExecuteCore(XmlAttribute)"/>, <see cref="ExecuteCore(XmlText)"/>,
         /// <see cref="ExecuteCore(XmlCDataSection)"/>, <see cref="ExecuteCore(XmlComment)"/>
-        /// and <see cref="ExecuteCore(XmlProcessingInstruction)"/> for every child nodes.
+        /// and <see cref="ExecuteCore(XmlProcessingInstruction)"/> for every child node.
         /// </summary>
         /// <param name="element">
         /// The <see cref="XmlElement"/> to recurse on.
