@@ -84,5 +84,15 @@ namespace Mix.Tasks.Tests
             var task = new Trim();
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void TrimElementsWithRegularExpression()
+        {
+            const string pre = @"<root><node>Line 1 . Line 2 . Line 3 .</node></root>";
+            const string post = @"<root><node>Line 1. Line 2. Line 3.</node></root>";
+            const string xpath = "//node";
+            var task = new Trim {Pattern = @"\s*\."};
+            Run(pre, post, xpath, task);
+        }
     }
 }

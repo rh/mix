@@ -1,53 +1,13 @@
-using System.Xml;
-using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
     [Description("Trims the text nodes of the selected elements, or the value of the selected attributes, text nodes, CDATA sections, comments or processing instructions.")]
-    public class Trim : Task
+    public class Trim : TextTransformer
     {
-        protected override void ExecuteCore(XmlElement element)
+        protected override string TransformCore(string value)
         {
-            if (element.HasChildNodes)
-            {
-                if (element.ChildNodes.Count == 1)
-                {
-                    if (element.FirstChild is XmlText)
-                    {
-                        ExecuteCore(element.FirstChild as XmlText);
-                    }
-                    else if (element.FirstChild is XmlCDataSection)
-                    {
-                        ExecuteCore(element.FirstChild as XmlCDataSection);
-                    }
-                }
-            }
-        }
-
-        protected override void ExecuteCore(XmlAttribute attribute)
-        {
-            attribute.Value = attribute.Value.Trim();
-        }
-
-        protected override void ExecuteCore(XmlText text)
-        {
-            text.Value = text.Value.Trim();
-        }
-
-        protected override void ExecuteCore(XmlCDataSection section)
-        {
-            section.Value = section.Value.Trim();
-        }
-
-        protected override void ExecuteCore(XmlComment comment)
-        {
-            comment.Value = comment.Value.Trim();
-        }
-
-        protected override void ExecuteCore(XmlProcessingInstruction instruction)
-        {
-            instruction.Value = instruction.Value.Trim();
+            return value.Trim();
         }
     }
 }
