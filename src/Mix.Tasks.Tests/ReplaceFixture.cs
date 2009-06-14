@@ -198,6 +198,16 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void ReplaceCanWorkAsClear()
+        {
+            const string pre = @"<root>abc</root>";
+            const string post = @"<root></root>";
+            const string xpath = "root";
+            var task = new Replace {Pattern = "^(.*)$"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
         public void ReplaceTextNodes()
         {
             const string pre = @"<root>abcdefgh</root>";

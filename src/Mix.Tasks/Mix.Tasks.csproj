@@ -51,7 +51,6 @@
     <Compile Include="AddComment.cs" />
     <Compile Include="AddFragment.cs" />
     <Compile Include="AddProcessingInstruction.cs" />
-    <Compile Include="Clear.cs" />
     <Compile Include="AddElement.cs" />
     <Compile Include="ConvertToCdataSection.cs" />
     <Compile Include="ConvertToComment.cs" />

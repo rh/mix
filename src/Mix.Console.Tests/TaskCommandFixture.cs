@@ -11,7 +11,7 @@ namespace Mix.Console.Tests
         [Test]
         public void Task()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
             Assert.AreEqual(task, command.Task);
         }
@@ -19,15 +19,15 @@ namespace Mix.Console.Tests
         [Test]
         public void CommandToString()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
-            Assert.AreEqual("clear", command.ToString());
+            Assert.AreEqual("set", command.ToString());
         }
 
         [Test]
         public void Execute()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
             Assert.IsTrue(command.Execute() > 0);
         }
@@ -35,7 +35,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileNotProperlySet()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
             command.Context["file"] = null;
             Assert.IsTrue(command.Execute() > 0);
@@ -44,7 +44,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSet()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
             // This will not actually select a file
             command.Context["file"] = "file";
@@ -54,7 +54,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSetWithWrongCharacters()
         {
-            ITask task = new Clear();
+            ITask task = new Set();
             var command = new TaskCommand(task);
             command.Context["file"] = ":";
             Assert.IsTrue(command.Execute() > 0);
