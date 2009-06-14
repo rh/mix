@@ -19,7 +19,7 @@ namespace Mix.Tasks.Tests
         public void ClearMixedElements()
         {
             const string pre = @"<root a=""foo"">something<![CDATA[something]]><?foo bar?><!--comment-->something</root>";
-            const string post = @"<root a=""""><![CDATA[]]><?foo ?><!----></root>";
+            const string post = @"<root a=""foo""></root>";
             const string xpath = "root";
             var task = new Clear();
             Run(pre, post, xpath, task);
@@ -29,7 +29,7 @@ namespace Mix.Tasks.Tests
         public void ClearElementWithChildElements()
         {
             const string pre = @"<root><child><child-of-child>foo</child-of-child></child></root>";
-            const string post = @"<root><child><child-of-child></child-of-child></child></root>";
+            const string post = @"<root></root>";
             const string xpath = "root";
             var task = new Clear();
             Run(pre, post, xpath, task);

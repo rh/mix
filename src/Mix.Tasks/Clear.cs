@@ -9,7 +9,7 @@ namespace Mix.Tasks
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            Recurse(element);
+            element.InnerXml = string.Empty;
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
