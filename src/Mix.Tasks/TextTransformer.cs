@@ -45,6 +45,12 @@ namespace Mix.Tasks
                     }
                 }
             }
+            else
+            {
+                var newElement = element.OwnerDocument.CreateTextNode(string.Empty);
+                element.AppendChild(newElement);
+                ExecuteCore(newElement);
+            }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
