@@ -14,10 +14,10 @@ namespace Mix.Tasks
             Replacement = string.Empty;
         }
 
-        [RegexOption, Required, Description("A regular expression specifying the value to be replaced.")]
+        [RegexOption, Description("A regular expression specifying the value to be replaced.\nIf not set, the whole value will be replaced.")]
         public string Pattern { get; set; }
 
-        [Option, Description("The replacement string, which may contain backreferences (e.g. $1).")]
+        [Option, Description("The replacement string, which may contain backreferences (e.g. $1) if the pattern option is used.")]
         public string Replacement { get; set; }
 
         [Option, Description("If set, replacement will take place in the inner XML of selected elements.")]
@@ -34,20 +34,24 @@ namespace Mix.Tasks
 
         private string DoReplace(string value)
         {
-            var options = RegexOptions.None;
-            if (IgnoreCase)
+            if (!string.IsNullOrEmpty(Pattern))
             {
-                options |= RegexOptions.IgnoreCase;
+                var options = RegexOptions.None;
+                if (IgnoreCase)
+                {
+                    options |= RegexOptions.IgnoreCase;
+                }
+                if (Singleline)
+                {
+                    options |= RegexOptions.Singleline;
+                }
+                if (Multiline)
+                {
+                    options |= RegexOptions.Multiline;
+                }
+                return Regex.Replace(value, Pattern, Replacement, options);
             }
-            if (Singleline)
-            {
-                options |= RegexOptions.Singleline;
-            }
-            if (Multiline)
-            {
-                options |= RegexOptions.Multiline;
-            }
-            return Regex.Replace(value, Pattern, Replacement, options);
+            return Replacement;
         }
 
         protected override void ExecuteCore(XmlElement element)

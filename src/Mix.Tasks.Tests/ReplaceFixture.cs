@@ -173,6 +173,16 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root></root>";
             const string post = @"<root>FOO</root>";
             const string xpath = "root";
+            var task = new Replace {Replacement = "FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceCanWorkAsSetWithPattern()
+        {
+            const string pre = @"<root></root>";
+            const string post = @"<root>FOO</root>";
+            const string xpath = "root";
             var task = new Replace {Pattern = "^$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
