@@ -178,6 +178,26 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void ReplaceCanWorkAsAppend()
+        {
+            const string pre = @"<root>abc</root>";
+            const string post = @"<root>abcFOO</root>";
+            const string xpath = "root";
+            var task = new Replace {Pattern = "^(.*)$", Replacement = "$1FOO"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void ReplaceCanWorkAsPrepend()
+        {
+            const string pre = @"<root>abc</root>";
+            const string post = @"<root>FOOabc</root>";
+            const string xpath = "root";
+            var task = new Replace {Pattern = "^(.*)$", Replacement = "FOO$1"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
         public void ReplaceTextNodes()
         {
             const string pre = @"<root>abcdefgh</root>";

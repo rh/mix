@@ -56,7 +56,6 @@
     <Compile Include="AddCommentFixture.cs" />
     <Compile Include="AddElementFixture.cs" />
     <Compile Include="AddProcessingInstructionFixture.cs" />
-    <Compile Include="AppendFixture.cs" />
     <Compile Include="AddFragmentFixture.cs" />
     <Compile Include="ClearFixture.cs" />
     <Compile Include="ConvertToCdataSectionFixture.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="CountFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
-    <Compile Include="PrependFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveFixture.cs" />
     <Compile Include="RenameFixture.cs" />
