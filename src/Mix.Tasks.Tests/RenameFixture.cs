@@ -74,5 +74,25 @@ namespace Mix.Tasks.Tests
             var task = new Rename {Name = "bar"};
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void RenameElementWithRegularExpression()
+        {
+            const string pre = @"<root><p-01-foo /></root>";
+            const string post = @"<root><bar-01 /></root>";
+            const string xpath = "root/*";
+            var task = new Rename {Pattern = @"^p-(\d{2})-foo$", Name = "bar-$1"};
+            Run(pre, post, xpath, task);
+        }
+
+        [Test]
+        public void RenameElementWithRegularExpression2()
+        {
+            const string pre = @"<root><p-01-foo /></root>";
+            const string post = @"<root><bar /></root>";
+            const string xpath = "root/*";
+            var task = new Rename {Name = "bar"};
+            Run(pre, post, xpath, task);
+        }
     }
 }
