@@ -18,8 +18,8 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ElementWithMixedContent()
         {
-            const string pre = @"<root a=""  foo   ""><node></node><![CDATA[ text  ]]><?foo    bar  ?><!-- comment   --></root>";
-            const string post = @"<root a=""foo""><node></node><![CDATA[text]]><?foo bar?><!--comment--></root>";
+            const string pre = @"<root a=""  foo   ""><![CDATA[ text  ]]></root>";
+            const string post = @"<root a=""  foo   ""><![CDATA[text]]></root>";
             const string xpath = "root";
             var task = new Trim();
             Run(pre, post, xpath, task);
@@ -29,7 +29,7 @@ namespace Mix.Tasks.Tests
         public void ElementWithChildElements()
         {
             const string pre = @"<root><child><child-of-child>  foo    </child-of-child></child></root>";
-            const string post = @"<root><child><child-of-child>foo</child-of-child></child></root>";
+            const string post = pre;
             const string xpath = "root";
             var task = new Trim();
             Run(pre, post, xpath, task);

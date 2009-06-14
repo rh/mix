@@ -9,7 +9,20 @@ namespace Mix.Tasks
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            Recurse(element);
+            if (element.HasChildNodes)
+            {
+                if (element.ChildNodes.Count == 1)
+                {
+                    if (element.FirstChild is XmlText)
+                    {
+                        ExecuteCore(element.FirstChild as XmlText);
+                    }
+                    else if (element.FirstChild is XmlCDataSection)
+                    {
+                        ExecuteCore(element.FirstChild as XmlCDataSection);
+                    }
+                }
+            }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
