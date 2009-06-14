@@ -9,7 +9,7 @@ namespace Mix.Tasks
     public class Rename : Task
     {
         [Option, Required]
-        [Description("The new name for the elements or attributes.")]
+        [Description("The new name of the elements, attributes or processing instructions.")]
         public string Name { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
