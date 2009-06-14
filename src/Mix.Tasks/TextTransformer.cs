@@ -16,15 +16,15 @@ namespace Mix.Tasks
             {
                 return Regex.Replace(value, Pattern, Transform);
             }
-            return DoTransform(value);
+            return TransformCore(value);
         }
 
         protected string Transform(Match match)
         {
-            return DoTransform(match.Value);
+            return TransformCore(match.Value);
         }
 
-        protected virtual string DoTransform(string value)
+        protected virtual string TransformCore(string value)
         {
             return value;
         }
