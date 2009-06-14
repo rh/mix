@@ -467,47 +467,6 @@ namespace Mix.Core
         }
 
         /// <summary>
-        /// Recursively executes <see cref="ExecuteCore(XmlElement)"/>, calling
-        /// <see cref="ExecuteCore(XmlAttribute)"/>, <see cref="ExecuteCore(XmlText)"/>,
-        /// <see cref="ExecuteCore(XmlCDataSection)"/>, <see cref="ExecuteCore(XmlComment)"/>
-        /// and <see cref="ExecuteCore(XmlProcessingInstruction)"/> for every child node.
-        /// </summary>
-        /// <param name="element">
-        /// The <see cref="XmlElement"/> to recurse on.
-        /// </param>
-        protected void Recurse(XmlElement element)
-        {
-            foreach (XmlAttribute attribute in element.Attributes)
-            {
-                ExecuteCore(attribute);
-            }
-
-            foreach (XmlNode node in element.ChildNodes)
-            {
-                if (node is XmlElement)
-                {
-                    Recurse(node as XmlElement);
-                }
-                else if (node is XmlText)
-                {
-                    ExecuteCore(node as XmlText);
-                }
-                else if (node is XmlCDataSection)
-                {
-                    ExecuteCore(node as XmlCDataSection);
-                }
-                else if (node is XmlComment)
-                {
-                    ExecuteCore(node as XmlComment);
-                }
-                else if (node is XmlProcessingInstruction)
-                {
-                    ExecuteCore(node as XmlProcessingInstruction);
-                }
-            }
-        }
-
-        /// <summary>
         /// Creates a <see cref="XmlNamespaceManager"/> for <paramref name="document"/>.
         /// Namespaces declared in the document node are automatically added.
         /// The default namespace is given the prefix 'default'.
