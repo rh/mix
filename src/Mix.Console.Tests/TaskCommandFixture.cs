@@ -38,7 +38,8 @@ namespace Mix.Console.Tests
             ITask task = new Set();
             var command = new TaskCommand(task);
             command.Context["file"] = null;
-            Assert.IsTrue(command.Execute() > 0);
+            // Not selecting any file is not considered an error
+            Assert.IsTrue(command.Execute() == 0);
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace Mix.Console.Tests
             var command = new TaskCommand(task);
             // This will not actually select a file
             command.Context["file"] = "file";
-            Assert.IsTrue(command.Execute() == 1);
+            Assert.IsTrue(command.Execute() == 0);
         }
 
         [Test]

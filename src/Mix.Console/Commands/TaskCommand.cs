@@ -29,8 +29,7 @@ namespace Mix.Console.Commands
         {
             if (String.IsNullOrEmpty(Context["file"]))
             {
-                Context.Output.WriteLine("No files have been selected.");
-                return 1;
+                return 0;
             }
 
             IList<string> files;
@@ -49,8 +48,7 @@ namespace Mix.Console.Commands
 
             if (files.Count == 0)
             {
-                Context.Output.WriteLine("No files have been selected.");
-                return 1;
+                return 0;
             }
 
             foreach (var file in files)
