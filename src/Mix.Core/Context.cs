@@ -15,7 +15,6 @@ namespace Mix.Core
             XPath = String.Empty;
             Error = TextWriter.Null;
             Output = TextWriter.Null;
-            Task = String.Empty;
             this["file"] = "*.xml";
         }
 
@@ -25,11 +24,6 @@ namespace Mix.Core
             foreach (var pair in properties)
             {
                 this[pair.Key] = pair.Value;
-            }
-
-            if (ContainsKey("task"))
-            {
-                Task = this["task"] ?? String.Empty;
             }
 
             if (ContainsKey("xpath"))
@@ -57,9 +51,6 @@ namespace Mix.Core
         }
 
         public Encoding Encoding { get; set; }
-
-        /// <summary>The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.</summary>
-        public string Task { get; set; }
 
         /// <summary>A <seealso cref="TextWriter"/> that represents the standard output stream.</summary>
         public TextWriter Output { get; set; }

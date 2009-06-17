@@ -19,9 +19,6 @@ namespace Mix.Core
         /// <summary>Gets the XPath expression. May be <c>null</c>.</summary>
         string XPath { get; set; }
 
-        /// <summary>The name of the <see cref="Task"/> this <see cref="IContext"/> applies to.</summary>
-        string Task { get; set; }
-
         /// <summary>A <see cref="TextWriter"/> that represents the standard output stream.</summary>
         TextWriter Output { get; }
 

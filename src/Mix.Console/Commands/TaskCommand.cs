@@ -20,15 +20,6 @@ namespace Mix.Console.Commands
             this.task = task;
         }
 
-        public override IContext Context
-        {
-            set
-            {
-                base.Context = value;
-                base.Context.Task = Task.ToString();
-            }
-        }
-
         public virtual ITask Task
         {
             get { return task; }
@@ -123,7 +114,7 @@ namespace Mix.Console.Commands
                     Context.Error.WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
                 Context.Error.Write(Environment.NewLine);
-                Context.Error.WriteLine("Type 'mix help {0}' for usage.", Context.Task);
+                Context.Error.WriteLine("Type 'mix help {0}' for usage.", Task);
                 return false;
             }
             catch (TaskExecutionException e)
