@@ -55,13 +55,13 @@
     <Compile Include="AddCDataSectionFixture.cs" />
     <Compile Include="AddCommentFixture.cs" />
     <Compile Include="AddElementFixture.cs" />
-    <Compile Include="AddProcessingInstructionFixture.cs" />
+    <Compile Include="AddPiFixture.cs" />
     <Compile Include="AddFragmentFixture.cs" />
     <Compile Include="ConvertToCdataSectionFixture.cs" />
     <Compile Include="ConvertToCommentFixture.cs" />
     <Compile Include="ConvertToElementFixture.cs" />
     <Compile Include="ConvertToAttributeFixture.cs" />
-    <Compile Include="ConvertToProcessingInstructionFixture.cs" />
+    <Compile Include="ConvertToPiFixture.cs" />
     <Compile Include="ConvertToTextFixture.cs" />
     <Compile Include="CountFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />

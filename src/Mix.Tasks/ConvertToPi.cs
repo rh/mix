@@ -6,7 +6,7 @@ using Mix.Core.Exceptions;
 namespace Mix.Tasks
 {
     [Description("Converts the selected nodes to processing instructions.")]
-    public class ConvertToProcessingInstruction : Task
+    public class ConvertToPi : Task
     {
         [Option]
         [Description("The name of the processing instruction. Required for nodes other then elements.")]

@@ -50,13 +50,13 @@
     <Compile Include="AddCdataSection.cs" />
     <Compile Include="AddComment.cs" />
     <Compile Include="AddFragment.cs" />
-    <Compile Include="AddProcessingInstruction.cs" />
+    <Compile Include="AddPi.cs" />
     <Compile Include="AddElement.cs" />
     <Compile Include="ConvertToCdataSection.cs" />
     <Compile Include="ConvertToComment.cs" />
     <Compile Include="ConvertToElement.cs" />
     <Compile Include="ConvertToAttribute.cs" />
-    <Compile Include="ConvertToProcessingInstruction.cs" />
+    <Compile Include="ConvertToPi.cs" />
     <Compile Include="ConvertToText.cs" />
     <Compile Include="Count.cs" />
     <Compile Include="LowerCase.cs" />
