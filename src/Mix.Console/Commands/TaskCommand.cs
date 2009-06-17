@@ -46,16 +46,14 @@ namespace Mix.Console.Commands
                 return 1;
             }
 
-            if (files.Count == 0)
+            if (files.Count > 0)
             {
-                return 0;
-            }
-
-            foreach (var file in files)
-            {
-                if (!ExecuteTask(file))
+                foreach (var file in files)
                 {
-                    return 1;
+                    if (!ExecuteTask(file))
+                    {
+                        return 1;
+                    }
                 }
             }
 
