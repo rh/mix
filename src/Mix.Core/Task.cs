@@ -116,7 +116,7 @@ namespace Mix.Core
             }
             catch (XPathException e)
             {
-                var message = String.Format("The specified XPath expression is not valid: {0}", e.Message);
+                var message = String.Format("'{0}' is not a valid XPath expression.", context.XPath);
                 throw new TaskExecutionException(message, e);
             }
         }
