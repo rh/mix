@@ -95,78 +95,14 @@ namespace Mix.Core
             {
                 for (var i = 0; i < nodes.Count; i++)
                 {
-                    var node = nodes[i];
-                    if (node is XmlElement)
-                    {
-                        Execute(node as XmlElement);
-                    }
-                    else if (node is XmlAttribute)
-                    {
-                        Execute(node as XmlAttribute);
-                    }
-                    else if (node is XmlText)
-                    {
-                        Execute(node as XmlText);
-                    }
-                    else if (node is XmlCDataSection)
-                    {
-                        Execute(node as XmlCDataSection);
-                    }
-                    else if (node is XmlComment)
-                    {
-                        Execute(node as XmlComment);
-                    }
-                    else if (node is XmlProcessingInstruction)
-                    {
-                        Execute(node as XmlProcessingInstruction);
-                    }
-                    else if (node is XmlDocument)
-                    {
-                        Execute(node as XmlDocument);
-                    }
-
-                    // The 'generic' method is always executed, so subclasses need only to
-                    // implement ExecuteCore(XmlNode) for generic behaviour.
-                    Execute(node);
+                    Execute(nodes, i);
                 }
             }
             else
             {
                 for (var i = nodes.Count - 1; i >= 0; i--)
                 {
-                    var node = nodes[i];
-                    if (node is XmlElement)
-                    {
-                        Execute(node as XmlElement);
-                    }
-                    else if (node is XmlAttribute)
-                    {
-                        Execute(node as XmlAttribute);
-                    }
-                    else if (node is XmlText)
-                    {
-                        Execute(node as XmlText);
-                    }
-                    else if (node is XmlCDataSection)
-                    {
-                        Execute(node as XmlCDataSection);
-                    }
-                    else if (node is XmlComment)
-                    {
-                        Execute(node as XmlComment);
-                    }
-                    else if (node is XmlProcessingInstruction)
-                    {
-                        Execute(node as XmlProcessingInstruction);
-                    }
-                    else if (node is XmlDocument)
-                    {
-                        Execute(node as XmlDocument);
-                    }
-
-                    // The 'generic' method is always executed, so subclasses need only to
-                    // implement ExecuteCore(XmlNode) for generic behaviour.
-                    Execute(node);
+                    Execute(nodes, i);
                 }
             }
             AfterExecute();
@@ -215,6 +151,43 @@ namespace Mix.Core
             {
                 throw new TaskExecutionException(e);
             }
+        }
+
+        private void Execute(XmlNodeList nodes, int index)
+        {
+            var node = nodes[index];
+            if (node is XmlElement)
+            {
+                Execute(node as XmlElement);
+            }
+            else if (node is XmlAttribute)
+            {
+                Execute(node as XmlAttribute);
+            }
+            else if (node is XmlText)
+            {
+                Execute(node as XmlText);
+            }
+            else if (node is XmlCDataSection)
+            {
+                Execute(node as XmlCDataSection);
+            }
+            else if (node is XmlComment)
+            {
+                Execute(node as XmlComment);
+            }
+            else if (node is XmlProcessingInstruction)
+            {
+                Execute(node as XmlProcessingInstruction);
+            }
+            else if (node is XmlDocument)
+            {
+                Execute(node as XmlDocument);
+            }
+
+            // The 'generic' method is always executed, so subclasses need only to
+            // implement ExecuteCore(XmlNode) for generic behaviour.
+            Execute(node);
         }
 
         private void Execute(XmlDocument document)
