@@ -103,7 +103,7 @@ namespace Mix.Console.Commands
             catch (RequirementException e)
             {
                 log.Error(e.Message, e);
-                var message = String.Format("Required option '{0}' is missing.", e.Property.ToLower());
+                var message = String.Format("Required option '{0}' is not set.", e.Property.ToLower());
                 Context.Error.WriteLine(message);
                 if (e.Description.Length > 0)
                 {
@@ -112,6 +112,12 @@ namespace Mix.Console.Commands
                 Context.Error.Write(Environment.NewLine);
                 Context.Error.WriteLine("Type 'mix help {0}' for usage.", Task);
                 return false;
+            }
+            catch (XPathTemplateException e)
+            {
+                log.Error(e.Message, e);
+                var message = String.Format("XPath template '{0}' evaluates to an empty value for at least one of the selected nodes, but option '{1}' is required.", e.Value, e.Property.ToLower());
+                Context.Error.WriteLine(message);
             }
             catch (TaskExecutionException e)
             {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Mix.Core.Attributes;
+using Mix.Core.Extensions;
 
 namespace Mix.Core
 {
@@ -16,7 +17,7 @@ namespace Mix.Core
 
             foreach (var property in obj.GetType().GetProperties())
             {
-                if (OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property) || RegexOptionAttribute.IsDefinedOn(property))
+                if (property.IsAnOption())
                 {
                     properties.Add(property);
                 }
@@ -29,7 +30,7 @@ namespace Mix.Core
                 for (var i = 0; i < properties.Count; i++)
                 {
                     var property = properties[i];
-                    var option = new OptionInfo {Name = property.Name, Required = RequiredAttribute.IsDefinedOn(property), Description = DescriptionAttribute.GetDescriptionFrom(property, "[no description]")};
+                    var option = new OptionInfo {Name = property.Name, Required = property.IsRequired(), Description = DescriptionAttribute.GetDescriptionFrom(property, "[no description]")};
                     options[i] = option;
                 }
             }

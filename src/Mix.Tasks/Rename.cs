@@ -15,14 +15,16 @@ namespace Mix.Tasks
             Name = string.Empty;
         }
 
-        [RegexOption, Description("A regular expression specifying (part of) the name to be changed.\nLeave blank to specify the whole name.")]
+        [RegexOption]
+        [Description("A regular expression specifying (part of) the name to be changed.\nLeave blank to specify the whole name.")]
         public string Pattern { get; set; }
 
-        [Option, Required]
+        [Option(SupportsXPathTemplates = true), Required]
         [Description("The new name, or a replacement string, which may contain backreferences (e.g. $1).")]
         public string Name { get; set; }
 
-        [Option, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
+        [Option]
+        [Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
 
         private string DoRename(string name)

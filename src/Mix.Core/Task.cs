@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
@@ -12,6 +14,8 @@ namespace Mix.Core
     {
         public IContext Context { get; private set; }
 
+        readonly Dictionary<PropertyInfo, string> propertiesToEvaluate = new Dictionary<PropertyInfo, string>();
+
         private void Initialize(IContext context)
         {
             Context = context;
@@ -23,7 +27,15 @@ namespace Mix.Core
                     var type = property.PropertyType;
                     if (type == typeof(string))
                     {
-                        property.SetValue(this, context[name], null);
+                        if (property.IsAnOption())
+                        {
+                            var attribute = (OptionAttribute) property.GetCustomAttributes(typeof(OptionAttribute), false)[0];
+                            if (attribute.SupportsXPathTemplates)
+                            {
+                                propertiesToEvaluate[property] = context[name];
+                            }
+                            property.SetValue(this, context[name], null);
+                        }
                     }
                     else if (type == typeof(int))
                     {
@@ -156,6 +168,9 @@ namespace Mix.Core
         private void Execute(XmlNodeList nodes, int index)
         {
             var node = nodes[index];
+
+            EvaluateProperties(node);
+
             if (node is XmlElement)
             {
                 Execute(node as XmlElement);
@@ -322,8 +337,7 @@ namespace Mix.Core
         {
             foreach (var property in GetType().GetProperties())
             {
-                if ((OptionAttribute.IsDefinedOn(property) || XmlOptionAttribute.IsDefinedOn(property) || RegexOptionAttribute.IsDefinedOn(property)) &&
-                    RequiredAttribute.IsDefinedOn(property))
+                if (property.IsAnOption() && property.IsRequired())
                 {
                     var value = property.GetValue(this, null);
                     if (value == null || value.ToString().Length == 0)
@@ -478,6 +492,55 @@ namespace Mix.Core
         public override string ToString()
         {
             return GetType().Name.Dasherize().ToLower().Replace("-task", "");
+        }
+
+        private void EvaluateProperties(XmlNode node)
+        {
+            foreach (var property in propertiesToEvaluate.Keys)
+            {
+                var value = Evaluate(node, propertiesToEvaluate[property]);
+                if (string.IsNullOrEmpty(value) && property.IsRequired())
+                {
+                    throw new XPathTemplateException("", property.Name, propertiesToEvaluate[property]);
+                }
+                property.SetValue(this, value, null);
+            }
+        }
+
+        public static readonly Regex XPathTemplate = new Regex("{([^0-9,}]{1}[^}]+)}", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Evaluates <paramref name="value"/> for any XPath templates.
+        /// If found, these XPath templates will be 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static string Evaluate(XmlNode context, string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+            // Because the MatchEvaluator needs to access the context node, we have to use a delegate
+            return XPathTemplate.Replace(value,
+                                         match =>
+                                             {
+                                                 var xpath = match.Value.Substring(1, match.Value.Length - 2);
+                                                 try
+                                                 {
+                                                     var node = context.SelectSingleNode(xpath);
+                                                     if (node != null)
+                                                     {
+                                                         return node.Value;
+                                                     }
+                                                 }
+                                                 catch (XPathException)
+                                                 {
+                                                     return string.Empty;
+                                                 }
+                                                 return string.Empty;
+                                             });
         }
     }
 }

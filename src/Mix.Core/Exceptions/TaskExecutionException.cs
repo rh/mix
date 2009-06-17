@@ -15,7 +15,7 @@ namespace Mix.Core.Exceptions
         }
 
         public TaskExecutionException(Exception inner)
-            : base("The task could not be executed.", inner)
+            : base(inner.Message, inner)
         {
         }
     }

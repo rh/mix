@@ -14,22 +14,28 @@ namespace Mix.Tasks
             Replacement = string.Empty;
         }
 
-        [RegexOption, Description("A regular expression specifying the value to be replaced.\nIf not set, the whole value will be replaced.")]
+        [RegexOption]
+        [Description("A regular expression specifying the value to be replaced.\nIf not set, the whole value will be replaced.")]
         public string Pattern { get; set; }
 
-        [Option, Description("The replacement string, which may contain backreferences (e.g. $1) if the pattern option is used.")]
+        [Option(SupportsXPathTemplates = true)]
+        [Description("The replacement string, which may contain backreferences (e.g. $1) if the pattern option is used.")]
         public string Replacement { get; set; }
 
-        [Option, Description("If set, replacement will take place in the inner XML of selected elements.")]
+        [Option]
+        [Description("If set, replacement will take place in the inner XML of selected elements.")]
         public bool Xml { get; set; }
 
-        [Option, Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
+        [Option]
+        [Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
         public bool IgnoreCase { get; set; }
 
-        [Option, Description("If set, . matches every character, instead of every character except \\n.")]
+        [Option]
+        [Description("If set, . matches every character, instead of every character except \\n.")]
         public bool Singleline { get; set; }
 
-        [Option, Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
+        [Option]
+        [Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
         public bool Multiline { get; set; }
 
         private string DoReplace(string value)

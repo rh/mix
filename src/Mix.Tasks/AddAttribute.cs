@@ -4,41 +4,24 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Adds a new attribute to the selected elements, or to the owner element of the selected attributes.")]
+    [Description("Adds a new attribute to the selected elements.")]
     public class AddAttribute : Task
     {
-        [Option, Required]
+        [Option(SupportsXPathTemplates = true), Required]
         [Description("The name of the new attribute.")]
         public string Name { get; set; }
 
-        [Option, Description("The value of the new attribute.\nPrepend with 'xpath:' to use an XPath expression on the selected element.")]
+        [Option(SupportsXPathTemplates = true), Description("The value of the new attribute.")]
         public string Value { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            var value = GetValue(element);
-            if (element.HasAttribute(Name))
+            if (!element.HasAttribute(Name))
             {
-                return;
+                var attribute = element.OwnerDocument.CreateAttribute(Name);
+                attribute.Value = Value;
+                element.Attributes.Append(attribute);
             }
-
-            var attribute = element.OwnerDocument.CreateAttribute(Name);
-            if (!string.IsNullOrEmpty(value))
-            {
-                attribute.Value = value;
-            }
-            element.Attributes.Append(attribute);
-        }
-
-        private string GetValue(XmlNode element)
-        {
-            if (Value != null && Value.StartsWith("xpath:"))
-            {
-                var xpath = Value.Replace("xpath:", "");
-                var node = element.SelectSingleNode(xpath);
-                return node.Value;
-            }
-            return Value;
         }
     }
 }
