@@ -29,11 +29,15 @@ namespace Mix.Core
                     {
                         if (property.IsAnOption())
                         {
-                            var attribute = (OptionAttribute) property.GetCustomAttributes(typeof(OptionAttribute), false)[0];
-                            if (attribute.SupportsXPathTemplates)
+                            if (OptionAttribute.IsDefinedOn(property))
                             {
-                                propertiesToEvaluate[property] = context[name];
+                                var attribute = (OptionAttribute) property.GetCustomAttributes(typeof(OptionAttribute), false)[0];
+                                if (attribute.SupportsXPathTemplates)
+                                {
+                                    propertiesToEvaluate[property] = context[name];
+                                }
                             }
+
                             property.SetValue(this, context[name], null);
                         }
                     }
