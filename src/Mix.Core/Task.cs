@@ -507,7 +507,7 @@ namespace Mix.Core
             }
         }
 
-        public static readonly Regex XPathTemplate = new Regex("{([^0-9,}]{1}[^}]+)}", RegexOptions.Compiled);
+        public static readonly Regex XPathTemplate = new Regex("{([^0-9,}]{1}[^}]+)}");
 
         /// <summary>
         /// Evaluates <paramref name="value"/> for any XPath templates.
