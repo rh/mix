@@ -286,5 +286,15 @@ namespace Mix.Tasks.Tests
             var task = new Replace {Replacement = "{../@bar}"};
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void ReplaceWithXPathTemplate2()
+        {
+            const string pre =  @"<root><child foo=""foo"" bar=""bar1"" /><child foo=""foo"" bar=""bar2"" /></root>";
+            const string post = @"<root><child foo=""bar1"" bar=""bar1"" /><child foo=""bar2"" bar=""bar2"" /></root>";
+            const string xpath = "//child/@foo";
+            var task = new Replace {Replacement = "{../@bar}"};
+            Run(pre, post, xpath, task);
+        }
     }
 }
