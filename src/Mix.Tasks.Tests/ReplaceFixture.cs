@@ -276,5 +276,15 @@ namespace Mix.Tasks.Tests
             var task = new Replace {Pattern = "cdef", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void ReplaceWithXPathTemplate()
+        {
+            const string pre = @"<root foo=""foo"" bar=""bar""></root>";
+            const string post = @"<root foo=""bar"" bar=""bar""></root>";
+            const string xpath = "/root/@foo";
+            var task = new Replace {Replacement = "{../@bar}"};
+            Run(pre, post, xpath, task);
+        }
     }
 }

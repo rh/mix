@@ -79,6 +79,22 @@ namespace Mix.Core
                         }
                     }
                 }
+                else
+                {
+                    if (property.IsAnOption())
+                    {
+                        if (OptionAttribute.IsDefinedOn(property))
+                        {
+                            var attribute = (OptionAttribute) property.GetCustomAttributes(typeof(OptionAttribute), false)[0];
+                            if (attribute.SupportsXPathTemplates)
+                            {
+                                object value = property.GetValue(this, null) ?? string.Empty;
+                                context[name] = value.ToString();
+                                propertiesToEvaluate[property] = context[name];
+                            }
+                        }
+                    }
+                }
             }
         }
 
