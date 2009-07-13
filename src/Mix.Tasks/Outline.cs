@@ -20,6 +20,11 @@ namespace Mix.Tasks
             Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
         }
 
+        protected override void ExecuteCore(XmlDocument document)
+        {
+            WriteElement(document.DocumentElement, "", Depth);
+        }
+
         protected override void ExecuteCore(XmlElement element)
         {
             WriteElement(element, "", Depth);
