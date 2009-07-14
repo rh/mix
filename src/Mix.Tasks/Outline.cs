@@ -1,12 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Shows an outline of the selected elements.")]
+    [Description("Shows all distinct outlines of the selected elements.")]
     public class Outline : Task, IReadOnly
     {
+        private List<string> outlines = new List<string>();
+
         public Outline()
         {
             Depth = 1;
@@ -17,24 +22,47 @@ namespace Mix.Tasks
 
         protected override void OnBeforeExecute(int count)
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+            outlines = new List<string>();
+        }
+
+        protected override void OnAfterExecute()
+        {
+            Context.Output.WriteLine("{0}: {1}", Context.FileName, outlines.Count);
+            outlines.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
+            foreach (string outline in outlines)
+            {
+                Context.Output.WriteLine("{0}", outline);
+            }
         }
 
         protected override void ExecuteCore(XmlDocument document)
         {
-            WriteElement(document.DocumentElement, "", Depth);
+            CreateOutlines(document.DocumentElement);
         }
 
         protected override void ExecuteCore(XmlElement element)
         {
-            WriteElement(element, "", Depth);
+            CreateOutlines(element);
         }
 
-        private void WriteElement(XmlNode element, string indentation, int depth)
+        private void CreateOutlines(XmlNode element)
+        {
+            var output = new StringBuilder();
+            CreateOutline(element, "", Depth, output);
+            var outline = output.ToString();
+
+            if (!outlines.Contains(outline))
+            {
+                outlines.Add(outline);
+            }
+        }
+
+        private void CreateOutline(XmlNode element, string indentation, int depth, StringBuilder output)
         {
             if (depth == 0)
             {
-                Context.Output.WriteLine("{0}<{1} />", indentation, element.Name);
+                output.AppendFormat("{0}<{1} />", indentation, element.Name);
+                output.Append(Environment.NewLine);
             }
             else
             {
@@ -42,14 +70,17 @@ namespace Mix.Tasks
                 {
                     if (element.ChildNodes.Count == 1 && element.FirstChild.NodeType == XmlNodeType.Text)
                     {
-                        Context.Output.WriteLine("{0}<{1}></{1}>", indentation, element.Name);
+                        output.AppendFormat("{0}<{1}></{1}>", indentation, element.Name);
+                        output.Append(Environment.NewLine);
                         return;
                     }
-                    Context.Output.WriteLine("{0}<{1}>", indentation, element.Name);
+                    output.AppendFormat("{0}<{1}>", indentation, element.Name);
+                    output.Append(Environment.NewLine);
                 }
                 else
                 {
-                    Context.Output.WriteLine("{0}<{1} />", indentation, element.Name);
+                    output.AppendFormat("{0}<{1} />", indentation, element.Name);
+                    output.Append(Environment.NewLine);
                     return;
                 }
             }
@@ -60,10 +91,11 @@ namespace Mix.Tasks
                 {
                     if (node is XmlElement)
                     {
-                        WriteElement(node, indentation + "  ", depth - 1);
+                        CreateOutline(node, indentation + "  ", depth - 1, output);
                     }
                 }
-                Context.Output.WriteLine("{0}</{1}>", indentation, element.Name);
+                output.AppendFormat("{0}</{1}>", indentation, element.Name);
+                output.Append(Environment.NewLine);
             }
         }
     }
