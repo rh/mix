@@ -58,6 +58,7 @@
     <Compile Include="ConvertToAttribute.cs" />
     <Compile Include="ConvertToPi.cs" />
     <Compile Include="ConvertToText.cs" />
+    <Compile Include="Copy.cs" />
     <Compile Include="Count.cs" />
     <Compile Include="LowerCase.cs" />
     <Compile Include="Namespaces.cs" />
