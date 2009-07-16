@@ -137,7 +137,7 @@ namespace Mix.Console.Commands
         {
             try
             {
-                var settings = new XmlWriterSettings {Encoding = Context.Encoding};
+                var settings = new XmlWriterSettings {Indent = true, Encoding = Context.Encoding};
                 using (var writer = XmlWriter.Create(file, settings))
                 {
                     Context.Document.WriteContentTo(writer);
