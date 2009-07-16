@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -11,6 +12,23 @@ namespace Mix.Tasks
     {
         private List<string> values = new List<string>();
 
+        public Distinct()
+        {
+            Text = true;
+        }
+
+        [Option]
+        [Description("If set, the textual representation of elements will be compared. This is the default.\nExample: when selecting <div> elements with the XPath expression '//div[p]', the value '<p>See <a href=\"http://www.example.org/\">here</a></p>' will be compared as 'See here'.")]
+        public bool Text { get; set; }
+
+        [Option]
+        [Description("If set, the inner XML of elements will be compared.\nExample: when selecting <div> elements with the XPath expression '//div[p]', the value '<p>See <a href=\"http://www.example.org/\">here</a></p>' will be compared as such.")]
+        public bool InnerXml { get; set; }
+
+        [Option]
+        [Description("If set, the outer XML of elements, that is the XML including the selected element, will be compared.\nExample: when selecting <div> elements with the XPath expression '//div[p]', the value '<div><p>See <a href=\"http://www.example.org/\">here</a></p></div>' will be compared as such.")]
+        public bool OuterXml { get; set; }
+
         protected override void OnBeforeExecute(int count)
         {
             values = new List<string>();
@@ -18,12 +36,15 @@ namespace Mix.Tasks
 
         protected override void OnAfterExecute()
         {
+            var color = Console.ForegroundColor;
             Context.Output.WriteLine("{0}: {1}", Context.FileName, values.Count);
             values.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
             foreach (string value in values)
             {
+                Console.ForegroundColor = Console.ForegroundColor == color ? ConsoleColor.DarkGray : color;
                 Context.Output.WriteLine(value);
             }
+            Console.ForegroundColor = color;
         }
 
         private void AddValue(string value)
@@ -34,20 +55,20 @@ namespace Mix.Tasks
             }
         }
 
-        /// <remarks>
-        /// This calls InnerText on the element which means the textual representation of the 
-        /// element is compared with other values. As a result
-        /// <code>
-        /// &lt;p>Foo &lt;img src="" />bar&lt;/p>
-        /// </code>
-        /// will be considered the same as
-        /// <code>
-        /// &lt;p>Foo &lt;a href="">bar&lt;/a>&lt;/p>
-        /// </code>
-        /// </remarks>
         protected override void ExecuteCore(XmlElement element)
         {
-            AddValue(element.InnerText);
+            if (InnerXml)
+            {
+                AddValue(element.InnerXml);
+            }
+            else if (OuterXml)
+            {
+                AddValue(element.OuterXml);
+            }
+            else
+            {
+                AddValue(element.InnerText);
+            }
         }
 
         protected override void ExecuteCore(XmlAttribute attribute)
