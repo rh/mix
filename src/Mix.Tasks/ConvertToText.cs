@@ -9,7 +9,7 @@ namespace Mix.Tasks
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            var text = element.OwnerDocument.CreateTextNode(element.OuterXml);
+            var text = element.OwnerDocument.CreateTextNode(element.InnerXml);
             element.ParentNode.ReplaceChild(text, element);
         }
 

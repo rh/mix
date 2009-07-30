@@ -9,7 +9,7 @@ namespace Mix.Tasks.Tests
         public void ConvertElementToText()
         {
             const string pre = @"<root><foo>bar</foo></root>";
-            const string post = @"<root>&lt;foo&gt;bar&lt;/foo&gt;</root>";
+            const string post = @"<root>bar</root>";
             const string xpath = "//foo";
             var task = new ConvertToText();
             Run(pre, post, xpath, task);
