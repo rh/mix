@@ -1,17 +1,41 @@
-using System.Text.RegularExpressions;
 using System.Xml;
 using Mix.Core;
 using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    [Description("Inserts copies of the selected elements after those elements.")]
+    [Description("Inserts copies of the selected nodes after those nodes.")]
     public class Copy : Task
     {
+        private void DoCopy(XmlNode node)
+        {
+            XmlNode clone = node.CloneNode(true);
+            node.ParentNode.InsertAfter(clone, node);
+        }
+
         protected override void ExecuteCore(XmlElement element)
         {
-            XmlNode clone = element.CloneNode(true);
-            element.ParentNode.InsertAfter(clone, element);
+            DoCopy(element);
+        }
+
+        protected override void ExecuteCore(XmlText text)
+        {
+            DoCopy(text);
+        }
+
+        protected override void ExecuteCore(XmlCDataSection section)
+        {
+            DoCopy(section);
+        }
+
+        protected override void ExecuteCore(XmlComment comment)
+        {
+            DoCopy(comment);
+        }
+
+        protected override void ExecuteCore(XmlProcessingInstruction instruction)
+        {
+            DoCopy(instruction);
         }
     }
 }
