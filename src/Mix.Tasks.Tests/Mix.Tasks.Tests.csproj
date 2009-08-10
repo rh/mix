@@ -63,6 +63,7 @@
     <Compile Include="ConvertToAttributeFixture.cs" />
     <Compile Include="ConvertToPiFixture.cs" />
     <Compile Include="ConvertToTextFixture.cs" />
+    <Compile Include="CopyFixture.cs" />
     <Compile Include="CountFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
