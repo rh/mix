@@ -1,22 +1,8 @@
-Create an IContext property on Action
-Make count of selected nodes available to action
-Create events BeforeExecute, AfterExecute
-Refactor XMlHelper
-
-DONE: Move ArgumentAttribute, RequiredAttribute logic to Mix.Core (see HelpCommand)
-Better: create a new class (ActionInfo and ArgumentInfo?) with information about properties(arguments) to set, which are required, what is their description etc.
-This class will be used to format the information for display.
-If HelpCommand does not have usings for System.Reflection and Mix.Core.Attributes then this class is succesfully created.
-
 Refactor CommandFactory:
-- make it not static. Just create a CommandFactory in Program and use that one.
 - remove all references to concrete actions:
   * either use dynamic registration
   * or give the actions a possibility to register themselves
 - do not use Register(new X())
-
-DONE: Refactor ListCommand:
-- do not use reflection (so move it somewhere else, into Mix.Core)
 
 When using wildcards for files:
 - exit on the first error
@@ -45,14 +31,6 @@ Validation:
 How to write the full path of a node?
 Like: /root/element1[0]/element2[2]/@attribute
 
-Add context to action?
-And add error/info stream to context?
-
-
-DONE: rename prefix and suffix to append and prepend
-
-if 'file' not set, and only one XML file exists in the current directory, use it (with confirmation?)
-
 clear possibilities:
 <element attribute="">text</element> -> <element></element>
 <element attribute="">text</element> -> <element attribute=""></element>
@@ -63,8 +41,6 @@ Make sure only properties with a setter are set using reflection
 Split Action into two interfaces
 - for Execute
 - for meta info
-
-Move Utils.log4net
 
 learn how to merge static html with html help
 
@@ -77,12 +53,7 @@ refactor tests
  b) use parameterized ctors, no properties
  c) use parameterized ctors + properties
 
-DONE: Don't set description for action in ctor; make it a property or something else
-Rethink ActionType enum
-DONE: make all concrete actions sealed
-
 rewrite build script
-DONE: namespace in Mix.Actions is Mix.Core. Make it Mix.Actions or Mix.Core.Actions
 backup files
 maybe relocate tests, and use partial classes, internal visibility, or whatever to make sure tests have access to internals
 
