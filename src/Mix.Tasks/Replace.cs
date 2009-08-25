@@ -26,36 +26,11 @@ namespace Mix.Tasks
         [Description("If set, replacement will take place in the inner XML of selected elements.")]
         public bool Xml { get; set; }
 
-        [Option]
-        [Description("If set, case-insensitive matching will be attempted. The default is case-sensitive matching.")]
-        public bool IgnoreCase { get; set; }
-
-        [Option]
-        [Description("If set, . matches every character, instead of every character except \\n.")]
-        public bool Singleline { get; set; }
-
-        [Option]
-        [Description("If set, ^ and $ match the beginning and end of any line, instead of the whole string.")]
-        public bool Multiline { get; set; }
-
         private string DoReplace(string value)
         {
             if (!string.IsNullOrEmpty(Pattern))
             {
-                var options = RegexOptions.None;
-                if (IgnoreCase)
-                {
-                    options |= RegexOptions.IgnoreCase;
-                }
-                if (Singleline)
-                {
-                    options |= RegexOptions.Singleline;
-                }
-                if (Multiline)
-                {
-                    options |= RegexOptions.Multiline;
-                }
-                return Regex.Replace(value, Pattern, Replacement, options);
+                return Regex.Replace(value, Pattern, Replacement);
             }
             return Replacement;
         }
