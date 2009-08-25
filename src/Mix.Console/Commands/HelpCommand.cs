@@ -130,6 +130,13 @@ namespace Mix.Console.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
+            WriteTaskName("file");
+            WriteTaskDescription("The name(s) or pattern(s) of the file(s) to process. Names or patterns can be separated by ';'.\nIf not set, '*.xml' is used.");
+            WriteTaskName("recursive");
+            WriteTaskDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
+            WriteTaskName("xpath");
+            WriteTaskDescription("The XPath expression used for selection.");
+
             foreach (var option in info.Options)
             {
                 WriteTaskName(option.Name.ToLower());
@@ -140,8 +147,6 @@ namespace Mix.Console.Commands
                     WriteLine("{0}[required]", new string(' ', LeftMargin));
                 }
             }
-            WriteTaskName("recursive");
-            WriteTaskDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
         }
 
         private void WriteTaskName(string name)
