@@ -1,1 +1,11 @@
 build
+
+src/*.user
+src/_ReSharper*
+src/*.resharper*
+src/*.suo
+src/*.sln.cache
+src/*.gpState
+
+src/*/bin
+src/*/obj
