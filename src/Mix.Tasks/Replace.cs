@@ -19,7 +19,7 @@ namespace Mix.Tasks
         public string Pattern { get; set; }
 
         [Option(SupportsXPathTemplates = true)]
-        [Description("The replacement string, which may contain backreferences (e.g. $1) if the pattern option is used.")]
+        [Description("The replacement string, which may contain backreferences (e.g. $1).")]
         public string Replacement { get; set; }
 
         [Option]
