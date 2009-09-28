@@ -130,17 +130,17 @@ namespace Mix.Console.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
-            WriteTaskName("file");
-            WriteTaskDescription("The name(s) or pattern(s) of the file(s) to process. Names or patterns can be separated by ';'.\nIf not set, '*.xml' is used.");
-            WriteTaskName("recursive");
-            WriteTaskDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
-            WriteTaskName("xpath");
-            WriteTaskDescription("The XPath expression used for selection.");
+            WriteOptionName("file");
+            WriteOptionDescription("The name(s) or pattern(s) of the file(s) to process. Names or patterns can be separated by ';'.\nIf not set, '*.xml' is used.");
+            WriteOptionName("recursive");
+            WriteOptionDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
+            WriteOptionName("xpath");
+            WriteOptionDescription("The XPath expression used for selection.");
 
             foreach (var option in info.Options)
             {
-                WriteTaskName(option.Name.ToLower());
-                WriteTaskDescription(option.Description);
+                WriteOptionName(option.Name.ToLower());
+                WriteOptionDescription(option.Description);
 
                 if (option.Required)
                 {
@@ -149,12 +149,12 @@ namespace Mix.Console.Commands
             }
         }
 
-        private void WriteTaskName(string name)
+        private void WriteOptionName(string name)
         {
             Write("  {0,-18}", name);
         }
 
-        private void WriteTaskDescription(string description)
+        private void WriteOptionDescription(string description)
         {
             if (description.Length >= System.Console.WindowWidth - LeftMargin)
             {
