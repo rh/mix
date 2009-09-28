@@ -8,7 +8,7 @@ namespace Mix.Console.Commands
 {
     public class HelpCommand : Command
     {
-        const int LeftMargin = 20;
+        const int LeftMargin = 21;
 
         private readonly string name = String.Empty;
         private readonly CommandRegistry registry;
@@ -131,27 +131,33 @@ namespace Mix.Console.Commands
             Write(Environment.NewLine);
             WriteLine("Options:");
             WriteOptionName("file");
+            Write("   ");
             WriteOptionDescription("The name(s) or pattern(s) of the file(s) to process. Names or patterns can be separated by ';'.\nIf not set, '*.xml' is used.");
             WriteOptionName("recursive");
+            Write("   ");
             WriteOptionDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
             WriteOptionName("xpath");
+            Write("   ");
             WriteOptionDescription("The XPath expression used for selection.");
 
             foreach (var option in info.Options)
             {
                 WriteOptionName(option.Name.ToLower());
-                WriteOptionDescription(option.Description);
-
                 if (option.Required)
                 {
-                    WriteLine("{0}[required]", new string(' ', LeftMargin));
+                    Write(" * ");
                 }
+                else
+                {
+                    Write("   ");
+                }
+                WriteOptionDescription(option.Description);
             }
         }
 
         private void WriteOptionName(string name)
         {
-            Write("  {0,-18}", name);
+            Write("  {0,-16}", name);
         }
 
         private void WriteOptionDescription(string description)
