@@ -1,28 +1,97 @@
+using Mix.Core.Exceptions;
 using NUnit.Framework;
 
 namespace Mix.Tasks.Tests
 {
-    [TestFixture]
-    public class AddAttributeFixture : TestFixture
-    {
-        [Test]
-        public void SetNameOnly()
-        {
-            const string pre = @"<root />";
-            const string post = @"<root post="""" />";
-            const string xpath = "root";
-            var task = new AddAttribute {Name = "post"};
-            Run(pre, post, xpath, task);
-        }
+	[TestFixture]
+	public class AddAttributeFixture : TestFixture
+	{
+		[Test]
+		public void AttributeExists()
+		{
+			const string Pre = @"<root name="""" />";
+			const string Post = Pre;
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "name"};
+			Run(Pre, Post, XPath, task);
+		}
 
-        [Test]
-        public void SetNameAndValue()
-        {
-            const string pre = @"<root />";
-            const string post = @"<root post=""foo"" />";
-            const string xpath = "root";
-            var task = new AddAttribute {Name = "post", Value = "foo"};
-            Run(pre, post, xpath, task);
-        }
-    }
+		[Test]
+		public void SetNameOnly()
+		{
+			const string Pre = @"<root />";
+			const string Post = @"<root post="""" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test]
+		public void SetNameAndValue()
+		{
+			const string Pre = @"<root />";
+			const string Post = @"<root post=""foo"" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test]
+		public void InsertBefore()
+		{
+			const string Pre = @"<root first="""" />";
+			const string Post = @"<root post=""foo"" first="""" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", Before = "@first"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test]
+		public void InsertBeforeWithNonSelectingInvalidXPath()
+		{
+			const string Pre = @"<root first="""" />";
+			const string Post = @"<root first="""" post=""foo"" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", Before = "@non-existing"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test, ExpectedException(typeof(TaskExecutionException))]
+		public void InsertBeforeWithInvalidXPath()
+		{
+			const string Pre = @"<root first="""" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", Before = "///"};
+			Run(Pre, null, XPath, task);
+		}
+
+		[Test]
+		public void InsertAfter()
+		{
+			const string Pre = @"<root first="""" second="""" />";
+			const string Post = @"<root first="""" post=""foo"" second="""" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", After = "@first"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test]
+		public void InsertAfterWithNonSelectingInvalidXPath()
+		{
+			const string Pre = @"<root first="""" second="""" />";
+			const string Post = @"<root first="""" second="""" post=""foo"" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", After = "@non-existing"};
+			Run(Pre, Post, XPath, task);
+		}
+
+		[Test, ExpectedException(typeof(TaskExecutionException))]
+		public void InsertAfterWithInvalidXPath()
+		{
+			const string Pre = @"<root first="""" second="""" />";
+			const string XPath = "root";
+			var task = new AddAttribute {Name = "post", Value = "foo", After = "///"};
+			Run(Pre, null, XPath, task);
+		}
+	}
 }
