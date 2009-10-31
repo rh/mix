@@ -296,5 +296,15 @@ namespace Mix.Tasks.Tests
             var task = new Replace {Replacement = "{../@bar}"};
             Run(pre, post, xpath, task);
         }
+
+        [Test]
+        public void ReplaceDate()
+        {
+            const string pre =  @"<root><date>2009-09-21</date></root>";
+            const string post = @"<root><date>21-09-2009</date></root>";
+            const string xpath = "//date";
+            var task = new Replace {Pattern = @"(\d{4})-(\d{2})-(\d{2})", Replacement = "$3-$2-$1"};
+            Run(pre, post, xpath, task);
+        }
     }
 }
