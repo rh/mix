@@ -1,6 +1,8 @@
 using System.Xml;
+using System.Xml.XPath;
 using Mix.Core;
 using Mix.Core.Attributes;
+using Mix.Core.Exceptions;
 
 namespace Mix.Tasks
 {
@@ -30,21 +32,37 @@ namespace Mix.Tasks
 
             if (!string.IsNullOrEmpty(After))
             {
-                var node = element.SelectSingleNode(After);
-                if (node != null)
+                try
                 {
-                    element.InsertAfter(child, node);
-                    return;
+                    var node = element.SelectSingleNode(After);
+                    if (node != null)
+                    {
+                        element.InsertAfter(child, node);
+                        return;
+                    }
+                }
+                catch (XPathException e)
+                {
+                    var message = string.Format("'{0}' is not a valid XPath expression.", After);
+                    throw new TaskExecutionException(message, e);
                 }
             }
 
             if (!string.IsNullOrEmpty(Before))
             {
-                var node = element.SelectSingleNode(Before);
-                if (node != null)
+                try
                 {
-                    element.InsertBefore(child, node);
-                    return;
+                    var node = element.SelectSingleNode(Before);
+                    if (node != null)
+                    {
+                        element.InsertBefore(child, node);
+                        return;
+                    }
+                }
+                catch (XPathException e)
+                {
+                    var message = string.Format("'{0}' is not a valid XPath expression.", Before);
+                    throw new TaskExecutionException(message, e);
                 }
             }
 
