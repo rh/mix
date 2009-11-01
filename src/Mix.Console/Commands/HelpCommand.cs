@@ -8,7 +8,7 @@ namespace Mix.Console.Commands
 {
     public class HelpCommand : Command
     {
-        const int LeftMargin = 21;
+        private const int LeftMargin = 21;
 
         private readonly string name = String.Empty;
         private readonly CommandRegistry registry;

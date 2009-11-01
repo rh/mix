@@ -41,7 +41,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root>text</root>";
             const string post = @"<root><?pi text?></root>";
             const string xpath = "//text()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
 
@@ -51,7 +51,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root>text&gt;</root>";
             const string post = @"<root><?pi text>?></root>";
             const string xpath = "//text()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
 
@@ -61,7 +61,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><![CDATA[text]]></root>";
             const string post = @"<root><?pi text?></root>";
             const string xpath = "//text()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
 
@@ -71,7 +71,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><![CDATA[text>]]></root>";
             const string post = @"<root><?pi text>?></root>";
             const string xpath = "//text()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
 
@@ -81,7 +81,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><!--text--></root>";
             const string post = @"<root><?pi text?></root>";
             const string xpath = "//comment()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
 
@@ -91,7 +91,7 @@ namespace Mix.Tasks.Tests
             const string pre = @"<root><!--text>--></root>";
             const string post = @"<root><?pi text>?></root>";
             const string xpath = "//comment()";
-            var task = new ConvertToPi { Name = "pi" };
+            var task = new ConvertToPi {Name = "pi"};
             Run(pre, post, xpath, task);
         }
     }

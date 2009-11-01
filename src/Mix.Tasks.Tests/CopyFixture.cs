@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Xml;
-using Mix.Core;
-using Mix.Core.Exceptions;
 using NUnit.Framework;
 
 namespace Mix.Tasks.Tests

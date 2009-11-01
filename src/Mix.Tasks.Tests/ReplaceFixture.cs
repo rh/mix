@@ -290,7 +290,7 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceWithXPathTemplate2()
         {
-            const string pre =  @"<root><child foo=""foo"" bar=""bar1"" /><child foo=""foo"" bar=""bar2"" /></root>";
+            const string pre = @"<root><child foo=""foo"" bar=""bar1"" /><child foo=""foo"" bar=""bar2"" /></root>";
             const string post = @"<root><child foo=""bar1"" bar=""bar1"" /><child foo=""bar2"" bar=""bar2"" /></root>";
             const string xpath = "//child/@foo";
             var task = new Replace {Replacement = "{../@bar}"};
@@ -300,7 +300,7 @@ namespace Mix.Tasks.Tests
         [Test]
         public void ReplaceDate()
         {
-            const string pre =  @"<root><date>2009-09-21</date></root>";
+            const string pre = @"<root><date>2009-09-21</date></root>";
             const string post = @"<root><date>21-09-2009</date></root>";
             const string xpath = "//date";
             var task = new Replace {Pattern = @"(\d{4})-(\d{2})-(\d{2})", Replacement = "$3-$2-$1"};

@@ -14,7 +14,7 @@ namespace Mix.Core
     {
         public IContext Context { get; private set; }
 
-        readonly Dictionary<PropertyInfo, string> propertiesToEvaluate = new Dictionary<PropertyInfo, string>();
+        private readonly Dictionary<PropertyInfo, string> propertiesToEvaluate = new Dictionary<PropertyInfo, string>();
 
         private void Initialize(IContext context)
         {

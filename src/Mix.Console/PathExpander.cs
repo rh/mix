@@ -9,7 +9,7 @@ namespace Mix.Console
     public class PathExpander
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PathExpander));
-        readonly IList<string> files = new List<string>();
+        private readonly IList<string> files = new List<string>();
         private const SearchOption TopDirectoryOnly = SearchOption.TopDirectoryOnly;
 
         public IList<string> Expand(string workingDirectory, string patterns, bool recursively)
@@ -108,7 +108,7 @@ namespace Mix.Console
             {
                 files.Add(file.FullName);
             }
-            
+
             if (recursively)
             {
                 foreach (var directory in new DirectoryInfo(path).GetDirectories())

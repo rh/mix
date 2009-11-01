@@ -9,7 +9,7 @@ namespace Mix.Tasks
     {
         protected override void ExecuteCore(XmlElement element)
         {
-            foreach(XmlNode node in element.ChildNodes)
+            foreach (XmlNode node in element.ChildNodes)
             {
                 var clone = node.CloneNode(true);
                 element.ParentNode.InsertBefore(clone, element);
