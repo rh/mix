@@ -40,6 +40,15 @@ namespace Mix.Tasks.Tests
         }
 
         [Test, ExpectedException(typeof(TaskExecutionException))]
+        public void InsertBeforeWithXPathSelectingAnAttribute()
+        {
+            const string Pre = "<root attribute=\"\"><first /><last /></root>";
+            const string XPath = "root";
+            var task = new AddFragment {Fragment = Fragment, Before = "@attribute"};
+            Run(Pre, null, XPath, task);
+        }
+
+        [Test, ExpectedException(typeof(TaskExecutionException))]
         public void InsertBeforeWithInvalidXPath()
         {
             const string Pre = "<root><first /><last /></root>";
@@ -66,6 +75,15 @@ namespace Mix.Tasks.Tests
             const string XPath = "root";
             var task = new AddFragment {Fragment = Fragment, After = "non-existing"};
             Run(Pre, Post, XPath, task);
+        }
+
+        [Test, ExpectedException(typeof(TaskExecutionException))]
+        public void InsertAfterWithXPathSelectingAnAttribute()
+        {
+            const string Pre = "<root attribute=\"\"><first /><last /></root>";
+            const string XPath = "root";
+            var task = new AddFragment {Fragment = Fragment, After = "@attribute"};
+            Run(Pre, null, XPath, task);
         }
 
         [Test, ExpectedException(typeof(TaskExecutionException))]

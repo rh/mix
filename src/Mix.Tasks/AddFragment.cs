@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 using System.Xml.XPath;
 using Mix.Core;
@@ -42,6 +43,11 @@ namespace Mix.Tasks
                     var message = string.Format("'{0}' is not a valid XPath expression.", After);
                     throw new TaskExecutionException(message, e);
                 }
+                catch (ArgumentException e)
+                {
+                    var message = string.Format("The XPath expression '{0}' is not valid in this context.\nThe XML fragment cannot be added after this node.", After);
+                    throw new TaskExecutionException(message, e);
+                }
             }
 
             if (!string.IsNullOrEmpty(Before))
@@ -58,6 +64,11 @@ namespace Mix.Tasks
                 catch (XPathException e)
                 {
                     var message = string.Format("'{0}' is not a valid XPath expression.", Before);
+                    throw new TaskExecutionException(message, e);
+                }
+                catch (ArgumentException e)
+                {
+                    var message = string.Format("The XPath expression '{0}' is not valid in this context.\nThe XML fragment cannot be added before this node.", Before);
                     throw new TaskExecutionException(message, e);
                 }
             }
