@@ -262,9 +262,9 @@ namespace Mix.Tasks
             }
 
             Console.ForegroundColor = AttributeColor;
-            Context.Output.Write(" " + attribute.Name);
+            Context.Output.Write(" " + attribute.Name + "=");
             Console.ForegroundColor = StringColor;
-            Context.Output.Write("=\"" + attribute.Value + "\"");
+            Context.Output.Write("\"" + attribute.Value + "\"");
         }
 
         public void Print(XmlText text)
