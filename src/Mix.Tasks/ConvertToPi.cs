@@ -9,7 +9,7 @@ namespace Mix.Tasks
     public class ConvertToPi : Task
     {
         [Option]
-        [Description("The name of the processing instruction. Required for nodes other then elements.")]
+        [Description("The name of the processing instruction. Required for nodes other then elements or attributes.")]
         public string Name { get; set; }
 
         protected override void ExecuteCore(XmlElement element)
