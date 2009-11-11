@@ -77,6 +77,7 @@
     <Compile Include="ShowFixture.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="TrimFixture.cs" />
+    <Compile Include="UnwrapFixture.cs" />
     <Compile Include="UpperCaseFixture.cs" />
   </ItemGroup>
   <ItemGroup>
