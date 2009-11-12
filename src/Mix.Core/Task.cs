@@ -118,7 +118,13 @@ namespace Mix.Core
 
             // Tasks may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
-            var nodes = SelectNodes(context, manager);
+            var temp = SelectNodes(context, manager);
+        	var nodes = new List<XmlNode>();
+        	foreach (XmlNode node in temp)
+        	{
+        		nodes.Add(node);
+        	}
+			
             BeforeExecute(nodes.Count);
 
             var order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
@@ -185,7 +191,7 @@ namespace Mix.Core
             }
         }
 
-        private void Execute(XmlNodeList nodes, int index)
+        private void Execute(IList<XmlNode> nodes, int index)
         {
             var node = nodes[index];
 
