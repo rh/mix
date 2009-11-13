@@ -50,6 +50,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Attributes\ReversedAttribute.cs" />
     <Compile Include="Exceptions\XPathTemplateException.cs" />
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="OptionInfo.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />
     <Compile Include="Attributes\DescriptionAttribute.cs" />
-    <Compile Include="Attributes\ProcessingOrderAttribute.cs" />
     <Compile Include="Attributes\RangeAttribute.cs" />
     <Compile Include="Attributes\XmlOptionAttribute.cs" />
     <Compile Include="Attributes\RegexOptionAttribute.cs" />

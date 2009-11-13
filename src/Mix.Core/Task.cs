@@ -127,18 +127,16 @@ namespace Mix.Core
 			
             BeforeExecute(nodes.Count);
 
-            var order = ProcessingOrderAttribute.GetProcessingOrderFrom(this);
-
-            if (order == ProcessingOrder.Normal)
+            if (ReversedAttribute.IsDefinedOn(this))
             {
-                for (var i = 0; i < nodes.Count; i++)
+                for (var i = nodes.Count - 1; i >= 0; i--)
                 {
                     Execute(nodes, i);
                 }
             }
             else
             {
-                for (var i = nodes.Count - 1; i >= 0; i--)
+                for (var i = 0; i < nodes.Count; i++)
                 {
                     Execute(nodes, i);
                 }

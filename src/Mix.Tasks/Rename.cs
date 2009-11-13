@@ -6,7 +6,7 @@ using Mix.Core.Attributes;
 namespace Mix.Tasks
 {
     [Description("Renames all selected elements, attributes or processing instructions.")]
-    [ProcessingOrder(ProcessingOrder.Reverse)]
+    [Reversed]
     public class Rename : Task
     {
         public Rename()
