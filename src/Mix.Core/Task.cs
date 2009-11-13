@@ -88,7 +88,7 @@ namespace Mix.Core
                             var attribute = (OptionAttribute) property.GetCustomAttributes(typeof(OptionAttribute), false)[0];
                             if (attribute.SupportsXPathTemplates)
                             {
-                                object value = property.GetValue(this, null) ?? string.Empty;
+                                var value = property.GetValue(this, null) ?? string.Empty;
                                 context[name] = value.ToString();
                                 propertiesToEvaluate[property] = context[name];
                             }
@@ -118,13 +118,8 @@ namespace Mix.Core
 
             // Tasks may need to recreate child nodes. If they do, these nodes
             // will not be selected. Processing all nodes in reverse order solves this.
-            var temp = SelectNodes(context, manager);
-        	var nodes = new List<XmlNode>();
-        	foreach (XmlNode node in temp)
-        	{
-        		nodes.Add(node);
-        	}
-			
+            var nodes = SelectNodes(context, manager);
+
             BeforeExecute(nodes.Count);
 
             if (ReversedAttribute.IsDefinedOn(this))
@@ -144,11 +139,16 @@ namespace Mix.Core
             AfterExecute();
         }
 
-        private static XmlNodeList SelectNodes(IContext context, XmlNamespaceManager manager)
+        private static IList<XmlNode> SelectNodes(IContext context, XmlNamespaceManager manager)
         {
             try
             {
-                return context.Document.SelectNodes(context.XPath, manager);
+                var nodes = new List<XmlNode>();
+                foreach (XmlNode node in context.Document.SelectNodes(context.XPath, manager))
+                {
+                    nodes.Add(node);
+                }
+                return nodes;
             }
             catch (XPathException e)
             {
