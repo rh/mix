@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using log4net;
 using Mix.Console.Exceptions;
 using Mix.Core;
 using Mix.Core.Exceptions;
@@ -12,7 +11,6 @@ namespace Mix.Console.Commands
 {
     public class TaskCommand : Command
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TaskCommand));
         private readonly ITask task;
 
         public TaskCommand(ITask task)
@@ -96,13 +94,11 @@ namespace Mix.Console.Commands
             }
             catch (XmlException e)
             {
-                log.Error(e.Message, e);
                 Context.Error.WriteLine(e.Message);
                 return false;
             }
             catch (RequirementException e)
             {
-                log.Error(e.Message, e);
                 var message = String.Format("Required option '{0}' is not set.", e.Property.ToLower());
                 Context.Error.WriteLine(message);
                 if (e.Description.Length > 0)
@@ -115,13 +111,11 @@ namespace Mix.Console.Commands
             }
             catch (XPathTemplateException e)
             {
-                log.Error(e.Message, e);
                 var message = String.Format("XPath template '{0}' evaluates to an empty value for at least one of the selected nodes, but option '{1}' is required.", e.Value, e.Property.ToLower());
                 Context.Error.WriteLine(message);
             }
             catch (TaskExecutionException e)
             {
-                log.Error(e.Message, e);
                 Context.Error.WriteLine(e.Message);
                 return false;
             }
@@ -145,7 +139,6 @@ namespace Mix.Console.Commands
             }
             catch (Exception e)
             {
-                log.Error(e.Message, e);
                 Context.Error.WriteLine(e.Message);
                 return false;
             }

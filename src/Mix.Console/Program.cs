@@ -1,6 +1,4 @@
 using System;
-using log4net;
-using log4net.Config;
 using Mix.Console.Commands;
 
 namespace Mix.Console
@@ -11,7 +9,6 @@ namespace Mix.Console
         private static int Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-            XmlConfigurator.Configure();
 
             try
             {
@@ -21,9 +18,7 @@ namespace Mix.Console
             }
             catch (Exception e)
             {
-                const string message = "An exception was caught. Mix exits.";
-                LogManager.GetLogger(typeof(Program)).Error(message, e);
-                System.Console.Error.WriteLine(message);
+                System.Console.Error.WriteLine("An unexpected error occurred.");
                 System.Console.Error.WriteLine(e);
                 return 1;
             }
@@ -31,8 +26,8 @@ namespace Mix.Console
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var logger = LogManager.GetLogger(typeof(Program));
-            logger.Error("An unhandled exception was caught.", e.ExceptionObject as Exception);
+            System.Console.Error.WriteLine("An unexpected error occurred.");
+            System.Console.Error.WriteLine(e.ExceptionObject);
         }
     }
 }

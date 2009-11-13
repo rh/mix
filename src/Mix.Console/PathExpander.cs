@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using log4net;
 using Mix.Console.Exceptions;
 
 namespace Mix.Console
 {
 	public class PathExpander
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(PathExpander));
 		private readonly IList<string> files = new List<string>();
 		private const SearchOption TopDirectoryOnly = SearchOption.TopDirectoryOnly;
 
@@ -160,7 +158,6 @@ namespace Mix.Console
 		private static void ThrowInvalidPathException(string format, string pattern, Exception exception)
 		{
 			var message = String.Format(format, pattern);
-			log.Error(message, exception);
 			throw new InvalidPathException(message, exception);
 		}
 	}
