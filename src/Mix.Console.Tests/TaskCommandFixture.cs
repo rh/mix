@@ -51,14 +51,5 @@ namespace Mix.Console.Tests
             command.Context["file"] = "file";
             Assert.IsTrue(command.Execute() == 0);
         }
-
-        [Test]
-        public void ExecuteWithFileSetWithWrongCharacters()
-        {
-            ITask task = new Set();
-            var command = new TaskCommand(task);
-            command.Context["file"] = ":";
-            Assert.IsTrue(command.Execute() > 0);
-        }
     }
 }
