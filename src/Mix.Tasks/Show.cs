@@ -34,11 +34,6 @@ namespace Mix.Tasks
         [Option, Description("If set, processing instructions are not shown in the output.")]
         public bool SkipPI { get; set; }
 
-        public Show()
-        {
-            ForegroundColor = Console.ForegroundColor;
-        }
-
         protected override void ExecuteCore(XmlDocument document)
         {
             if (!string.IsNullOrEmpty(Skip))
