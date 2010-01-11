@@ -531,8 +531,6 @@ namespace Mix.Core
             }
         }
 
-        public static readonly Regex XPathTemplate = new Regex("{([^0-9,}]{1}[^}]+)}");
-
         /// <summary>
         /// Evaluates <paramref name="value"/> for any XPath templates.
         /// If found, these XPath templates will be 
@@ -540,16 +538,20 @@ namespace Mix.Core
         /// <param name="context"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static string Evaluate(XmlNode context, string value)
+        protected static string Evaluate(XmlNode context, string value)
         {
             if (string.IsNullOrEmpty(value))
             {
                 return value;
             }
+
             // Because the MatchEvaluator needs to access the context node, we have to use a delegate
-            return XPathTemplate.Replace(value,
+            var template = new Regex("{([^0-9,}]{1}[^}]+)}");
+
+            return template.Replace(value,
                                          match =>
                                              {
+                                                 // Strip the template characters, e.g. {foo} > foo
                                                  var xpath = match.Value.Substring(1, match.Value.Length - 2);
                                                  try
                                                  {

@@ -62,6 +62,7 @@
     <Compile Include="Copy.cs" />
     <Compile Include="Count.cs" />
     <Compile Include="Distinct.cs" />
+    <Compile Include="Join.cs" />
     <Compile Include="LowerCase.cs" />
     <Compile Include="Namespaces.cs" />
     <Compile Include="Outline.cs" />
