@@ -558,7 +558,7 @@ namespace Mix.Core
                                                      var node = context.SelectSingleNode(xpath);
                                                      if (node != null)
                                                      {
-                                                         return node.Value;
+                                                         return node.InnerText;
                                                      }
                                                  }
                                                  catch (XPathException)
