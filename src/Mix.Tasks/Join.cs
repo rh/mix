@@ -42,7 +42,7 @@ namespace Mix.Tasks
 
                     if (InnerXml)
                     {
-                        xml = node.OuterXml;
+                        xml = node.InnerXml;
                     }
                     else if (OuterXml)
                     {
@@ -53,7 +53,15 @@ namespace Mix.Tasks
                         xml = node.InnerText;
                     }
 
-                    element.InnerXml = element.InnerXml + Separator + xml;
+                    if (element.InnerXml.Length == 0)
+                    {
+                        element.InnerXml = element.InnerXml + xml;
+                    }
+                    else
+                    {
+                        element.InnerXml = element.InnerXml + Separator + xml;
+                    }
+
                     node.ParentNode.RemoveChild(node);
                 }
             }

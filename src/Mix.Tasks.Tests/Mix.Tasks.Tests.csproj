@@ -65,6 +65,7 @@
     <Compile Include="ConvertToTextFixture.cs" />
     <Compile Include="CopyFixture.cs" />
     <Compile Include="CountFixture.cs" />
+    <Compile Include="JoinFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
