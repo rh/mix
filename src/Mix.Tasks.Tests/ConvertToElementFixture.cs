@@ -36,31 +36,34 @@ namespace Mix.Tasks.Tests
             Run(pre, post, xpath, task);
         }
 
-        [Test, ExpectedException(typeof(RequirementException))]
+        [Test]
         public void NameShouldBeSuppliedForText()
         {
             const string pre = @"<root>foo</root>";
             const string xpath = "//text()";
             var task = new ConvertToElement();
-            Run(pre, null, xpath, task);
+
+            Assert.Throws<RequirementException>(() => Run(pre, null, xpath, task));
         }
 
-        [Test, ExpectedException(typeof(RequirementException))]
+        [Test]
         public void NameShouldBeSuppliedForCData()
         {
             const string pre = @"<root><![CDATA[text]]></root>";
             const string xpath = "//text()";
             var task = new ConvertToElement();
-            Run(pre, null, xpath, task);
+
+            Assert.Throws<RequirementException>(() => Run(pre, null, xpath, task));
         }
 
-        [Test, ExpectedException(typeof(RequirementException))]
+        [Test]
         public void NameShouldBeSuppliedForComments()
         {
             const string pre = @"<root><!----></root>";
             const string xpath = "//comment()";
             var task = new ConvertToElement();
-            Run(pre, null, xpath, task);
+
+            Assert.Throws<RequirementException>(() => Run(pre, null, xpath, task));
         }
 
         [Test]

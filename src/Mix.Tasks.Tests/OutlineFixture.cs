@@ -3,7 +3,6 @@ using System.IO;
 using System.Xml;
 using Mix.Core;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace Mix.Tasks.Tests
 {

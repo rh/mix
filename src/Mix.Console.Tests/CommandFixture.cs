@@ -17,10 +17,9 @@ namespace Mix.Console.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void NullContext()
         {
-            new HelpCommand {Context = null};
+            Assert.Throws<ArgumentNullException>(() => new HelpCommand {Context = null});
         }
 
         [Test]

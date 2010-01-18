@@ -17,12 +17,12 @@ namespace Mix.Console.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void RegisterTheSameCommandTwice()
         {
             var registry = new CommandRegistry();
             registry.Register(new HelpCommand());
-            registry.Register(new HelpCommand());
+
+            Assert.Throws<ArgumentException>(() => registry.Register(new HelpCommand()));
         }
 
         [Test]

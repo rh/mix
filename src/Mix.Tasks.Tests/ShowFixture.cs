@@ -4,7 +4,6 @@ using System.Xml;
 using Mix.Core;
 using Mix.Core.Exceptions;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace Mix.Tasks.Tests
 {
@@ -54,7 +53,6 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(TaskExecutionException))]
         public void AnInvalidXPathExpressionShouldThrow()
         {
             using (TextWriter writer = new StringWriter())
@@ -63,7 +61,8 @@ namespace Mix.Tasks.Tests
                 document.LoadXml("<root/>");
                 var context = new Context {Document = document, XPath = "///", FileName = "file", Output = writer};
                 var task = new Show();
-                task.Execute(context);
+
+                Assert.Throws<TaskExecutionException>(() => task.Execute(context));
             }
         }
     }

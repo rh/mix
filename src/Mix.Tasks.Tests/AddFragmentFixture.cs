@@ -48,13 +48,14 @@ namespace Mix.Tasks.Tests
             Run(Pre, Post, XPath, task);
         }
 
-        [Test, ExpectedException(typeof (TaskExecutionException))]
+        [Test]
         public void InsertBeforeWithInvalidXPath()
         {
             const string Pre = "<root><first /><last /></root>";
             const string XPath = "root";
             var task = new AddFragment {Fragment = Fragment, Before = InvalidXPath};
-            Run(Pre, null, XPath, task);
+
+            Assert.Throws<TaskExecutionException>(() => Run(Pre, null, XPath, task));
         }
 
         [Test]
@@ -86,13 +87,14 @@ namespace Mix.Tasks.Tests
             Run(Pre, Post, XPath, task);
         }
 
-        [Test, ExpectedException(typeof (TaskExecutionException))]
+        [Test]
         public void InsertAfterWithInvalidXPath()
         {
             const string Pre = "<root><first /><last /></root>";
             const string XPath = "root";
             var task = new AddFragment {Fragment = Fragment, After = InvalidXPath};
-            Run(Pre, null, XPath, task);
+
+            Assert.Throws<TaskExecutionException>(() => Run(Pre, null, XPath, task));
         }
     }
 }

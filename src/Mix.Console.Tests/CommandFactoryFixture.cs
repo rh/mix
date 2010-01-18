@@ -3,7 +3,6 @@ using System.IO;
 using Mix.Console.Commands;
 using Mix.Core;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace Mix.Console.Tests
 {
@@ -116,7 +115,7 @@ namespace Mix.Console.Tests
             registry.Register(new BazCommand());
             var factory = new CommandFactory(registry);
             var command = factory.Create(new[] {"ba"});
-            Assert.That(command, Is.InstanceOfType(typeof(AmbiguousMatchCommand)));
+            Assert.That(command, Is.InstanceOf(typeof(AmbiguousMatchCommand)));
         }
 
         [Test]
@@ -128,9 +127,9 @@ namespace Mix.Console.Tests
             var factory = new CommandFactory(registry);
             var command = factory.Create(new[] {"ba"});
             var output = OutputFor(command);
-            Assert.That(output, Text.Contains("Multiple commands start with 'ba':"));
-            Assert.That(output, Text.Contains("  bar"));
-            Assert.That(output, Text.Contains("  baz"));
+            Assert.That(output, Is.StringContaining("Multiple commands start with 'ba':"));
+            Assert.That(output, Is.StringContaining("  bar"));
+            Assert.That(output, Is.StringContaining("  baz"));
         }
 
         private class BarCommand : Command

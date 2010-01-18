@@ -1,5 +1,4 @@
 using System.Reflection;
-using Mix.Core.Attributes;
 using NUnit.Framework;
 
 namespace Mix.Core.Tests
@@ -13,7 +12,7 @@ namespace Mix.Core.Tests
         {
             public int Bar { get; set; }
 
-            [Range(0, 100)]
+            [Attributes.Range(0, 100)]
             public int Percentage { get; set; }
         }
 

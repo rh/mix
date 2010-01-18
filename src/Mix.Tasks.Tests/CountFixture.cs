@@ -53,14 +53,13 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(TaskExecutionException))]
         public void InvalidXPath()
         {
             const string pre = @"<root><child/><child/></root>";
-            const string post = pre;
             const string xpath = "//";
             var task = new Count();
-            Run(pre, post, xpath, task);
+
+            Assert.Throws<TaskExecutionException>(() => Run(pre, null, xpath, task));
         }
     }
 }
