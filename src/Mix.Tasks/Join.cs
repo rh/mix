@@ -16,7 +16,8 @@ namespace Mix.Tasks
         [Description("An XPath expression, applied to the selected node, which determines which node(s) will be joined with the selected node.")]
         public string With { get; set; }
 
-        [Option, Description("")]
+        [Option]
+        [Description("")]
         public string Separator { get; set; }
 
         [Option]
@@ -34,6 +35,7 @@ namespace Mix.Tasks
         protected override void ExecuteCore(XmlElement element)
         {
             var nodes = element.SelectNodes(With);
+
             if (nodes != null)
             {
                 foreach (XmlNode node in nodes)

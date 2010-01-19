@@ -5,6 +5,11 @@ namespace Mix.Tasks.Tests
     [TestFixture]
     public class JoinFixture : TestFixture
     {
+        // target: empty/text/xml
+        // source: empty/single node/multiple nodes
+        // source: text/inner xml/outer xml
+        // separator or not
+
         [Test]
         public void JoinEmptySourceWithEmptyTarget()
         {
@@ -16,9 +21,29 @@ namespace Mix.Tasks.Tests
         }
 
         [Test]
+        public void JoinMultipleEmptySourcesWithEmptyTarget()
+        {
+            const string Pre = @"<root><target></target><source></source><source></source><source></source></root>";
+            const string Post = @"<root><target></target></root>";
+            const string XPath = "//target";
+            var task = new Join {With = "../source", Text = true};
+            Run(Pre, Post, XPath, task);
+        }
+
+        [Test]
         public void JoinEmptySourceWithTextTarget()
         {
             const string Pre = @"<root><target>foo</target><source></source></root>";
+            const string Post = @"<root><target>foo</target></root>";
+            const string XPath = "//target";
+            var task = new Join {With = "../source", Text = true};
+            Run(Pre, Post, XPath, task);
+        }
+
+        [Test]
+        public void JoinMultipleEmptySourcesWithTextTarget()
+        {
+            const string Pre = @"<root><target>foo</target><source></source><source></source><source></source></root>";
             const string Post = @"<root><target>foo</target></root>";
             const string XPath = "//target";
             var task = new Join {With = "../source", Text = true};
