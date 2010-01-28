@@ -76,9 +76,9 @@ namespace Mix.Console.Commands
                 document.Load(file);
                 Context.Document = document;
             }
-            catch (XmlException)
+            catch (XmlException e)
             {
-                var message = String.Format("File '{0}' is not a valid XML file.", file);
+                var message = String.Format("File '{0}' is not a valid XML file:{1}{2}", file, Environment.NewLine, e.Message);
                 Context.Error.WriteLine(message);
                 return false;
             }
