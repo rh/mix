@@ -27,6 +27,12 @@ namespace Mix.Tasks
             {
                 try
                 {
+                    if (After == "self")
+                    {
+                        element.ParentNode.InsertAfter(child, element);
+                        return;
+                    }
+
                     var node = element.SelectSingleNode(After);
                     if (node != null)
                     {
@@ -49,6 +55,12 @@ namespace Mix.Tasks
             {
                 try
                 {
+                    if (Before == "self")
+                    {
+                        element.ParentNode.InsertBefore(child, element);
+                        return;
+                    }
+
                     var node = element.SelectSingleNode(Before);
                     if (node != null)
                     {
