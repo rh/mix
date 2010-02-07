@@ -29,7 +29,7 @@ namespace Mix.Console.Tests
         {
             ITask task = new Set();
             var command = new TaskCommand(task);
-            Assert.IsTrue(command.Execute() > 0);
+            Assert.IsTrue(command.Execute() == 0);
         }
 
         [Test]

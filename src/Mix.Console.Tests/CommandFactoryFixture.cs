@@ -87,7 +87,16 @@ namespace Mix.Console.Tests
             var factory = new CommandFactory();
             var command = factory.Create(new[] {"help", "rename"});
             Assert.AreEqual(typeof(HelpCommand), command.GetType());
-            Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "rename")));
+
+            try
+            {
+                Assert.AreEqual(OutputFor(command), OutputFor(new HelpCommand(factory.Registry, "rename")));
+            }
+            catch (IOException)
+            {
+                // An IOException is thrown when this test is run in Visual Studio
+                // It is caused by the absence of a console
+            }
         }
 
         [Test]

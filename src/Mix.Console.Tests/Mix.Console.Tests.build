@@ -4,21 +4,11 @@
   <property name="name" value="Mix.Console.Tests"/>
 
   <target name="build" description="Builds the Mix.Console.Tests assembly">
-    <csc target="library" warnaserror="true" debug="true"
-         output="${build.dir}/${name}.dll" doc="${build.dir}/${name}.xml">
-      <nowarn>
-        <!-- 1591: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
-        <warning number="1591" />
-        <!-- 1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do) -->
-        <warning number="1573" />
-      </nowarn>
+    <csc target="library" warnaserror="true" debug="true" output="${build.dir}/${name}.dll">
       <sources>
         <include name="**/*.cs" />
         <include name="../CommonAssemblyInfo.cs" />
       </sources>
-      <resources dynamicprefix="true" prefix="${name}">
-        <include name="**/*.resx"/>
-      </resources>
       <references>
         <lib>
           <include name="${build.dir}" />
