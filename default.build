@@ -2,15 +2,10 @@
 <project name="nant" default="default" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
   <property name="configuration"    value="Debug"/>
-  <!-- These properties are set using full paths, so build files called by this build file
-       can always use these properties, no matter where these build files are located  -->
   <property name="base.dir"         value="${directory::get-current-directory()}"/>
   <property name="build.base.dir"   value="${path::combine(base.dir, 'build')}"/>
   <property name="build.dir"        value="${path::combine(build.base.dir, configuration)}"/>
   <property name="lib.dir"          value="${path::combine(base.dir, 'lib')}" />
-  <property name="src.dir"          value="${path::combine(base.dir, 'src')}" />
-  <property name="tools.dir"        value="${path::combine(base.dir, 'tools')}" />
-  <property name="test-results.dir" value="${path::combine(build.dir, 'test-results')}" />
 
   <fileset id="mix.projects" basedir="src">
     <include name="Mix.Core/Mix.Core.build" />
@@ -19,13 +14,6 @@
     <include name="Mix.Tasks.Tests/Mix.Tasks.Tests.build" />
     <include name="Mix.Console/Mix.Console.build" />
     <include name="Mix.Console.Tests/Mix.Console.Tests.build" />
-    <include name="Mix.Util.log4net/Mix.Util.log4net.build" />
-  </fileset>
-
-  <fileset id="mix.assemblies" basedir="${build.dir}">
-    <include name="Mix.Core.dll" />
-    <include name="Mix.Tasks.dll" />
-    <include name="mix.exe" />
   </fileset>
 
   <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test"/>
@@ -45,7 +33,6 @@
 
   <target name="test" description="Runs the unit tests" depends="compile">
     <nunit2>
-      <!-- Use type="Xml" when the output is actually used -->
       <formatter type="Plain" usefile="false"/>
       <test assemblyname="${build.dir}/Mix.Tasks.Tests.dll"/>
       <test assemblyname="${build.dir}/Mix.Core.Tests.dll"/>

@@ -24,7 +24,6 @@
           <include name="${build.dir}" />
           <include name="${lib.dir}" />
         </lib>
-        <include name="log4net.dll" />
       </references>
     </csc>
   </target>

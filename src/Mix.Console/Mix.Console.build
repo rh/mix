@@ -24,12 +24,10 @@
           <include name="${build.dir}" />
           <include name="${lib.dir}" />
         </lib>
-        <include name="log4net.dll" />
         <include name="Mix.Core.dll" />
         <include name="Mix.Tasks.dll" />
       </references>
     </csc>
-    <copy file="${src.dir}/App.config" tofile="${build.dir}/mix.exe.config" />
   </target>
 
 </project>
