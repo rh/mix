@@ -48,8 +48,7 @@ namespace Mix.Tasks.Tests
             context.Output = writer;
             context.FileName = "file";
             new Count().Execute(context);
-            var expected = String.Empty;
-            Assert.AreEqual(expected, writer.ToString());
+			Assert.AreEqual("file: 0", writer.ToString().Trim());
         }
 
         [Test]
