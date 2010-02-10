@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Xml;
 using Mix.Console.Exceptions;
 using Mix.Core;
@@ -72,7 +70,6 @@ namespace Mix.Console.Commands
             {
                 Context.FileName = file;
             }
-            Context.Encoding = GetFileEncoding(file);
 
             try
             {
@@ -135,11 +132,7 @@ namespace Mix.Console.Commands
         {
             try
             {
-                var settings = new XmlWriterSettings {Indent = true, Encoding = Context.Encoding};
-                using (var writer = XmlWriter.Create(file, settings))
-                {
-                    Context.Document.WriteContentTo(writer);
-                }
+				Context.Document.Save(file);
             }
             catch (Exception e)
             {
@@ -147,46 +140,6 @@ namespace Mix.Console.Commands
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// Reads the encoding of <paramref name="file"/> from the byte order mark.
-        /// If no byte order mark is found, <see cref="Encoding.Default"/> is assumed.
-        /// </summary>
-        private static Encoding GetFileEncoding(string file)
-        {
-            using (var reader = new StreamReader(file, true))
-            {
-                reader.Read();
-                var encoding = reader.CurrentEncoding;
-                if (encoding != null)
-                {
-                    return encoding;
-                }
-            }
-
-            using (var reader = XmlReader.Create(file))
-            {
-                if (reader.Read() && reader.NodeType == XmlNodeType.XmlDeclaration)
-                {
-                    var name = reader.GetAttribute("encoding");
-                    if (name != null)
-                    {
-                        try
-                        {
-                            return Encoding.GetEncoding(name);
-                        }
-                        catch (ArgumentException)
-                        {
-                            // An ArgumentException is raised by Encoding.GetEncoding() if no valid code page name is given
-                            // or the code page is not supported by the underlying platform
-                            return Encoding.UTF8;
-                        }
-                    }
-                }
-            }
-
-            return Encoding.UTF8;
         }
 
         public override string ToString()

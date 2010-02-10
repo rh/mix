@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Mix.Core
@@ -49,8 +48,6 @@ namespace Mix.Core
                 }
             }
         }
-
-        public Encoding Encoding { get; set; }
 
         /// <summary>A <seealso cref="TextWriter"/> that represents the standard output stream.</summary>
         public TextWriter Output { get; set; }
