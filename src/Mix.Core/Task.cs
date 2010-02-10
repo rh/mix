@@ -564,6 +564,7 @@ namespace Mix.Core
 				return value;
 			}
 
+			value = value.Replace("{{file}}", Context.FileName);
 			// Because the MatchEvaluator needs to access the context node, we have to use a delegate
 			var template = new Regex("{([^0-9,}]{1}[^}]+)}");
 
