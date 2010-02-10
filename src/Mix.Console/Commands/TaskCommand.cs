@@ -44,6 +44,8 @@ namespace Mix.Console.Commands
                 return 1;
             }
 
+			Task.BeforeAllExecute();
+
             if (files.Count > 0)
             {
                 foreach (var file in files)
@@ -54,6 +56,8 @@ namespace Mix.Console.Commands
                     }
                 }
             }
+
+			Task.AfterAllExecute();
 
             return 0;
         }
