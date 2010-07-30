@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Mix.Core
 {
-    public class Context : Dictionary<string, string>, IContext
+    public class Context : Dictionary<string, string>
     {
         private string filename = String.Empty;
 
@@ -62,7 +62,7 @@ namespace Mix.Core
         /// <summary>Gets the XPath expression.</summary>
         public string XPath { get; set; }
 
-        public static IContext Null
+        public static Context Null
         {
             get { return new NullContext(); }
         }

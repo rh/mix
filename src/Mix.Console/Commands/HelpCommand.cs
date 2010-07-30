@@ -191,7 +191,7 @@ namespace Mix.Console.Commands
             WriteLine("Type 'mix help' to see a list of all available commands.");
         }
 
-        private static string Aliases(ITaskInfo info)
+        private static string Aliases(TaskInfo info)
         {
             if (info.Aliases.Length > 0)
             {

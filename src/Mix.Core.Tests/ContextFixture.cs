@@ -10,7 +10,7 @@ namespace Mix.Core.Tests
         [Test]
         public void EmptyConstructor()
         {
-            IContext context = new Context();
+            var context = new Context();
             Assert.IsNotNull(context.XPath);
             Assert.IsNotNull(context.Output);
             Assert.IsNotNull(context.Error);
@@ -20,7 +20,7 @@ namespace Mix.Core.Tests
         public void Constructor5()
         {
             IDictionary<string, string> dictionary = new Dictionary<string, string>();
-            IContext context = new Context(dictionary);
+            var context = new Context(dictionary);
             Assert.IsNotNull(context.XPath);
             Assert.IsNotNull(context.Output);
             Assert.IsNotNull(context.Error);
@@ -40,7 +40,7 @@ namespace Mix.Core.Tests
         [Test]
         public void Output()
         {
-            var context = Context.Null as Context;
+            var context = Context.Null;
             Assert.IsNotNull(context);
             var writer = new StringWriter();
             context.Output = writer;

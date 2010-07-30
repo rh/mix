@@ -10,8 +10,7 @@ namespace Mix.Console.Commands
 
         /// <summary>
         /// Registers <see cref="HelpCommand"/> and <see cref="VersionCommand"/>
-        /// and an <see cref="TaskCommand"/> for every known implementation of
-        /// <see cref="ITask"/>.
+        /// and an <see cref="TaskCommand"/> for every known implementation of <see cref="Task"/>.
         /// </summary>
         public CommandFactory()
         {
@@ -113,7 +112,7 @@ namespace Mix.Console.Commands
         /// <see cref="IContext.Error"/> set to <see cref="System.Console"/>'s
         /// <see cref="System.Console.Out"/> and <see cref="System.Console.Error"/> respectively.
         /// </returns>
-        private static IContext CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
+        private static Context CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
         {
             var context = new Context(properties) {Output = System.Console.Out, Error = System.Console.Error};
             return context;

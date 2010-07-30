@@ -11,7 +11,7 @@ namespace Mix.Console.Tests
         [Test]
         public void Task()
         {
-            ITask task = new Set();
+            Task task = new Set();
             var command = new TaskCommand(task);
             Assert.AreEqual(task, command.Task);
         }
@@ -19,7 +19,7 @@ namespace Mix.Console.Tests
         [Test]
         public void CommandToString()
         {
-            ITask task = new Set();
+            Task task = new Set();
             var command = new TaskCommand(task);
             Assert.AreEqual("set", command.ToString());
         }
@@ -27,7 +27,7 @@ namespace Mix.Console.Tests
         [Test]
         public void Execute()
         {
-            ITask task = new Set();
+            Task task = new Set();
             var command = new TaskCommand(task);
             Assert.IsTrue(command.Execute() == 0);
         }
@@ -35,7 +35,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileNotProperlySet()
         {
-            ITask task = new Set();
+            Task task = new Set();
             var command = new TaskCommand(task);
             command.Context["file"] = null;
             // Not selecting any file is not considered an error
@@ -45,7 +45,7 @@ namespace Mix.Console.Tests
         [Test]
         public void ExecuteWithFileSet()
         {
-            ITask task = new Set();
+            Task task = new Set();
             var command = new TaskCommand(task);
             // This will not actually select a file
             command.Context["file"] = "file";

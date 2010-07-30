@@ -65,10 +65,6 @@
     <Compile Include="Context.cs" />
     <Compile Include="Exceptions\RequirementException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="ITask.cs" />
-    <Compile Include="ITaskInfo.cs" />
-    <Compile Include="IOptionInfo.cs" />
-    <Compile Include="IContext.cs" />
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

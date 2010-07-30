@@ -9,7 +9,7 @@ namespace Mix.Tasks
     [Description("Shows a list of namespaces, including prefixes.")]
     public class Namespaces : Task
     {
-        protected override bool ExecuteCore(IContext context)
+        protected override bool ExecuteCore(Context context)
         {
             context.Output.Write("{0}: ", context.FileName);
 

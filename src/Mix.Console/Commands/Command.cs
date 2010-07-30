@@ -10,9 +10,9 @@ namespace Mix.Console.Commands
             return 0;
         }
 
-        private IContext context = Core.Context.Null;
+        private Context context = Context.Null;
 
-        public virtual IContext Context
+        public virtual Context Context
         {
             get { return context; }
             set

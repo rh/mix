@@ -10,14 +10,14 @@ namespace Mix.Console.Commands
 {
     public class TaskCommand : Command
     {
-        private readonly ITask task;
+        private readonly Task task;
 
-        public TaskCommand(ITask task)
+        public TaskCommand(Task task)
         {
             this.task = task;
         }
 
-        public virtual ITask Task
+        public virtual Task Task
         {
             get { return task; }
         }

@@ -5,13 +5,13 @@ using Mix.Core.Extensions;
 
 namespace Mix.Core
 {
-    public class OptionInfo : IOptionInfo
+    public class OptionInfo
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
         public bool Required { get; private set; }
 
-        public static IOptionInfo[] For(object obj)
+        public static OptionInfo[] For(object obj)
         {
             var properties = new List<PropertyInfo>();
 
@@ -23,7 +23,7 @@ namespace Mix.Core
                 }
             }
 
-            var options = new IOptionInfo[properties.Count];
+            var options = new OptionInfo[properties.Count];
 
             if (properties.Count > 0)
             {

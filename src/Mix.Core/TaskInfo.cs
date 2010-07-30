@@ -5,15 +5,15 @@ using Mix.Core.Attributes;
 
 namespace Mix.Core
 {
-    public class TaskInfo : ITaskInfo
+    public class TaskInfo
     {
-        private ITask task;
+        private Task task;
         private string name = String.Empty;
         private string description = "[no description]";
         private string[] aliases = new string[] {};
-        private IOptionInfo[] options = new IOptionInfo[] {};
+        private OptionInfo[] options = new OptionInfo[] {};
 
-        public ITask Instance
+        public Task Instance
         {
             get { return task; }
         }
@@ -33,21 +33,21 @@ namespace Mix.Core
             get { return aliases; }
         }
 
-        public IOptionInfo[] Options
+        public OptionInfo[] Options
         {
             get { return options; }
         }
 
-        public static ITaskInfo For(object obj)
+        public static TaskInfo For(object obj)
         {
-            var info = new TaskInfo {task = (obj as ITask), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), options = OptionInfo.For(obj)};
+            var info = new TaskInfo {task = (obj as Task), name = obj.ToString(), description = DescriptionAttribute.GetDescriptionFrom(obj, "[no description]"), aliases = AliasAttribute.GetAliasesFrom(obj), options = OptionInfo.For(obj)};
             return info;
         }
 
-        public static ITaskInfo[] All()
+        public static TaskInfo[] All()
         {
             var types = Tasks();
-            var infos = new ITaskInfo[types.Count];
+            var infos = new TaskInfo[types.Count];
             for (var i = 0; i < types.Count; i++)
             {
                 var obj = Activator.CreateInstance(types[i]);
@@ -109,7 +109,7 @@ namespace Mix.Core
 
         private static bool IsTask(Type type)
         {
-            return typeof(ITask).IsAssignableFrom(type) &&
+            return typeof(Task).IsAssignableFrom(type) &&
                    !type.IsInterface &&
                    !type.IsAbstract;
         }

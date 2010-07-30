@@ -10,13 +10,13 @@ using Mix.Core.Extensions;
 
 namespace Mix.Core
 {
-	public abstract class Task : ITask
+	public abstract class Task
 	{
-		public IContext Context { get; private set; }
+		public Context Context { get; private set; }
 
 		private readonly Dictionary<PropertyInfo, string> propertiesToEvaluate = new Dictionary<PropertyInfo, string>();
 
-		private void Initialize(IContext context)
+		private void Initialize(Context context)
 		{
 			Context = context;
 			foreach (var property in GetType().GetProperties())
@@ -98,7 +98,7 @@ namespace Mix.Core
 			}
 		}
 
-		public void Execute(IContext context)
+		public void Execute(Context context)
 		{
 			Initialize(context);
 			Validate();
@@ -458,8 +458,8 @@ namespace Mix.Core
 		/// <param name="context">
 		/// An <see cref="IContext"/> instance containing all the necessary properties.
 		/// </param>
-		/// <returns><c>true</c> if the <see cref="ITask"/> is handled, <c>false</c> otherwise.</returns>
-		protected virtual bool ExecuteCore(IContext context)
+		/// <returns><c>true</c> if the <see cref="Task"/> is handled, <c>false</c> otherwise.</returns>
+		protected virtual bool ExecuteCore(Context context)
 		{
 			return false;
 		}
