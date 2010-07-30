@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Mix.Core;
+using Mix.Core.Attributes;
 
 namespace Mix.Console.Commands
 {
@@ -98,7 +99,7 @@ namespace Mix.Console.Commands
             WriteLine("Available commands:");
             foreach (var info in TaskInfo.All())
             {
-                var readOnly = info.Instance is IReadOnly ? "*" : "";
+                var readOnly = ReadOnlyAttribute.IsDefinedOn(info.Instance) ? "*" : "";
                 var aliases = Aliases(info);
                 WriteLine("  {0}{1}{2}", info.Name, readOnly, aliases);
             }

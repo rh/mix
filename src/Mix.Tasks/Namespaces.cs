@@ -5,8 +5,9 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
+    [ReadOnly]
     [Description("Shows a list of namespaces, including prefixes.")]
-    public class Namespaces : Task, IReadOnly
+    public class Namespaces : Task
     {
         protected override bool ExecuteCore(IContext context)
         {

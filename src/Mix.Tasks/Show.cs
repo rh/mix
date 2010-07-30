@@ -5,8 +5,9 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
+    [ReadOnly]
     [Description("Shows all selected nodes.")]
-    public class Show : Task, IReadOnly
+    public class Show : Task
     {
         protected const ConsoleColor BracketColor = ConsoleColor.DarkYellow;
         protected const ConsoleColor ElementColor = ConsoleColor.DarkYellow;

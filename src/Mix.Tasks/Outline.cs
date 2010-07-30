@@ -7,8 +7,9 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
+    [ReadOnly]
     [Description("Shows all distinct outlines of the selected elements.")]
-    public class Outline : Task, IReadOnly
+    public class Outline : Task
     {
         private List<string> outlines = new List<string>();
 

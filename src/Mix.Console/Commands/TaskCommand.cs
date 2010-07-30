@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using Mix.Console.Exceptions;
 using Mix.Core;
+using Mix.Core.Attributes;
 using Mix.Core.Exceptions;
 
 namespace Mix.Console.Commands
@@ -121,7 +122,7 @@ namespace Mix.Console.Commands
                 return false;
             }
 
-            if (Task is IReadOnly)
+            if (ReadOnlyAttribute.IsDefinedOn(Task))
             {
                 return true;
             }

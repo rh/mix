@@ -4,7 +4,8 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
-    public class Echo : Task, IReadOnly
+    [ReadOnly]
+    public class Echo : Task
     {
         [Option, Description("")]
         public string Template { get; set; }

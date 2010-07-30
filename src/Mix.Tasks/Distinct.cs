@@ -6,8 +6,9 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
+    [ReadOnly]
     [Description("Shows all distinct values of the selected nodes.")]
-    public class Distinct : Task, IReadOnly
+    public class Distinct : Task
     {
         private List<string> values = new List<string>();
 

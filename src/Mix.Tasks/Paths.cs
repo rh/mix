@@ -6,8 +6,9 @@ using Mix.Core.Attributes;
 
 namespace Mix.Tasks
 {
+    [ReadOnly]
     [Description("Shows all distinct XPath paths for child elements of the selected elements.")]
-    public class Paths : Task, IReadOnly
+    public class Paths : Task
     {
         private List<string> paths = new List<string>();
 
