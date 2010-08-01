@@ -90,7 +90,7 @@ namespace Mix.Console.Commands
 
             Write(Environment.NewLine);
             WriteLine("Mix is a tool for XML refactoring.");
-            WriteLine("For additional information, see http://mix.sourceforge.net/");
+            WriteLine("For additional information, see http://rh.github.com/mix");
         }
 
         private void WriteTasks()
