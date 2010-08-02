@@ -1,0 +1,92 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{122DC43F-106B-409D-8819-FE9BAC42520B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mix.Tasks</RootNamespace>
+    <AssemblyName>Mix.Tasks</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AddAttribute.cs" />
+    <Compile Include="AddCdataSection.cs" />
+    <Compile Include="AddComment.cs" />
+    <Compile Include="AddFragment.cs" />
+    <Compile Include="AddNode.cs" />
+    <Compile Include="AddPi.cs" />
+    <Compile Include="AddElement.cs" />
+    <Compile Include="ConvertToCdataSection.cs" />
+    <Compile Include="ConvertToComment.cs" />
+    <Compile Include="ConvertToElement.cs" />
+    <Compile Include="ConvertToAttribute.cs" />
+    <Compile Include="ConvertToPi.cs" />
+    <Compile Include="ConvertToText.cs" />
+    <Compile Include="Copy.cs" />
+    <Compile Include="Count.cs" />
+    <Compile Include="Distinct.cs" />
+    <Compile Include="Echo.cs" />
+    <Compile Include="Join.cs" />
+    <Compile Include="LowerCase.cs" />
+    <Compile Include="Namespaces.cs" />
+    <Compile Include="Outline.cs" />
+    <Compile Include="Paths.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remove.cs" />
+    <Compile Include="Rename.cs" />
+    <Compile Include="Replace.cs" />
+    <Compile Include="Set.cs" />
+    <Compile Include="SetGuid.cs" />
+    <Compile Include="SetXml.cs" />
+    <Compile Include="Show.cs" />
+    <Compile Include="TextTransformer.cs" />
+    <Compile Include="Trim.cs" />
+    <Compile Include="Unwrap.cs" />
+    <Compile Include="UpperCase.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

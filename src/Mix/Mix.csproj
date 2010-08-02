@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{963BA183-2EDB-49C0-812A-D6522E304EA0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mix</RootNamespace>
+    <AssemblyName>mix</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AmbiguousMatchCommand.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\CommandRegistry.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\TaskCommand.cs" />
+    <Compile Include="Commands\UnknownCommand.cs" />
+    <Compile Include="Commands\VersionCommand.cs" />
+    <Compile Include="Exceptions\InvalidPathException.cs" />
+    <Compile Include="PathExpander.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Attributes\AliasAttribute.cs" />
+    <Compile Include="Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Attributes\OptionAttribute.cs" />
+    <Compile Include="Attributes\RangeAttribute.cs" />
+    <Compile Include="Attributes\ReadOnlyAttribute.cs" />
+    <Compile Include="Attributes\RegexOptionAttribute.cs" />
+    <Compile Include="Attributes\RequiredAttribute.cs" />
+    <Compile Include="Attributes\ReversedAttribute.cs" />
+    <Compile Include="Attributes\XmlOptionAttribute.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Exceptions\RequirementException.cs" />
+    <Compile Include="Exceptions\TaskExecutionException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Exceptions\XPathTemplateException.cs" />
+    <Compile Include="Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="OptionInfo.cs" />
+    <Compile Include="RangeValidator.cs" />
+    <Compile Include="Task.cs" />
+    <Compile Include="TaskInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\AddAttribute.cs" />
+    <Compile Include="Tasks\AddCdataSection.cs" />
+    <Compile Include="Tasks\AddComment.cs" />
+    <Compile Include="Tasks\AddElement.cs" />
+    <Compile Include="Tasks\AddFragment.cs" />
+    <Compile Include="Tasks\AddNode.cs" />
+    <Compile Include="Tasks\AddPi.cs" />
+    <Compile Include="Tasks\ConvertToAttribute.cs" />
+    <Compile Include="Tasks\ConvertToCdataSection.cs" />
+    <Compile Include="Tasks\ConvertToComment.cs" />
+    <Compile Include="Tasks\ConvertToElement.cs" />
+    <Compile Include="Tasks\ConvertToPi.cs" />
+    <Compile Include="Tasks\ConvertToText.cs" />
+    <Compile Include="Tasks\Copy.cs" />
+    <Compile Include="Tasks\Count.cs" />
+    <Compile Include="Tasks\Distinct.cs" />
+    <Compile Include="Tasks\Echo.cs" />
+    <Compile Include="Tasks\Join.cs" />
+    <Compile Include="Tasks\LowerCase.cs" />
+    <Compile Include="Tasks\Namespaces.cs" />
+    <Compile Include="Tasks\Outline.cs" />
+    <Compile Include="Tasks\Paths.cs" />
+    <Compile Include="Tasks\Remove.cs" />
+    <Compile Include="Tasks\Rename.cs" />
+    <Compile Include="Tasks\Replace.cs" />
+    <Compile Include="Tasks\Set.cs" />
+    <Compile Include="Tasks\SetGuid.cs" />
+    <Compile Include="Tasks\SetXml.cs" />
+    <Compile Include="Tasks\Show.cs" />
+    <Compile Include="Tasks\TextTransformer.cs" />
+    <Compile Include="Tasks\Trim.cs" />
+    <Compile Include="Tasks\Unwrap.cs" />
+    <Compile Include="Tasks\UpperCase.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

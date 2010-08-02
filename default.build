@@ -1,42 +1,35 @@
 <?xml version="1.0"?>
-<project name="nant" default="default" xmlns="http://nant.sf.net/schemas/nant.xsd">
+<project name="nant" default="test" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-  <property name="configuration"    value="Debug"/>
+  <property name="configuration"    value="Release"/>
   <property name="base.dir"         value="${directory::get-current-directory()}"/>
   <property name="build.base.dir"   value="${path::combine(base.dir, 'build')}"/>
   <property name="build.dir"        value="${path::combine(build.base.dir, configuration)}"/>
-  <property name="lib.dir"          value="${path::combine(base.dir, 'lib')}" />
 
-  <fileset id="mix.projects" basedir="src">
-    <include name="Mix.Core/Mix.Core.build" />
-    <include name="Mix.Core.Tests/Mix.Core.Tests.build" />
-    <include name="Mix.Tasks/Mix.Tasks.build" />
-    <include name="Mix.Tasks.Tests/Mix.Tasks.Tests.build" />
-    <include name="Mix.Console/Mix.Console.build" />
-    <include name="Mix.Console.Tests/Mix.Console.Tests.build" />
-  </fileset>
-
-  <target name="default" description="Compiles all sources and runs the unit tests" depends="compile, test"/>
-
-  <target name="compile" description="Compiles all sources">
+  <target name="compile">
   	<delete dir="${build.base.dir}" if="${directory::exists(property::get-value('build.base.dir'))}"/>
   	<mkdir dir="${build.dir}" failonerror="false"/>
-    <nant target="build">
-      <buildfiles refid="mix.projects"/>
-    </nant>
-    <copy todir="${build.dir}">
-      <fileset basedir="${lib.dir}">
-        <include name="*.*"/>
-      </fileset>
-    </copy>
+    <copy file="lib/nunit.framework.dll" tofile="${build.dir}/nunit.framework.dll" />
+    <csc target="exe" warnaserror="true" debug="true" output="${build.dir}/mix.exe">
+      <sources>
+        <include name="src/Mix/**/*.cs" />
+      </sources>
+    </csc>
+    <csc target="library" warnaserror="true" debug="true" output="${build.dir}/Mix.Tests.dll">
+      <sources>
+        <include name="src/Mix.Tests/**/*.cs" />
+      </sources>
+      <references>
+        <include name="${build.dir}/mix.exe" />
+        <include name="${build.dir}/nunit.framework.dll" />
+      </references>
+    </csc>
   </target>
 
-  <target name="test" description="Runs the unit tests" depends="compile">
+  <target name="test" depends="compile">
     <nunit2>
       <formatter type="Plain" usefile="false"/>
-      <test assemblyname="${build.dir}/Mix.Tasks.Tests.dll"/>
-      <test assemblyname="${build.dir}/Mix.Core.Tests.dll"/>
-      <test assemblyname="${build.dir}/Mix.Console.Tests.dll"/>
+      <test assemblyname="${build.dir}/Mix.Tests.dll"/>
     </nunit2>
   </target>
 
