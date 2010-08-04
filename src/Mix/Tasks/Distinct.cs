@@ -35,15 +35,12 @@ namespace Mix.Tasks
 
         protected override void OnAfterExecute()
         {
-            var color = Console.ForegroundColor;
             Context.Output.WriteLine("{0}: {1}", Context.FileName, values.Count);
-            values.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
-            foreach (string value in values)
+            values.Sort((s1, s2) => s1.CompareTo(s2));
+            foreach (var value in values)
             {
-                Console.ForegroundColor = Console.ForegroundColor == color ? ConsoleColor.DarkGray : color;
                 Context.Output.WriteLine(value);
             }
-            Console.ForegroundColor = color;
         }
 
         private void AddValue(string value)
