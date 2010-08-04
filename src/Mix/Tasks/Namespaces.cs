@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 using Mix.Attributes;
 
@@ -12,9 +11,6 @@ namespace Mix.Tasks
         {
             context.Output.Write("{0}: ", context.FileName);
 
-            var foregroundColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-
             var manager = CreateNamespaceManager(Context.Document);
             var namespaces = manager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
             context.Output.WriteLine(namespaces.Count);
@@ -22,8 +18,6 @@ namespace Mix.Tasks
             {
                 context.Output.WriteLine("  {0,-12} {1}", pair.Key, pair.Value);
             }
-
-            Console.ForegroundColor = foregroundColor;
 
             return true;
         }
@@ -38,6 +32,7 @@ namespace Mix.Tasks
         private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
+
             foreach (XmlNode node in document.SelectNodes("//node()"))
             {
                 if (node is XmlElement)
@@ -61,6 +56,7 @@ namespace Mix.Tasks
                     }
                 }
             }
+
             return manager;
         }
     }
