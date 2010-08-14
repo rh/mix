@@ -69,7 +69,7 @@ li p code {
     <p>Mix gives you:</p>
     <ul id="features">
       <li>XPath to select just the XML you want to edit</li>
-      <li>Regular expressions for flexibale and powerful text manipulation</li>
+      <li>Regular expressions for flexible and powerful text manipulation</li>
       <li>XPath templates</li>
       <li>Batch editing: edit multiple files at once</li>
     </ul>
@@ -94,9 +94,7 @@ li p code {
       <li class="even">
         <h1>Set values</h1>
         <p>Set a simple value (this will replace the existing value):</p>
-        <pre>$ mix set xpath://table/tr name:td value:"Lorem ipsum"</pre>
-        <p>Set the inner XML value:</p>
-        <pre>$ mix add-element xpath://table/tr name:td value:"Lorem ipsum"</pre>
+        <pre>$ mix set xpath://table/tr value:"Lorem ipsum"</pre>
         <p>Set all id attributes to a new GUID value:</p>
         <pre>$ mix set-guid xpath://@id</pre>
       </li>
