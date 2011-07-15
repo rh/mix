@@ -7,4 +7,6 @@ _ReSharper*
 *.resharper*
 *.suo
 *.sln.cache
+*.pidb
 *.gpState
+*.userprefs
