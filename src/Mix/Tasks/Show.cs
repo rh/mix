@@ -8,14 +8,14 @@ namespace Mix.Tasks
     [Description("Shows all selected nodes.")]
     public class Show : Task
     {
-        protected const ConsoleColor BracketColor = ConsoleColor.DarkYellow;
-        protected const ConsoleColor ElementColor = ConsoleColor.DarkYellow;
-        protected const ConsoleColor AttributeColor = ConsoleColor.DarkMagenta;
-        protected const ConsoleColor StringColor = ConsoleColor.White;
-        protected const ConsoleColor TextColor = ConsoleColor.White;
-        protected const ConsoleColor CDataColor = ConsoleColor.White;
-        protected const ConsoleColor CommentColor = ConsoleColor.White;
-        protected const ConsoleColor ProcessingInstructionColor = ConsoleColor.White;
+        protected const ConsoleColor BracketColor = ConsoleColor.Gray;
+        protected const ConsoleColor ElementColor = ConsoleColor.Gray;
+        protected const ConsoleColor AttributeColor = ConsoleColor.Gray;
+        protected const ConsoleColor StringColor = ConsoleColor.DarkGray;
+        protected const ConsoleColor TextColor = ConsoleColor.DarkGray;
+        protected const ConsoleColor CDataColor = ConsoleColor.DarkGray;
+        protected const ConsoleColor CommentColor = ConsoleColor.DarkGray;
+        protected const ConsoleColor ProcessingInstructionColor = ConsoleColor.DarkGray;
 
         protected ConsoleColor ForegroundColor;
 
