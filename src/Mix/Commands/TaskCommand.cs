@@ -41,10 +41,10 @@ namespace Mix.Commands
                 return 1;
             }
 
-			Task.BeforeAllExecute();
-
             if (files.Count > 0)
             {
+                Task.BeforeAllExecute();
+
                 foreach (var file in files)
                 {
                     if (!ExecuteTask(file))
@@ -52,9 +52,9 @@ namespace Mix.Commands
                         return 1;
                     }
                 }
-            }
 
-			Task.AfterAllExecute();
+                Task.AfterAllExecute();
+            }
 
             return 0;
         }
@@ -131,7 +131,7 @@ namespace Mix.Commands
         {
             try
             {
-				Context.Document.Save(file);
+                Context.Document.Save(file);
             }
             catch (Exception e)
             {
