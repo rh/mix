@@ -122,7 +122,7 @@ namespace Mix.Commands
 
             var info = TaskInfo.For(obj);
             var taskDescription = String.Format("{0}: {1}", obj, info.Description);
-            var taskParts = Wrap(taskDescription, System.Console.WindowWidth);
+            var taskParts = Wrap(taskDescription, Console.WindowWidth);
             for (var i = 0; i < taskParts.Length; i++)
             {
                 WriteLine(taskParts[i]);
@@ -162,25 +162,18 @@ namespace Mix.Commands
 
         private void WriteOptionDescription(string description)
         {
-            if (description.Length >= System.Console.WindowWidth - LeftMargin)
+            var parts = Wrap(description, Console.WindowWidth - LeftMargin);
+            for (var i = 0; i < parts.Length; i++)
             {
-                var parts = Wrap(description, System.Console.WindowWidth - LeftMargin);
-                for (var i = 0; i < parts.Length; i++)
+                var part = parts[i];
+                if (i == 0)
                 {
-                    var part = parts[i];
-                    if (i == 0)
-                    {
-                        WriteLine(part);
-                    }
-                    else
-                    {
-                        WriteLine("{0}{1}", new string(' ', LeftMargin), part);
-                    }
+                    WriteLine(part);
                 }
-            }
-            else
-            {
-                WriteLine(description);
+                else
+                {
+                    WriteLine("{0}{1}", new string(' ', LeftMargin), part);
+                }
             }
         }
 
