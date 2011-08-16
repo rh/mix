@@ -10,7 +10,7 @@ namespace Mix
 {
     public abstract class Task
     {
-        public Context Context { get; private set; }
+        protected Context Context { get; set; }
 
         private readonly Dictionary<PropertyInfo, string> propertiesToEvaluate = new Dictionary<PropertyInfo, string>();
 
