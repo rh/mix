@@ -213,7 +213,7 @@ namespace Mix
         /// the other ExecuteCore(*) methods.
         /// </summary>
         /// <param name="context">
-        /// An <see cref="IContext"/> instance containing all the necessary properties.
+        /// A context containing all the necessary properties.
         /// </param>
         /// <returns><c>true</c> if the <see cref="Task"/> is handled, <c>false</c> otherwise.</returns>
         protected virtual bool ExecuteCore(Context context)
