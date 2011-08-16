@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Mix - Angle bracket hacks</title>
-	<style type="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Mix - Angle bracket hacks</title>
+  <style type="text/css">
 body {
-	margin-top: 1.0em;
-	background-color: #FFFFFF;
-	font-family: 'lucida grande', verdana, helvetica, sans-serif;
-	color: #000000;
+  margin-top: 1.0em;
+  background-color: #FFFFFF;
+  font-family: 'lucida grande', verdana, helvetica, sans-serif;
+  color: #000000;
 }
 #container {
-	margin: 0 auto;
-	width: 700px;
+  margin: 0 auto;
+  width: 700px;
 }
 h1 {
   font-size: 3em;
@@ -26,35 +26,35 @@ a {
   color: #000000;
 }
 ul {
-	padding: 0;
+  padding: 0;
 }
 li {
-	list-style-type: none;
-	margin-bottom: 0.2em;
-	padding: 0.4em;
+  list-style-type: none;
+  margin-bottom: 0.2em;
+  padding: 0.4em;
 }
 ul#features li {
-	font-style: italic;
-	padding: 0 0 10px 20px;
+  font-style: italic;
+  padding: 0 0 10px 20px;
 }
 li.odd {
-	background-color: #EFEFEF;
-	border: 1px solid #DDD;
+  background-color: #EFEFEF;
+  border: 1px solid #DDD;
 }
 li.even {
-	background-color: #FFF;
+  background-color: #FFF;
 }
 li h1 {
-	font-size: 1.1em;
+  font-size: 1.1em;
 }
 li p, li pre {
   padding-left: 10px;
 }
 li p code {
-	font-size: 1.3em;
-	color: #444;
+  font-size: 1.3em;
+  color: #444;
 }
-	</style>
+  </style>
 </head>
 <body>
 
@@ -64,23 +64,21 @@ li p code {
 
     <h1><a href="http://github.com/rh/mix">Mix</a></h1>
 
-    <p>Mix is one of the most powerful XML editors available, yet it is very simple to use.</p>
-
-    <p>Mix gives you:</p>
+    <p>Mix is a powerful command-line XML editor. Some of its features are:</p>
     <ul id="features">
-      <li>XPath to select just the XML you want to edit</li>
-      <li>Regular expressions for flexible and powerful text manipulation</li>
-      <li>XPath templates</li>
-      <li>Batch editing: edit multiple files at once</li>
+      <li>XPath and XPath templates</li>
+      <li>Regular expressions</li>
+      <li>Batch editing</li>
     </ul>
 
     <p>See what you can do with Mix:</p>
+
     <ul>
       <li class="odd">
         <h1>Add elements, attributes and fragments</h1>
         <p>Add a new column to a table:</p>
         <pre>$ mix add-element xpath://table/tr name:td value:"Lorem ipsum"</pre>
-	    </li>
+      </li>
       <li class="even">
         <h1>Convert elements and attributes</h1>
         <p>Convert an attribute to an element:</p>
@@ -112,11 +110,8 @@ li p code {
         <p>Rename all <code>p</code>'s to <code>div</code>'s:</p>
         <pre>$ mix rename xpath://p name:div</pre>
       </li>
-      <li class="odd">
-        <h1>Replace, convert and trim text</h1>
-      </li>
     </ul>
 
-  </div>  
+  </div>
 </body>
 </html>
