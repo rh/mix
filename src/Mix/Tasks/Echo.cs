@@ -11,7 +11,7 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlElement element)
         {
-            var output = Evaluate(element, Template);
+            var output = XPathTemplate.Evaluate(element, Template);
             Context.Output.WriteLine(output);
         }
     }
