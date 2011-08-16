@@ -10,24 +10,22 @@ namespace Mix
     public class RangeValidator
     {
         /// <summary>
-        /// Checks if <paramref name="value"/> is within the range specified on <paramref name="property"/>.
-        /// If <paramref name="property"/> is not decorated with a <see cref="RangeAttribute"/>, a range
-        /// of 1 up to <see cref="int.MaxValue"/> is used.
+        /// Checks if value is within the range specified on property.
+        /// If property is not decorated with a RangeAttribute, a range of 1 up to int.MaxValue is used.
         /// </summary>
         /// <param name="property">
-        /// The <see cref="PropertyInfo"/> which should be set with <paramref name="value"/>.
+        /// The PropertyInfo which should be set with value.
         /// </param>
         /// <param name="value">
         /// The value to validate.
         /// </param>
         /// <param name="description">
-        /// A description of the error if <paramref name="value"/> is not valid, or an empty <see cref="string"/>.
+        /// A description of the error if value is not valid, or an empty string.
         /// </param>
         /// <returns>
-        /// <c>true</c> if <paramref name="value"/> is valid; otherwise, <c>false</c>.
+        /// true if value is valid; otherwise, false.
         /// </returns>
-        /// <seealso cref="RangeAttribute"/>
-        public bool Validate(PropertyInfo property, int value, out string description)
+        public static bool Validate(PropertyInfo property, int value, out string description)
         {
             if (RangeAttribute.IsDefinedOn(property))
             {

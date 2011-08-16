@@ -19,14 +19,14 @@ namespace Mix.Tests
         private void AssertIsValid(PropertyInfo property, int value)
         {
             string description;
-            var valid = validator.Validate(property, value, out description);
+            var valid = RangeValidator.Validate(property, value, out description);
             Assert.IsTrue(valid);
         }
 
         private void AssertIsInvalid(PropertyInfo property, int value)
         {
             string description;
-            var valid = validator.Validate(property, value, out description);
+            var valid = RangeValidator.Validate(property, value, out description);
             Assert.IsFalse(valid);
         }
 

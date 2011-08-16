@@ -8,7 +8,9 @@ namespace Mix
     public class OptionInfo
     {
         public string Name { get; private set; }
+
         public string Description { get; private set; }
+
         public bool Required { get; private set; }
 
         public static OptionInfo[] For(object obj)

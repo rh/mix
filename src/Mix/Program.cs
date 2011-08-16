@@ -3,7 +3,7 @@ using Mix.Commands;
 
 namespace Mix
 {
-    public class Program
+    public static class Program
     {
         [STAThread]
         private static int Main(string[] args)

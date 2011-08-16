@@ -48,7 +48,7 @@ namespace Mix
 						{
 							string description;
 							var validator = new RangeValidator();
-							if (!validator.Validate(property, value, out description))
+							if (!RangeValidator.Validate(property, value, out description))
 							{
 								var message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
 								throw new TaskExecutionException(message);
@@ -498,9 +498,6 @@ namespace Mix
 		/// Evaluates <paramref name="value"/> for any XPath templates.
 		/// If found, these XPath templates will be 
 		/// </summary>
-		/// <param name="context"></param>
-		/// <param name="value"></param>
-		/// <returns></returns>
 		protected string Evaluate(XmlNode context, string value)
 		{
 			if (string.IsNullOrEmpty(value))

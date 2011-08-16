@@ -31,7 +31,7 @@ namespace Mix
             }
         }
 
-        /// <summary>The name of the file this <see cref="IContext"/> applies to.</summary>
+        /// <summary>The name of the file this context applies to.</summary>
         public string FileName
         {
             get { return filename; }
