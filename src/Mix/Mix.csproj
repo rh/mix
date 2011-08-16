@@ -47,6 +47,7 @@
     <Compile Include="Commands\UnknownCommand.cs" />
     <Compile Include="Commands\VersionCommand.cs" />
     <Compile Include="Exceptions\InvalidPathException.cs" />
+    <Compile Include="Extensions\XmlDocumentExtensions.cs" />
     <Compile Include="PathExpander.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Attributes\AliasAttribute.cs" />

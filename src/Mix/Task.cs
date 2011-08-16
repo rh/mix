@@ -103,8 +103,6 @@ namespace Mix
 			Initialize(context);
 			Validate();
 
-			var manager = CreateNamespaceManager(Context.Document);
-
 			if (ExecuteCore(context))
 			{
 				return; // The subclass has handled the task
@@ -118,7 +116,7 @@ namespace Mix
 
 			// Tasks may need to recreate child nodes. If they do, these nodes
 			// will not be selected. Processing all nodes in reverse order solves this.
-			var nodes = SelectNodes(context.Document, context.XPath, manager);
+            var nodes = context.Document.Select(context.XPath);
 
 			BeforeExecute(nodes.Count);
 
@@ -138,24 +136,6 @@ namespace Mix
 			}
 
 			AfterExecute();
-		}
-
-		private static IList<XmlNode> SelectNodes(XmlDocument document, string xpath, XmlNamespaceManager manager)
-		{
-			try
-			{
-				var nodes = new List<XmlNode>();
-				foreach (XmlNode node in document.SelectNodes(xpath, manager))
-				{
-					nodes.Add(node);
-				}
-				return nodes;
-			}
-			catch (XPathException e)
-			{
-				var message = String.Format("'{0}' is not a valid XPath expression.", xpath);
-				throw new TaskExecutionException(message, e);
-			}
 		}
 
 		public void BeforeAllExecute()
@@ -494,42 +474,6 @@ namespace Mix
 
 		protected virtual void ExecuteCore(XmlNode node)
 		{
-		}
-
-		/// <summary>
-		/// Creates a <see cref="XmlNamespaceManager"/> for <paramref name="document"/>.
-		/// Namespaces declared in the document node are automatically added.
-		/// The default namespace is given the prefix 'default'.
-		/// </summary>
-		/// <param name="document"></param>
-		/// <returns></returns>
-		private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
-		{
-			var manager = new XmlNamespaceManager(document.NameTable);
-			foreach (XmlNode node in document.SelectNodes("//node()"))
-			{
-				if (node is XmlElement)
-				{
-					var element = node as XmlElement;
-					foreach (XmlAttribute attribute in element.Attributes)
-					{
-						if (attribute.Name == "xmlns")
-						{
-							// The first default namespace wins
-							// (since using multiple default namespaces in a single file is not considered a good practice)
-							if (!manager.HasNamespace("default"))
-							{
-								manager.AddNamespace("default", attribute.Value);
-							}
-						}
-						if (attribute.Prefix == "xmlns")
-						{
-							manager.AddNamespace(attribute.LocalName, attribute.Value);
-						}
-					}
-				}
-			}
-			return manager;
 		}
 
 		public override string ToString()
