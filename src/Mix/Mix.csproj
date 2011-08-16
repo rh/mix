@@ -104,6 +104,7 @@
     <Compile Include="Tasks\Trim.cs" />
     <Compile Include="Tasks\Unwrap.cs" />
     <Compile Include="Tasks\UpperCase.cs" />
+    <Compile Include="TaskValidator.cs" />
     <Compile Include="XPathTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
