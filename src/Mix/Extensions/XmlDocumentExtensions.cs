@@ -31,10 +31,8 @@ namespace Mix.Extensions
         /// <summary>
         /// Creates a <see cref="XmlNamespaceManager"/> for <paramref name="document"/>.
         /// Namespaces declared in the document node are automatically added.
-        /// The default namespace is given the prefix 'default'.
+        /// The default namespace is given the prefix 'ns'.
         /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
         private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
@@ -49,11 +47,12 @@ namespace Mix.Extensions
                         {
                             // The first default namespace wins
                             // (since using multiple default namespaces in a single file is not considered a good practice)
-                            if (!manager.HasNamespace("default"))
+                            if (!manager.HasNamespace("ns"))
                             {
-                                manager.AddNamespace("default", attribute.Value);
+                                manager.AddNamespace("ns", attribute.Value);
                             }
                         }
+
                         if (attribute.Prefix == "xmlns")
                         {
                             manager.AddNamespace(attribute.LocalName, attribute.Value);
