@@ -116,56 +116,25 @@ namespace Mix
             // will not be selected. Processing all nodes in reverse order solves this.
             var nodes = context.Document.Select(context.XPath);
 
-            BeforeExecute(nodes.Count);
-
-            if (ReversedAttribute.IsDefinedOn(this))
-            {
-                for (var i = nodes.Count - 1; i >= 0; i--)
-                {
-                    Execute(nodes, i);
-                }
-            }
-            else
-            {
-                for (var i = 0; i < nodes.Count; i++)
-                {
-                    Execute(nodes, i);
-                }
-            }
-
-            AfterExecute();
-        }
-
-        public void BeforeAllExecute()
-        {
-            OnBeforeAllExecute();
-        }
-
-        public void AfterAllExecute()
-        {
-            OnAfterAllExecute();
-        }
-
-        private void BeforeExecute(int count)
-        {
             try
             {
-                OnBeforeExecute(count);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
+                OnBeforeExecute(nodes.Count);
 
-        private void AfterExecute()
-        {
-            try
-            {
+                if (ReversedAttribute.IsDefinedOn(this))
+                {
+                    for (var i = nodes.Count - 1; i >= 0; i--)
+                    {
+                        Execute(nodes, i);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < nodes.Count; i++)
+                    {
+                        Execute(nodes, i);
+                    }
+                }
+
                 OnAfterExecute();
             }
             catch (RequirementException)
@@ -178,151 +147,48 @@ namespace Mix
             }
         }
 
+        public void BeforeAllExecute()
+        {
+            OnBeforeAllExecute();
+        }
+
+        public void AfterAllExecute()
+        {
+            OnAfterAllExecute();
+        }
+
         private void Execute(IList<XmlNode> nodes, int index)
         {
             var node = nodes[index];
 
             XPathTemplate.EvaluateProperties(node, this, propertiesToEvaluate);
-
             if (node is XmlElement)
             {
-                Execute(node as XmlElement);
+                ExecuteCore(node as XmlElement);
             }
             else if (node is XmlAttribute)
             {
-                Execute(node as XmlAttribute);
+                ExecuteCore(node as XmlAttribute);
             }
             else if (node is XmlText)
             {
-                Execute(node as XmlText);
+                ExecuteCore(node as XmlText);
             }
             else if (node is XmlCDataSection)
             {
-                Execute(node as XmlCDataSection);
+                ExecuteCore(node as XmlCDataSection);
             }
             else if (node is XmlComment)
             {
-                Execute(node as XmlComment);
+                ExecuteCore(node as XmlComment);
             }
             else if (node is XmlProcessingInstruction)
             {
-                Execute(node as XmlProcessingInstruction);
+                ExecuteCore(node as XmlProcessingInstruction);
             }
             else if (node is XmlDocument)
             {
-                Execute(node as XmlDocument);
-            }
-        }
-
-        private void Execute(XmlDocument document)
-        {
-            try
-            {
-                ExecuteCore(document);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlElement element)
-        {
-            try
-            {
-                ExecuteCore(element);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlAttribute attribute)
-        {
-            try
-            {
-                ExecuteCore(attribute);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlText text)
-        {
-            try
-            {
-                ExecuteCore(text);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlCDataSection section)
-        {
-            try
-            {
-                ExecuteCore(section);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlComment comment)
-        {
-            try
-            {
-                ExecuteCore(comment);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlProcessingInstruction instruction)
-        {
-            try
-            {
-                ExecuteCore(instruction);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
+                ExecuteCore(node as XmlDocument);
             }
         }
 
