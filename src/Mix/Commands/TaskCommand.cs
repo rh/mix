@@ -15,7 +15,7 @@ namespace Mix.Commands
             this.task = task;
         }
 
-        public virtual Task Task
+        public Task Task
         {
             get { return task; }
         }
@@ -146,7 +146,7 @@ namespace Mix.Commands
             return Task.ToString();
         }
 
-        protected bool Equals(TaskCommand taskCommand)
+        private bool Equals(TaskCommand taskCommand)
         {
             if (taskCommand == null)
             {
