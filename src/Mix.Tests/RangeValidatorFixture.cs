@@ -6,8 +6,6 @@ namespace Mix.Tests
     [TestFixture]
     public class RangeValidatorFixture
     {
-        private RangeValidator validator;
-
         private class Foo
         {
             public int Bar { get; set; }
@@ -28,12 +26,6 @@ namespace Mix.Tests
             string description;
             var valid = RangeValidator.Validate(property, value, out description);
             Assert.IsFalse(valid);
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            validator = new RangeValidator();
         }
 
         [Test]
