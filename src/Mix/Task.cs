@@ -212,10 +212,6 @@ namespace Mix
             {
                 Execute(node as XmlDocument);
             }
-
-            // The 'generic' method is always executed, so subclasses need only to
-            // implement ExecuteCore(XmlNode) for generic behaviour.
-            Execute(node);
         }
 
         private void Execute(XmlDocument document)
@@ -319,22 +315,6 @@ namespace Mix
             try
             {
                 ExecuteCore(instruction);
-            }
-            catch (RequirementException)
-            {
-                throw;
-            }
-            catch (Exception e)
-            {
-                throw new TaskExecutionException(e);
-            }
-        }
-
-        private void Execute(XmlNode node)
-        {
-            try
-            {
-                ExecuteCore(node);
             }
             catch (RequirementException)
             {
@@ -467,10 +447,6 @@ namespace Mix
         }
 
         protected virtual void ExecuteCore(XmlProcessingInstruction instruction)
-        {
-        }
-
-        protected virtual void ExecuteCore(XmlNode node)
         {
         }
 
