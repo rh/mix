@@ -33,9 +33,10 @@ namespace Mix.Extensions
         /// Namespaces declared in the document node are automatically added.
         /// The default namespace is given the prefix 'ns'.
         /// </summary>
-        private static XmlNamespaceManager CreateNamespaceManager(XmlDocument document)
+        public static XmlNamespaceManager CreateNamespaceManager(this XmlDocument document)
         {
             var manager = new XmlNamespaceManager(document.NameTable);
+
             foreach (XmlNode node in document.SelectNodes("//node()"))
             {
                 if (node is XmlElement)
