@@ -88,7 +88,6 @@
     <Compile Include="Tasks\Count.cs" />
     <Compile Include="Tasks\Distinct.cs" />
     <Compile Include="Tasks\Echo.cs" />
-    <Compile Include="Tasks\Join.cs" />
     <Compile Include="Tasks\LowerCase.cs" />
     <Compile Include="Tasks\Namespaces.cs" />
     <Compile Include="Tasks\Outline.cs" />
@@ -108,7 +107,7 @@
     <Compile Include="XPathTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

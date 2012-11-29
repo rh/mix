@@ -62,7 +62,6 @@
     <Compile Include="CopyFixture.cs" />
     <Compile Include="CountFixture.cs" />
     <Compile Include="DescriptionAttributeFixture.cs" />
-    <Compile Include="JoinFixture.cs" />
     <Compile Include="LowercaseFixture.cs" />
     <Compile Include="OptionInfoFixture.cs" />
     <Compile Include="OutlineFixture.cs" />
@@ -89,7 +88,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
