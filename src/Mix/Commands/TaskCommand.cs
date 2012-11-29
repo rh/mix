@@ -72,7 +72,7 @@ namespace Mix.Commands
 
             try
             {
-                var document = new XmlDocument {XmlResolver = null};
+                var document = new XmlDocument();
                 document.Load(file);
                 Context.Document = document;
             }
