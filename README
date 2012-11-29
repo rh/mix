@@ -17,7 +17,17 @@ Get the code:
 
 == BUILD
 
+On Windows run:
+
   $ nant
+
+With Mono run this to build:
+
+  $ xbuild src/Mix.sln
+
+and this to test:
+
+  $ nunit-console src/Mix.Tests/bin/Debug/Mix.Tests.dll
 
 == LICENSE
 
