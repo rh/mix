@@ -8,17 +8,6 @@ namespace Mix.Tasks
     [Description("Shows all selected nodes.")]
     public class Show : Task
     {
-        protected const ConsoleColor BracketColor = ConsoleColor.Gray;
-        protected const ConsoleColor ElementColor = ConsoleColor.Gray;
-        protected const ConsoleColor AttributeColor = ConsoleColor.Gray;
-        protected const ConsoleColor StringColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor TextColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor CDataColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor CommentColor = ConsoleColor.DarkGray;
-        protected const ConsoleColor ProcessingInstructionColor = ConsoleColor.DarkGray;
-
-        protected ConsoleColor ForegroundColor;
-
         [Option, Description("A comma-separated list of XPath expressions of nodes to skip in the output.")]
         public string Skip { get; set; }
 
@@ -54,6 +43,7 @@ namespace Mix.Tasks
                     }
                 }
             }
+
             Print(document.DocumentElement, 0);
         }
 
@@ -77,6 +67,7 @@ namespace Mix.Tasks
                     }
                 }
             }
+
             Print(element, 0);
         }
 
@@ -109,10 +100,7 @@ namespace Mix.Tasks
         private void Print(XmlElement element, int level)
         {
             Indent(level);
-            Console.ForegroundColor = BracketColor;
-            Context.Output.Write("<");
-            Console.ForegroundColor = ElementColor;
-            Context.Output.Write(element.Name);
+            Context.Output.Write("<{0}", element.Name);
 
             if (element.HasAttributes)
             {
@@ -121,21 +109,14 @@ namespace Mix.Tasks
 
             if (element.HasChildNodes)
             {
-                Console.ForegroundColor = BracketColor;
                 Context.Output.Write(">");
 
                 PrintChildNodes(element, level);
 
-                Console.ForegroundColor = BracketColor;
-                Context.Output.Write("</");
-                Console.ForegroundColor = ElementColor;
-                Context.Output.Write(element.LocalName);
-                Console.ForegroundColor = BracketColor;
-                Context.Output.WriteLine(">");
+                Context.Output.WriteLine("</{0}>", element.LocalName);
             }
             else
             {
-                Console.ForegroundColor = BracketColor;
                 Context.Output.WriteLine(" />");
             }
         }
@@ -163,6 +144,7 @@ namespace Mix.Tasks
         private void PrintSingleChildNode(XmlElement element, int level)
         {
             var node = element.FirstChild;
+
             if (node is XmlElement)
             {
                 Context.Output.WriteLine();
@@ -203,6 +185,7 @@ namespace Mix.Tasks
         private void PrintAllChildNodes(XmlElement element, int level)
         {
             Context.Output.WriteLine();
+
             foreach (var node in element.ChildNodes)
             {
                 if (node is XmlElement)
@@ -246,6 +229,7 @@ namespace Mix.Tasks
                     }
                 }
             }
+
             Indent(level);
         }
 
@@ -256,10 +240,7 @@ namespace Mix.Tasks
                 return;
             }
 
-            Console.ForegroundColor = AttributeColor;
-            Context.Output.Write(" " + attribute.Name + "=");
-            Console.ForegroundColor = StringColor;
-            Context.Output.Write("\"" + attribute.Value + "\"");
+            Context.Output.Write(" {0}=\"{1}\"", attribute.Name, attribute.Value);
         }
 
         public void Print(XmlText text)
@@ -274,7 +255,6 @@ namespace Mix.Tasks
                 return;
             }
 
-            Console.ForegroundColor = TextColor;
             Context.Output.Write(text.Value.Trim());
 
             if (enter)
@@ -290,12 +270,7 @@ namespace Mix.Tasks
                 return;
             }
 
-            Console.ForegroundColor = BracketColor;
-            Context.Output.Write("<![CDATA[");
-            Console.ForegroundColor = CDataColor;
-            Context.Output.Write(section.Value);
-            Console.ForegroundColor = BracketColor;
-            Context.Output.Write("]]>");
+            Context.Output.Write("<![CDATA[{0}]]>", section.Value);
         }
 
         private void Print(XmlComment comment)
@@ -305,8 +280,7 @@ namespace Mix.Tasks
                 return;
             }
 
-            Console.ForegroundColor = CommentColor;
-            Context.Output.Write("<!--" + comment.Value + "-->");
+            Context.Output.Write("<!--{0}-->", comment.Value);
         }
 
         public void Print(XmlProcessingInstruction instruction)
@@ -316,12 +290,7 @@ namespace Mix.Tasks
                 return;
             }
 
-            Console.ForegroundColor = BracketColor;
-            Context.Output.Write("<?" + instruction.Name);
-            Console.ForegroundColor = ProcessingInstructionColor;
-            Context.Output.Write(" " + instruction.Value);
-            Console.ForegroundColor = BracketColor;
-            Context.Output.Write("?>");
+            Context.Output.Write("<?{0} {1}?>", instruction.Name, instruction.Value);
         }
 
         private void Indent(int level)
@@ -331,15 +300,7 @@ namespace Mix.Tasks
 
         protected override void OnBeforeExecute(int count)
         {
-            ForegroundColor = Console.ForegroundColor;
-            Context.Output.Write("{0}: ", Context.FileName);
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Context.Output.WriteLine("{0}", count);
-        }
-
-        protected override void OnAfterExecute()
-        {
-            Console.ForegroundColor = ForegroundColor;
+            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
         }
     }
 }
