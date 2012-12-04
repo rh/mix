@@ -91,8 +91,8 @@ namespace Mix.Tests
         [Test]
         public void ReplaceNonSingleline()
         {
-            const string pre = "<root>abc\ndef</root>";
-            const string post = pre;
+            var pre = string.Format("<root>abc{0}def</root>", Environment.NewLine);
+            var post = pre;
             const string xpath = "root";
             var task = new Replace {Pattern = "a.*f", Replacement = "FOO"};
             Run(pre, post, xpath, task);
@@ -101,7 +101,7 @@ namespace Mix.Tests
         [Test]
         public void ReplaceSingleline()
         {
-            const string pre = "<root>abc\ndef</root>";
+            var pre = string.Format("<root>abc{0}def</root>", Environment.NewLine);
             const string post = "<root>FOO</root>";
             const string xpath = "root";
             var task = new Replace {Pattern = "(?s)a.*f", Replacement = "FOO"};
@@ -111,8 +111,8 @@ namespace Mix.Tests
         [Test]
         public void ReplaceNonMultiline()
         {
-            const string pre = "<root>abc\nabc</root>";
-            const string post = pre;
+            var pre = string.Format("<root>abc{0}abc</root>", Environment.NewLine);
+            var post = pre;
             const string xpath = "root";
             var task = new Replace {Pattern = "^abc$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
@@ -121,8 +121,8 @@ namespace Mix.Tests
         [Test]
         public void ReplaceMultiline()
         {
-            const string pre = "<root>abc\nabc</root>";
-            const string post = "<root>FOO\nFOO</root>";
+            var pre = string.Format("<root>abc{0}abc</root>", Environment.NewLine);
+            var post = string.Format("<root>FOO{0}FOO</root>", Environment.NewLine);
             const string xpath = "root";
             var task = new Replace {Pattern = "(?m)^abc$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
