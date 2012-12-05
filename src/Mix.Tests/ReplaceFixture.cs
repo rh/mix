@@ -122,9 +122,9 @@ namespace Mix.Tests
         public void ReplaceMultiline()
         {
             var pre = string.Format("<root>abc{0}abc</root>", Environment.NewLine);
-            var post = string.Format("<root>FOO{0}FOO</root>", Environment.NewLine);
+            const string post = "<root>FOO\nFOO</root>";
             const string xpath = "root";
-            var task = new Replace {Pattern = "(?m)^abc$", Replacement = "FOO"};
+            var task = new Replace {Pattern = "(?m)^abc\r?$", Replacement = "FOO"};
             Run(pre, post, xpath, task);
         }
 
