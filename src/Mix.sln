@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix", "Mix\Mix.csproj", "{963BA183-2EDB-49C0-812A-D6522E304EA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mix.Tests", "Mix.Tests\Mix.Tests.csproj", "{8C58A22E-9084-43A6-8765-754385ED5B9B}"
