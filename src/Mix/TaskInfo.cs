@@ -8,7 +8,7 @@ namespace Mix
     public class TaskInfo
     {
         private Task task;
-        private string name = String.Empty;
+        private string name = string.Empty;
         private string description = "[no description]";
         private string[] aliases = new string[] {};
         private OptionInfo[] options = new OptionInfo[] {};

@@ -20,7 +20,7 @@ namespace Mix.Tests
                 var context = new Context {Document = document, XPath = "root", Output = writer, FileName = "file"};
                 var task = new Show();
                 task.Execute(context);
-                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 1{0}<root />{0}", Environment.NewLine)));
+                Assert.That(writer.ToString(), Is.EqualTo(string.Format("file: 1{0}<root />{0}", Environment.NewLine)));
             }
         }
 
@@ -48,7 +48,7 @@ namespace Mix.Tests
                 var context = new Context {Document = document, XPath = "//foo", FileName = "file", Output = writer};
                 var task = new Show();
                 task.Execute(context);
-                Assert.That(writer.ToString(), Is.EqualTo(String.Format("file: 0{0}", Environment.NewLine)));
+                Assert.That(writer.ToString(), Is.EqualTo(string.Format("file: 0{0}", Environment.NewLine)));
             }
         }
 

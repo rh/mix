@@ -14,15 +14,19 @@ namespace Mix.Extensions
 
             var result = new StringBuilder();
             result.Append(Char.ToLower(value[0]));
+
             for (var i = 1; i < value.Length; i++)
             {
                 var c = value[i];
+
                 if (Char.IsUpper(c))
                 {
                     result.Append("-");
                 }
+
                 result.Append(Char.ToLower(c));
             }
+
             return result.ToString();
         }
     }

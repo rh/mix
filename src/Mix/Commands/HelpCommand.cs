@@ -11,7 +11,7 @@ namespace Mix.Commands
     {
         private const int LeftMargin = 21;
 
-        private readonly string name = String.Empty;
+        private readonly string name = string.Empty;
         private readonly CommandRegistry registry;
 
         public HelpCommand()
@@ -57,7 +57,7 @@ namespace Mix.Commands
 
         private bool TaskIsNotSet
         {
-            get { return String.IsNullOrEmpty(name); }
+            get { return string.IsNullOrEmpty(name); }
         }
 
         private bool TaskIsAmbiguous
@@ -125,7 +125,7 @@ namespace Mix.Commands
             }
 
             var info = TaskInfo.For(obj);
-            var taskDescription = String.Format("{0}: {1}", obj, info.Description);
+            var taskDescription = string.Format("{0}: {1}", obj, info.Description);
             var taskParts = Wrap(taskDescription, Console.WindowWidth);
 
             for (var i = 0; i < taskParts.Length; i++)
@@ -193,7 +193,7 @@ namespace Mix.Commands
         {
             if (info.Aliases.Length > 0)
             {
-                return String.Format(" ({0})", String.Join(", ", info.Aliases));
+                return string.Format(" ({0})", string.Join(", ", info.Aliases));
             }
 
             return string.Empty;

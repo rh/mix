@@ -37,7 +37,7 @@ namespace Mix.Tests
             context.Output = writer;
             command.Context = context;
             command.Execute();
-            var expected = String.Format("12{0}3{0}", Environment.NewLine);
+            var expected = string.Format("12{0}3{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 

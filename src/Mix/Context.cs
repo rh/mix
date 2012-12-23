@@ -7,11 +7,11 @@ namespace Mix
 {
     public class Context : Dictionary<string, string>
     {
-        private string filename = String.Empty;
+        private string filename = string.Empty;
 
         public Context()
         {
-            XPath = String.Empty;
+            XPath = string.Empty;
             Debug = TextWriter.Null;
             Error = TextWriter.Null;
             Output = TextWriter.Null;
@@ -27,7 +27,7 @@ namespace Mix
 
             if (ContainsKey("xpath"))
             {
-                XPath = this["xpath"] ?? String.Empty;
+                XPath = this["xpath"] ?? string.Empty;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Mix
             get { return filename; }
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException("value");
                 }

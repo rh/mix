@@ -14,12 +14,14 @@ namespace Mix
             {
                 var factory = new CommandFactory();
                 var command = factory.Create(args);
+
                 return command.Execute();
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine("An unexpected error occurred.");
                 Console.Error.WriteLine(e);
+
                 return 1;
             }
         }

@@ -32,7 +32,7 @@ namespace Mix.Tests
             context.Output = writer;
             context.FileName = "file";
             new Count().Execute(context);
-            var expected = String.Format("file: 2{0}", Environment.NewLine);
+            var expected = string.Format("file: 2{0}", Environment.NewLine);
             Assert.AreEqual(expected, writer.ToString());
         }
 

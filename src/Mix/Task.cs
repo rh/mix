@@ -47,21 +47,21 @@ namespace Mix
                             string description;
                             if (!RangeValidator.Validate(property, value, out description))
                             {
-                                var message = String.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
+                                var message = string.Format("'{0}' is not a valid value for {1}. {2}", context[name], name, description);
                                 throw new TaskExecutionException(message);
                             }
                             property.SetValue(this, value, null);
                         }
                         else
                         {
-                            var message = String.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
+                            var message = string.Format("'{0}' is not a valid value for {1}. An integer value is required.", context[name], name);
                             throw new TaskExecutionException(message);
                         }
                     }
                     else if (type == typeof(bool))
                     {
                         bool value;
-                        if (String.IsNullOrEmpty(context[name]))
+                        if (string.IsNullOrEmpty(context[name]))
                         {
                             property.SetValue(this, true, null);
                         }
@@ -71,7 +71,7 @@ namespace Mix
                         }
                         else
                         {
-                            var message = String.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
+                            var message = string.Format("'{0}' is not a valid value for {1}. A value of 'true' or 'false' is required.", context[name], name);
                             throw new TaskExecutionException(message);
                         }
                     }
@@ -106,7 +106,7 @@ namespace Mix
             }
 
             // XPath is required for tasks that don't implement ExecuteCore(IContext)
-            if (String.IsNullOrEmpty(context.XPath))
+            if (string.IsNullOrEmpty(context.XPath))
             {
                 throw new RequirementException("'xpath' is required.", "xpath", "");
             }

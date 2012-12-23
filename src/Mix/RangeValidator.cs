@@ -33,13 +33,15 @@ namespace Mix
 
                 if (value < attribute.MinValue)
                 {
-                    description = String.Format("Value should be greater than {0}.", attribute.MinValue);
+                    description = string.Format("Value should be greater than {0}.", attribute.MinValue);
+
                     return false;
                 }
 
                 if (value > attribute.MaxValue)
                 {
-                    description = String.Format("Value should be less than {0}.", attribute.MaxValue);
+                    description = string.Format("Value should be less than {0}.", attribute.MaxValue);
+
                     return false;
                 }
             }
@@ -49,11 +51,13 @@ namespace Mix
                 if (value < 1)
                 {
                     description = "Value should be greater than 0.";
+
                     return false;
                 }
             }
 
-            description = String.Empty;
+            description = string.Empty;
+
             return true;
         }
     }

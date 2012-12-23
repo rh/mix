@@ -10,8 +10,8 @@ namespace Mix.Exceptions
         public RequirementException(string message, string property, string description)
             : base(message)
         {
-            Property = property ?? String.Empty;
-            Description = description ?? String.Empty;
+            Property = property ?? string.Empty;
+            Description = description ?? string.Empty;
         }
     }
 }

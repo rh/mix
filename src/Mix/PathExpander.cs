@@ -16,11 +16,12 @@ namespace Mix
 			{
 				return files;
 			}
+
 			return Expand(workingDirectory, patterns.Split(new[] {Path.PathSeparator}, StringSplitOptions.RemoveEmptyEntries), recursively);
 		}
 
 		/// <summary>
-		/// This methods resolves the full paths from all files represented by <paramref name="patterns"/>.
+		/// Resolves the full paths from all files represented by <paramref name="patterns"/>.
 		/// Relative paths are resolved relative to <paramref name="workingDirectory"/>.
 		/// </summary>
 		/// <param name="workingDirectory">The directory which relative paths are relative to.</param>
@@ -61,6 +62,7 @@ namespace Mix
 				else
 				{
 					string path = null;
+
 					try
 					{
 						path = Path.GetDirectoryName(pattern);
@@ -140,6 +142,7 @@ namespace Mix
 		private static IList<string> Uniquefy(IEnumerable<string> list)
 		{
 			var uniques = new List<string>();
+
 			foreach (var item in list)
 			{
 				if (!uniques.Contains(item))
@@ -147,6 +150,7 @@ namespace Mix
 					uniques.Add(item);
 				}
 			}
+
 			return uniques;
 		}
 
@@ -157,7 +161,7 @@ namespace Mix
 
 		private static void ThrowInvalidPathException(string format, string pattern, Exception exception)
 		{
-			var message = String.Format(format, pattern);
+			var message = string.Format(format, pattern);
 			throw new InvalidPathException(message, exception);
 		}
 	}

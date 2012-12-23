@@ -15,15 +15,17 @@ namespace Mix.Extensions
             try
             {
                 var nodes = new List<XmlNode>();
+
                 foreach (XmlNode node in document.SelectNodes(xpath, manager))
                 {
                     nodes.Add(node);
                 }
+
                 return nodes;
             }
             catch (XPathException e)
             {
-                var message = String.Format("'{0}' is not a valid XPath expression.", xpath);
+                var message = string.Format("'{0}' is not a valid XPath expression.", xpath);
                 throw new TaskExecutionException(message, e);
             }
         }
@@ -42,6 +44,7 @@ namespace Mix.Extensions
                 if (node is XmlElement)
                 {
                     var element = node as XmlElement;
+
                     foreach (XmlAttribute attribute in element.Attributes)
                     {
                         if (attribute.Name == "xmlns")
@@ -61,6 +64,7 @@ namespace Mix.Extensions
                     }
                 }
             }
+
             return manager;
         }
     }

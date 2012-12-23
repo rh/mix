@@ -36,6 +36,7 @@ namespace Mix
                     options[i] = option;
                 }
             }
+
             return options;
         }
     }

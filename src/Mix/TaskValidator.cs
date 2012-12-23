@@ -18,7 +18,7 @@ namespace Mix
                     var value = property.GetValue(task, null);
                     if (value == null || value.ToString().Length == 0)
                     {
-                        var message = String.Format("'{0}' is required.", property.Name.ToLower());
+                        var message = string.Format("'{0}' is required.", property.Name.ToLower());
                         var description = "";
                         if (property.IsDefined(typeof(DescriptionAttribute), false))
                         {
@@ -41,11 +41,11 @@ namespace Mix
                             {
                                 var document = new XmlDocument();
                                 // Create a root node, because the XML is just a fragment.
-                                document.LoadXml(String.Format("<root>{0}</root>", xml));
+                                document.LoadXml(string.Format("<root>{0}</root>", xml));
                             }
                             catch (XmlException e)
                             {
-                                var message = String.Format("Option '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
+                                var message = string.Format("Option '{0}' ('{1}') is not valid XML: {2}", property.Name.ToLower(), xml, e.Message);
                                 throw new XmlException(message, e);
                             }
                         }
@@ -66,7 +66,7 @@ namespace Mix
                             }
                             catch (ArgumentException e)
                             {
-                                var message = String.Format("Option '{0}' is not a valid regular expression: {1}", property.Name.ToLower(), e.Message);
+                                var message = string.Format("Option '{0}' is not a valid regular expression: {1}", property.Name.ToLower(), e.Message);
                                 throw new ArgumentException(message, e);
                             }
                         }

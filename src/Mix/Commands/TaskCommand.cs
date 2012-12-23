@@ -79,7 +79,7 @@ namespace Mix.Commands
             }
             catch (XmlException e)
             {
-                var message = String.Format("File '{0}' is not a valid XML file:{1}{2}", file, Environment.NewLine, e.Message);
+                var message = string.Format("File '{0}' is not a valid XML file:{1}{2}", file, Environment.NewLine, e.Message);
                 Context.Error.WriteLine(message);
 
                 return false;
@@ -103,7 +103,7 @@ namespace Mix.Commands
             }
             catch (RequirementException e)
             {
-                var message = String.Format("Required option '{0}' is not set.", e.Property.ToLower());
+                var message = string.Format("Required option '{0}' is not set.", e.Property.ToLower());
                 Context.Error.WriteLine(message);
 
                 if (e.Description.Length > 0)
@@ -118,7 +118,7 @@ namespace Mix.Commands
             }
             catch (XPathTemplateException e)
             {
-                var message = String.Format("XPath template '{0}' evaluates to an empty value for at least one of the selected nodes, but option '{1}' is required.", e.Value, e.Property.ToLower());
+                var message = string.Format("XPath template '{0}' evaluates to an empty value for at least one of the selected nodes, but option '{1}' is required.", e.Value, e.Property.ToLower());
                 Context.Error.WriteLine(message);
             }
             catch (TaskExecutionException e)

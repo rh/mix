@@ -10,8 +10,8 @@ namespace Mix.Exceptions
         public XPathTemplateException(string message, string property, string value)
             : base(message)
         {
-            Property = property ?? String.Empty;
-            Value = value ?? String.Empty;
+            Property = property ?? string.Empty;
+            Value = value ?? string.Empty;
         }
     }
 }

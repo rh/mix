@@ -15,7 +15,7 @@ namespace Mix.Tasks
 
         protected override void ExecuteCore(XmlAttribute attribute)
         {
-            var data = String.Format("{0}=\"{1}\"", attribute.Name, attribute.Value);
+            var data = string.Format("{0}=\"{1}\"", attribute.Name, attribute.Value);
             var comment = attribute.OwnerDocument.CreateComment(data);
             attribute.OwnerElement.PrependChild(comment);
             attribute.OwnerElement.Attributes.Remove(attribute);

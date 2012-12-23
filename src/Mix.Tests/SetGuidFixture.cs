@@ -53,7 +53,7 @@ namespace Mix.Tests
         public void Attribute()
         {
             const string pre = @"<root attribute=""""></root>";
-            var post = String.Format("<root attribute=\"{0}\"></root>", Guid);
+            var post = string.Format("<root attribute=\"{0}\"></root>", Guid);
             const string xpath = "root/@attribute";
             var task = new DerivedSetGuid();
             Run(pre, post, xpath, task);
@@ -63,7 +63,7 @@ namespace Mix.Tests
         public void Attributes()
         {
             const string pre = @"<root a="""" b="""" c=""""></root>";
-            var post = String.Format("<root a=\"{0}\" b=\"{0}\" c=\"{0}\"></root>", Guid);
+            var post = string.Format("<root a=\"{0}\" b=\"{0}\" c=\"{0}\"></root>", Guid);
             const string xpath = "//@*";
             var task = new DerivedSetGuid();
             Run(pre, post, xpath, task);
