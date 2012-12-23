@@ -6,21 +6,6 @@ namespace Mix.Attributes
     /// <summary>
     /// An attribute to mark properties with a description.
     /// </summary>
-    /// <example>
-    /// <code>
-    /// [Description("Prepends text to...")]
-    /// public class Prepend : Task
-    /// {
-    ///     [Description("The text to prepend.")]
-    ///     public string Text
-    ///     {
-    ///         get { return text; }
-    ///         set { text = value; }
-    ///     }
-    ///     // etc.
-    /// }
-    /// </code>
-    /// </example>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class DescriptionAttribute : Attribute
     {
