@@ -20,6 +20,7 @@ namespace Mix.Tasks
         {
             Context.Output.WriteLine("{0}: {1}", Context.FileName, paths.Count);
             paths.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
+
             foreach (string path in paths)
             {
                 Context.Output.WriteLine("  {0}", path);
@@ -45,6 +46,7 @@ namespace Mix.Tasks
         private void CreateXPathPaths(XmlNode root, XmlNode element)
         {
             var path = CreateXPathPath(root, element);
+
             if (!paths.Contains(path))
             {
                 paths.Add(path);
@@ -62,11 +64,13 @@ namespace Mix.Tasks
         private string CreateXPathPath(XmlNode root, XmlNode element)
         {
             var path = new StringBuilder();
+
             while (element != root)
             {
                 path.Insert(0, "/" + element.Name);
                 element = element.ParentNode;
             }
+
             return path.ToString().Substring(1);
         }
     }

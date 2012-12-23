@@ -36,9 +36,11 @@ namespace Mix.Tasks
                     try
                     {
                         var node = element.SelectSingleNode(After);
+
                         if (node != null && node is XmlAttribute)
                         {
                             element.Attributes.InsertAfter(attribute, node as XmlAttribute);
+
                             return;
                         }
                     }
@@ -54,9 +56,11 @@ namespace Mix.Tasks
                     try
                     {
                         var node = element.SelectSingleNode(Before);
+
                         if (node != null && node is XmlAttribute)
                         {
                             element.Attributes.InsertBefore(attribute, node as XmlAttribute);
+
                             return;
                         }
                     }

@@ -18,6 +18,7 @@ namespace Mix.Tasks
         {
             var node = element.OwnerDocument.CreateElement(Name);
             node.InnerText = Value;
+
             return node;
         }
     }

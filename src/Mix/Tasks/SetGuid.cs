@@ -46,7 +46,7 @@ namespace Mix.Tasks
 		{
 			var dateBytes = BitConverter.GetBytes(DateTime.Now.Ticks);
 			var guidBytes = Guid.NewGuid().ToByteArray();
-			// Copy the last six bytes from the date to the last six bytes of the GUID 
+			// Copy the last six bytes from the date to the last six bytes of the GUID
 			Array.Copy(dateBytes, dateBytes.Length - 7, guidBytes, guidBytes.Length - 7, 6);
 			var value = new Guid(guidBytes).ToString();
 
@@ -54,6 +54,7 @@ namespace Mix.Tasks
 			{
 				return value.Replace("-", "");
 			}
+
 			return value;
 		}
 	}

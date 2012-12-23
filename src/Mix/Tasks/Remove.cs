@@ -11,6 +11,7 @@ namespace Mix.Tasks
             if (element == element.OwnerDocument.DocumentElement)
             {
                 Context.Output.WriteLine("The document element cannot be removed.");
+
                 return;
             }
             element.ParentNode.RemoveChild(element);

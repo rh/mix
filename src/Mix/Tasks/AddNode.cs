@@ -29,13 +29,16 @@ namespace Mix.Tasks
                     if (After == "self")
                     {
                         element.ParentNode.InsertAfter(child, element);
+
                         return;
                     }
 
                     var node = element.SelectSingleNode(After);
+
                     if (node != null)
                     {
                         element.InsertAfter(child, node);
+
                         return;
                     }
                 }
@@ -57,13 +60,16 @@ namespace Mix.Tasks
                     if (Before == "self")
                     {
                         element.ParentNode.InsertBefore(child, element);
+
                         return;
                     }
 
                     var node = element.SelectSingleNode(Before);
+
                     if (node != null)
                     {
                         element.InsertBefore(child, node);
+
                         return;
                     }
                 }

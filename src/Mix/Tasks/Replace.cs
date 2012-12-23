@@ -31,6 +31,7 @@ namespace Mix.Tasks
             {
                 return Regex.Replace(value, Pattern, Replacement);
             }
+
             return Replacement;
         }
 

@@ -29,14 +29,17 @@ namespace Mix.Tasks
         private string DoRename(string name)
         {
             var options = RegexOptions.None;
+
             if (IgnoreCase)
             {
                 options |= RegexOptions.IgnoreCase;
             }
+
             if (string.IsNullOrEmpty(Pattern))
             {
                 Pattern = name;
             }
+
             return Regex.Replace(name, Pattern, Name, options);
         }
 
@@ -46,18 +49,22 @@ namespace Mix.Tasks
             if (element.OwnerDocument.DocumentElement == element)
             {
                 Context.Error.WriteLine("{0}: renaming the root element is currently not supported.", Context.FileName);
+
                 return;
             }
 
             var clone = element.OwnerDocument.CreateElement(DoRename(element.Name));
+
             foreach (XmlAttribute attribute in element.Attributes)
             {
                 clone.Attributes.Append(attribute.Clone() as XmlAttribute);
             }
+
             foreach (XmlNode child in element.ChildNodes)
             {
                 clone.AppendChild(child.Clone());
             }
+
             element.ParentNode.ReplaceChild(clone, element);
         }
 

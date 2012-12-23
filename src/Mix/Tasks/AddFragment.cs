@@ -14,6 +14,7 @@ namespace Mix.Tasks
         {
             var node = element.OwnerDocument.CreateDocumentFragment();
             node.InnerXml = Fragment;
+
             return node;
         }
     }

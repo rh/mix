@@ -19,6 +19,7 @@ namespace Mix.Tasks
             if (owner != null && owner.Attributes[name] == null)
             {
                 var xmlText = element.FirstChild as XmlText;
+
                 if (xmlText != null)
                 {
                     var attribute = element.OwnerDocument.CreateAttribute(name);

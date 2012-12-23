@@ -15,6 +15,7 @@ namespace Mix.Tasks
             var manager = Context.Document.CreateNamespaceManager();
             var namespaces = manager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
             context.Output.WriteLine(namespaces.Count);
+
             foreach (var pair in namespaces)
             {
                 context.Output.WriteLine("  {0,-12} {1}", pair.Key, pair.Value);

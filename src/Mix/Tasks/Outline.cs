@@ -29,6 +29,7 @@ namespace Mix.Tasks
         {
             Context.Output.WriteLine("{0}: {1}", Context.FileName, outlines.Count);
             outlines.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
+
             foreach (string outline in outlines)
             {
                 Context.Output.WriteLine("{0}", outline);
@@ -72,6 +73,7 @@ namespace Mix.Tasks
                     {
                         output.AppendFormat("{0}<{1}></{1}>", indentation, element.Name);
                         output.Append(Environment.NewLine);
+
                         return;
                     }
                     output.AppendFormat("{0}<{1}>", indentation, element.Name);
@@ -81,6 +83,7 @@ namespace Mix.Tasks
                 {
                     output.AppendFormat("{0}<{1} />", indentation, element.Name);
                     output.Append(Environment.NewLine);
+
                     return;
                 }
             }

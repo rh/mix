@@ -13,6 +13,7 @@ namespace Mix.Tasks
 				var clone = node.CloneNode(true);
 				element.ParentNode.InsertBefore(clone, element);
 			}
+
 			element.ParentNode.RemoveChild(element);
 		}
 	}

@@ -37,6 +37,7 @@ namespace Mix.Tasks
         {
             Context.Output.WriteLine("{0}: {1}", Context.FileName, values.Count);
             values.Sort((s1, s2) => s1.CompareTo(s2));
+
             foreach (var value in values)
             {
                 Context.Output.WriteLine(value);

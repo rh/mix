@@ -15,6 +15,7 @@ namespace Mix.Tasks
             {
                 return Regex.Replace(value, Pattern, Transform);
             }
+
             return TransformCore(value);
         }
 
