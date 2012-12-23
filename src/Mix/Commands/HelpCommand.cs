@@ -38,6 +38,7 @@ namespace Mix.Commands
             else if (TaskIsAmbiguous)
             {
                 WriteAmbiguousTaskUsage();
+
                 return 1;
             }
             else if (TaskIsKnown)
@@ -47,8 +48,10 @@ namespace Mix.Commands
             else
             {
                 WriteUnknownTaskUsage();
+
                 return 1;
             }
+
             return 0;
         }
 
@@ -96,6 +99,7 @@ namespace Mix.Commands
         {
             Write(Environment.NewLine);
             WriteLine("Available commands:");
+
             foreach (var info in TaskInfo.All())
             {
                 var readOnly = ReadOnlyAttribute.IsDefinedOn(info.Instance) ? "*" : "";
@@ -123,6 +127,7 @@ namespace Mix.Commands
             var info = TaskInfo.For(obj);
             var taskDescription = String.Format("{0}: {1}", obj, info.Description);
             var taskParts = Wrap(taskDescription, Console.WindowWidth);
+
             for (var i = 0; i < taskParts.Length; i++)
             {
                 WriteLine(taskParts[i]);
@@ -140,6 +145,7 @@ namespace Mix.Commands
             foreach (var option in info.Options)
             {
                 WriteOptionName(option.Name.ToLower());
+
                 if (option.Required)
                 {
                     Write(" * ");
@@ -148,6 +154,7 @@ namespace Mix.Commands
                 {
                     Write("   ");
                 }
+
                 WriteOptionDescription(option.Description);
             }
         }
@@ -160,9 +167,11 @@ namespace Mix.Commands
         private void WriteOptionDescription(string description)
         {
             var parts = Wrap(description, Console.WindowWidth - LeftMargin);
+
             for (var i = 0; i < parts.Length; i++)
             {
                 var part = parts[i];
+
                 if (i == 0)
                 {
                     WriteLine(part);
@@ -186,7 +195,8 @@ namespace Mix.Commands
             {
                 return String.Format(" ({0})", String.Join(", ", info.Aliases));
             }
-            return String.Empty;
+
+            return string.Empty;
         }
 
         private static string[] Wrap(string value, int length)
@@ -195,6 +205,7 @@ namespace Mix.Commands
             var list = new List<string>();
 
             var lines = value.Split('\n');
+
             foreach (var line in lines)
             {
                 builder = new StringBuilder();

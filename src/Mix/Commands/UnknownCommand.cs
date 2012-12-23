@@ -13,6 +13,7 @@ namespace Mix.Commands
         {
             WriteLine("Unknown command: '{0}'", name);
             WriteLine("Type 'mix help' for usage.");
+
             return 1;
         }
     }

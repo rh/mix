@@ -14,6 +14,7 @@ namespace Mix.Commands
             WriteVersion();
             WriteCompilationDate();
             WriteCopyright();
+
             return 0;
         }
 
@@ -41,6 +42,7 @@ namespace Mix.Commands
             if (fileInfo.Exists)
             {
                 DateTime date;
+
                 try
                 {
                     date = fileInfo.LastWriteTime;

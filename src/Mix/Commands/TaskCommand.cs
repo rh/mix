@@ -38,6 +38,7 @@ namespace Mix.Commands
             catch (InvalidPathException e)
             {
                 Context.Error.WriteLine(e.Message);
+
                 return 1;
             }
 
@@ -80,6 +81,7 @@ namespace Mix.Commands
             {
                 var message = String.Format("File '{0}' is not a valid XML file:{1}{2}", file, Environment.NewLine, e.Message);
                 Context.Error.WriteLine(message);
+
                 return false;
             }
 
@@ -90,23 +92,28 @@ namespace Mix.Commands
             catch (ArgumentException e)
             {
                 Context.Error.WriteLine(e.Message);
+
                 return false;
             }
             catch (XmlException e)
             {
                 Context.Error.WriteLine(e.Message);
+
                 return false;
             }
             catch (RequirementException e)
             {
                 var message = String.Format("Required option '{0}' is not set.", e.Property.ToLower());
                 Context.Error.WriteLine(message);
+
                 if (e.Description.Length > 0)
                 {
                     Context.Error.WriteLine("  " + e.Property.ToLower() + ": " + e.Description);
                 }
+
                 Context.Error.Write(Environment.NewLine);
                 Context.Error.WriteLine("Type 'mix help {0}' for usage.", Task);
+
                 return false;
             }
             catch (XPathTemplateException e)
@@ -117,6 +124,7 @@ namespace Mix.Commands
             catch (TaskExecutionException e)
             {
                 Context.Error.WriteLine(e.Message);
+
                 return false;
             }
 
@@ -124,6 +132,7 @@ namespace Mix.Commands
             {
                 return true;
             }
+
             return Save(file);
         }
 
@@ -136,8 +145,10 @@ namespace Mix.Commands
             catch (Exception e)
             {
                 Context.Error.WriteLine(e.Message);
+
                 return false;
             }
+
             return true;
         }
 
@@ -152,10 +163,12 @@ namespace Mix.Commands
             {
                 return false;
             }
+
             if (!base.Equals(taskCommand))
             {
                 return false;
             }
+
             return Equals(task, taskCommand.task);
         }
 
@@ -165,6 +178,7 @@ namespace Mix.Commands
             {
                 return true;
             }
+
             return Equals(obj as TaskCommand);
         }
 
