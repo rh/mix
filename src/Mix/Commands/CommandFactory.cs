@@ -43,9 +43,15 @@ namespace Mix.Commands
         public Command Create(string[] args)
         {
             var properties = Parse(args);
-
+            var context = CreateContext(properties);
             var command = CreateCommand(properties, args);
-            command.Context = CreateContext(properties);
+            command.Context = context;
+
+            foreach (var arg in args)
+            {
+                context.Debug.WriteLine("Debug: arg: '{0}'", arg);
+            }
+
             return command;
         }
 
@@ -116,6 +122,15 @@ namespace Mix.Commands
         private static Context CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
         {
             var context = new Context(properties) {Output = System.Console.Out, Error = System.Console.Error};
+
+            foreach (var pair in properties)
+            {
+                if (pair.Key == "debug")
+                {
+                    context.Debug = System.Console.Out;
+                }
+            }
+
             return context;
         }
 

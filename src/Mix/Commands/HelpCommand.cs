@@ -130,6 +130,9 @@ namespace Mix.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
+            WriteOptionName("debug");
+            Write("   ");
+            WriteOptionDescription("If set, debug information is shown.");
             WriteOptionName("recursive");
             Write("   ");
             WriteOptionDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");

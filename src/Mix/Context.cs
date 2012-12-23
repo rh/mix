@@ -12,6 +12,7 @@ namespace Mix
         public Context()
         {
             XPath = String.Empty;
+            Debug = TextWriter.Null;
             Error = TextWriter.Null;
             Output = TextWriter.Null;
         }
@@ -53,6 +54,8 @@ namespace Mix
 
         /// <summary>A <seealso cref="TextWriter"/> that represents the standard error stream.</summary>
         public TextWriter Error { get; set; }
+
+        public TextWriter Debug { get; set; }
 
         public XmlDocument Document { get; set; }
 
