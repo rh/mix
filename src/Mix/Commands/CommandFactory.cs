@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace Mix.Commands
@@ -42,6 +43,7 @@ namespace Mix.Commands
         public Command Create(string[] args)
         {
             var properties = Parse(args);
+
             var command = CreateCommand(properties, args);
             command.Context = CreateContext(properties);
             return command;
@@ -136,63 +138,55 @@ namespace Mix.Commands
 
                 if (args.Length > 1)
                 {
+                    string name = null;
+                    string value = null;
+
                     for (var i = 1; i < args.Length; i++)
                     {
                         var arg = args[i];
-                        var name = GetName(arg);
-                        var value = GetValue(arg);
-                        properties.Add(name, value);
+
+                        if (arg.StartsWith("--"))
+                        {
+                            if (name != null)
+                            {
+                                properties.Add(name, null);
+                            }
+
+                            name = arg.Substring(2);
+                            continue;
+                        }
+
+                        value = arg;
+
+                        if (name != null)
+                        {
+                            properties.Add(name, value);
+                        }
+                        else if (!properties.ContainsKey("xpath"))
+                        {
+                            properties.Add("xpath", value);
+                        }
+                        else if (!properties.ContainsKey("file"))
+                        {
+                            properties.Add("file", value);
+                        }
+                        else
+                        {
+                            properties["file"] = properties["file"] + Path.PathSeparator + value;
+                        }
+
+                        name = null;
+                        value = null;
+                    }
+
+                    if (name != null)
+                    {
+                        properties.Add(name, null);
                     }
                 }
             }
+
             return properties;
-        }
-
-        /// <summary>
-        /// Gets the name of the property of a property-value pair.
-        /// </summary>
-        /// <param name="arg">A property-value pair.</param>
-        /// <returns>
-        /// The name of the property of a property-value pair.
-        /// </returns>
-        /// <remarks>
-        /// Properties and values can be separated by ':' or '='.
-        /// </remarks>
-        private static string GetName(string arg)
-        {
-            foreach (var c in new[] {':', '='})
-            {
-                if (arg.Contains(c.ToString()))
-                {
-                    var name = arg.Split(c)[0].Replace("/", "").ToLower();
-                    return name;
-                }
-            }
-            return arg;
-        }
-
-        /// <summary>
-        /// Gets the value of the property of a property-value pair.
-        /// </summary>
-        /// <param name="arg">A property-value pair.</param>
-        /// <returns>
-        /// The value of the property of a property-value pair, or
-        /// <see cref="string.Empty"/> of no value has been set.
-        /// </returns>
-        /// <remarks>
-        /// Properties and values can be separated by ':' or '='.
-        /// </remarks>
-        private static string GetValue(string arg)
-        {
-            foreach (var c in new[] {':', '='})
-            {
-                var index = arg.IndexOf(c);
-                if (index > 0)
-                {
-                    return arg.Substring(index + 1);
-                }
-            }
-            return String.Empty;
         }
 
         /// <summary>

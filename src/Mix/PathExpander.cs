@@ -16,7 +16,7 @@ namespace Mix
 			{
 				return files;
 			}
-			return Expand(workingDirectory, patterns.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries), recursively);
+			return Expand(workingDirectory, patterns.Split(new[] {Path.PathSeparator}, StringSplitOptions.RemoveEmptyEntries), recursively);
 		}
 
 		/// <summary>
