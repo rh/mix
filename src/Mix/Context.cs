@@ -31,7 +31,6 @@ namespace Mix
             }
         }
 
-        /// <summary>The name of the file this context applies to.</summary>
         public string FileName
         {
             get { return filename; }
@@ -41,7 +40,9 @@ namespace Mix
                 {
                     throw new ArgumentNullException("value");
                 }
+
                 filename = value;
+
                 if (filename.StartsWith(@".\"))
                 {
                     filename = filename.Remove(0, 2);
@@ -49,10 +50,8 @@ namespace Mix
             }
         }
 
-        /// <summary>A <seealso cref="TextWriter"/> that represents the standard output stream.</summary>
         public TextWriter Output { get; set; }
 
-        /// <summary>A <seealso cref="TextWriter"/> that represents the standard error stream.</summary>
         public TextWriter Error { get; set; }
 
         public TextWriter Debug { get; set; }
@@ -61,7 +60,6 @@ namespace Mix
 
         public XmlNamespaceManager NamespaceManager { get; set; }
 
-        /// <summary>Gets the XPath expression.</summary>
         public string XPath { get; set; }
 
         public static Context Null

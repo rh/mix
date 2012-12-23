@@ -8,10 +8,6 @@ namespace Mix.Commands
     {
         private readonly CommandRegistry registry = new CommandRegistry();
 
-        /// <summary>
-        /// Registers <see cref="HelpCommand"/> and <see cref="VersionCommand"/>
-        /// and an <see cref="TaskCommand"/> for every known implementation of <see cref="Task"/>.
-        /// </summary>
         public CommandFactory()
         {
             registry.Register(new HelpCommand());
@@ -21,6 +17,7 @@ namespace Mix.Commands
             {
                 Command command = new TaskCommand(info.Instance);
                 registry.Register(command);
+
                 foreach (var alias in info.Aliases)
                 {
                     registry.Register(command, alias);
@@ -33,13 +30,6 @@ namespace Mix.Commands
             this.registry = registry;
         }
 
-        /// <summary>
-        /// Creates a <see cref="Command"/> from the supplied arguments.
-        /// </summary>
-        /// <param name="args">The command-line arguments for this program.</param>
-        /// <returns>A <see cref="Command"/> is always returned, i.e.
-        /// <c>null</c> is never returned.
-        /// </returns>
         public Command Create(string[] args)
         {
             var properties = Parse(args);
@@ -55,22 +45,6 @@ namespace Mix.Commands
             return command;
         }
 
-        /// <summary>
-        /// Creates a <see cref="Command"/> for the given name.
-        /// </summary>
-        /// <param name="properties">
-        /// The properties which were read from the command-line arguments.
-        /// </param>
-        /// <param name="args">
-        /// The command-line arguments for this program.
-        /// </param>
-        /// <returns>
-        /// One of the registered commands, or an instance of <see cref="HelpCommand"/>
-        /// if no name of a command was given, an instance of <see cref="UnknownCommand"/> if
-        /// if the name given does not match (the first part of) the name of a
-        /// registered command, or an instance of <see cref="AmbiguousMatchCommand"/>
-        /// if the given name matches more than one commands.
-        /// </returns>
         private Command CreateCommand(IDictionary<string, string> properties, string[] args)
         {
             if (!properties.ContainsKey("task"))
@@ -86,6 +60,7 @@ namespace Mix.Commands
                 {
                     return new HelpCommand(registry);
                 }
+
                 return new HelpCommand(registry, args[1]);
             }
 
@@ -109,16 +84,6 @@ namespace Mix.Commands
             return new AmbiguousMatchCommand(name, matches);
         }
 
-        /// <summary>
-        /// Creates a <see cref="IContext"/> for the newly created <see cref="Command"/>.
-        /// </summary>
-        /// <param name="properties">
-        /// </param>
-        /// <returns>
-        /// A new <see cref="IContext"/>, with <see cref="IContext.Output"/> and
-        /// <see cref="IContext.Error"/> set to <see cref="System.Console"/>'s
-        /// <see cref="System.Console.Out"/> and <see cref="System.Console.Error"/> respectively.
-        /// </returns>
         private static Context CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
         {
             var context = new Context(properties) {Output = System.Console.Out, Error = System.Console.Error};
@@ -134,13 +99,6 @@ namespace Mix.Commands
             return context;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="args">
-        /// The command-line arguments for this program. May be <c>null</c>.
-        /// </param>
-        /// <returns></returns>
         private static IDictionary<string, string> Parse(string[] args)
         {
             IDictionary<string, string> properties = new Dictionary<string, string>();
@@ -204,9 +162,6 @@ namespace Mix.Commands
             return properties;
         }
 
-        /// <summary>
-        /// Gets the <see cref="CommandRegistry"/>, which contains all registered commands.
-        /// </summary>
         public CommandRegistry Registry
         {
             get { return registry; }
