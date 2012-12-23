@@ -14,7 +14,6 @@ namespace Mix
             XPath = String.Empty;
             Error = TextWriter.Null;
             Output = TextWriter.Null;
-            this["file"] = "*.xml";
         }
 
         public Context(IEnumerable<KeyValuePair<string, string>> properties)

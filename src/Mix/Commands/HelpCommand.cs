@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -68,19 +69,18 @@ namespace Mix.Commands
 
         private void WriteUsage()
         {
-            WriteLine("Usage: mix <command> [options]");
+            WriteLine("Usage: mix <command> [options] <xpath> <file> [file]");
             WriteLine("Mix command-line client, version {0}.", Assembly.GetExecutingAssembly().GetName().Version);
             WriteLine("Type 'mix help <command>' for help on a specific command.");
             WriteLine("Type 'mix version' to see the program version.");
             Write(Environment.NewLine);
 
-            WriteLine("Most commands take 'file' and/or 'xpath' options.");
-            WriteLine("If 'file' is not set the value '*.xml' is used.");
-            Write(Environment.NewLine);
-
             WriteLine("Examples:");
-            WriteLine("  mix add-attribute file:test.xml xpath://node() name:id");
-            WriteLine("  mix set file:test.xml xpath://foo value:\"Some text\"");
+            WriteLine("  mix count / a.xml b.xml c.xml");
+            WriteLine("  mix count / *.xml");
+            WriteLine("  mix count / a.xml{0}b.xml", Path.PathSeparator);
+            WriteLine("  mix add-attribute --name id \"//node()\" test.xml");
+            WriteLine("  mix set --value bar //foo test.xml");
 
             WriteTasks();
 
@@ -130,15 +130,9 @@ namespace Mix.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
-            WriteOptionName("file");
-            Write("   ");
-            WriteOptionDescription("The name(s) or pattern(s) of the file(s) to process. Names or patterns can be separated by ';'.\nIf not set, '*.xml' is used.");
             WriteOptionName("recursive");
             Write("   ");
             WriteOptionDescription("If set, all files matching the specified name or pattern are processed recursively.\nIf not set, only the current or a given directory is searched.");
-            WriteOptionName("xpath");
-            Write("   ");
-            WriteOptionDescription("The XPath expression used for selection.");
 
             foreach (var option in info.Options)
             {
@@ -157,7 +151,7 @@ namespace Mix.Commands
 
         private void WriteOptionName(string name)
         {
-            Write("  {0,-16}", name);
+            Write("  --{0,-14}", name);
         }
 
         private void WriteOptionDescription(string description)

@@ -22,7 +22,7 @@ namespace Mix.Commands
 
         public override int Execute()
         {
-            if (String.IsNullOrEmpty(Context["file"]))
+            if (!Context.ContainsKey("file"))
             {
                 return 0;
             }
