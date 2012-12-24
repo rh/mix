@@ -18,7 +18,7 @@ namespace Mix.Tasks
 
         protected override void OnAfterExecute()
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, paths.Count);
+            Context.Quiet.WriteLine("{0}: {1}", Context.FileName, paths.Count);
             paths.Sort(delegate(string s1, string s2) { return s1.CompareTo(s2); });
 
             foreach (string path in paths)

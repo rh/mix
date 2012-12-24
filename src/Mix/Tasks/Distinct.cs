@@ -35,7 +35,7 @@ namespace Mix.Tasks
 
         protected override void OnAfterExecute()
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, values.Count);
+            Context.Quiet.WriteLine("{0}: {1}", Context.FileName, values.Count);
             values.Sort((s1, s2) => s1.CompareTo(s2));
 
             foreach (var value in values)

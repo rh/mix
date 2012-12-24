@@ -300,7 +300,7 @@ namespace Mix.Tasks
 
         protected override void OnBeforeExecute(int count)
         {
-            Context.Output.WriteLine("{0}: {1}", Context.FileName, count);
+            Context.Quiet.WriteLine("{0}: {1}", Context.FileName, count);
         }
     }
 }

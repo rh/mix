@@ -135,6 +135,9 @@ namespace Mix.Commands
 
             Write(Environment.NewLine);
             WriteLine("Options:");
+            WriteOptionName("quiet");
+            Write("   ");
+            WriteOptionDescription("If set, output is silenced as much as possible.");
             WriteOptionName("debug");
             Write("   ");
             WriteOptionDescription("If set, debug information is shown.");

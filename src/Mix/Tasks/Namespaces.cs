@@ -10,11 +10,11 @@ namespace Mix.Tasks
     {
         protected override bool ExecuteCore(Context context)
         {
-            context.Output.Write("{0}: ", context.FileName);
+            context.Quiet.Write("{0}: ", context.FileName);
 
             var manager = Context.Document.CreateNamespaceManager();
             var namespaces = manager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
-            context.Output.WriteLine(namespaces.Count);
+            context.Quiet.WriteLine(namespaces.Count);
 
             foreach (var pair in namespaces)
             {

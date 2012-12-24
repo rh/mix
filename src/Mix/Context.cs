@@ -13,6 +13,7 @@ namespace Mix
         {
             XPath = string.Empty;
             Debug = TextWriter.Null;
+            Quiet = TextWriter.Null;
             Error = TextWriter.Null;
             Output = TextWriter.Null;
         }
@@ -53,6 +54,8 @@ namespace Mix
         public TextWriter Output { get; set; }
 
         public TextWriter Error { get; set; }
+
+        public TextWriter Quiet { get; set; }
 
         public TextWriter Debug { get; set; }
 

@@ -86,13 +86,18 @@ namespace Mix.Commands
 
         private static Context CreateContext(IEnumerable<KeyValuePair<string, string>> properties)
         {
-            var context = new Context(properties) {Output = System.Console.Out, Error = System.Console.Error};
+            var context = new Context(properties) {Output = System.Console.Out, Quiet = System.Console.Out, Error = System.Console.Error};
 
             foreach (var pair in properties)
             {
                 if (pair.Key == "debug")
                 {
                     context.Debug = System.Console.Out;
+                }
+
+                if (pair.Key == "quiet")
+                {
+                    context.Quiet = TextWriter.Null;
                 }
             }
 
