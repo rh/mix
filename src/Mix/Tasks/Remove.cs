@@ -3,6 +3,7 @@ using Mix.Attributes;
 
 namespace Mix.Tasks
 {
+    [Alias("rm")]
     [Description("Removes all selected elements, attributes, text nodes, CDATA sections, comments or processing instructions.")]
     public class Remove : Task
     {
