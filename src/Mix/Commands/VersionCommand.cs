@@ -60,7 +60,7 @@ namespace Mix.Commands
 
         private void WriteCopyright()
         {
-            WriteLine("Copyright (C) 2006-2012 Richard Hubers.");
+            WriteLine("Copyright (C) 2006-2013 Richard Hubers.");
             WriteLine("Mix is open source software, see http://rh.github.com/mix/");
         }
     }

@@ -9,5 +9,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyVersion("0.6.0.0")]
 [assembly: AssemblyFileVersion("0.6.0.0")]
-[assembly: AssemblyCopyright("Copyright © 2006-2012 Richard Hubers")]
+[assembly: AssemblyCopyright("Copyright © 2006-2013 Richard Hubers")]
 [assembly: AssemblyProduct("Mix")]
